@@ -1,9 +1,5 @@
 <template>
-  <div class="bg-">
-    <Test />
-  </div>
+  <div class="bg-"><Test /></div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
