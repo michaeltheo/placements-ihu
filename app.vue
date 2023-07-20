@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-"><Test /></div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <style lang="scss"></style>
