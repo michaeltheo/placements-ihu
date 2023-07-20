@@ -1,7 +1,6 @@
 <template>
   <div>
-    <NavbarComponent />
-    <NavBar class="py-4" />
+    <NavBar />
     <div>
       <slot />
     </div>
