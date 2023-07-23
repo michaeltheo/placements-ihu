@@ -48,10 +48,11 @@ const emitCloseMenu = () => {
 
 <style lang="scss" scoped>
 .mobile-menu {
+  width: 55%;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  border-bottom-right-radius: 0.6rem;
   &-item {
     display: block;
     padding-left: 1rem;
