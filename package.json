@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@vueuse/core": "^10.2.1",
     "eslint": "^8.44.0",
     "pinia": "^2.1.4"
   }
