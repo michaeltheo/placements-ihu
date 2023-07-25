@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
     <nav class="navbar flex p-3 bg-white border-b-2">
@@ -11,45 +10,28 @@
           />
         </div>
         <div
-          class="navbar-title ml-2 d-flex flex-col font-weight-bold leading-none"
+          class="navbar__title ml-2 d-flex flex-col font-weight-bold leading-none"
         >
           <p>ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ</p>
           <p class="text-gray-400">TMHMA M.Π.H.Σ ΣΙΝΔΟΥ</p>
         </div>
       </div>
       <div
-        class="navbar-items hidden md:flex md:items-center md:justify-end md:flex-1"
+        class="navbar__items hidden md:flex md:items-center md:justify-end md:flex-1"
       >
-        <ul class="navbar-items-list">
-          <li class="navbar-items-list-item">
+        <ul class="navbar__items__list">
+          <li
+            v-for="(item, index) in links.slice(0, -1)"
+            :key="index"
+            class="navbar__items__list__item"
+          >
             <NuxtLink
-              to="/"
-              class="navbar-items-list-item-text navbar-items-list-item-animation"
-              >ΑΡΧΙΚΗ</NuxtLink
+              :to="item.route"
+              class="navbar__items__list__item__text navbar__items__list__item__animation"
+              >{{ item.text }}</NuxtLink
             >
           </li>
-          <li class="navbar-items-list-item">
-            <NuxtLink
-              to="/guide"
-              class="navbar-items-list-item-text navbar-items-list-item-animation"
-              >ΟΔΗΓΟΣ</NuxtLink
-            >
-          </li>
-          <li class="navbar-items-list-item">
-            <NuxtLink
-              to="/announcements"
-              class="navbar-items-list-item-text navbar-items-list-item-animation"
-              >ΑΝΑΚΟΙΝΩΣΕΙΣ</NuxtLink
-            >
-          </li>
-          <li class="navbar-items-list-item">
-            <NuxtLink
-              to="/old-program"
-              class="navbar-items-list-item-text navbar-items-list-item-animation"
-              >ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ</NuxtLink
-            >
-          </li>
-          <li class="navbar-items-list-item">
+          <li class="navbar__items__list__item">
             <font-awesome-icon
               class="cursor-pointer"
               :icon="['fas', 'right-to-bracket']"
@@ -70,25 +52,26 @@
 </template>
 
 <script setup>
+import links from "@/constants/links.js";
 const emit = defineEmits(["toggleMenu"]);
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-  &-items {
-    &-list {
+  &__items {
+    &__list {
       display: flex;
       align-items: center;
-      &-item {
+      &__item {
         padding-right: 1.5rem;
-        &-text {
+        &__text {
           color: #374151;
         }
-        &-animation {
+        &__animation {
           display: inline-block;
           position: relative;
         }
-        &-animation::after {
+        &__animation::after {
           padding-right: 2em;
           content: "";
           position: absolute;
@@ -97,16 +80,20 @@ const emit = defineEmits(["toggleMenu"]);
           height: 0.1rem;
           bottom: 0;
           left: 0;
-          background-color: #0087ca;
+          background-color: $navbar_active_color;
           transform-origin: bottom right;
           transition: transform 0.25s ease-out;
         }
-        &-animation:hover::after {
+        &__animation:hover::after {
           transform: scaleX(1);
           transform-origin: bottom left;
         }
       }
     }
   }
+}
+.router-link-exact-active {
+  font-weight: bold;
+  color: $navbar_active_color;
 }
 </style>
