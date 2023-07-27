@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-"><Test /></div>
+  <div class="bg-"><TestComponent /></div>
 </template>
 
 <style lang="scss"></style>
