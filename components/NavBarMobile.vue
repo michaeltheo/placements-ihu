@@ -1,13 +1,13 @@
 <template>
   <div
     v-show="props.isMenuOpen"
-    class="mobile-menu flex flex-col sm:hidden bg-gray-50"
+    class="navbar-mobile flex flex-col sm:hidden bg-gray-50"
   >
     <NuxtLink
       v-for="link in links"
       :key="link.text"
       :to="link.route"
-      class="mobile-menu__item"
+      class="navbar-mobile__item"
       @click.prevent="emitCloseMenu"
     >
       {{ link.text }}
@@ -30,7 +30,7 @@ const emitCloseMenu = () => {
 </script>
 
 <style lang="scss" scoped>
-.mobile-menu {
+.navbar-mobile {
   width: 55%;
   position: absolute;
   top: 100%;

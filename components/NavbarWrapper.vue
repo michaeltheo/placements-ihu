@@ -1,11 +1,7 @@
 <template>
   <div class="flex-1 flex flex-col relative">
     <NavBarDesktop ref="navbarRef" @toggle-menu="toggleMenu" />
-    <div
-      v-show="isMenuOpen"
-      ref="mobileMenuRef"
-      class="mobileMenu flex flex-col sm:hidden bg-gray-50"
-    >
+    <div v-show="isMenuOpen" ref="mobileMenuRef">
       <NavBarMobile :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
   </div>
@@ -35,3 +31,5 @@ onClickOutside(
   { ignore: [navbarRef] }
 );
 </script>
+
+<!-- navbar titlos -> breakpoints navbarmenu,navbarburgerbutton -> navbar mobile -->
