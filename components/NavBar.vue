@@ -40,13 +40,13 @@
       <div
         ref="mobileMenuRef"
         :class="showMenu ? 'block border-t-2' : 'hidden'"
-        class="navbar__items mt-4 md:mt-0 space-y-4 md:space-y-0 md:flex md:flex-row md:items-center md:space-x-10 justify-end"
+        class="navbar__wrapper mt-4 md:mt-0 space-y-4 md:space-y-0 md:flex md:flex-row md:items-center md:space-x-10 justify-end"
       >
         <NuxtLink
           v-for="(item, index) in links"
           :key="index"
           :to="item.route"
-          class="navbar__items-animation px-2 py-1 block"
+          class="navbar__item-animation px-2 py-1 block"
         >
           {{ item.text }}</NuxtLink
         >
@@ -74,30 +74,29 @@ onClickOutside(
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/variables.scss";
 .navbar {
-  &__items {
-    &-animation {
-      color: #374151;
-      position: relative;
-      width: fit-content;
+  &__item-animation {
+    color: $navbar_item_color;
+    position: relative;
+    width: fit-content;
 
-      &::after {
-        padding-right: 2em;
-        content: "";
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        height: 0.1rem;
-        bottom: 0;
-        left: 0;
-        background-color: $navbar_active_color;
-        transform-origin: bottom right;
-        transition: transform 0.25s ease-out;
-      }
-      &:hover::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
+    &::after {
+      padding-right: 2em;
+      content: "";
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 0.1rem;
+      bottom: 0;
+      left: 0;
+      background-color: $navbar_active_color;
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
     }
   }
 }

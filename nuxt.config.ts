@@ -3,13 +3,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss"],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "@/assets/main.scss"; @import "@/assets/variables.scss"; @import "@fortawesome/fontawesome-svg-core/styles.css"; ',
-        }
-      }
-    }
-  }
+  css: ["@/assets/main.scss",
+    '@fortawesome/fontawesome-svg-core/styles.css'],
 });
