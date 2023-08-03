@@ -1,10 +1,10 @@
 <template>
   <div>
     <NavBar />
-    <div>
+    <div class="min-h-[calc(100vh)]">
       <slot />
     </div>
-    <Footer />
+    <AppFooter />
   </div>
 </template>
 
