@@ -1,19 +1,29 @@
 <template>
   <div class="footer mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col sm:flex-row sm:justify-around mb-5 pt-2">
+    <div
+      class="footer__content flex flex-col sm:flex-row sm:justify-around mb-5 pt-2"
+    >
       <div class="footer__links mb-6 sm:mb-0">
-        <h5 class="footer-header">Χρήσιμοι Σύνδεσμοι</h5>
+        <h5 class="footer__header">Χρήσιμοι Σύνδεσμοι</h5>
         <div class="ml-4">
           <a href="https://www.espa.gr/el/Pages/default.aspx" target="_blank">
-            <img class="footer-image mb-4" src="img/footerImg/espaFooter.jpg" />
+            <img
+              class="footer-image mb-4"
+              alt="espa"
+              src="img/footerImg/espaFooter.jpg"
+            />
           </a>
           <a href="http://praktiki.teithe.gr/" target="_blank">
-            <img class="footer-image" src="img/footerImg/teitheFooter.jpg" />
+            <img
+              class="footer-image"
+              alt="teithe"
+              src="img/footerImg/teitheFooter.jpg"
+            />
           </a>
         </div>
       </div>
-      <div class="footer__contact-info">
-        <h5 class="footer-header">Στοιχεία Επικοινωνίας</h5>
+      <div class="footer__contact">
+        <h5 class="footer__header">Στοιχεία Επικοινωνίας</h5>
         <div class="ml-4">
           <p class="text-lg font-semibold">Γραφείο Πρακτικής Άσκησης</p>
           <div class="pt-2">
@@ -59,7 +69,7 @@
 import placementsInfo from "@/constants/placementsinfo";
 const thisYear = new Date().getFullYear();
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
 .footer {
@@ -67,12 +77,12 @@ const thisYear = new Date().getFullYear();
   color: $footer-text-color;
   a {
     transition: color 0.2s;
-    color: $primary-blue-color; // Add a transition for a smoother color change
+    color: $primary-blue-color;
     &:hover {
-      color: $primary-dark-blue-color; // Change the color of the link when hovered
+      color: $primary-dark-blue-color;
     }
   }
-  &-header {
+  &__header {
     @apply border-l-2 border-slate-400  pl-6 mb-2 text-xl;
   }
   &-image {
