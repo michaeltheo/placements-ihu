@@ -46,7 +46,7 @@
           v-for="(item, index) in links"
           :key="index"
           :to="item.route"
-          class="navbar__item-animation px-2 py-1 block"
+          class="navbar__item--animated px-2 py-1 block"
         >
           {{ item.text }}</NuxtLink
         >
@@ -76,7 +76,7 @@ onClickOutside(
 <style scoped lang="scss">
 @import "@/assets/variables.scss";
 .navbar {
-  &__item-animation {
+  &__item--animated {
     color: $navbar_item_color;
     position: relative;
     width: fit-content;
