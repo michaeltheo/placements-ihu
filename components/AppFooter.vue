@@ -1,7 +1,7 @@
 <template>
   <div class="footer mx-auto px-4 sm:px-6 lg:px-8">
     <div
-      class="footer__content flex flex-col sm:flex-row sm:justify-around mb-5 pt-2"
+      class="footer__content flex flex-col sm:flex-row sm:justify-around mb-5 pt-4"
     >
       <div class="footer__links mb-6 sm:mb-0">
         <h5 class="footer__header">Χρήσιμοι Σύνδεσμοι</h5>
@@ -22,7 +22,7 @@
           </a>
         </div>
       </div>
-      <div class="footer__contact">
+      <div class="footer__contact lg:ml-4 md:ml-3">
         <h5 class="footer__header">Στοιχεία Επικοινωνίας</h5>
         <div class="ml-4">
           <p class="text-lg font-semibold">Γραφείο Πρακτικής Άσκησης</p>
@@ -90,7 +90,7 @@ const thisYear = new Date().getFullYear();
     height: fit-content;
   }
   &__bottom-text {
-    @apply sm:text-base text-sm;
+    @apply text-sm;
   }
 }
 </style>
