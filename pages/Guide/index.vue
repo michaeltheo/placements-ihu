@@ -1,14 +1,13 @@
 <template>
-  <div class="px-4 mx-auto grid md:grid-cols-2 md:container-fluid md:px-6">
-    <!-- Navigation Links -->
-    <div class="mb-4 md:pl-12">
-      <div
-        class="flex flex-col gap-4 md:gap-8 text-gray-400 md:items-center sm:items-start"
-      >
+  <div class="guide">
+    <div class="guide__nav">
+      <div class="guide__nav-header">Περιεχόμενα</div>
+      <div class="guide__nav-items">
         <p
           v-for="tab in tabs"
           :key="tab.id"
-          :class="{ 'text-blue-500': activeTab === tab.id }"
+          :class="{ 'guide__nav-item--active': activeTab === tab.id }"
+          class="guide__nav-item"
           @click="activeTab = tab.id"
         >
           <a :href="`#${tab.name}`">{{ tab.label }}</a>
@@ -16,25 +15,16 @@
       </div>
     </div>
     <!-- Content Sections -->
-    <div class="flex flex-col items-center md:ml-20">
+    <div class="guide__content">
+      <div class="guide__nav-header">Συνοπτικός Οδηγός Πρακτικής Άσκησης</div>
       <div
         v-for="tab in tabs"
         :id="tab.name"
         :key="tab.id"
-        class="text-xl md:text-2xl font-bold pb-4 md:pb-5"
+        class="guide__content-section"
       >
         {{ tab.label }}
-        <p class="font-normal">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus
-          omnis harum voluptatem nihil est voluptatum neque deleniti eligendi
-          rem reiciendis similique fugiat quo sapiente obcaecati placeat ut
-          unde, nam dolor dolore nulla iure veniam error accusamus. Recusandae
-          iusto fuga laudantium fugiat error, asperiores saepe esse. Nesciunt,
-          provident veritatis. Minus laudantium temporibus qui. Repellat
-          accusamus eveniet doloremque deleniti quod, magni perspiciatis aut
-          eaque rem placeat commodi quibusdam culpa exercitationem. Alias,
-          ratione?
-        </p>
+        <p class="guide__content-text">{{ tab.text }}</p>
       </div>
     </div>
   </div>
@@ -43,14 +33,84 @@
 <script setup>
 import { ref } from "vue";
 
-const activeTab = ref(0); // Default active tab
+const activeTab = ref(0);
 
 const tabs = [
-  { id: 0, name: "basic-info", label: "Βασικές Πληροφορίες" },
-  { id: 1, name: "organizations", label: "Φορείς" },
-  { id: 2, name: "periods", label: "Χρονικές Περιόδοι" },
-  { id: 3, name: "updates", label: "Ενημέρωση Φοιτητών" },
-  { id: 4, name: "compensation", label: "Αποζημίωση Φοιτητών" },
-  { id: 5, name: "procedures", label: "Διαδικαστικά" },
+  {
+    id: 0,
+    name: "basic-info",
+    label: "Βασικές Πληροφορίες",
+    text: "Η Πρακτική Άσκηση σύμφωνα με το πενταετές Πρόγραμμα Σπουδών του Τμήματος αντιστοιχεί σε 12 Πιστωτικές Μονάδες είναι προαιρετική και αναγράφεται στο Παράρτημα Διπλώματος και την αναλυτική βαθμολογία.\n\nΓια να εκπονήσουν πρακτικοί άσκηση, οι φοιτήτριες και φοιτητές θα πρέπει:\n\n1) Να βρίσκονται στο 9ο εξάμηνο και άνω.\n\n2) Να έχουν συμπληρώσει 210 Πιστωτικές Μονάδες (ECTS)\n\nΗ Πρακτική Άσκηση δεν λαμβάνει βαθμό ούτε συνυπολογίζεται στον τελικό βαθμό διπλώματος.",
+  },
+  {
+    id: 1,
+    name: "organizations",
+    label: "Φορείς",
+    text: "Η Πρακτική Άσκηση πραγματοποιείται στον δημόσιο ή ιδιωτικό τομέα. Επιπρόσθετα, δίνεται η δυνατότητα στους φοιτητές, η Πρακτική Άσκηση να διεξαχθεί σε Ακαδημαϊκά Ιδρύματα ή Επιχειρήσεις της Ευρωπαϊκής Ένωσης στο πλαίσιο Ευρωπαϊκών ή άλλων Προγραμμάτων.\n\nΤα θέματα της Πρακτικής Άσκησης συντονίζονται από την Επιτροπή Πρακτικής Άσκησης, αποτελούμενη από τρία μέλη του Εκπαιδευτικού Προσωπικού του τμήματος. Η Επιτροπή διεξάγει συστηματική αναζήτηση θέσεων, οι οποίες ανακοινώνονται στους φοιτητές πριν την έναρξη κάθε περιόδου εκτέλεσης Πρακτικής Άσκησης. Ακόμη, γίνονται δεκτές και θέσεις προτεινόμενες από τους φοιτητές, κατόπιν έγκρισης από την Επιτροπή Πρακτικής Άσκησης.",
+  },
+  {
+    id: 2,
+    name: "periods",
+    label: "Χρονικές Περιόδοι",
+    text: "Έχουν οριστεί από το Τμήμα συγκεκριμένες περίοδοι εκτέλεσης της Πρακτικής Άσκησης και οι οποίες είναι:\n\n1.  Χειμερινή περίοδος από 1/10\n2.  Εαρινή περίοδος από 1/4\n\nΑυτές οι ημερομηνίες μπορούν να αλλάξουν μετά από έγκριση της Επιτροπής Πρακτικής Άσκησης.",
+  },
+  {
+    id: 3,
+    name: "updates",
+    label: "Ενημέρωση Φοιτητών",
+    text: "Οι φοιτητές/τριες οφείλουν να παρακολουθούν τις ανακοινώσεις που αφορούν την Πρακτική Άσκηση και αναρτώνται στην ιστοσελίδα του Τμήματος. Πριν την έναρξη κάθε περιόδου Πρακτικής Άσκησης γίνεται στους ενδιαφερομένους φοιτητές ενημέρωση για τη διαδικασία και τις προσφερόμενες θέσεις απασχόλησης με μια ενημερωτική Ημερίδα, στην οποία συμμετέχουν οι ενδιαφερόμενοι φορείς.",
+  },
+  {
+    id: 4,
+    name: "compensation",
+    label: "Αποζημίωση Φοιτητών",
+    text: "Το Τμήμα τοποθετεί φοιτητές σε θέσεις Πρακτικής Άσκησης και μέσω του Επιχειρησιακού Προγράμματος «Ανταγωνιστικότητα Επιχειρηματικότητα και Καινοτομία», που αποτελεί ένα από τα Επιχειρησιακά Προγράμματα του Εταιρικού Συμφώνου για το Πλαίσιο Ανάπτυξης (ΕΣΠΑ 2014-2020), μέσω του οποίου χρηματοδοτούνται δράσεις για την εκπαίδευση σε όλες τις βαθμίδες του εκπαιδευτικού συστήματος, τη σύνδεση εκπαίδευσης με την αγορά εργασίας, τη δια βίου μάθηση και την έρευνα. Οι πόροι του Επιχειρησιακού Προγράμματος (Ε.Π.) προέρχονται από το Ευρωπαϊκό Κοινωνικό Ταμείο (ΕΚΤ).\n\nΤο τμήμα μεριμνά για την ασφαλιστική κάλυψη  κατά επαγγελματικού κινδύνου, η οποία είναι ίση με το 1% επί του τεκμαρτού ημερομισθίου της 12ης ασφαλιστικής κλάσης του ΙΚΑ και η οποία πρέπει να καταβάλλεται κάθε μήνα.\n\nΗ αμοιβή των φοιτητών από το πρόγραμμα ΕΣΠΑ καθορίζεται από το Γραφείο Πρακτικής Άσκησης ΕΣΠΑ του Ιδρύματος.",
+  },
+  {
+    id: 5,
+    name: "procedures",
+    label: "Διαδικαστικά",
+    text: "Κατά τη διάρκειά της Πρακτικής Άσκησης, οι φοιτητές ελέγχονται από τον ακαδημαϊκό Επόπτη Πρακτικής Άσκησης, ο οποίος ορίζεται από το Τμήμα.\n\nΚατά τη διάρκειά της Πρακτικής Άσκησης, οι φοιτητές συμπληρώνουν τις δραστηριότητές τους στο Βιβλιάριο Πρακτικής Άσκησης, το οποίο παραδίδουν με τη λήξη της Πρακτικής Άσκησης.\n\nΤο Βιβλιάριο Πρακτικής Άσκησης ελέγχεται και υπογράφεται από τον ακαδημαϊκό Επόπτη, την Επιτροπή Πρακτικής Άσκησης και τον Πρόεδρο του Τμήματος, οι οποίοι Εγκρίνουν ή Απορρίπτουν την διεξαχθείσα Πρακτική Άσκηση.",
+  },
 ];
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/variables.scss";
+.guide {
+  @apply px-4 py-4 mx-auto grid md:grid-cols-3 md:px-6;
+
+  &__nav {
+    @apply mb-4 md:pl-12 flex flex-col gap-4 md:text-xl text-gray-400 md:items-center sm:items-start;
+
+    &-header {
+      @apply md:text-2xl font-bold pb-3 text-black;
+    }
+
+    &-items {
+      & > *:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &-item {
+      &:hover {
+        color: $primary-dark-blue-color;
+      }
+      &--active {
+        color: $primary-blue-color;
+      }
+    }
+  }
+  &__content {
+    @apply flex flex-col items-center md:ml-20 md:col-span-2;
+    &-section {
+      @apply md:text-2xl font-bold  pb-4 md:pb-5;
+      color: $primary-blue-color;
+    }
+    &-text {
+      @apply font-normal pt-2 text-gray-700 whitespace-break-spaces;
+    }
+  }
+}
+</style>
