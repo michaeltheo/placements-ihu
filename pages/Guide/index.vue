@@ -14,7 +14,6 @@
         </p>
       </div>
     </div>
-    <!-- Content Sections -->
     <div class="guide__content">
       <div class="guide__nav-header">Συνοπτικός Οδηγός Πρακτικής Άσκησης</div>
       <div
