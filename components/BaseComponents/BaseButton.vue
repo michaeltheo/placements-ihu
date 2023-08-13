@@ -1,6 +1,7 @@
 <template>
   <button
     class="button"
+    :class="{ 'button-glow': props.glow }"
     @mouseover="isHovered = true"
     @mouseleave="isHovered = false"
   >
@@ -13,13 +14,27 @@
   </button>
 </template>
 
+<!--
+  BaseButton Component:
+
+  - text (String, default: ""): Display text of the button.
+  - glow (Boolean, default: true): Enables glowing hover effect. Set to `false` to disable.
+
+  Usage:
+  <BaseButton text="Button Text" />
+  <BaseButton text="Button Text" :glow="false" />
+-->
+
 <script setup>
 import { ref, defineProps } from "vue";
-
 const props = defineProps({
   text: {
     type: String,
     default: "",
+  },
+  glow: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -40,7 +55,7 @@ const isHovered = ref(false);
   cursor: pointer;
   transition: background-color 0.2s;
 
-  &:hover {
+  &-glow:hover {
     background-color: $primary-blue-color;
     box-shadow: 0 0.2rem 0.7rem $primary-blue-color;
   }

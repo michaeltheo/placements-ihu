@@ -11,6 +11,7 @@
             console.log('pressed');
           }
         "
+        :glow="false"
         text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
         class="test"
       />
