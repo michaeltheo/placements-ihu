@@ -46,30 +46,17 @@ const isHovered = ref(false);
 @import "@/assets/variables.scss";
 
 .button {
-  display: flex;
+  @apply flex  text-white rounded-full px-5 py-2 cursor-pointer transform transition-transform  hover:scale-105;
   background-color: $primary-dark-blue-color;
-  color: white;
-  border: none;
-  border-radius: 2rem;
-  padding: 0.7rem 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    transform: scale(1.02); // slight zoom on hover
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); // enhanced shadow on hover
-  }
   &-glow:hover {
     background-color: $primary-blue-color;
     box-shadow: 0 0.2rem 0.7rem $primary-blue-color;
   }
   &__text {
-    width: 100%;
-    text-align: center;
+    @apply w-full text-center;
   }
-
   &__icon {
-    margin-left: 1em;
+    @apply ml-4;
   }
 }
 </style>

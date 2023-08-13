@@ -18,7 +18,7 @@
     <div class="pl-3 pt-3">
       <MiniAnnouncement
         date="22-0-5"
-        title="Hello this in an aoef=fefeffefffefffh."
+        title="Hello this in an aoef=fegmermgaerfeffefffefffh."
       />
     </div>
   </div>

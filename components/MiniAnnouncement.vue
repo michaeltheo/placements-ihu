@@ -1,13 +1,13 @@
 <template>
-  <div class="announcement" ref="container">
+  <div ref="container" class="announcement">
     <div
-      class="announcement-title"
-      :class="{ 'activate-Animation': activateAnimation }"
       ref="titleRef"
+      class="announcement__title"
+      :class="{ 'announcement__title-animated': activateAnimation }"
     >
       {{ title }}
     </div>
-    <div class="announcement-name">{{ date }}</div>
+    <div class="announcement__date">{{ date }}</div>
   </div>
 </template>
 
@@ -55,57 +55,26 @@ watch(() => props.title, checkWidth);
   }
 }
 
-@import "@/assets/variables.scss";
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
 .announcement {
-  display: flex;
-  flex-direction: column;
-  width: 15rem;
-  height: 3rem;
-  padding-left: 12px; // increased padding
-  padding-bottom: 5px;
-  justify-content: space-between;
-  border-left: 4px solid rgba($primary-dark-blue-color, 0.8); // make border slightly transparent
-  border-radius: 0.5rem; // increased border-radius
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.1); // subtle background
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // subtle shadow
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s; // transition effect
+  @apply flex flex-col w-72 h-14 pl-3 pb-1.5 justify-between rounded-lg overflow-hidden bg-opacity-10 rounded-l transition-shadow cursor-pointer;
+  border-left: 0.3rem solid rgba($primary-dark-blue-color, 0.8);
+  box-shadow: 0 0.6rem 6rem rgba(0, 0, 0, 0.1);
 
   &:hover {
-    transform: scale(1.02); // slight zoom on hover
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); // enhanced shadow on hover
+    @apply transform scale-105 shadow-md;
 
-    .activate-Animation {
-      overflow: visible;
-      white-space: nowrap;
+    .announcement__title-animated {
+      @apply overflow-visible whitespace-nowrap;
       animation: marquee 4s linear infinite;
     }
   }
-}
 
-.announcement-title {
-  font-weight: 500; // slightly bolder
-  color: rgba(0, 0, 0, 0.7); // softer color
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 10px; // spacing to prevent text from touching the edge
-}
+  &__title {
+    @apply font-medium text-gray-500 whitespace-nowrap overflow-hidden overflow-ellipsis pr-2.5;
+  }
 
-.announcement-name {
-  @apply text-sm text-gray-700; // slightly darker color
-  font-style: italic; // style variation
+  &__date {
+    @apply text-sm text-gray-700 italic;
+  }
 }
 </style>
