@@ -26,7 +26,7 @@
 -->
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 const props = defineProps({
   text: {
     type: String,
@@ -55,6 +55,10 @@ const isHovered = ref(false);
   cursor: pointer;
   transition: background-color 0.2s;
 
+  &:hover {
+    transform: scale(1.02); // slight zoom on hover
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); // enhanced shadow on hover
+  }
   &-glow:hover {
     background-color: $primary-blue-color;
     box-shadow: 0 0.2rem 0.7rem $primary-blue-color;

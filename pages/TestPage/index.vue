@@ -11,9 +11,14 @@
             console.log('pressed');
           }
         "
-        :glow="false"
         text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
         class="test"
+      />
+    </div>
+    <div class="pl-3 pt-3">
+      <MiniAnnouncement
+        date="22-0-5"
+        title="Hello this in an aoef=fefeffefffefffh."
       />
     </div>
   </div>
