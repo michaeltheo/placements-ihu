@@ -1,19 +1,18 @@
 <template>
   <div data-aos class="container">
-    <!-- Alert Section -->
-    <div class="container__alert">
-      <div class="container__alert--icon">
+    <div class="alert">
+      <div class="alert__icon">
         <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
       </div>
-      <div class="container__alert--text">
+      <div class="alert__text">
         Προσοχή. Η πρακτική άσκηση του νέου τμήματος δεν θα προσφέρεται μέχρι
         την ψήφιση θεσμικού πλαίσιου.
       </div>
     </div>
 
-    <div class="container__grid-section">
-      <div class="container__grid-section--info">
-        <h2 class="text-xl md:text-2xl font-bold mb-4">
+    <div class="grid-section">
+      <div class="grid-section__info">
+        <h2 class="grid-section__header">
           Πρακτική Άσκηση στο Τμήμα Μηχανικών Πληροφορικής και Ηλεκτρονικών
           Συστήματων
         </h2>
@@ -33,10 +32,8 @@
         <BaseComponentsBaseButton text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ" class="mt-4 mb-2" />
       </div>
 
-      <div class="container__grid-section--announcements">
-        <h3 class="text-xl md:text-2xl font-bold mb-4">
-          Τελευταίες Ανακοινώσεις
-        </h3>
+      <div class="grid-section__announcements">
+        <h3 class="grid-section__header">Τελευταίες Ανακοινώσεις</h3>
         <div class="flex flex-col space-y-2">
           <MiniAnnouncement
             v-for="announcement in firstFourAnnouncements"
@@ -48,9 +45,9 @@
       </div>
     </div>
 
-    <div class="container__footer">
-      <div class="container__footer-section">
-        <p class="container__footer--text">
+    <div class="footer">
+      <div class="footer__section">
+        <p class="footer__section-text">
           Είστε φοιτητές του παλαιού προγράμματος σπουδών; (Πρώην τμήμα Τ.Ε.
           Μηχανικών Πληροφορικής)
         </p>
@@ -109,41 +106,44 @@ console.log(firstFourAnnouncements);
 
 .container {
   @apply mx-auto mt-10 px-2 sm:px-4 lg:px-8 space-y-6;
-  &__alert {
+  .alert {
     @apply bg-red-300 w-full p-4 rounded-lg flex items-center space-x-4 text-red-800 shadow-md transition-transform transform;
 
-    &--icon {
+    &__icon {
       @apply text-red-700 md:text-4xl text-3xl flex-shrink-0;
     }
 
-    &--text {
+    &__text {
       @apply flex-grow font-semibold text-sm md:text-xl lg:text-2xl;
     }
   }
-  &__grid-section {
+  .grid-section {
     @apply grid grid-cols-1 md:grid-cols-3 gap-6;
 
-    &--info {
+    &__header {
+      @apply text-xl md:text-2xl font-bold mb-4;
+    }
+    &__info {
       @apply p-4 sm:p-6 rounded-lg shadow-md md:col-span-2 relative;
     }
 
-    &--announcements {
+    &__announcements {
       @apply p-4 sm:p-6 rounded-lg shadow-md;
     }
   }
 
-  &__footer {
-    &-section {
+  .footer {
+    &__section {
       @apply flex flex-col md:flex-row justify-between items-center h-full p-2 md:p-4;
-    }
-    @apply bg-cover bg-no-repeat md:h-36 h-48 rounded-lg shadow-lg;
-    background-image: url("public/img/test.png");
-    background-position: 0 0;
-    background-repeat: repeat-y;
-    animation: animatedBackground 10s linear infinite alternate;
+      @apply bg-cover bg-no-repeat md:h-36 h-48 rounded-lg shadow-lg;
+      background-image: url("public/img/test.png");
+      background-position: 0 0;
+      background-repeat: repeat-y;
+      animation: animatedBackground 10s linear infinite alternate;
 
-    &--text {
-      @apply text-white font-semibold text-lg md:text-3xl mb-2 md:mb-0;
+      &-text {
+        @apply text-white font-semibold text-lg md:text-3xl mb-2 md:mb-0;
+      }
     }
   }
 }
