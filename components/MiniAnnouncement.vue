@@ -48,15 +48,15 @@ watch(() => props.title, checkWidth);
 
 @keyframes marquee {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-150%);
   }
 }
 
 .announcement {
-  @apply flex flex-col w-72 h-14 pl-3 pb-1.5 justify-between rounded-lg overflow-hidden bg-opacity-10 rounded-l transition-shadow cursor-pointer;
+  @apply flex flex-col w-full h-14 pl-3 pb-1.5 justify-between rounded-lg overflow-hidden bg-opacity-10 rounded-l transition-shadow cursor-pointer;
   border-left: 0.3rem solid rgba($primary-dark-blue-color, 0.8);
   box-shadow: 0 0.6rem 6rem rgba(0, 0, 0, 0.1);
 

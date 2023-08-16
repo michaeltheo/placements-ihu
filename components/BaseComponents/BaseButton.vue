@@ -46,7 +46,7 @@ const isHovered = ref(false);
 @import "@/assets/variables.scss";
 
 .button {
-  @apply flex  text-white rounded-full px-5 py-2 cursor-pointer transform transition-transform  hover:scale-105;
+  @apply flex  text-white rounded-full px-5 py-2 cursor-pointer transform transition-transform  hover:scale-105 items-center;
   background-color: $primary-dark-blue-color;
   &-glow:hover {
     background-color: $primary-blue-color;
