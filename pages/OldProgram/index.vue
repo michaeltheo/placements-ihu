@@ -1,17 +1,15 @@
 <template>
-  <div class="container mx-auto px-4 py-8 space-y-12">
+  <div class="oldProgram">
     <!-- Header Section -->
-    <div
-      class="bg-gradient-to-br from-gray-300 to-white-400 p-10 rounded-lg shadow-xl transition-all duration-300 transform hover:scale-105"
-    >
-      <h1 class="text-5xl font-extrabold mb-6 leading-tight text-gray-900">
+    <div class="requirements">
+      <h1 class="requirements__header">
         Προϋποθέσεις για την πραγματοποίηση πρακτικής άσκησης
       </h1>
-      <p class="mt-2 text-xl font-semibold text-gray-800 mb-5">
+      <p class="requirements__text">
         Για την πραγματοποίηση της Πρακτικής Ασκησης από κάποιον φοιτητή
         (-τρια):
       </p>
-      <ul class="pl-5 space-y-3 text-gray-700 custom-list">
+      <ul class="requirements__list">
         <li>
           Να βρίσκεται σε τυπικό
           <span class="font-semibold">εξάμηνο</span> μεγαλύτερο του Z'.
@@ -25,8 +23,6 @@
           Να μην οφείλει <span class="font-bold">κανένα</span> μάθημα
           ειδικότητας...
         </li>
-      </ul>
-      <ul class="pl-5 space-y-3 text-gray-700 custom-list">
         <li>Εισαγωγή στα Λειτουργικά Συστήματα ( Θ+Ε ) - (Β' Εξάμηνο)</li>
         <li>Δομές Δεδομένων και Ανάλυση Αλγορίθμων ( Θ+Ε ) - ( Γ' Εξάμηνο )</li>
         <li>Τεχνολογία Βάσεων Δεδομένων ( Θ+Ε ) - ( Δ' Εξάμηνο )</li>
@@ -37,12 +33,13 @@
           Μαθημάτων Επιλογής.
         </li>
       </ul>
-      <div class="pt-2">
-        <p class="underline">
+
+      <div class="requirements__note">
+        <p class="requirements__text">
           Eνώ για τους φοιτητές, οι οποίοι έχουν επιλέξει κατεύθυνση, είναι τα
           παρακάτω :
         </p>
-        <ul class="pl-5 mt-2 space-y-4 text-gray-700 custom-list">
+        <ul class="requirements__list">
           <li>Εισαγωγή στα Λειτουργικά Συστήματα ( Θ+Ε ) - (Β' Εξάμηνο)</li>
           <li>
             Δομές Δεδομένων και Ανάλυση Αλγορίθμων ( Θ+Ε ) - ( Γ' Εξάμηνο )
@@ -54,65 +51,56 @@
           <li>Μηχανική Λογισμικού Ι ( Θ+Ε ) - ( Ε' Εξάμηνο )</li>
           <li>
             Επιλογής υποχρεωτικά Μαθήματα Κατεύθυνσης του ΣΤ' και Ζ' Εξαμήνου τα
-            οποία συμπληρώνουν 24(από τις 30 υποχρεωτικές) πιστωτικές μονάδες
+            οποία συμπληρώνουν 24 (από τις 30 υποχρεωτικές) πιστωτικές μονάδες
           </li>
         </ul>
       </div>
     </div>
 
     <!-- Main Content -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div class="grid-section">
       <!-- Left Column -->
-      <div class="md:col-span-1">
-        <div class="bg-white p-8 rounded-lg shadow-lg space-y-6">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">
-            Οδηγοί Πρακτικής Άσκησης
-          </h2>
-          <div class="space-y-4">
-            <div
-              class="flex justify-between items-center border rounded-lg p-4 hover:shadow-lg hover:border-green-500 cursor-pointer transition"
+      <div class="grid-section__col">
+        <div class="grid-section__container">
+          <h2 class="grid-section__header">Οδηγοί Πρακτικής Άσκησης</h2>
+          <div
+            v-for="(item, index) in infoGuides"
+            :key="index"
+            class="space-y-4"
+          >
+            <a
+              :href="`assets/pdf/palioprogramma/${item.pdf}.pdf`"
+              target="_blank"
             >
-              Οδηγός πρακτικής άσκησης φοιτητών ΑΤΕΙΘ - ΕΣΠΑ 2η έκδοση
-              <font-awesome-icon :icon="['fas', 'file-pdf']" />
-            </div>
-
-            <div
-              class="flex justify-between items-center border rounded-lg p-4 hover:shadow-lg hover:border-green-500 cursor-pointer transition"
-            >
-              Οδηγός πρακτικής άσκησης ΑΤΕI
-              <font-awesome-icon :icon="['fas', 'file-pdf']" />
-            </div>
+              <div class="grid-section__info">
+                {{ item.title }}
+                <font-awesome-icon :icon="['fas', 'file-pdf']" size="lg" />
+              </div>
+            </a>
           </div>
         </div>
       </div>
 
       <!-- Right Column -->
-      <div class="md:col-span-1">
-        <div class="bg-white p-8 rounded-lg shadow-lg space-y-6">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">
+      <div class="grid-section__col">
+        <div class="grid-section__container">
+          <h2 class="grid-section__header">
             Οδηγίες - Πληροφορίες για το σύστημα Πρακτικής Άσκησης ΑΤΛΑΣ
           </h2>
-          <div class="space-y-4">
-            <!-- comment i want the divs to open an pdf file so i want them to look more special -->
-
-            <div
-              class="flex justify-between items-center border rounded-lg p-4 hover:shadow-lg hover:border-blue-500 cursor-pointer transition"
+          <div
+            v-for="(item, index) in infoInstructions"
+            :key="index"
+            class="space-y-4"
+          >
+            <a
+              :href="`assets/pdf/palioprogramma/${item.pdf}.pdf`"
+              target="_blank"
             >
-              Οδηγός Χρήσης Εφαρμογής Φορέων Υποδοχής Πρακτικής Άσκησης
-              <font-awesome-icon :icon="['fas', 'file-pdf']" />
-            </div>
-            <div
-              class="flex justify-between items-center border rounded-lg p-4 hover:shadow-lg hover:border-blue-500 cursor-pointer transition"
-            >
-              Εγχειρίδιο Εφαρμογής Φοιτητών
-              <font-awesome-icon :icon="['fas', 'file-pdf']" />
-            </div>
-            <div
-              class="flex justify-between items-center border rounded-lg p-4 hover:shadow-lg hover:border-blue-500 cursor-pointer transition"
-            >
-              Οδηγός Εγγραφής Φορέων Υποδοχής Πρακτικής Άσκησης
-              <font-awesome-icon :icon="['fas', 'file-pdf']" />
-            </div>
+              <div class="grid-section__info">
+                {{ item.title }}
+                <font-awesome-icon :icon="['fas', 'file-pdf']" size="lg" />
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -121,19 +109,61 @@
 </template>
   
   <script setup>
+import palioprogramma from "@/constants/palioprogramma";
+
+const infoGuides = palioprogramma.slice(0, 2);
+const infoInstructions = palioprogramma.slice(2);
 </script>
   
   <style lang="scss" scoped>
 @import "@/assets/variables.scss";
-.custom-list {
-  list-style: none;
 
-  li:before {
-    content: "✓";
-    display: inline-block;
-    margin-right: 8px;
-    color: $primary-blue-color; /* Tailwind's green-500 color */
-    font-weight: bold;
+.oldProgram {
+  @apply container mx-auto px-4 py-8 space-y-12;
+}
+.requirements {
+  @apply p-10 rounded-lg shadow-2xl;
+  &__header {
+    @apply md:text-5xl  text-3xl font-extrabold mb-6 leading-snug;
+    color: $primary-dark-blue-color;
+  }
+  &__text {
+    @apply mt-2 text-xl font-medium  mb-5;
+    color: $primary-blue-color;
+  }
+  &__list {
+    @apply pl-5 space-y-3;
+    list-style: none;
+    li:before {
+      content: "✓";
+      display: inline-block;
+      margin-right: 8px;
+      color: $primary-blue-color;
+      font-weight: bold;
+    }
+  }
+  &__note {
+    @apply bg-gray-50 p-5 rounded mt-4;
+  }
+}
+.grid-section {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-12;
+  &__col {
+    @apply md:col-span-1;
+  }
+  &__container {
+    @apply bg-white p-8 rounded-lg shadow-lg space-y-6;
+  }
+  &__header {
+    @apply text-2xl font-bold  mb-4;
+    color: $primary-dark-blue-color;
+  }
+  &__info {
+    @apply flex justify-between items-center border-2 rounded-lg p-5 hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105;
+
+    &:hover {
+      color: $primary-blue-color;
+    }
   }
 }
 </style>

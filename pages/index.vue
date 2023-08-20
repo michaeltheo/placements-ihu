@@ -29,7 +29,11 @@
             και σημαντική βοήθεια σε διαδικαστικά θέματα.
           </p>
         </div>
-        <BaseComponentsBaseButton text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ" class="mt-4 mb-2" />
+        <BaseComponentsBaseButton
+          text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
+          class="mt-4 mb-2"
+          @click="() => navigateTo('/guide')"
+        />
       </div>
 
       <div class="grid-section__announcements">
@@ -54,6 +58,7 @@
         <BaseComponentsBaseButton
           text="ΟΔΗΓΟΣ ΠΑΛΑΙΟΥ ΠΡΟΓΡΑΜΜΑΤΟΣ"
           :glow="false"
+          @click="() => navigateTo('/oldProgram')"
         />
       </div>
     </div>
@@ -122,6 +127,7 @@ console.log(firstFourAnnouncements);
 
     &__header {
       @apply text-xl md:text-2xl font-bold mb-4;
+      color: $primary-dark-blue-color;
     }
     &__info {
       @apply p-4 sm:p-6 rounded-lg shadow-md md:col-span-2 relative;
