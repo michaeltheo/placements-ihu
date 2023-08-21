@@ -90,7 +90,7 @@ onMounted(() => {
 
     .announcement__title-animated {
       @apply overflow-visible whitespace-nowrap;
-      animation: marquee 4s linear infinite;
+      animation: marquee 5s linear infinite;
     }
   }
 

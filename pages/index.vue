@@ -1,5 +1,5 @@
 <template>
-  <div data-aos class="container">
+  <div data-aos="fade-up" data-aos-duration="3000" class="container">
     <div class="alert">
       <div class="alert__icon">
         <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
@@ -100,13 +100,6 @@ console.log(firstFourAnnouncements);
   to {
     background-position: 0 100%;
   }
-}
-
-[data-aos] {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.5s forwards;
-  animation-delay: 0.2s;
 }
 
 .container {

@@ -1,6 +1,5 @@
 <template>
-  <div class="oldProgram">
-    <!-- Header Section -->
+  <div class="oldProgram" data-aos="zoom-in">
     <div class="requirements">
       <h1 class="requirements__header">
         Προϋποθέσεις για την πραγματοποίηση πρακτικής άσκησης
@@ -58,7 +57,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="grid-section">
+    <div class="grid-section" data-aos="fade-up">
       <!-- Left Column -->
       <div class="grid-section__col">
         <div class="grid-section__container">
