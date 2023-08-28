@@ -75,8 +75,7 @@ const { announcement } = toRefs(props);
     flex-direction: column;
   }
   &__author-name {
-    color: text-gray-600;
-    font-size: text-base;
+    @apply text-gray-500 text-base;
   }
 
   &__date {
