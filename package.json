@@ -32,10 +32,11 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@pinia/nuxt": "^0.4.11",
     "@vuepic/vue-datepicker": "^6.0.1",
     "@vueuse/core": "^10.2.1",
     "aos": "^2.3.4",
     "eslint": "^8.44.0",
-    "pinia": "^2.1.4"
+    "pinia": "^2.1.6"
   }
 }

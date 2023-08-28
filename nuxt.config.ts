@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' }
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", '@invictus.codes/nuxt-vuetify'],
+  modules: ["@nuxtjs/tailwindcss", '@invictus.codes/nuxt-vuetify', '@pinia/nuxt'],
   css: ["@/assets/main.scss",
     '@fortawesome/fontawesome-svg-core/styles.css'],
   plugins: [

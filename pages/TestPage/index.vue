@@ -21,10 +21,15 @@
         title="Hello this in an aoef=fegmermgaerfeffefffefffh."
       />
     </div>
+    <div>{{ counter }}</div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useCounterStore } from "@/stores/counter";
+
+const counter = useCounterStore();
+</script>
 
 <style lang="scss" scoped>
 .test {
