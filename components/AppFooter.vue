@@ -67,7 +67,7 @@
 
 <script setup>
 import placementsInfo from "@/constants/placementsinfo";
-const thisYear = new Date().getFullYear();
+import { thisYear } from "@/composables/dateMixins";
 </script>
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
