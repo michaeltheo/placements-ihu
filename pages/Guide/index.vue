@@ -45,7 +45,8 @@ const activeTab = ref(0);
     @apply mb-4 md:pl-12 flex flex-col gap-4 md:text-xl text-gray-400 md:items-center sm:items-start;
 
     &-header {
-      @apply md:text-2xl font-bold pb-3 text-black;
+      @apply md:text-2xl font-bold pb-3;
+      color: $primary-dark-blue-color;
     }
 
     &-items {

@@ -5,7 +5,7 @@
       class="mini-announcement__title"
       :class="{ 'mini-announcement__title-animated': activateAnimation }"
     >
-      {{ title }}
+      {{ props.title }}
     </div>
     <div class="mini-announcement__date">{{ date }}</div>
   </div>
@@ -29,18 +29,43 @@ const container = ref(null);
 const titleRef = ref(null);
 const activateAnimation = ref(false);
 
+let resizeObserver;
+
 const checkWidth = () => {
-  if (titleRef.value.scrollWidth > titleRef.value.offsetWidth) {
+  if (
+    titleRef.value &&
+    titleRef.value.scrollWidth > titleRef.value.offsetWidth
+  ) {
     activateAnimation.value = true;
+  } else {
+    activateAnimation.value = false;
   }
 };
 
 onMounted(() => {
-  checkWidth();
-});
+  resizeObserver = new ResizeObserver(checkWidth);
 
-// React to title changes
-watch(() => props.title, checkWidth);
+  if (titleRef.value) {
+    resizeObserver.observe(titleRef.value);
+  }
+
+  watch(titleRef, (newVal, oldVal) => {
+    if (oldVal) {
+      resizeObserver.unobserve(oldVal);
+    }
+
+    if (newVal) {
+      resizeObserver.observe(newVal);
+    }
+  });
+
+  onBeforeUnmount(() => {
+    if (titleRef.value) {
+      resizeObserver.unobserve(titleRef.value);
+    }
+    resizeObserver.disconnect();
+  });
+});
 </script>
 
 <style lang="scss" scoped>

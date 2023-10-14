@@ -1,8 +1,8 @@
 // Navbar Links
 export default [
-    { text: "ΑΡΧΙΚΗ", route: "/" },
-    { text: "ΟΔΗΓΟΣ", route: "/guide" },
-    { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
-    { text: "ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ", route: "/old-program" },
-    { text: "ΕΙΣΟΔΟΣ", route: "/login" },
+  { text: "ΑΡΧΙΚΗ", route: "/" },
+  { text: "ΟΔΗΓΟΣ", route: "/guide" },
+  { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
+  { text: "ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ", route: "/oldProgram" },
+  { text: "ΕΙΣΟΔΟΣ", route: "/login" },
 ];
