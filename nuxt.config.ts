@@ -8,4 +8,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
   css: ["@/assets/main.scss",
     '@fortawesome/fontawesome-svg-core/styles.css'],
+  plugins: [
+    { src: '@/plugins/aos.client.js', mode: 'client' }
+  ]
 });

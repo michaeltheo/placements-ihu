@@ -1,5 +1,5 @@
 <template>
-  <div data-aos class="homePage">
+  <div data-aos="fade-up" data-aos-duration="3000" class="homePage">
     <div class="homePage__alert">
       <div class="homePage__alert__icon">
         <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
@@ -100,7 +100,6 @@ const firstFourAnnouncements = filteredAnnouncements.slice(0, 4);
     background-position: 0 100%;
   }
 }
-
 [data-aos] {
   opacity: 0;
   transform: translateY(20px);

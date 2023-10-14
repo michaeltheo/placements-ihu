@@ -1,5 +1,5 @@
 <template>
-  <div class="old-program">
+  <div data-aos="zoom-in" class="old-program">
     <!-- Header Section -->
     <div class="old-program-requirements">
       <h1 class="old-program-requirements__header">
@@ -58,7 +58,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="old-program__grid">
+    <div data-aos="fade-up" class="old-program__grid">
       <!-- Left Column -->
       <div class="old-program__grid-col">
         <div class="old-program__grid-container">

@@ -1,5 +1,5 @@
 <template>
-  <div class="guide">
+  <div class="guide" data-aos="zoom-in">
     <div class="guide__nav">
       <div class="guide__nav-header">Περιεχόμενα</div>
       <div class="guide__nav-items">
@@ -20,6 +20,8 @@
         v-for="tab in guidePageData"
         :id="tab.name"
         :key="tab.id"
+        data-aos="zoom-in-left"
+        data-aos-duration="800"
         class="guide__content-section"
       >
         {{ tab.label }}
