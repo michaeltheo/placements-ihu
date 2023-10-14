@@ -85,7 +85,7 @@ const { announcement } = toRefs(props);
     @apply ml-4 cursor-pointer;
     color: $primary-blue-color;
     &:hover {
-      color: $navbar_active_color;
+      color: $secondary-independence-color;
     }
   }
 }

@@ -55,6 +55,7 @@ import Datepicker from "@vuepic/vue-datepicker";
 import { ref, watch, computed } from "vue";
 // TODO: replace fake data with real data
 import test from "@/assets/dummyData/test.json";
+import { isDateWithinRange } from "@/composables/dateMixins.js";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 const allAnnouncements = test.data;
@@ -89,11 +90,11 @@ const filteredAnnouncements = computed(() => {
       .includes(searchText.value.toLowerCase());
 
     // Filter by date
-    const dateMatch =
-      (!dateFrom.value ||
-        new Date(announcement.created_at) >= new Date(dateFrom.value)) &&
-      (!dateTo.value ||
-        new Date(announcement.created_at) <= new Date(dateTo.value));
+    const dateMatch = isDateWithinRange(
+      dateFrom.value,
+      dateTo.value,
+      announcement.created_at
+    );
 
     return titleMatch && dateMatch;
   });
