@@ -8,7 +8,7 @@
         <div class="ml-4">
           <a href="https://www.espa.gr/el/Pages/default.aspx" target="_blank">
             <img
-              class="footer-image mb-4"
+              class="footer__image mb-4"
               alt="espa"
               src="img/footerImg/espaFooter.jpg"
             />
@@ -67,14 +67,14 @@
 
 <script setup>
 import placementsInfo from "@/constants/placementsinfo";
-const thisYear = new Date().getFullYear();
+import { thisYear } from "@/composables/dateMixins";
 </script>
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
 .footer {
   background-color: $primary-color;
-  color: $footer-text-color;
+  color: $primary-sonicSilver-color;
   a {
     transition: color 0.2s;
     color: $primary-blue-color;
@@ -85,7 +85,7 @@ const thisYear = new Date().getFullYear();
   &__header {
     @apply border-l-2 border-slate-400  pl-6 mb-2 text-xl;
   }
-  &-image {
+  &__image {
     width: 100%;
     height: fit-content;
   }

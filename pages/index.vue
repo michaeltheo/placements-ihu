@@ -1,10 +1,10 @@
 <template>
-  <div data-aos class="container">
-    <div class="alert">
-      <div class="alert__icon">
+  <div data-aos class="homePage">
+    <div class="homePage__alert">
+      <div class="homePage__alert__icon">
         <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
       </div>
-      <div class="alert__text">
+      <div class="homePage__alert__text">
         Προσοχή. Η πρακτική άσκηση του νέου τμήματος δεν θα προσφέρεται μέχρι
         την ψήφιση θεσμικού πλαίσιου.
       </div>
@@ -67,21 +67,20 @@
 <script setup>
 import test from "@/assets/dummyData/test.json";
 // Assuming you've imported the data as 'test'
+// TODO: replace test data with real data
+
 const allAnnouncements = test.data;
 
-// Step 1: Filter by the tag
 const filteredAnnouncements = allAnnouncements.filter((announcement) =>
   announcement.tags.some((tag) => tag.title === "Νέα τμήματος")
 );
 
-// Step 2: Get only the first 4
 const firstFourAnnouncements = filteredAnnouncements.slice(0, 4);
-console.log(firstFourAnnouncements);
 </script>
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-// Simple Fade-in Animation
+// Fade-in Animation
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -109,9 +108,9 @@ console.log(firstFourAnnouncements);
   animation-delay: 0.2s;
 }
 
-.container {
+.homePage {
   @apply mx-auto mt-10 px-2 sm:px-4 lg:px-8 space-y-6;
-  .alert {
+  &__alert {
     @apply bg-red-300 w-full p-4 rounded-lg flex items-center space-x-4 text-red-800 shadow-md transition-transform transform;
 
     &__icon {
