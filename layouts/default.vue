@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <div class="mb-5">
+    <div class="min-h-[calc(100vh)]">
       <slot />
     </div>
     <AppFooter />

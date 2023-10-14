@@ -1,5 +1,5 @@
 <template>
-  <div class="oldProgram">
+  <div class="old-program">
     <!-- Header Section -->
     <div class="requirements">
       <h1 class="requirements__header">
@@ -109,16 +109,16 @@
 </template>
   
   <script setup>
-import palioprogramma from "@/constants/palioprogramma";
+import oldProgramData from "@/constants/oldProgramData";
 
-const infoGuides = palioprogramma.slice(0, 2);
-const infoInstructions = palioprogramma.slice(2);
+const infoGuides = oldProgramData.slice(0, 2);
+const infoInstructions = oldProgramData.slice(2);
 </script>
   
   <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-.oldProgram {
+.old-program {
   @apply container mx-auto px-4 py-8 space-y-12;
 }
 .requirements {
