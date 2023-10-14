@@ -53,15 +53,17 @@
 <script setup>
 import Datepicker from "@vuepic/vue-datepicker";
 import { ref, watch, computed } from "vue";
+// TODO: replace fake data with real data
 import test from "@/assets/dummyData/test.json";
+import { isDateWithinRange } from "@/composables/dateMixins.js";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 const allAnnouncements = test.data;
 const searchText = ref("");
-const dateFrom = ref(null); // initial value
-const dateTo = ref(null); // initial value
-const itemsPerPage = 5; // Number of announcements per page
-const currentPage = ref(1); // Current page number
+const dateFrom = ref(null);
+const dateTo = ref(null);
+const itemsPerPage = 5;
+const currentPage = ref(1);
 
 // Watch for changes to dateFrom
 watch(dateFrom, (newVal) => {
@@ -88,11 +90,11 @@ const filteredAnnouncements = computed(() => {
       .includes(searchText.value.toLowerCase());
 
     // Filter by date
-    const dateMatch =
-      (!dateFrom.value ||
-        new Date(announcement.created_at) >= new Date(dateFrom.value)) &&
-      (!dateTo.value ||
-        new Date(announcement.created_at) <= new Date(dateTo.value));
+    const dateMatch = isDateWithinRange(
+      dateFrom.value,
+      dateTo.value,
+      announcement.created_at
+    );
 
     return titleMatch && dateMatch;
   });
@@ -119,7 +121,7 @@ const filteredAnnouncements = computed(() => {
 
     v-text-field {
       @apply w-full text-center;
-      padding: 0.5rem 1rem; // Adjust as needed
+      padding: 0.5rem 1rem;
     }
   }
 
