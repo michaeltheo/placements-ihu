@@ -1,15 +1,15 @@
 <template>
   <div class="old-program">
     <!-- Header Section -->
-    <div class="requirements">
-      <h1 class="requirements__header">
+    <div class="old-program-requirements">
+      <h1 class="old-program-requirements__header">
         Προϋποθέσεις για την πραγματοποίηση πρακτικής άσκησης
       </h1>
-      <p class="requirements__text">
+      <p class="old-program-requirements__text">
         Για την πραγματοποίηση της Πρακτικής Ασκησης από κάποιον φοιτητή
         (-τρια):
       </p>
-      <ul class="requirements__list">
+      <ul class="old-program-requirements__list">
         <li>
           Να βρίσκεται σε τυπικό
           <span class="font-semibold">εξάμηνο</span> μεγαλύτερο του Z'.
@@ -34,12 +34,12 @@
         </li>
       </ul>
 
-      <div class="requirements__note">
-        <p class="requirements__text">
+      <div class="old-program-requirements__note">
+        <p class="old-program-requirements__text">
           Eνώ για τους φοιτητές, οι οποίοι έχουν επιλέξει κατεύθυνση, είναι τα
           παρακάτω :
         </p>
-        <ul class="requirements__list">
+        <ul class="old-program-requirements__list">
           <li>Εισαγωγή στα Λειτουργικά Συστήματα ( Θ+Ε ) - (Β' Εξάμηνο)</li>
           <li>
             Δομές Δεδομένων και Ανάλυση Αλγορίθμων ( Θ+Ε ) - ( Γ' Εξάμηνο )
@@ -58,11 +58,11 @@
     </div>
 
     <!-- Main Content -->
-    <div class="grid-section">
+    <div class="old-program__grid">
       <!-- Left Column -->
-      <div class="grid-section__col">
-        <div class="grid-section__container">
-          <h2 class="grid-section__header">Οδηγοί Πρακτικής Άσκησης</h2>
+      <div class="old-program__grid-col">
+        <div class="old-program__grid-container">
+          <h2 class="old-program__grid-header">Οδηγοί Πρακτικής Άσκησης</h2>
           <div
             v-for="(item, index) in infoGuides"
             :key="index"
@@ -72,7 +72,7 @@
               :href="`assets/pdf/palioprogramma/${item.pdf}.pdf`"
               target="_blank"
             >
-              <div class="grid-section__info">
+              <div class="old-program__grid-info">
                 {{ item.title }}
                 <font-awesome-icon :icon="['fas', 'file-pdf']" size="lg" />
               </div>
@@ -82,9 +82,9 @@
       </div>
 
       <!-- Right Column -->
-      <div class="grid-section__col">
-        <div class="grid-section__container">
-          <h2 class="grid-section__header">
+      <div class="old-program__grid-col">
+        <div class="old-program__grid-container">
+          <h2 class="old-program__grid-header">
             Οδηγίες - Πληροφορίες για το σύστημα Πρακτικής Άσκησης ΑΤΛΑΣ
           </h2>
           <div
@@ -96,7 +96,7 @@
               :href="`assets/pdf/palioprogramma/${item.pdf}.pdf`"
               target="_blank"
             >
-              <div class="grid-section__info">
+              <div class="old-program__grid-info">
                 {{ item.title }}
                 <font-awesome-icon :icon="['fas', 'file-pdf']" size="lg" />
               </div>
@@ -120,49 +120,50 @@ const infoInstructions = oldProgramData.slice(2);
 
 .old-program {
   @apply container mx-auto px-4 py-8 space-y-12;
-}
-.requirements {
-  @apply p-10 rounded-lg shadow-2xl;
-  &__header {
-    @apply md:text-5xl  text-3xl font-extrabold mb-6 leading-snug;
-    color: $primary-dark-blue-color;
-  }
-  &__text {
-    @apply mt-2 text-xl font-medium  mb-5;
-    color: $primary-blue-color;
-  }
-  &__list {
-    @apply pl-5 space-y-3;
-    list-style: none;
-    li:before {
-      content: "✓";
-      display: inline-block;
-      margin-right: 8px;
+  &-requirements {
+    @apply p-10 rounded-lg shadow-2xl;
+    &__header {
+      @apply md:text-5xl  text-3xl font-extrabold mb-6 leading-snug;
+      color: $primary-dark-blue-color;
+    }
+    &__text {
+      @apply mt-2 text-xl font-medium  mb-5;
       color: $primary-blue-color;
-      font-weight: bold;
+    }
+    &__list {
+      @apply pl-5 space-y-3;
+      list-style: none;
+      li:before {
+        content: "✓";
+        display: inline-block;
+        margin-right: 8px;
+        color: $primary-blue-color;
+        font-weight: bold;
+      }
+    }
+    &__note {
+      @apply bg-gray-50 p-5 rounded mt-4;
     }
   }
-  &__note {
-    @apply bg-gray-50 p-5 rounded mt-4;
-  }
-}
-.grid-section {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-12;
-  &__col {
-    @apply md:col-span-1;
-  }
-  &__container {
-    @apply bg-white p-8 rounded-lg shadow-lg space-y-6;
-  }
-  &__header {
-    @apply text-2xl font-bold  mb-4;
-    color: $primary-dark-blue-color;
-  }
-  &__info {
-    @apply flex justify-between items-center border-2 rounded-lg p-5 hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105;
 
-    &:hover {
-      color: $primary-blue-color;
+  &__grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-12;
+    &-col {
+      @apply md:col-span-1;
+    }
+    &-container {
+      @apply bg-white p-8 rounded-lg shadow-lg space-y-6;
+    }
+    &-header {
+      @apply text-2xl font-bold  mb-4;
+      color: $primary-dark-blue-color;
+    }
+    &-info {
+      @apply flex justify-between items-center border-2 rounded-lg p-5 hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105;
+
+      &:hover {
+        color: $primary-blue-color;
+      }
     }
   }
 }
