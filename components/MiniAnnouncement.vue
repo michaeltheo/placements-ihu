@@ -1,13 +1,13 @@
 <template>
-  <div ref="container" class="miniAnnouncement">
+  <div ref="container" class="mini-announcement">
     <div
       ref="titleRef"
-      class="miniAnnouncement__title"
-      :class="{ 'miniAnnouncement__title-animated': activateAnimation }"
+      class="mini-announcement__title"
+      :class="{ 'mini-announcement__title-animated': activateAnimation }"
     >
       {{ title }}
     </div>
-    <div class="miniAnnouncement__date">{{ date }}</div>
+    <div class="mini-announcement__date">{{ date }}</div>
   </div>
 </template>
 
@@ -55,7 +55,7 @@ watch(() => props.title, checkWidth);
   }
 }
 
-.miniAnnouncement {
+.mini-announcement {
   @apply flex flex-col w-full h-14 pl-3 pb-1.5 justify-between rounded-lg overflow-hidden bg-opacity-10 rounded-l transition-shadow cursor-pointer;
   border-left: 0.3rem solid rgba($primary-dark-blue-color, 0.8);
   box-shadow: 0 0.6rem 6rem rgba(0, 0, 0, 0.1);
@@ -63,7 +63,7 @@ watch(() => props.title, checkWidth);
   &:hover {
     @apply transform scale-105 shadow-md;
 
-    .miniAnnouncement__title-animated {
+    .mini-announcement__title-animated {
       @apply overflow-visible whitespace-nowrap;
       animation: marquee 4s linear infinite;
     }
