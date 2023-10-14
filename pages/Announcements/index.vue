@@ -53,15 +53,16 @@
 <script setup>
 import Datepicker from "@vuepic/vue-datepicker";
 import { ref, watch, computed } from "vue";
+// TODO: replace fake data with real data
 import test from "@/assets/dummyData/test.json";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 const allAnnouncements = test.data;
 const searchText = ref("");
-const dateFrom = ref(null); // initial value
-const dateTo = ref(null); // initial value
-const itemsPerPage = 5; // Number of announcements per page
-const currentPage = ref(1); // Current page number
+const dateFrom = ref(null);
+const dateTo = ref(null);
+const itemsPerPage = 5;
+const currentPage = ref(1);
 
 // Watch for changes to dateFrom
 watch(dateFrom, (newVal) => {
@@ -119,7 +120,7 @@ const filteredAnnouncements = computed(() => {
 
     v-text-field {
       @apply w-full text-center;
-      padding: 0.5rem 1rem; // Adjust as needed
+      padding: 0.5rem 1rem;
     }
   }
 
