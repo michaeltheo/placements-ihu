@@ -1,17 +1,16 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
-  <div class="announcement">
-    <div ref="titleRef" class="announcement__title">
+  <div class="main-announcement">
+    <div ref="titleRef" class="main-announcement__title">
       {{ announcement.title }}
     </div>
-    <div class="announcement__content" v-html="announcement.body"></div>
-    <div class="announcement__footer">
-      <div class="announcement__author">
-        <div class="announcement__author-name">
+    <div class="main-announcement__content" v-html="announcement.body"></div>
+    <div class="main-announcement__footer">
+      <div class="main-announcement__author">
+        <div class="main-announcement__author-name">
           {{ announcement.author.name }}
         </div>
 
-        <div class="announcement__date">
+        <div class="main-announcement__date">
           {{ announcement.created_at }}
         </div>
       </div>
@@ -23,7 +22,7 @@
           :key="attachment.id"
           :href="attachment.attachment_url"
           target="_blank"
-          class="announcement__attachment"
+          class="main-announcement__attachment"
         >
           <font-awesome-icon :icon="['fas', 'paperclip']" />
           {{ attachment.filename }}
@@ -49,7 +48,7 @@ const { announcement } = toRefs(props);
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-.announcement {
+.main-announcement {
   @apply flex flex-col w-full px-3 py-4 space-y-4 justify-between rounded-lg overflow-hidden bg-opacity-10 transition-shadow;
   box-shadow: 0 0.6rem 6rem rgba(0, 0, 0, 0.1);
   border-left: 0.4rem solid rgba($primary-dark-blue-color, 0.8);
@@ -86,7 +85,7 @@ const { announcement } = toRefs(props);
     @apply ml-4 cursor-pointer;
     color: $primary-blue-color;
     &:hover {
-      color: $navbar_active_color;
+      color: $secondary-independence-color;
     }
   }
 }

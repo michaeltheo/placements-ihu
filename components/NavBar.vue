@@ -97,7 +97,7 @@ const navbarLinks = computed(() => {
 @import "@/assets/variables.scss";
 .navbar {
   &__item--animated {
-    color: $navbar_item_color;
+    color: $secondary-charcoal-color;
     position: relative;
     width: fit-content;
 
@@ -110,7 +110,7 @@ const navbarLinks = computed(() => {
       height: 0.1rem;
       bottom: 0;
       left: 0;
-      background-color: $navbar_active_color;
+      background-color: $secondary-charcoal-color;
       transform-origin: bottom right;
       transition: transform 0.25s ease-out;
     }
@@ -122,6 +122,6 @@ const navbarLinks = computed(() => {
 }
 .router-link-exact-active {
   font-weight: bold;
-  color: $navbar_active_color;
+  color: $secondary-independence-color;
 }
 </style>
