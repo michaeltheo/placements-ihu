@@ -4,5 +4,4 @@ export default [
   { text: "ΟΔΗΓΟΣ", route: "/guide" },
   { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
   { text: "ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ", route: "/oldProgram" },
-  { text: "ΕΙΣΟΔΟΣ", route: "/login" },
 ];

@@ -22,11 +22,13 @@
       />
     </div>
     <div>{{ counter }}</div>
+    <div>{{ config }}</div>
   </div>
 </template>
 
 <script setup>
 import { useCounterStore } from "@/stores/counter";
+const config = useRuntimeConfig();
 
 const counter = useCounterStore();
 </script>

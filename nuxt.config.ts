@@ -1,8 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // @ts-ignore
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      CLIENT_ID: process.env.VITE_CLIENT_ID,
+      CLIENT_SECRET: process.env.VITE_SECRET,
+    },
+  },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
+  },
+  routeRules: {
+    "/auth": { ssr: false }
   },
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", '@invictus.codes/nuxt-vuetify', '@pinia/nuxt'],

@@ -43,7 +43,7 @@
         class="navbar__wrapper mt-4 md:mt-0 space-y-4 md:space-y-0 md:flex md:flex-row md:items-center md:space-x-10 justify-end"
       >
         <NuxtLink
-          v-for="(item, index) in links"
+          v-for="(item, index) in navbarLinks"
           :key="index"
           :to="item.route"
           class="navbar__item--animated px-2 py-1 block"
@@ -58,7 +58,10 @@
 <script setup>
 import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import { useAuthStore } from "@/stores/auth.js"; // Import your authStore
 import links from "@/constants/links";
+
+const authStore = useAuthStore(); // Initialize your auth store
 
 const mobileMenuRef = ref(null);
 const navbarRef = ref(null);
@@ -71,6 +74,23 @@ onClickOutside(
   },
   { ignore: [navbarRef] }
 );
+
+// Logic for dynamic login/logout link
+const loginLink = { text: "ΕΙΣΟΔΟΣ", route: "/login" };
+const logoutLink = { text: "ΕΞΟΔΟΣ", route: "/logout" };
+const authLink = ref(authStore.isLoggedIn() ? logoutLink : loginLink);
+
+// Watch for changes in the authentication state
+watch(
+  () => authStore.isLoggedIn(),
+  (loggedIn) => {
+    authLink.value = loggedIn ? logoutLink : loginLink;
+  }
+);
+
+const navbarLinks = computed(() => {
+  return [...links, authLink.value];
+});
 </script>
 
 <style scoped lang="scss">
