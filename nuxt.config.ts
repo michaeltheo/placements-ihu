@@ -3,12 +3,9 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      CLIENT_ID: process.env.VITE_CLIENT_ID,
-      CLIENT_SECRET: process.env.VITE_SECRET,
+      CLIENT_ID: process.env.CLIENT_ID,
+      CLIENT_SECRET: process.env.CLIENT_SECRET,
     },
-  },
-  app: {
-    pageTransition: { name: 'page', mode: 'out-in' }
   },
   routeRules: {
     "/auth": { ssr: false }
@@ -18,7 +15,7 @@ export default defineNuxtConfig({
   css: ["@/assets/main.scss",
     '@fortawesome/fontawesome-svg-core/styles.css'],
   plugins: [
-    { src: '@/plugins/aos.client.js', mode: 'client' }
+    { src: '@/plugins/aos.client.js', mode: 'client' },
   ],
   build: {
     transpile: ['@vuepic/vue-datepicker']

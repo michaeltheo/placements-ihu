@@ -7,7 +7,7 @@
       <div class="flex justify-between items-center">
         <div
           class="flex items-center justify-start cursor-pointer"
-          @click="() => navigateTo('/')"
+          @click="navigateToHome"
         >
           <div class="navbar__logo h-10 w-11">
             <img
@@ -42,56 +42,64 @@
         :class="showMenu ? 'block border-t-2' : 'hidden'"
         class="navbar__wrapper mt-4 md:mt-0 space-y-4 md:space-y-0 md:flex md:flex-row md:items-center md:space-x-10 justify-end"
       >
-        <NuxtLink
-          v-for="(item, index) in navbarLinks"
-          :key="index"
-          :to="item.route"
-          class="navbar__item--animated px-2 py-1 block"
-        >
-          {{ item.text }}</NuxtLink
-        >
+        <template v-for="(item, index) in navbarLinks" :key="index">
+          <NuxtLink
+            v-if="item.route"
+            :to="item.route"
+            class="navbar__item--animated px-2 py-1 block"
+          >
+            {{ item.text }}
+          </NuxtLink>
+          <button
+            v-else
+            class="navbar__item--animated px-2 py-1 block"
+            @click="item.action"
+          >
+            {{ item.text }}
+          </button>
+        </template>
       </div>
     </nav>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { onClickOutside } from "@vueuse/core";
-import { useAuthStore } from "@/stores/auth.js"; // Import your authStore
+import { useAuthStore } from "@/stores/auth";
 import links from "@/constants/links";
 
-const authStore = useAuthStore(); // Initialize your auth store
-
+const authStore = useAuthStore();
+const router = useRouter();
 const mobileMenuRef = ref(null);
-const navbarRef = ref(null);
 const showMenu = ref(false);
-const toggleNav = () => (showMenu.value = !showMenu.value);
-onClickOutside(
-  mobileMenuRef,
-  () => {
-    showMenu.value = false;
-  },
-  { ignore: [navbarRef] }
-);
 
-// Logic for dynamic login/logout link
-const loginLink = { text: "ΕΙΣΟΔΟΣ", route: "/login" };
-const logoutLink = { text: "ΕΞΟΔΟΣ", route: "/logout" };
-const authLink = ref(authStore.isLoggedIn() ? logoutLink : loginLink);
+const toggleNav = () => {
+  showMenu.value = !showMenu.value;
+};
 
-// Watch for changes in the authentication state
-watch(
-  () => authStore.isLoggedIn(),
-  (loggedIn) => {
-    authLink.value = loggedIn ? logoutLink : loginLink;
-  }
-);
+onClickOutside(mobileMenuRef, () => {
+  showMenu.value = false;
+});
+
+const navigateToHome = () => {
+  router.push("/");
+};
 
 const navbarLinks = computed(() => {
-  return [...links, authLink.value];
+  const dynamicLinks = authStore.isLoggedIn()
+    ? [
+        { text: "ΠΡΟΦΙΛ", route: "/profile" },
+        { text: "ΕΞΟΔΟΣ", action: authStore.logout },
+      ]
+    : [{ text: "ΕΙΣΟΔΟΣ", action: authStore.initiateLogin }];
+
+  return [...links, ...dynamicLinks];
 });
 </script>
+
+
 
 <style scoped lang="scss">
 @import "@/assets/variables.scss";

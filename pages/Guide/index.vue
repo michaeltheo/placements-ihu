@@ -44,7 +44,7 @@ const activeTab = ref(0);
   @apply px-4 py-4 mx-auto grid md:grid-cols-3 md:px-6;
 
   &__nav {
-    @apply mb-4 md:pl-12 flex flex-col gap-4 md:text-xl text-gray-400 md:items-center sm:items-start;
+    @apply mb-4 md:pl-12 flex flex-col gap-4 md:text-xl text-gray-400 md:sticky md:top-0 md:h-fit md:items-center sm:items-start;
 
     &-header {
       @apply md:text-2xl font-bold pb-3;
