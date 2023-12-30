@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
+import { log, logError } from "@/utils/log";
 
 const route = useRoute();
 const router = useRouter();
@@ -32,7 +33,7 @@ const fetchToken = async () => {
   });
 
   if (error.value) {
-    console.error("Token fetch error:", error.value);
+    logError("Token fetch error:", error.value);
     return null;
   }
 
@@ -51,7 +52,7 @@ const fetchProfile = async (accessToken: string) => {
   );
 
   if (error.value) {
-    console.error("Profile fetch error:", error.value);
+    logError("Profile fetch error:", error.value);
     return null;
   }
 
@@ -61,13 +62,14 @@ const fetchProfile = async (accessToken: string) => {
 onMounted(async () => {
   const tokenResponse = await fetchToken();
   if (!tokenResponse?.access_token) {
-    console.log("Failed to obtain access token");
+    log("Failed to obtain access token");
+
     return;
   }
 
   const userProfile = await fetchProfile(tokenResponse.access_token);
   if (!userProfile) {
-    console.log("Failed to fetch user profile");
+    log("Failed to fetch user profile");
     return;
   }
 
@@ -75,10 +77,10 @@ onMounted(async () => {
   authStore.login(tokenResponse.access_token, userProfile);
 
   if (authStore.isLoggedIn()) {
-    console.log("User is logged in");
+    log("User is logged in");
     router.push("/"); // Redirect to the home page
   } else {
-    console.log("User is not logged in");
+    log("User is not logged in");
   }
 });
 </script>

@@ -1,12 +1,9 @@
 import { useAuthStore } from "@/stores/auth";
 
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware((to, from) => {
   const authStore = useAuthStore();
 
-  // If the user is not authenticated, redirect to the home page
-  const user = authStore.user;
-
-  if (!user) {
+  if (!authStore.isLoggedIn()) {
     return navigateTo("/");
   }
 });

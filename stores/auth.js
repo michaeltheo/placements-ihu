@@ -1,10 +1,20 @@
 import { defineStore } from "pinia";
-import { useRouter } from "vue-router";
+import { log } from "@/utils/log";
 
 export const useAuthStore = defineStore("auth", () => {
-  const user = ref(null);
-  const token = ref(null);
+  const user = ref({});
+  const token = ref({});
   const router = useRouter();
+  // Rehydrate state from localStorage
+  if (process.client) {
+    const storedToken = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    log(`StoredUser: , ${storedUser}`);
+    if (storedToken) {
+      token.value = storedToken;
+      user.value = storedUser ? JSON.parse(storedUser) : null;
+    }
+  }
 
   function login(receivedToken, userProfile) {
     token.value = receivedToken;
@@ -28,18 +38,18 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   function isLoggedIn() {
-    return !!token.value;
+    if (token.value) {
+      return true;
+    }
+    return false;
   }
 
-  // Check for stored token and user on store initialization
-  onMounted(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-
-    if (storedToken && storedUser) {
-      login(storedToken, JSON.parse(storedUser));
-    }
-  });
-
-  return { user, token, login, logout, initiateLogin, isLoggedIn };
+  return {
+    user,
+    token,
+    login,
+    logout,
+    initiateLogin,
+    isLoggedIn,
+  };
 });

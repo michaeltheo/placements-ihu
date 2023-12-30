@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar :key="authStateVersion" />
     <div class="min-h-[calc(100vh)]">
       <slot />
     </div>
@@ -8,6 +8,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { computed } from "vue";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
+
+const authStateVersion = computed(() => authStore.isLoggedIn());
+</script>
 
 <style lang="scss" scoped></style>
