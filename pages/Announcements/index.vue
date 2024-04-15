@@ -48,8 +48,6 @@
   </div>
 </template>
 
-
-
 <script setup>
 import Datepicker from "@vuepic/vue-datepicker";
 import { ref, watch, computed } from "vue";
@@ -93,14 +91,13 @@ const filteredAnnouncements = computed(() => {
     const dateMatch = isDateWithinRange(
       dateFrom.value,
       dateTo.value,
-      announcement.created_at
+      announcement.created_at,
     );
 
     return titleMatch && dateMatch;
   });
 });
 </script>
-
 
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";

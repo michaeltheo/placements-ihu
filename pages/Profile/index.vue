@@ -1,10 +1,9 @@
-
 <!-- Profile page -->
 <script setup>
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 definePageMeta({
-  middleware: "auth",
+  middleware: ["auth"],
 });
 
 const authStore = useAuthStore();
@@ -28,14 +27,11 @@ const logout = () => {
     </button>
   </div>
 </template>
-  
- 
-  
-  <style lang='scss' scoped>
+
+<style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
 .bg-primary-dark-blue-color {
   background-color: $primary-dark-blue-color;
 }
 </style>
-  

@@ -14,16 +14,13 @@
   </button>
 </template>
 
-/**
- * BaseButton Component:
- *
- * @param {string} text - Display text of the button.
- * @param {Boolean} glow - Enables glowing hover effect. Set to `false` to disable.
- * 
- * Usage:
- * <BaseButton text="Button Text" />
- * <BaseButton text="Button Text" :glow="false" />
- */
+/** * BaseButton Component: * * @param {string} text - Display text of the
+button. * @param {Boolean} glow - Enables glowing hover effect. Set to `false`
+to disable. * * Usage: *
+<BaseButton text="Button Text" />
+*
+<BaseButton text="Button Text" :glow="false" />
+*/
 
 <script setup>
 import { ref } from "vue";

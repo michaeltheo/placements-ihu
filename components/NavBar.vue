@@ -86,20 +86,30 @@ onClickOutside(mobileMenuRef, () => {
 const navigateToHome = () => {
   router.push("/");
 };
-
+const navigateToLogin = () => {
+  const config = useRuntimeConfig();
+  const redirectUri = "http://localhost:3000/auth";
+  if (typeof window !== "undefined") {
+    // Ensure window is defined before using it
+    window.location.href = `https://login.iee.ihu.gr/authorization/?client_id=${config.public.CLIENT_ID}&response_type=code&scope=profile&redirect_uri=${redirectUri}`;
+  }
+};
+// Function to handle logout action
+const handleLogout = () => {
+  authStore.logout();
+  navigateToHome();
+};
 const navbarLinks = computed(() => {
-  const dynamicLinks = authStore.isLoggedIn()
+  const dynamicLinks = authStore.isAuthenticated
     ? [
         { text: "ΠΡΟΦΙΛ", route: "/profile" },
-        { text: "ΕΞΟΔΟΣ", action: authStore.logout },
+        { text: "ΕΞΟΔΟΣ", action: handleLogout },
       ]
-    : [{ text: "ΕΙΣΟΔΟΣ", action: authStore.initiateLogin }];
+    : [{ text: "ΕΙΣΟΔΟΣ", action: navigateToLogin }];
 
   return [...links, ...dynamicLinks];
 });
 </script>
-
-
 
 <style scoped lang="scss">
 @import "@/assets/variables.scss";

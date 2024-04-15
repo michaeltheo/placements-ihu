@@ -8,17 +8,20 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/auth": { ssr: false }
+    "/auth": { ssr: false },
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", '@invictus.codes/nuxt-vuetify', '@pinia/nuxt'],
-  css: ["@/assets/main.scss",
-    '@fortawesome/fontawesome-svg-core/styles.css'],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@invictus.codes/nuxt-vuetify",
+    "@pinia/nuxt",
+  ],
+  css: ["@/assets/main.scss", "@fortawesome/fontawesome-svg-core/styles.css"],
   plugins: [
-    { src: '@/plugins/aos.client.js', mode: 'client' },
+    { src: "@/plugins/aos.client.js", mode: "client" },
+    "@/plugins/auth-check.js",
   ],
   build: {
-    transpile: ['@vuepic/vue-datepicker']
-  }
-
+    transpile: ["@vuepic/vue-datepicker"],
+  },
 });

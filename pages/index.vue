@@ -70,12 +70,11 @@ import test from "@/assets/dummyData/test.json";
 // TODO: replace test data with real data
 
 const allAnnouncements = test.data;
-
 const filteredAnnouncements = allAnnouncements.filter((announcement) =>
-  announcement.tags.some((tag) => tag.title === "Νέα τμήματος")
+  announcement.tags.some((tag) => tag.title === "Νέα τμήματος"),
 );
 
-const firstFourAnnouncements = filteredAnnouncements.slice(0, 4);
+const firstFourAnnouncements = filteredAnnouncements.slice(0, 20);
 </script>
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
@@ -152,5 +151,3 @@ const firstFourAnnouncements = filteredAnnouncements.slice(0, 4);
   }
 }
 </style>
-
-

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Force NavBar to re-render on authentication state change -->
     <NavBar :key="authStateVersion" />
     <div class="min-h-[calc(100vh)]">
       <slot />
@@ -10,11 +11,11 @@
 
 <script setup>
 import { computed } from "vue";
+import NavBar from "@/components/NavBar.vue";
+import AppFooter from "@/components/AppFooter.vue";
 import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
-
-const authStateVersion = computed(() => authStore.isLoggedIn());
+// Use a computed property to react to changes in authentication status
+const authStateVersion = computed(() => (authStore.isAuthenticated ? 1 : 0));
 </script>
-
-<style lang="scss" scoped></style>

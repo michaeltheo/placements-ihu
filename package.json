@@ -7,8 +7,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
-    "lint:fix": "prettier --write --list-different . && npm run lint --fix"
+    "lint": "eslint --ext \".ts,.vue,.js\" --ignore-path .gitignore .",
+    "lint:fix": "prettier --write --list-different . && npm run lint --fix",
+    "prettier": "prettier --write \"**/*.{js,ts,vue,json,css,scss,md}\""
   },
   "devDependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.4.0",

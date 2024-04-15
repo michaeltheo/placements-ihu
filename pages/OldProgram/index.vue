@@ -107,15 +107,15 @@
     </div>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import oldProgramData from "@/constants/oldProgramData";
 
 const infoGuides = oldProgramData.slice(0, 2);
 const infoInstructions = oldProgramData.slice(2);
 </script>
-  
-  <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
 .old-program {
@@ -168,4 +168,3 @@ const infoInstructions = oldProgramData.slice(2);
   }
 }
 </style>
-  

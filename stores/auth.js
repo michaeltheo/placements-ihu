@@ -1,55 +1,62 @@
 import { defineStore } from "pinia";
-import { log } from "@/utils/log";
+import { verifyToken as verifyTokenService } from "@/services/authService";
 
-export const useAuthStore = defineStore("auth", () => {
-  const user = ref({});
-  const token = ref({});
-  const router = useRouter();
-  // Rehydrate state from localStorage
-  if (process.client) {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-    log(`StoredUser: , ${storedUser}`);
-    if (storedToken) {
-      token.value = storedToken;
-      user.value = storedUser ? JSON.parse(storedUser) : null;
-    }
-  }
+export const useAuthStore = defineStore("auth", {
+  state: () => ({
+    user: {},
+    IHU_token: null,
+    IHU_refresh_token: null,
+    isAuthenticated: false, // New state property to represent authentication status
+  }),
 
-  function login(receivedToken, userProfile) {
-    token.value = receivedToken;
-    user.value = userProfile;
-    localStorage.setItem("token", receivedToken);
-    localStorage.setItem("user", JSON.stringify(userProfile));
-  }
+  actions: {
+    rehydrate() {
+      const storedToken = localStorage.getItem("ihu_token");
+      const storedUser = localStorage.getItem("user");
+      const storedRefreshToken = localStorage.getItem("ihu_refresh_token");
+      if (storedToken) {
+        this.IHU_token = storedToken;
+        this.IHU_refresh_token = storedRefreshToken;
+        this.user = storedUser ? JSON.parse(storedUser) : {};
+        this.isAuthenticated = true;
+      }
+    },
 
-  function logout() {
-    token.value = null;
-    user.value = null;
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.push("/");
-  }
+    login(receivedToken, userProfile, refreshToken) {
+      this.IHU_token = receivedToken;
+      this.IHU_refresh_token = refreshToken;
+      this.user = userProfile;
+      this.isAuthenticated = true; // Set authenticated to true upon successful login
+      localStorage.setItem("ihu_token", receivedToken);
+      localStorage.setItem("ihu_refresh_token", refreshToken);
+      localStorage.setItem("user", JSON.stringify(userProfile));
+    },
 
-  function initiateLogin() {
-    const config = useRuntimeConfig();
-    const redirectUri = "http://localhost:3000/auth";
-    window.location.href = `https://login.iee.ihu.gr/authorization/?client_id=${config.public.CLIENT_ID}&response_type=code&scope=profile&redirect_uri=${redirectUri}`;
-  }
+    async logout() {
+      await $fetch("/api/logout");
+      this.IHU_token = null;
+      this.IHU_refresh_token = null;
+      this.user = {};
+      this.isAuthenticated = false;
+      localStorage.removeItem("ihu_token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("ihu_refresh_token");
+    },
 
-  function isLoggedIn() {
-    if (token.value) {
-      return true;
-    }
-    return false;
-  }
+    async verifyToken() {
+      const isValid = await verifyTokenService(); // Use the service to verify the token
+      this.isAuthenticated = isValid; // Update isAuthenticated based on the verification result
+    },
 
-  return {
-    user,
-    token,
-    login,
-    logout,
-    initiateLogin,
-    isLoggedIn,
-  };
+    isLoggedIn() {
+      return this.isAuthenticated; // Use the isAuthenticated state to determine if logged in
+    },
+    setIsAuthenticated(value) {
+      this.isAuthenticated = value;
+    },
+    setUser(userInfo) {
+      this.user = userInfo;
+      this.isAuthenticated = true;
+    },
+  },
 });

@@ -1,22 +1,19 @@
 /**
- * The function logs the given text to the console.
- * @param text - The `text` parameter is a string that represents the message or information that you
- * want to log.
+ * Wrappers around the logging APIs. This allows them to be
+ * easily disabled in a production build, and mapped to a middleware
+ * specific implementation if present
  */
 
-export function log(text) {
-  // eslint-disable-next-line no-console
-  console.log(text);
+export function log(...args) {
+  if (process.env.NODE_ENV === "development") {
+    // eslint-disable-next-line no-console
+    console.log(...args);
+  }
 }
 
-/**
- * The function `error` logs an error message along with additional information to the console.
- * @param text - The `text` parameter is a string that represents the error message. It is the main
- * information that will be displayed when the error is logged.
- * @param [additionalInfo] - An optional object that contains additional information about the error.
- * This information will be logged along with the error message.
- */
-export function logError(text, additionalInfo = {}) {
-  // eslint-disable-next-line no-console
-  console.error(`Error: ${text}`, additionalInfo);
+export function errorLog(...args) {
+  if (process.env.NODE_ENV === "development") {
+    // eslint-disable-next-line no-console
+    console.error(...args);
+  }
 }

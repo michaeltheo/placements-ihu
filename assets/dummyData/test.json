@@ -1,615 +1,615 @@
 {
-    "data": [
+  "data": [
+    {
+      "id": 62575,
+      "title": "Προκήρυξη για την εισαγωγή φοιτητών στο Πρόγραμμα Μεταπτυχιακών Σπουδών \"ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ” ακαδ. έτους 2023-2024",
+      "eng_title": null,
+      "body": "<p>Πρόσκληση υποβολής υποψηφιότητας για την εισαγωγή φοιτητών στο  ΠΡΟΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΩΝ ΣΠΟΥΔΩΝ  “ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ”  2023-2024.</p><p>Επισυνάπτεται το αρχείο της πρόσκλησης</p>",
+      "eng_body": null,
+      "preview": "Πρόσκληση υποβολής υποψηφιότητας για την εισαγωγή φοιτητών στο  ΠΡΟΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΩΝ ΣΠΟΥΔΩΝ  “ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ”  2023-2024.Επισυν",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-06-22 21:53",
+      "updated_at": "2023-06-22 23:16",
+      "is_pinned": 1,
+      "pinned_until": "2023-09-18 00:00",
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
         {
-            "id": 62575,
-            "title": "Προκήρυξη για την εισαγωγή φοιτητών στο Πρόγραμμα Μεταπτυχιακών Σπουδών \"ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ” ακαδ. έτους 2023-2024",
-            "eng_title": null,
-            "body": "<p>Πρόσκληση υποβολής υποψηφιότητας για την εισαγωγή φοιτητών στο  ΠΡΟΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΩΝ ΣΠΟΥΔΩΝ  “ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ”  2023-2024.</p><p>Επισυνάπτεται το αρχείο της πρόσκλησης</p>",
-            "eng_body": null,
-            "preview": "Πρόσκληση υποβολής υποψηφιότητας για την εισαγωγή φοιτητών στο  ΠΡΟΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΩΝ ΣΠΟΥΔΩΝ  “ΕΦΑΡΜΟΣΜΕΝΑ ΗΛΕΚΤΡΟΝΙΚΑ ΣΥΣΤΗΜΑΤΑ”  2023-2024.Επισυν",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-06-22 21:53",
-            "updated_at": "2023-06-22 23:16",
-            "is_pinned": 1,
-            "pinned_until": "2023-09-18 00:00",
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 17,
-                    "title": "Μεταπτυχιακά Προγράμματα",
-                    "parent_id": 1,
-                    "is_public": false,
-                    "maillist_name": "msc"
-                },
-                {
-                    "id": 24,
-                    "title": "Διακηρύξεις - Προκηρύξεις",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "calls"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16375,
-                    "announcement_id": 62575,
-                    "filename": "Προκήρυξη-ΠΜΣ-Εφαρμοσμενα-Ηλεκτρονικά-Συστήματα 2023-24.pdf",
-                    "filesize": 511257,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62575/attachments/16375?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62575/attachments/16375"
-                }
-            ],
-            "author": {
-                "name": "Μαρμόρκος Ιωάννης",
-                "id": 107
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62575"
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
         },
         {
-            "id": 62652,
-            "title": "Παράδοση - Έγκριση ΔΕ/ΠΕ Σεπτ. 2023",
-            "eng_title": null,
-            "body": "<p>Οι φοιτητές που επιθυμούν να παρουσιάσουν τη διπλωματική/πτυχιακή εργασία (ΔΕ/ΠΕ) τους την περίοδο του Σεπτεμβρίου 2023, πρέπει να αναρτήσουν το πλήρες αρχείο PDF της ΔΕ/ΠΕ στη διαδικτυακή πλατφόρμα https://thesis.iee.ihu.gr/, το οποίο πρέπει να εγκριθεί από τον εισηγητή καθηγητή.</p><p>Η καταληκτική ημερομηνία παράδοσης – έγκρισης των ΔΕ/ΠΕ είναι η <strong>Κυριακή 10/9/2023</strong>. Μετά την έγκριση της ΔΕ/ΠΕ από τον εισηγητή καθηγητή, το αρχείο PDF κλειδώνει και θεωρείται η τελική εργασία προς αξιολόγηση από την εξεταστική επιτροπή.</p><p>Το κείμενο της ΔΕ/ΠΕ πρέπει <strong>υποχρεωτικά</strong> να ακολουθεί την <strong>πρότυπη μορφή</strong>, η οποία είναι διαθέσιμη στην ιστοσελίδα του τμήματος iee.ihu.gr &gt; Υποστήριξη &gt; Χρήσιμα Έντυπα για φοιτητές.</p><p>Με βάση τις εγκεκριμένες εργασίες από τους εισηγητές, η Επιτροπή ΔΕ θα ανακοινώσει το πρόγραμμα των παρουσιάσεων. Οι παρουσιάσεις θα γίνουν μετά το τέλος της εξεταστικής περιόδου, σε ημερομηνίες που θα ανακοινωθούν αργότερα.</p><p>Η Επιτροπή ΔΕ</p><p>Ιορδάνης Κιοσκερίδης</p><p>Ευκλείδης Κεραμόπουλος</p>",
-            "eng_body": null,
-            "preview": "Οι φοιτητές που επιθυμούν να παρουσιάσουν τη διπλωματική/πτυχιακή εργασία (ΔΕ/ΠΕ) τους την περίοδο του Σεπτεμβρίου 2023, πρέπει να αναρτήσουν το πλήρε",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-23 14:21",
-            "updated_at": "2023-07-23 14:21",
-            "is_pinned": 1,
-            "pinned_until": "2023-09-09 00:00",
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 159,
-                    "title": "Πτυχιακή/Διπλωματική Εργασία",
-                    "parent_id": 200,
-                    "is_public": false,
-                    "maillist_name": "theses1"
-                },
-                {
-                    "id": 200,
-                    "title": "Σπουδαστικά Θέματα ΠΠΣ",
-                    "parent_id": 1,
-                    "is_public": false,
-                    "maillist_name": "studies"
-                }
-            ],
-            "attachments": [],
-            "author": {
-                "name": "Κιοσκερίδης Ιορδάνης",
-                "id": 106
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62652"
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
         },
         {
-            "id": 62649,
-            "title": "Λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες",
-            "eng_title": null,
-            "body": "<p>Κατεβάστε το συνημμένο για την ενημέρωση σας όσον αφορά τη λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες.</p>",
-            "eng_body": null,
-            "preview": "Κατεβάστε το συνημμένο για την ενημέρωση σας όσον αφορά τη λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες.",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-21 12:50",
-            "updated_at": "2023-07-21 12:50",
-            "is_pinned": null,
-            "pinned_until": null,
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 19,
-                    "title": "Άλλα δημόσια νέα",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "other"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16429,
-                    "announcement_id": 62649,
-                    "filename": "Ψ5Τ446ΨΖ3Π-Θ1Π ΛΕΙΤΟΥΡΓΙΑ_ΘΕΡΙΝΟΙ ΜΗΝΕΣ2023.pdf",
-                    "filesize": 189315,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62649/attachments/16429?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62649/attachments/16429"
-                }
-            ],
-            "author": {
-                "name": "Καλλιδοπούλου Άννα-Ελένη",
-                "id": 142
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62649"
+          "id": 17,
+          "title": "Μεταπτυχιακά Προγράμματα",
+          "parent_id": 1,
+          "is_public": false,
+          "maillist_name": "msc"
         },
         {
-            "id": 62638,
-            "title": "Νέο Πρόγραμμα Υποτροφιών σε συνεργασία με το  Ίδρυμα Fulbright Greece",
-            "eng_title": null,
-            "body": "<p>Υποτροφίες του Ιδρύματος Κρατικών Υποτροφιών (Ι.Κ.Υ.)  σε συνεργασία με το  Ίδρυμα Fulbright Greece για τη χορήγηση Υποτροφιών κινητηκότητας σε Αμερικανούς Υποψήφιους Διδάκτορες Πανεπιστημίων των ΗΠΑ.</p><p>Για την ενημέρωσή σας κατεβάστε το συνημμένο αρχείο.</p>",
-            "eng_body": "<p></p>",
-            "preview": "Υποτροφίες του Ιδρύματος Κρατικών Υποτροφιών (Ι.Κ.Υ.)  σε συνεργασία με το  Ίδρυμα Fulbright Greece για τη χορήγηση Υποτροφιών κινητηκότητας σε Αμερικ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-13 11:54",
-            "updated_at": "2023-07-13 11:54",
-            "is_pinned": null,
-            "pinned_until": null,
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 19,
-                    "title": "Άλλα δημόσια νέα",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "other"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16419,
-                    "announcement_id": 62638,
-                    "filename": "ΠΡΟΓΡΑΜΜA IKY_ FULBRIGHT GREECE.pdf",
-                    "filesize": 105680,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62638/attachments/16419?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62638/attachments/16419"
-                }
-            ],
-            "author": {
-                "name": "Καλλιδοπούλου Άννα-Ελένη",
-                "id": 142
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62638"
-        },
-        {
-            "id": 62637,
-            "title": "Στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023",
-            "eng_title": null,
-            "body": "<p>Φοιτητικό στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023 για τους φοιτητές /ήτριες της Αλεξάνδρειας Πανεπιστημιούπολης.</p><p>Οι ηλεκτρονικές αιτήσεις που αφορούν στη χορήγηση ΣΤΕΓΑΣΤΙΚΟΥ ΕΠΙΔΟΜΑΤΟΣ για το ακαδημαϊκό έτος 2022/2023</p><p>υποβάλλονται από την Παρασκευή 30 Ιουνίου 2023 έως και την Πέμπτη 3 Αυγούστου 2023 μέσω της</p><p>ιστοσελίδας του Υπουργείου Παιδείας, Έρευνας και Θρησκευμάτων http://stegastiko.minedu.gov.gr στην ειδική</p><p>εφαρμογή Στεγαστικού Επιδόματος.</p><p>Για περισσότερες πληροφορίες κατεβάστε το συνημμένο αρχείο.</p>",
-            "eng_body": null,
-            "preview": "Φοιτητικό στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023 για τους φοιτητές /ήτριες της Αλεξάνδρειας Πανεπιστημιούπολης.Οι ηλεκτρονικές αιτήσεις που αφ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-13 11:47",
-            "updated_at": "2023-07-13 11:47",
-            "is_pinned": null,
-            "pinned_until": null,
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 19,
-                    "title": "Άλλα δημόσια νέα",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "other"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16418,
-                    "announcement_id": 62637,
-                    "filename": "foititiko_stegastiko_epidoma_akadimaikoy_etoys_2022-2023_..pdf",
-                    "filesize": 879025,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62637/attachments/16418?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62637/attachments/16418"
-                }
-            ],
-            "author": {
-                "name": "Καλλιδοπούλου Άννα-Ελένη",
-                "id": 142
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62637"
-        },
-        {
-            "id": 62631,
-            "title": "ΠΡΟΣΚΛΗΣΗ ΤΕΛΕΤΗΣ ΚΑΘΟΜΟΛΟΓΗΣΗΣ",
-            "eng_title": null,
-            "body": "<p><strong>ΠΡΟΣΚΛΗΣΗ</strong></p><p>Ο Πρόεδρος του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων Καθηγητής <strong>Δημήτριος Παπακώστας</strong>, έχει την τιμή να σας προσκαλέσει στην</p><p>Τελετή Ορκωμοσίας που θα πραγματοποιηθεί στο <strong>Αμφιθέατρο «ΑΛΕΞΑΝΔΡΟΣ» </strong>της Αλεξάνδρειας Πανεπιστημιούπολης του ΔΙΠΑΕ</p><p>την <strong>Τρίτη 18 Ιουλίου 2023 </strong>και ώρα <strong>11:00</strong></p><p>στο πλαίσιο απονομής των Προπτυχιακών Τίτλων Σπουδών των τμημάτων</p><p><strong>Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων</strong></p><p><strong>Ηλεκτρονικών Μηχανικών</strong></p><p><strong>Μηχανικών Πληροφορικής</strong></p><p>της Σχολής Μηχανικών του ΔΙΠΑΕ.</p><p>Κατεβάστε το συνημμένο pdf αρχείο με την Πρόσκληση και το πρόγραμμα της τελετής.</p>",
-            "eng_body": "<p></p>",
-            "preview": "ΠΡΟΣΚΛΗΣΗΟ Πρόεδρος του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων Καθηγητής Δημήτριος Παπακώστας, έχει την τιμή να σας προσκαλέσει σ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-12 13:02",
-            "updated_at": "2023-07-12 16:42",
-            "is_pinned": null,
-            "pinned_until": null,
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                },
-                {
-                    "id": 22,
-                    "title": "Εκδηλώσεις",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "events"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16416,
-                    "announcement_id": 62631,
-                    "filename": "ΠΡΟΣΚΛΗΣΗ ΤΕΛΕΤΗΣ ΚΑΘΟΜΟΛΟΓΗΣΗΣ IEE IHU.pdf",
-                    "filesize": 8472455,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62631/attachments/16416?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62631/attachments/16416"
-                }
-            ],
-            "author": {
-                "name": "Καλλιδοπούλου Άννα-Ελένη",
-                "id": 142
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62631"
-        },
-        {
-            "id": 62611,
-            "title": "ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
-            "eng_title": null,
-            "body": "<p>Στο συνημμένο αρχείο θα βρείτε πληροφορίες σχετικές με την  ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ</p><p></p>",
-            "eng_body": null,
-            "preview": "Στο συνημμένο αρχείο θα βρείτε πληροφορίες σχετικές με την  ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-04 11:50",
-            "updated_at": "2023-07-11 22:23",
-            "is_pinned": 0,
-            "pinned_until": "2023-07-12 00:00",
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 24,
-                    "title": "Διακηρύξεις - Προκηρύξεις",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "calls"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16402,
-                    "announcement_id": 62611,
-                    "filename": "ΑΝΑΚΟΙΝΩΣΗ NEA.pdf",
-                    "filesize": 276016,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62611/attachments/16402?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62611/attachments/16402"
-                }
-            ],
-            "author": {
-                "name": "Μαρμόρκος Ιωάννης",
-                "id": 107
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62611"
-        },
-        {
-            "id": 62630,
-            "title": "ΑΝΑΚΟΙΝΩΣΗ ΑΠΟΤΕΛΕΣΜΑΤΩΝ ΕΚΛΟΓΩΝ ΓΙΑ ΑΝΑΔΕΙΞΗ ΠΡΟΕΔΡΟΥ & ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
-            "eng_title": null,
-            "body": "<p>Εκ μέρους της Εφορευτικής Επιτροπής, στο συνημμένο αρχείο θα βρείτε την επίσημη ανακοίνωση για τα αποτελέσματα της εκλογικής διαδικασίας για την ανάδειξη Προέδρου και Αντιπροέδρου του Τμήματος.</p>",
-            "eng_body": null,
-            "preview": "Εκ μέρους της Εφορευτικής Επιτροπής, στο συνημμένο αρχείο θα βρείτε την επίσημη ανακοίνωση για τα αποτελέσματα της εκλογικής διαδικασίας για την ανάδε",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-11 22:12",
-            "updated_at": "2023-07-11 22:12",
-            "is_pinned": 1,
-            "pinned_until": "2023-07-14 00:00",
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16414,
-                    "announcement_id": 62630,
-                    "filename": "ΑΝΑΚΟΙΝΩΣΗ ΑΠΟΤΕΛΕΣΜΑΤΑ ΕΚΛΟΓΩΝ.pdf",
-                    "filesize": 244013,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62630/attachments/16414?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62630/attachments/16414"
-                }
-            ],
-            "author": {
-                "name": "Μαρμόρκος Ιωάννης",
-                "id": 107
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62630"
-        },
-        {
-            "id": 62619,
-            "title": "Ολοκληρώθηκε επιτυχώς η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στην Αλεξάνδρεια Πανεπιστημιούπολη του Διεθνούς Πανεπιστημίου της Ελλάδος",
-            "eng_title": null,
-            "body": "<p>Στις 29 Ιουνίου 2023 παρουσιάστηκε από τον υποψήφιο διδάκτορα κ. Λαμπρόπουλο Γεώργιο, η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στο τμήμα Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων της Σχολής Μηχανικών του ΔΙ.ΠΑ.Ε., με επιβλέποντα τον Καθηγητή του Τμήματος, κ. Κεραμόπουλο Ευκλείδη. Ενημερωθείτε απο το συνημμένο ΔΕΛΤΙΟ ΤΥΠΟΥ.</p>",
-            "eng_body": "<p></p>",
-            "preview": "Στις 29 Ιουνίου 2023 παρουσιάστηκε από τον υποψήφιο διδάκτορα κ. Λαμπρόπουλο Γεώργιο, η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στο τμ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-07 14:54",
-            "updated_at": "2023-07-11 08:43",
-            "is_pinned": null,
-            "pinned_until": null,
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 19,
-                    "title": "Άλλα δημόσια νέα",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "other"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                },
-                {
-                    "id": 162,
-                    "title": "Διδακτορικές Σπουδές",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "phd"
-                }
-            ],
-            "attachments": [
-                {
-                    "id": 16409,
-                    "announcement_id": 62619,
-                    "filename": "ΔΕΛΤΙΟ ΤΥΠΟΥ 1Η  ΔΙΔΑΚΤΟΡΙΚΗ ΔΙΑΤΡΙΒΗ ΔΙΠΑΕ.pdf",
-                    "filesize": 550098,
-                    "mime_type": "application/pdf",
-                    "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62619/attachments/16409?action=download",
-                    "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62619/attachments/16409"
-                }
-            ],
-            "author": {
-                "name": "Καλλιδοπούλου Άννα-Ελένη",
-                "id": 142
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62619"
-        },
-        {
-            "id": 62627,
-            "title": "Διαδικασία Ορκωμοσίας",
-            "eng_title": null,
-            "body": "<p>Η τελετή ορκωμοσίας της 18ης Ιουλίου 2023, θα πραγματοποιηθεί ως εξής:</p><p>11:00 πμ για τους απόφοιτους των <strong>Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων και Ηλεκτρονικών Μηχανικών ΤΕ.</strong></p><p>12:30 μμ για τους απόφοιτους του<strong> Τμήματος Μηχανικών Πληροφορικής ΤΕ</strong></p><p>Παρακαλούνται οι απόφοιτοι των <strong>Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων και Ηλεκτρονικών Μηχανικών ΤΕ</strong> που θα συμμετάσχουν στην τελετή ορκωμοσίας την <strong>Τρίτη 18.07.2023</strong>, να προσέλθουν από τις 10:00 στην αίθουσα «ΦΙΛΙΠΠΟΣ» (δίπλα στο Αμφιθέατρο) «ΑΛΕΞΑΝΔΡΟΣ» στον κεντρικό διάδρομο ΔΙΠΑΕ ισόγειο, για να υπογράψουν το Πρωτόκολλο Καθομολόγησης και να παραλάβουν τα σχετικά έγγραφα.</p><p><strong>Ώρα έναρξης της τελετής, 11:00</strong></p><p>Οι απόφοιτοι του <strong>Τμήματος Μηχανικών Πληροφορικής ΤΕ</strong>, που θα συμμετάσχουν στην τελετή ορκωμοσίας <strong>την Τρίτη 18.07.2023</strong>, να προσέλθουν από τις 12:00 στην αίθουσα «ΦΙΛΙΠΠΟΣ» (δίπλα στο Αμφιθέατρο) «ΑΛΕΞΑΝΔΡΟΣ» στον κεντρικό διάδρομο ΔΙΠΑΕ ισόγειο, για να υπογράψουν το Πρωτόκολλο Καθομολόγησης και να παραλάβουν τα σχετικά έγγραφα.</p><p><strong>Ώρα έναρξης της τελετής, 12:30</strong></p><p>Όσοι απόφοιτοι δεν έχουν προσκομίσει με την αίτηση ορκωμοσίας την ακαδημαϊκή τους ταυτότητα, παρακαλούνται όπως την παραδώσουν στο χώρο του Αμφιθεάτρου.</p><p>Δεν χρειάζεται η παρουσία στο χώρο της Γραμματείας στο κτήριο Ηλεκτρονικής.</p>",
-            "eng_body": null,
-            "preview": "Η τελετή ορκωμοσίας της 18ης Ιουλίου 2023, θα πραγματοποιηθεί ως εξής:11:00 πμ για τους απόφοιτους των Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικώ",
-            "eng_preview": "",
-            "has_eng": null,
-            "created_at": "2023-07-10 12:53",
-            "updated_at": "2023-07-10 12:53",
-            "is_pinned": 1,
-            "pinned_until": "2023-07-19 00:00",
-            "is_event": null,
-            "event_start_time": null,
-            "event_end_time": null,
-            "event_location": null,
-            "gmaps": null,
-            "tags": [
-                {
-                    "id": 1,
-                    "title": "Όλες οι ανακοινώσεις",
-                    "parent_id": null,
-                    "is_public": false,
-                    "maillist_name": "all"
-                },
-                {
-                    "id": 15,
-                    "title": "Νέα τμήματος",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "dept_news"
-                },
-                {
-                    "id": 19,
-                    "title": "Άλλα δημόσια νέα",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "other"
-                },
-                {
-                    "id": 21,
-                    "title": "Ανακοινώσεις γραμματείας",
-                    "parent_id": 1,
-                    "is_public": true,
-                    "maillist_name": "secretary"
-                }
-            ],
-            "attachments": [],
-            "author": {
-                "name": "Γραμματεία .",
-                "id": 156
-            },
-            "announcement_url": "https://aboard.iee.ihu.gr/announcements/62627"
+          "id": 24,
+          "title": "Διακηρύξεις - Προκηρύξεις",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "calls"
         }
-    ],
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 117,
-        "path": "https://aboard.iee.ihu.gr/api/v2/announcements",
-        "per_page": "10",
-        "to": 1163,
-        "total": 1163
+      ],
+      "attachments": [
+        {
+          "id": 16375,
+          "announcement_id": 62575,
+          "filename": "Προκήρυξη-ΠΜΣ-Εφαρμοσμενα-Ηλεκτρονικά-Συστήματα 2023-24.pdf",
+          "filesize": 511257,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62575/attachments/16375?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62575/attachments/16375"
+        }
+      ],
+      "author": {
+        "name": "Μαρμόρκος Ιωάννης",
+        "id": 107
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62575"
+    },
+    {
+      "id": 62652,
+      "title": "Παράδοση - Έγκριση ΔΕ/ΠΕ Σεπτ. 2023",
+      "eng_title": null,
+      "body": "<p>Οι φοιτητές που επιθυμούν να παρουσιάσουν τη διπλωματική/πτυχιακή εργασία (ΔΕ/ΠΕ) τους την περίοδο του Σεπτεμβρίου 2023, πρέπει να αναρτήσουν το πλήρες αρχείο PDF της ΔΕ/ΠΕ στη διαδικτυακή πλατφόρμα https://thesis.iee.ihu.gr/, το οποίο πρέπει να εγκριθεί από τον εισηγητή καθηγητή.</p><p>Η καταληκτική ημερομηνία παράδοσης – έγκρισης των ΔΕ/ΠΕ είναι η <strong>Κυριακή 10/9/2023</strong>. Μετά την έγκριση της ΔΕ/ΠΕ από τον εισηγητή καθηγητή, το αρχείο PDF κλειδώνει και θεωρείται η τελική εργασία προς αξιολόγηση από την εξεταστική επιτροπή.</p><p>Το κείμενο της ΔΕ/ΠΕ πρέπει <strong>υποχρεωτικά</strong> να ακολουθεί την <strong>πρότυπη μορφή</strong>, η οποία είναι διαθέσιμη στην ιστοσελίδα του τμήματος iee.ihu.gr &gt; Υποστήριξη &gt; Χρήσιμα Έντυπα για φοιτητές.</p><p>Με βάση τις εγκεκριμένες εργασίες από τους εισηγητές, η Επιτροπή ΔΕ θα ανακοινώσει το πρόγραμμα των παρουσιάσεων. Οι παρουσιάσεις θα γίνουν μετά το τέλος της εξεταστικής περιόδου, σε ημερομηνίες που θα ανακοινωθούν αργότερα.</p><p>Η Επιτροπή ΔΕ</p><p>Ιορδάνης Κιοσκερίδης</p><p>Ευκλείδης Κεραμόπουλος</p>",
+      "eng_body": null,
+      "preview": "Οι φοιτητές που επιθυμούν να παρουσιάσουν τη διπλωματική/πτυχιακή εργασία (ΔΕ/ΠΕ) τους την περίοδο του Σεπτεμβρίου 2023, πρέπει να αναρτήσουν το πλήρε",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-23 14:21",
+      "updated_at": "2023-07-23 14:21",
+      "is_pinned": 1,
+      "pinned_until": "2023-09-09 00:00",
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 159,
+          "title": "Πτυχιακή/Διπλωματική Εργασία",
+          "parent_id": 200,
+          "is_public": false,
+          "maillist_name": "theses1"
+        },
+        {
+          "id": 200,
+          "title": "Σπουδαστικά Θέματα ΠΠΣ",
+          "parent_id": 1,
+          "is_public": false,
+          "maillist_name": "studies"
+        }
+      ],
+      "attachments": [],
+      "author": {
+        "name": "Κιοσκερίδης Ιορδάνης",
+        "id": 106
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62652"
+    },
+    {
+      "id": 62649,
+      "title": "Λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες",
+      "eng_title": null,
+      "body": "<p>Κατεβάστε το συνημμένο για την ενημέρωση σας όσον αφορά τη λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες.</p>",
+      "eng_body": null,
+      "preview": "Κατεβάστε το συνημμένο για την ενημέρωση σας όσον αφορά τη λειτουργία ΔΙΠΑΕ κατά τους θερινούς μήνες.",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-21 12:50",
+      "updated_at": "2023-07-21 12:50",
+      "is_pinned": null,
+      "pinned_until": null,
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 19,
+          "title": "Άλλα δημόσια νέα",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "other"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16429,
+          "announcement_id": 62649,
+          "filename": "Ψ5Τ446ΨΖ3Π-Θ1Π ΛΕΙΤΟΥΡΓΙΑ_ΘΕΡΙΝΟΙ ΜΗΝΕΣ2023.pdf",
+          "filesize": 189315,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62649/attachments/16429?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62649/attachments/16429"
+        }
+      ],
+      "author": {
+        "name": "Καλλιδοπούλου Άννα-Ελένη",
+        "id": 142
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62649"
+    },
+    {
+      "id": 62638,
+      "title": "Νέο Πρόγραμμα Υποτροφιών σε συνεργασία με το  Ίδρυμα Fulbright Greece",
+      "eng_title": null,
+      "body": "<p>Υποτροφίες του Ιδρύματος Κρατικών Υποτροφιών (Ι.Κ.Υ.)  σε συνεργασία με το  Ίδρυμα Fulbright Greece για τη χορήγηση Υποτροφιών κινητηκότητας σε Αμερικανούς Υποψήφιους Διδάκτορες Πανεπιστημίων των ΗΠΑ.</p><p>Για την ενημέρωσή σας κατεβάστε το συνημμένο αρχείο.</p>",
+      "eng_body": "<p></p>",
+      "preview": "Υποτροφίες του Ιδρύματος Κρατικών Υποτροφιών (Ι.Κ.Υ.)  σε συνεργασία με το  Ίδρυμα Fulbright Greece για τη χορήγηση Υποτροφιών κινητηκότητας σε Αμερικ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-13 11:54",
+      "updated_at": "2023-07-13 11:54",
+      "is_pinned": null,
+      "pinned_until": null,
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 19,
+          "title": "Άλλα δημόσια νέα",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "other"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16419,
+          "announcement_id": 62638,
+          "filename": "ΠΡΟΓΡΑΜΜA IKY_ FULBRIGHT GREECE.pdf",
+          "filesize": 105680,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62638/attachments/16419?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62638/attachments/16419"
+        }
+      ],
+      "author": {
+        "name": "Καλλιδοπούλου Άννα-Ελένη",
+        "id": 142
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62638"
+    },
+    {
+      "id": 62637,
+      "title": "Στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023",
+      "eng_title": null,
+      "body": "<p>Φοιτητικό στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023 για τους φοιτητές /ήτριες της Αλεξάνδρειας Πανεπιστημιούπολης.</p><p>Οι ηλεκτρονικές αιτήσεις που αφορούν στη χορήγηση ΣΤΕΓΑΣΤΙΚΟΥ ΕΠΙΔΟΜΑΤΟΣ για το ακαδημαϊκό έτος 2022/2023</p><p>υποβάλλονται από την Παρασκευή 30 Ιουνίου 2023 έως και την Πέμπτη 3 Αυγούστου 2023 μέσω της</p><p>ιστοσελίδας του Υπουργείου Παιδείας, Έρευνας και Θρησκευμάτων http://stegastiko.minedu.gov.gr στην ειδική</p><p>εφαρμογή Στεγαστικού Επιδόματος.</p><p>Για περισσότερες πληροφορίες κατεβάστε το συνημμένο αρχείο.</p>",
+      "eng_body": null,
+      "preview": "Φοιτητικό στεγαστικό επίδομα ακαδημαϊκού έτους 2022-2023 για τους φοιτητές /ήτριες της Αλεξάνδρειας Πανεπιστημιούπολης.Οι ηλεκτρονικές αιτήσεις που αφ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-13 11:47",
+      "updated_at": "2023-07-13 11:47",
+      "is_pinned": null,
+      "pinned_until": null,
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 19,
+          "title": "Άλλα δημόσια νέα",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "other"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16418,
+          "announcement_id": 62637,
+          "filename": "foititiko_stegastiko_epidoma_akadimaikoy_etoys_2022-2023_..pdf",
+          "filesize": 879025,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62637/attachments/16418?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62637/attachments/16418"
+        }
+      ],
+      "author": {
+        "name": "Καλλιδοπούλου Άννα-Ελένη",
+        "id": 142
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62637"
+    },
+    {
+      "id": 62631,
+      "title": "ΠΡΟΣΚΛΗΣΗ ΤΕΛΕΤΗΣ ΚΑΘΟΜΟΛΟΓΗΣΗΣ",
+      "eng_title": null,
+      "body": "<p><strong>ΠΡΟΣΚΛΗΣΗ</strong></p><p>Ο Πρόεδρος του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων Καθηγητής <strong>Δημήτριος Παπακώστας</strong>, έχει την τιμή να σας προσκαλέσει στην</p><p>Τελετή Ορκωμοσίας που θα πραγματοποιηθεί στο <strong>Αμφιθέατρο «ΑΛΕΞΑΝΔΡΟΣ» </strong>της Αλεξάνδρειας Πανεπιστημιούπολης του ΔΙΠΑΕ</p><p>την <strong>Τρίτη 18 Ιουλίου 2023 </strong>και ώρα <strong>11:00</strong></p><p>στο πλαίσιο απονομής των Προπτυχιακών Τίτλων Σπουδών των τμημάτων</p><p><strong>Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων</strong></p><p><strong>Ηλεκτρονικών Μηχανικών</strong></p><p><strong>Μηχανικών Πληροφορικής</strong></p><p>της Σχολής Μηχανικών του ΔΙΠΑΕ.</p><p>Κατεβάστε το συνημμένο pdf αρχείο με την Πρόσκληση και το πρόγραμμα της τελετής.</p>",
+      "eng_body": "<p></p>",
+      "preview": "ΠΡΟΣΚΛΗΣΗΟ Πρόεδρος του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων Καθηγητής Δημήτριος Παπακώστας, έχει την τιμή να σας προσκαλέσει σ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-12 13:02",
+      "updated_at": "2023-07-12 16:42",
+      "is_pinned": null,
+      "pinned_until": null,
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        },
+        {
+          "id": 22,
+          "title": "Εκδηλώσεις",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "events"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16416,
+          "announcement_id": 62631,
+          "filename": "ΠΡΟΣΚΛΗΣΗ ΤΕΛΕΤΗΣ ΚΑΘΟΜΟΛΟΓΗΣΗΣ IEE IHU.pdf",
+          "filesize": 8472455,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62631/attachments/16416?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62631/attachments/16416"
+        }
+      ],
+      "author": {
+        "name": "Καλλιδοπούλου Άννα-Ελένη",
+        "id": 142
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62631"
+    },
+    {
+      "id": 62611,
+      "title": "ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
+      "eng_title": null,
+      "body": "<p>Στο συνημμένο αρχείο θα βρείτε πληροφορίες σχετικές με την  ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ</p><p></p>",
+      "eng_body": null,
+      "preview": "Στο συνημμένο αρχείο θα βρείτε πληροφορίες σχετικές με την  ΔΙΕΞΑΓΩΓΗ ΕΚΛΟΓΩΝ ΠΡΟΕΔΡΟΥ ΚΑΙ ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-04 11:50",
+      "updated_at": "2023-07-11 22:23",
+      "is_pinned": 0,
+      "pinned_until": "2023-07-12 00:00",
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 24,
+          "title": "Διακηρύξεις - Προκηρύξεις",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "calls"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16402,
+          "announcement_id": 62611,
+          "filename": "ΑΝΑΚΟΙΝΩΣΗ NEA.pdf",
+          "filesize": 276016,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62611/attachments/16402?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62611/attachments/16402"
+        }
+      ],
+      "author": {
+        "name": "Μαρμόρκος Ιωάννης",
+        "id": 107
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62611"
+    },
+    {
+      "id": 62630,
+      "title": "ΑΝΑΚΟΙΝΩΣΗ ΑΠΟΤΕΛΕΣΜΑΤΩΝ ΕΚΛΟΓΩΝ ΓΙΑ ΑΝΑΔΕΙΞΗ ΠΡΟΕΔΡΟΥ & ΑΝΤΙΠΡΟΕΔΡΟΥ ΤΟΥ ΤΜΗΜΑΤΟΣ",
+      "eng_title": null,
+      "body": "<p>Εκ μέρους της Εφορευτικής Επιτροπής, στο συνημμένο αρχείο θα βρείτε την επίσημη ανακοίνωση για τα αποτελέσματα της εκλογικής διαδικασίας για την ανάδειξη Προέδρου και Αντιπροέδρου του Τμήματος.</p>",
+      "eng_body": null,
+      "preview": "Εκ μέρους της Εφορευτικής Επιτροπής, στο συνημμένο αρχείο θα βρείτε την επίσημη ανακοίνωση για τα αποτελέσματα της εκλογικής διαδικασίας για την ανάδε",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-11 22:12",
+      "updated_at": "2023-07-11 22:12",
+      "is_pinned": 1,
+      "pinned_until": "2023-07-14 00:00",
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16414,
+          "announcement_id": 62630,
+          "filename": "ΑΝΑΚΟΙΝΩΣΗ ΑΠΟΤΕΛΕΣΜΑΤΑ ΕΚΛΟΓΩΝ.pdf",
+          "filesize": 244013,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62630/attachments/16414?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62630/attachments/16414"
+        }
+      ],
+      "author": {
+        "name": "Μαρμόρκος Ιωάννης",
+        "id": 107
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62630"
+    },
+    {
+      "id": 62619,
+      "title": "Ολοκληρώθηκε επιτυχώς η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στην Αλεξάνδρεια Πανεπιστημιούπολη του Διεθνούς Πανεπιστημίου της Ελλάδος",
+      "eng_title": null,
+      "body": "<p>Στις 29 Ιουνίου 2023 παρουσιάστηκε από τον υποψήφιο διδάκτορα κ. Λαμπρόπουλο Γεώργιο, η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στο τμήμα Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων της Σχολής Μηχανικών του ΔΙ.ΠΑ.Ε., με επιβλέποντα τον Καθηγητή του Τμήματος, κ. Κεραμόπουλο Ευκλείδη. Ενημερωθείτε απο το συνημμένο ΔΕΛΤΙΟ ΤΥΠΟΥ.</p>",
+      "eng_body": "<p></p>",
+      "preview": "Στις 29 Ιουνίου 2023 παρουσιάστηκε από τον υποψήφιο διδάκτορα κ. Λαμπρόπουλο Γεώργιο, η πρώτη Διδακτορική Διατριβή που εκπονήθηκε εξ’ ολοκλήρου στο τμ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-07 14:54",
+      "updated_at": "2023-07-11 08:43",
+      "is_pinned": null,
+      "pinned_until": null,
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 19,
+          "title": "Άλλα δημόσια νέα",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "other"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        },
+        {
+          "id": 162,
+          "title": "Διδακτορικές Σπουδές",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "phd"
+        }
+      ],
+      "attachments": [
+        {
+          "id": 16409,
+          "announcement_id": 62619,
+          "filename": "ΔΕΛΤΙΟ ΤΥΠΟΥ 1Η  ΔΙΔΑΚΤΟΡΙΚΗ ΔΙΑΤΡΙΒΗ ΔΙΠΑΕ.pdf",
+          "filesize": 550098,
+          "mime_type": "application/pdf",
+          "attachment_url": "https://aboard.iee.ihu.gr/api/v2/announcements/62619/attachments/16409?action=download",
+          "attachment_url_view": "https://aboard.iee.ihu.gr/api/v2/announcements/62619/attachments/16409"
+        }
+      ],
+      "author": {
+        "name": "Καλλιδοπούλου Άννα-Ελένη",
+        "id": 142
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62619"
+    },
+    {
+      "id": 62627,
+      "title": "Διαδικασία Ορκωμοσίας",
+      "eng_title": null,
+      "body": "<p>Η τελετή ορκωμοσίας της 18ης Ιουλίου 2023, θα πραγματοποιηθεί ως εξής:</p><p>11:00 πμ για τους απόφοιτους των <strong>Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων και Ηλεκτρονικών Μηχανικών ΤΕ.</strong></p><p>12:30 μμ για τους απόφοιτους του<strong> Τμήματος Μηχανικών Πληροφορικής ΤΕ</strong></p><p>Παρακαλούνται οι απόφοιτοι των <strong>Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων και Ηλεκτρονικών Μηχανικών ΤΕ</strong> που θα συμμετάσχουν στην τελετή ορκωμοσίας την <strong>Τρίτη 18.07.2023</strong>, να προσέλθουν από τις 10:00 στην αίθουσα «ΦΙΛΙΠΠΟΣ» (δίπλα στο Αμφιθέατρο) «ΑΛΕΞΑΝΔΡΟΣ» στον κεντρικό διάδρομο ΔΙΠΑΕ ισόγειο, για να υπογράψουν το Πρωτόκολλο Καθομολόγησης και να παραλάβουν τα σχετικά έγγραφα.</p><p><strong>Ώρα έναρξης της τελετής, 11:00</strong></p><p>Οι απόφοιτοι του <strong>Τμήματος Μηχανικών Πληροφορικής ΤΕ</strong>, που θα συμμετάσχουν στην τελετή ορκωμοσίας <strong>την Τρίτη 18.07.2023</strong>, να προσέλθουν από τις 12:00 στην αίθουσα «ΦΙΛΙΠΠΟΣ» (δίπλα στο Αμφιθέατρο) «ΑΛΕΞΑΝΔΡΟΣ» στον κεντρικό διάδρομο ΔΙΠΑΕ ισόγειο, για να υπογράψουν το Πρωτόκολλο Καθομολόγησης και να παραλάβουν τα σχετικά έγγραφα.</p><p><strong>Ώρα έναρξης της τελετής, 12:30</strong></p><p>Όσοι απόφοιτοι δεν έχουν προσκομίσει με την αίτηση ορκωμοσίας την ακαδημαϊκή τους ταυτότητα, παρακαλούνται όπως την παραδώσουν στο χώρο του Αμφιθεάτρου.</p><p>Δεν χρειάζεται η παρουσία στο χώρο της Γραμματείας στο κτήριο Ηλεκτρονικής.</p>",
+      "eng_body": null,
+      "preview": "Η τελετή ορκωμοσίας της 18ης Ιουλίου 2023, θα πραγματοποιηθεί ως εξής:11:00 πμ για τους απόφοιτους των Τμημάτων Μηχανικών Πληροφορικής και Ηλεκτρονικώ",
+      "eng_preview": "",
+      "has_eng": null,
+      "created_at": "2023-07-10 12:53",
+      "updated_at": "2023-07-10 12:53",
+      "is_pinned": 1,
+      "pinned_until": "2023-07-19 00:00",
+      "is_event": null,
+      "event_start_time": null,
+      "event_end_time": null,
+      "event_location": null,
+      "gmaps": null,
+      "tags": [
+        {
+          "id": 1,
+          "title": "Όλες οι ανακοινώσεις",
+          "parent_id": null,
+          "is_public": false,
+          "maillist_name": "all"
+        },
+        {
+          "id": 15,
+          "title": "Νέα τμήματος",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "dept_news"
+        },
+        {
+          "id": 19,
+          "title": "Άλλα δημόσια νέα",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "other"
+        },
+        {
+          "id": 21,
+          "title": "Ανακοινώσεις γραμματείας",
+          "parent_id": 1,
+          "is_public": true,
+          "maillist_name": "secretary"
+        }
+      ],
+      "attachments": [],
+      "author": {
+        "name": "Γραμματεία .",
+        "id": 156
+      },
+      "announcement_url": "https://aboard.iee.ihu.gr/announcements/62627"
     }
+  ],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 117,
+    "path": "https://aboard.iee.ihu.gr/api/v2/announcements",
+    "per_page": "10",
+    "to": 1163,
+    "total": 1163
+  }
 }

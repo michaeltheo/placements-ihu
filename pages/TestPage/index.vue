@@ -1,40 +1,24 @@
 <template>
   <div>
-    <h1 class="text-green-700 text-3xl text-center">
-      Test page to test our components
-    </h1>
-
-    <div class="mt-3">
-      <BaseComponentsBaseButton
-        @click="
-          () => {
-            console.log('pressed');
-          }
-        "
-        text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
-        class="test"
-      />
+    <div>
+      <button @click="fetchData()">Fetch Data</button>
+      <div v-if="!pending">'show load icon'</div>
+      <div>{{ data }}</div>
+      <div>{{ error }}</div>
     </div>
-    <div class="pl-3 pt-3">
-      <MiniAnnouncement
-        date="22-0-5"
-        title="Hello this in an aoef=fegmermgaerfeffefffefffh."
-      />
-    </div>
-    <div>{{ counter }}</div>
-    <div>{{ config }}</div>
   </div>
 </template>
 
 <script setup>
-import { useCounterStore } from "@/stores/counter";
-const config = useRuntimeConfig();
+const { data, error, pending, refresh } = await useFetch(
+  "http://localhost:8000/user"
+);
 
-const counter = useCounterStore();
+const fetchData = () => {
+  console.log(process.env);
+  console.log("runing");
+  refresh(); // This will re-fetch the data
+};
 </script>
 
-<style lang="scss" scoped>
-.test {
-  // width: 1000px;
-}
-</style>
+<style lang="scss" scoped></style>
