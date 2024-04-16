@@ -1,7 +1,7 @@
 import { useRuntimeConfig } from "#imports";
 import { errorLog } from "@/utils/log";
 import { API_URLS, GRANT_TYPE } from "@/constants/apiConfig";
-import { PlacementUserResponse, UserDetails } from "@/types/apiTypes";
+import type { PlacementUserResponse, UserDetails } from "@/types/apiTypes";
 
 interface TokenResponse {
   access_token: string;

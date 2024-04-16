@@ -12,6 +12,7 @@
     "prettier": "prettier --write \"**/*.{js,ts,vue,json,css,scss,md}\""
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@invictus.codes/nuxt-vuetify": "^0.3.0",
@@ -38,6 +39,7 @@
     "@vueuse/core": "^10.2.1",
     "aos": "^2.3.4",
     "eslint": "^8.44.0",
-    "pinia": "^2.1.6"
+    "pinia": "^2.1.6",
+    "vuetify": "^3.5.16"
   }
 }

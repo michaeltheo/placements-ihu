@@ -12,6 +12,7 @@ export interface PlacementUserResponse {
     id: number;
     role: string;
     isAdmin: boolean;
+    accessToken: string;
   };
   message: {
     detail: string;

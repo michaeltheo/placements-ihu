@@ -50,6 +50,7 @@ async function initiateAuthenticationProcess() {
       tokenResponse.refresh_token,
     );
     authStore.setIsAuthenticated(true);
+
     // Navigation happens last, ensuring all async operations and state updates are complete
     router.push("/");
   } catch (error) {

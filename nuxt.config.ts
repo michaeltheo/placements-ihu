@@ -16,12 +16,16 @@ export default defineNuxtConfig({
     "@invictus.codes/nuxt-vuetify",
     "@pinia/nuxt",
   ],
-  css: ["@/assets/main.scss", "@fortawesome/fontawesome-svg-core/styles.css"],
+  css: [
+    "@/assets/main.scss",
+    "@fortawesome/fontawesome-svg-core/styles.css",
+    "vuetify/styles/main.sass",
+  ],
   plugins: [
     { src: "@/plugins/aos.client.js", mode: "client" },
     "@/plugins/auth-check.js",
   ],
   build: {
-    transpile: ["@vuepic/vue-datepicker"],
+    transpile: ["@vuepic/vue-datepicker", "vuetify"],
   },
 });

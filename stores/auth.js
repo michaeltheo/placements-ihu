@@ -3,7 +3,15 @@ import { verifyToken as verifyTokenService } from "@/services/authService";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: {},
+    user: {
+      first_name: "",
+      last_name: "",
+      role: "",
+      AM: "",
+      id: 0,
+      isAdmin: false,
+    },
+    placements_access_token: null,
     IHU_token: null,
     IHU_refresh_token: null,
     isAuthenticated: false, // New state property to represent authentication status
@@ -57,6 +65,7 @@ export const useAuthStore = defineStore("auth", {
     setUser(userInfo) {
       this.user = userInfo;
       this.isAuthenticated = true;
+      this.placements_access_token = userInfo.accessToken;
     },
   },
 });

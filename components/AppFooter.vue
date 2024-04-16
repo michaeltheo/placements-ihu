@@ -10,14 +10,14 @@
             <img
               class="footer__image mb-4"
               alt="espa"
-              src="img/footerImg/espaFooter.jpg"
+              src="/img/footerImg/espaFooter.jpg"
             />
           </a>
           <a href="http://praktiki.teithe.gr/" target="_blank">
             <img
               class="footer-image"
               alt="teithe"
-              src="img/footerImg/teitheFooter.jpg"
+              src="/img/footerImg/teitheFooter.jpg"
             />
           </a>
         </div>
