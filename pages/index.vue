@@ -71,7 +71,7 @@ import test from "@/assets/dummyData/test.json";
 
 const allAnnouncements = test.data;
 const filteredAnnouncements = allAnnouncements.filter((announcement) =>
-  announcement.tags.some((tag) => tag.title === "Νέα τμήματος"),
+  announcement.tags.some((tag) => tag.title === "Νέα τμήματος")
 );
 
 const firstFourAnnouncements = filteredAnnouncements.slice(0, 20);
@@ -139,7 +139,7 @@ const firstFourAnnouncements = filteredAnnouncements.slice(0, 20);
     &__section {
       @apply flex flex-col md:flex-row justify-between items-center h-full p-2 md:p-4;
       @apply bg-cover bg-no-repeat md:h-36 h-48 rounded-lg shadow-lg;
-      background-image: url("public/img/test.png");
+      background-image: url("/img/test.png");
       background-position: 0 0;
       background-repeat: repeat-y;
       animation: animatedBackground 10s linear infinite alternate;

@@ -89,11 +89,49 @@ const navigateToHome = () => {
 const navigateToLogin = () => {
   const config = useRuntimeConfig();
   const redirectUri = "http://localhost:3000/auth";
+  function uuidv4() {
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+      (
+        +c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+      ).toString(16)
+    );
+  }
   if (typeof window !== "undefined") {
     // Ensure window is defined before using it
-    window.location.href = `https://login.iee.ihu.gr/authorization/?client_id=${config.public.CLIENT_ID}&response_type=code&scope=profile&redirect_uri=${redirectUri}`;
+    window.location.href = `https://login.it.teithe.gr/authorization/?client_id=${
+      config.public.CLIENT_ID
+    }&response_type=code&scope=profile,ldap,id,cn,announcements&redirect_uri=${redirectUri}&state=${uuidv4()}`;
+    // window.location.href = `https://login.it.teithe.gr/authorization/?client_id=64493671d44156030a26af5c&response_type=code&scope=announcements,ldap,profile&redirect_uri=http://localhost:3000/auth&state=ad29c7e5-dd0a-4e35-9da4-2bab6d16c2c3`;
+
+    // window.location.href = `https://login.iee.ihu.gr/authorization/?client_id=&response_type=code&scope=profile,announcements&redirect_uri=&state=004a42ed-5a3f-418b-b3fe-48177eb41c56`;
   }
 };
+
+// const navigateToLogin = async () => {
+//   const redirectUri = "http://localhost:3000/auth";
+//   try {
+//     // Perform the fetch request to your FastAPI backend
+//     const response = await fetch("http://localhost:8000/redirect", {
+//       method: "GET",
+//     });
+
+//     // If the response is ok, it means the server is redirecting us
+//     if (response.ok) {
+//       // This part is technically not necessary for a redirect response
+//       // as the browser will follow the redirect automatically.
+//       // However, it's here as an example of handling a successful response.
+//       window.location.href = response.url;
+//     } else {
+//       // Handle server errors or other non-ok responses
+//       console.error("Server responded with a non-ok status");
+//     }
+//   } catch (error) {
+//     // Handle network errors or other errors that occurred during the fetch
+//     console.error("Failed to fetch:", error);
+//   }
+// };
+
 // Function to handle logout action
 const handleLogout = () => {
   authStore.logout();

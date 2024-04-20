@@ -27,16 +27,15 @@ export async function fetchToken(code: string): Promise<TokenResponse | null> {
     grant_type: GRANT_TYPE.AUTHORIZATION_CODE,
     code,
   };
-
   try {
     const { data } = await useFetch(API_URLS.IEE_TOKEN_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
       },
       body: new URLSearchParams(Object.entries(body) as string[][]).toString(),
     });
-
     return data.value as TokenResponse;
   } catch (error) {
     errorLog("Token fetch error:", error);
@@ -110,7 +109,7 @@ export async function verifyToken(): Promise<
   try {
     const response = await fetch(API_URLS.PLACEMENTS_VERIFY_TOKEN, {
       method: "GET",
-      credentials: "include", // Necessary for cookies to be sent with the request
+      credentials: "include", 
     });
 
     if (response.ok) {

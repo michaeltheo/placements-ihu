@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
@@ -22,6 +22,7 @@ async function initiateAuthenticationProcess() {
 
   try {
     const tokenResponse = await fetchToken(code);
+
     if (!tokenResponse || !tokenResponse.access_token) {
       throw new Error("Failed to obtain access token");
     }
@@ -39,7 +40,7 @@ async function initiateAuthenticationProcess() {
 
     if (!placementsResponse) {
       throw new Error(
-        "Failed to register or retrieve user from placements system.",
+        "Failed to register or retrieve user from placements system."
       );
     }
 
@@ -48,6 +49,7 @@ async function initiateAuthenticationProcess() {
       tokenResponse.access_token,
       placementsResponse.data,
       tokenResponse.refresh_token,
+      placementsResponse?.data.accessToken
     );
     authStore.setIsAuthenticated(true);
 
