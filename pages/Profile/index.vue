@@ -2,21 +2,14 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div class="profile">
-    <!-- User Information Section -->
-    <div
-      class="profile__user-information shadow-lg border border-gray-200 rounded-lg"
-    >
+    <section class="profile__section profile__section--user">
       <h1 class="profile__name">{{ user.first_name }} {{ user.last_name }}</h1>
-      <p class="profile__role">Role: {{ user.role }}</p>
-      <p class="profile__AM">AM: {{ user.AM }}</p>
-      <!-- Additional user details here -->
-    </div>
+      <p class="profile__detail profile__detail--role">Role: {{ user.role }}</p>
+      <p class="profile__detail profile__detail--am">AM: {{ user.AM }}</p>
+    </section>
 
-    <!-- File Management Section -->
-    <div
-      class="profile__file-management profile__user-information mt-8 shadow-lg border border-gray-200 rounded-lg"
-    >
-      <h2 class="text-2xl font-semibold text-center my-4">Δικαιολογιτικά</h2>
+    <section class="profile__section profile__section--files">
+      <h2 class="profile__header">Δικαιολογιτικά</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -27,7 +20,7 @@
         @update:options="loadItems"
       >
         <template #item.actions="{ item }">
-          <div class="w-full flex items-center justify-around">
+          <div class="profile__actions">
             <v-icon
               color="warning"
               icon="fa:fas fa-pen-to-square "
@@ -49,25 +42,23 @@
           </div>
         </template>
       </v-data-table-server>
-      <div class="flex flex-wrap justify-center gap-4 mt-4">
+      <div class="profile__controls">
         <v-btn
           elevation="4"
           color="#112d4e"
           append-icon="fa:fas fa-arrows-rotate fa-spin"
-          class="bg-primary text-white shadow"
           @click="loadItems()"
-          >Ανανέωση Πίνακα
-        </v-btn>
+          >Ανανέωση Πίνακα</v-btn
+        >
         <v-btn
           elevation="4"
           color="green-lighten-1"
-          class="bg-green-500 text-white shadow"
-          append-icon="fa:fas fa-upload"
           @click="openAddFilesDialog = true"
-          >Προσθήκη Αρχείου
-        </v-btn>
+          >Προσθήκη Αρχείου</v-btn
+        >
       </div>
-    </div>
+    </section>
+
     <FileUploadDialog
       :model-value="openAddFilesDialog"
       :edit-item="selectedItem"
@@ -101,7 +92,6 @@ definePageMeta({
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
 const user: User = authStore.user;
-console.log("🚀 ~ user:", user);
 const itemsPerPage: Ref<number> = ref(5);
 const headers = ref([
   { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description" },
@@ -118,15 +108,20 @@ const totalItems: Ref<number> = ref(0);
 
 const loadItems = async () => {
   loading.value = true;
-  const result = await fetchDikaiologitaFiles(user.id);
-  if (result && result.data && result.data.files) {
-    serverItems.value = result.data.files;
-    totalItems.value = result.data.files.length;
-  } else {
-    serverItems.value = [];
-    totalItems.value = 0;
+  try {
+    const result = await fetchDikaiologitaFiles(user.id);
+    if (result && result.data && result.data.files) {
+      serverItems.value = result.data.files;
+      totalItems.value = result.data.files.length;
+    } else {
+      serverItems.value = [];
+      totalItems.value = 0;
+    }
+  } catch (error) {
+    errorLog(error);
+  } finally {
+    loading.value = false;
   }
-  loading.value = false;
 };
 
 headers.value.push();
@@ -172,15 +167,19 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-th {
-  font-weight: 900 !important;
-  color: tan !important;
-}
 .profile {
   @apply container mx-auto px-4 py-8 space-y-12;
 
-  &__user-information {
-    @apply p-10 rounded-lg shadow-2xl bg-white;
+  &__section {
+    @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white;
+
+    &--user {
+      @apply mb-8;
+    }
+
+    &--files {
+      @apply mt-8;
+    }
   }
 
   &__name {
@@ -188,31 +187,43 @@ th {
     color: $primary-dark-blue-color;
   }
 
-  &__role,
-  &__AM {
-    @apply mt-2 text-xl font-medium mb-5;
-    color: $primary-blue-color;
+  &__header {
+    @apply text-2xl font-semibold text-center my-4;
   }
 
-  :deep .v-data-table__td {
-    @apply text-lg text-center md:text-base;
+  &__detail {
+    @apply mt-2 text-xl font-medium mb-5;
+
+    &--role,
+    &--am {
+      color: $primary-blue-color;
+    }
   }
-  :deep .v-data-table__th {
-    @apply text-lg text-center md:text-base;
+
+  &__actions {
+    @apply flex items-center justify-around;
   }
-  :deep .v-data-table-header__sort-icon,
-  .v-data-table-footer__items-per-page {
-    display: none !important;
+
+  &__controls {
+    @apply flex flex-wrap justify-center gap-4 mt-4;
+  }
+
+  :deep .v-data-table-server {
+    @apply mt-4;
+  }
+
+  :deep .v-data-table__td,
+  :deep .v-data-table-header__content {
+    @apply text-lg text-left md:text-base;
     color: $primary-dark-blue-color;
-  }
-  :deep .v-data-table-footer {
-    display: none;
   }
   :deep .v-data-table-header__content {
-    font-weight: 900 !important;
-    color: $primary-dark-blue-color;
+    font-weight: bold;
   }
-
-  // Styles for file management section can be added here
+  :deep .v-data-table-header__sort-icon,
+  :deep .v-data-table-footer__items-per-page,
+  :deep .v-data-table-footer {
+    display: none !important;
+  }
 }
 </style>

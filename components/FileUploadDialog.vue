@@ -1,13 +1,13 @@
 <template>
-  <div class="flex justify-center items-center p-4">
+  <div class="file-dialog">
     <v-dialog
       v-model="localDialog"
       max-width="800px"
       persistent
-      class="rounded-lg"
+      class="file-dialog__container"
     >
-      <v-card class="bg-blue-50">
-        <v-card-title class="text-lg font-bold text-blue-900">
+      <v-card class="file-dialog__card">
+        <v-card-title class="file-dialog__title">
           {{
             isEditMode
               ? `Επεξεργασία Δικαιολογιτικού: ${editItem?.description}`
@@ -15,17 +15,21 @@
           }}
         </v-card-title>
 
-        <v-card-text v-if="isEditMode" class="text-blue-900">
-          Όνομα Αρχείου:
-          <span class="font-bold">{{ editItem?.file_name }}</span>
-        </v-card-text>
-        <v-card-text v-if="isEditMode" class="text-blue-900">
-          Τελευταία ημερομηνία επεξεργασίας:
-          <span class="font-bold">{{ editItem?.date }}</span>
-        </v-card-text>
+        <div v-if="isEditMode" class="file-dialog__info">
+          <v-card-text class="file-dialog__filename">
+            Όνομα Αρχείου: <span>{{ editItem?.file_name }}</span>
+          </v-card-text>
+          <v-card-text class="file-dialog__edit-date">
+            Τελευταία ημερομηνία επεξεργασίας: <span>{{ editItem?.date }}</span>
+          </v-card-text>
+        </div>
 
-        <v-form ref="form" @submit.prevent="submitForm" class="space-y-4">
-          <v-card-text class="space-y-4">
+        <v-form
+          ref="form"
+          class="file-dialog__form"
+          @submit.prevent="submitForm"
+        >
+          <div class="file-dialog__selections">
             <v-select
               v-model="selectedFileType"
               :items="fileTypes"
@@ -35,28 +39,35 @@
               label="Επέλεξε τύπο αρχείου"
               outlined
               dense
-              class="bg-white text-blue-900"
+              class="file-dialog__select"
               :disabled="isEditMode"
             ></v-select>
 
             <v-file-input
               prepend-icon="fa:fas fa-file-pdf"
               show-size
+              counter
               accept=".pdf"
               :rules="fileRules"
               label="Επέλεξε αρχείο PDF"
               outlined
               dense
-              class="bg-white text-blue-900"
+              class="file-dialog__file-input"
               @change="fileSelected"
             ></v-file-input>
-          </v-card-text>
+          </div>
 
-          <v-card-actions class="justify-start space-x-2">
-            <v-btn type="submit" class="hover:bg-blue-700 hover:text-white">
+          <v-card-actions class="file-dialog__actions">
+            <v-btn
+              type="submit"
+              class="file-dialog__btn file-dialog__btn--submit"
+            >
               {{ isEditMode ? "Ενημέρωση" : "Ανέβασμα" }}
             </v-btn>
-            <v-btn @click="emitClose" class="hover:bg-red-600 hover:text-white">
+            <v-btn
+              class="file-dialog__btn file-dialog__btn--cancel"
+              @click="emitClose"
+            >
               Άκυρο
             </v-btn>
           </v-card-actions>
@@ -74,11 +85,7 @@ import {
   uploadDikaiologitika,
 } from "@/services/dikaiologitkaService";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
-import type {
-  UploadResponse,
-  DikaiologitikaFile,
-  UpdateDeleteResposne,
-} from "@/types/dikaiologitika";
+import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import "vue-toast-notification/dist/theme-sugar.css";
 
 const props = withDefaults(
@@ -97,22 +104,15 @@ const isEditMode = computed(() => props.editItem !== null);
 const form = ref<any>(null); // Reference to the form element
 const emit = defineEmits(["update:modelValue", "refreshFilesList"]); // Emit events for dialog control and refreshing files list
 const localDialog = ref(props.modelValue); // Local state for dialog visibility
-// In FileUploadDialog component
 const fileTypes = computed(() => dikaiologitikaStore.dikaiologitikaTypes);
-console.log("🚀 ~ fileTypes:", fileTypes);
-console.log("🚀 ~ fileTypes:", dikaiologitikaStore);
 
 const $toast = useToast();
-const selectedFileType = ref<string | null | undefined>(
-  props.editItem?.type || null
-);
-const fileInput = ref<File | null>(null); // Reference to the selected file
+const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
+const fileInput = ref<File | null>(null);
 
 // Reactive watchEffect to update selectedFileType when props.editItem changes
 watchEffect(() => {
-  if (isEditMode.value) {
-    selectedFileType.value = props.editItem?.type;
-  }
+  selectedFileType.value = props.editItem?.type ?? null;
 });
 
 // Validation rules for form inputs
@@ -141,52 +141,39 @@ const fileSelected = (event: Event) => {
 
 // Function to handle form submission
 const submitForm = async () => {
-  console.log(
-    "🚀 ~ submitForm ~ selectedFileType.value:",
-    selectedFileType.value
-  );
-  if (form.value?.validate() && fileInput.value && selectedFileType.value) {
-    if (isEditMode.value && props.editItem) {
-      const response: UpdateDeleteResposne = await updateDikaiologitika(
-        fileInput.value,
-        props.editItem?.id
-      );
-      if (response.error) {
-        $toast.error(`${response.error}`, {
-          position: "bottom",
-        });
-      } else {
-        $toast.success(`${response?.detail}`, {
-          position: "bottom",
-        });
-        emit("refreshFilesList"); // Request to refresh the files list
-        emitClose(); // Close dialog after a delay
-      }
-    } else {
-      const response: UploadResponse = await uploadDikaiologitika(
-        fileInput.value,
-        selectedFileType.value
-      );
-      console.log("🚀 ~ submitForm ~ response:", response);
-      if (response.error) {
-        $toast.error(`${response.error}`, {
-          position: "bottom",
-        });
-      } else {
-        $toast.success(`${response?.message?.detail} `, {
-          position: "bottom",
-        });
-        emit("refreshFilesList"); // Request to refresh the files list
-        emitClose(); // Close dialog after a delay
-      }
-    }
-  } else {
+  if (!form.value?.validate() || !fileInput.value || !selectedFileType.value) {
     $toast.error(
       "Form submission failed due to validation errors or missing data.",
       {
         position: "bottom",
       }
     );
+    return;
+  }
+
+  try {
+    let response: any;
+    if (isEditMode.value && props.editItem) {
+      response = await updateDikaiologitika(fileInput.value, props.editItem.id);
+    } else {
+      response = await uploadDikaiologitika(
+        fileInput.value,
+        selectedFileType.value
+      );
+    }
+
+    if (response.error) {
+      $toast.error(`${response.error}`, { position: "bottom" });
+    } else {
+      $toast.success(`${response.detail || response.message?.detail}`, {
+        position: "bottom",
+      });
+      emit("refreshFilesList");
+      emitClose();
+    }
+  } catch (error) {
+    $toast.error("An unexpected error occurred.", { position: "bottom" });
+    errorLog(error);
   }
 };
 
@@ -197,3 +184,52 @@ const emitClose = () => {
   emit("update:modelValue", false);
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/variables.scss";
+
+.file-dialog {
+  &__container {
+    @apply rounded-lg;
+  }
+
+  &__title {
+    @apply text-lg font-bold text-blue-900;
+  }
+
+  &__info,
+  &__selections {
+    @apply text-blue-900 space-y-4 p-2;
+  }
+
+  &__filename,
+  &__edit-date {
+    @apply font-bold;
+  }
+
+  &__form {
+    @apply space-y-4;
+  }
+
+  &__select,
+  &__file-input {
+    @apply bg-white text-blue-900 p-2;
+  }
+
+  &__actions {
+    @apply justify-start space-x-2;
+  }
+
+  &__btn {
+    @apply hover:text-white py-2 px-4 rounded-md;
+
+    &--submit {
+      @apply bg-blue-500 hover:bg-blue-700;
+    }
+
+    &--cancel {
+      @apply hover:bg-red-600;
+    }
+  }
+}
+</style>

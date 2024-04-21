@@ -1,36 +1,28 @@
 <template>
-  <div class="flex justify-center items-center p-4">
+  <div class="dialog__overlay">
     <v-dialog
       v-model="localDialog"
       max-width="500px"
       persistent
-      class="rounded-lg"
+      class="dialog__container"
     >
-      <v-card class="bg-red-100">
-        <v-card-title
-          class="text-white bg-red-600 text-lg font-bold p-4 rounded-t-lg"
-        >
+      <v-card class="dialog__card">
+        <v-card-title class="dialog__title">
           Διαγραφή Δικαιολογιτικού
         </v-card-title>
 
-        <v-card-text class="px-4 py-6 text-red-900 text-base">
+        <v-card-text class="dialog__content">
           <p>
             Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το δικαιολογητικό;
-            <span class="font-semibold">{{ file?.file_name }}</span>
+            <span class="dialog__file-name">{{ file?.file_name }}</span>
           </p>
         </v-card-text>
 
-        <v-card-actions class="flex justify-center gap-4 pb-4">
-          <v-btn
-            class="bg-red-500 hover:bg-red-600 hover:text-white py-2 px-4 rounded-md"
-            @click="deleteFile"
-          >
+        <v-card-actions class="dialog__actions">
+          <v-btn class="dialog__btn dialog__btn--delete" @click="deleteFile">
             Διαγραφή
           </v-btn>
-          <v-btn
-            class="hover:bg-gray-500 hover:text-white py-2 px-4 rounded-md"
-            @click="emitClose"
-          >
+          <v-btn class="dialog__btn dialog__btn--cancel" @click="emitClose">
             Άκυρο
           </v-btn>
         </v-card-actions>
@@ -41,11 +33,11 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
-import { withDefaults, watch, ref, defineProps, defineEmits } from "vue";
+import { withDefaults, watchEffect, ref, defineProps, defineEmits } from "vue";
 import { deleteDikaiologitika } from "@/services/dikaiologitkaService";
 import type {
   DikaiologitikaFile,
-  UpdateDeleteResposne,
+  UpdateDeleteResponse,
 } from "@/types/dikaiologitika";
 const $toast = useToast();
 
@@ -59,45 +51,77 @@ const props = withDefaults(
   }
 );
 
-// Determine the dialog mode based on the editItem
-const emit = defineEmits(["update:modelValue", "refreshFilesList"]); // Emit events for dialog control and refreshing files list
-const localDialog = ref(props.modelValue); // Local state for dialog visibility
+const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
+const localDialog = ref(props.modelValue);
 
-// Watcher to synchronize the dialog visibility state
-watch(
-  () => props.modelValue,
-  (newValue) => {
-    localDialog.value = newValue;
-  }
-);
+watchEffect(() => {
+  localDialog.value = props.modelValue;
+});
 
-// Function to handle form submission
 const deleteFile = async () => {
-  console.log("🚀 ~ deleteFile ~ props.file:", props.file);
-  if (props.file) {
-    const response: UpdateDeleteResposne = await deleteDikaiologitika(
-      props.file?.id
-    );
-    if (response.error) {
-      $toast.error(`${response.error}`, {
-        position: "bottom",
-      });
-    } else {
-      $toast.success(`${response?.detail}`, {
-        position: "bottom",
-      });
-      emit("refreshFilesList"); // Request to refresh the files list
-      emitClose(); // Close dialog after a delay
-    }
-  } else {
-    $toast.error("Somehting unexpected happen", {
+  if (!props.file) {
+    $toast.error("Something unexpected happened", {
       position: "bottom",
     });
+    return;
+  }
+  try {
+    const response: UpdateDeleteResponse = await deleteDikaiologitika(
+      props.file.id
+    );
+    if (response.error) {
+      $toast.error(`${response.error}`, { position: "bottom" });
+    } else {
+      $toast.success(`${response?.detail}`, { position: "bottom" });
+      emit("refreshFilesList");
+      emitClose();
+    }
+  } catch (error) {
+    $toast.error("Error processing request", { position: "bottom" });
   }
 };
 
-// Function to emit event to close the dialog and reset form state
 const emitClose = () => {
   emit("update:modelValue", false);
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/variables.scss";
+
+.dialog__overlay {
+  @apply flex justify-center items-center p-4;
+}
+
+.dialog__container {
+  @apply rounded-lg;
+}
+
+.dialog__title {
+  @apply bg-red-600 text-white text-lg font-bold p-4 rounded-t-lg;
+}
+
+.dialog__content {
+  @apply px-4 py-6 text-red-900 text-base;
+}
+
+.dialog__file-name {
+  @apply font-semibold;
+}
+
+.dialog__actions {
+  @apply flex justify-center gap-4 pb-4;
+}
+
+.dialog__btn {
+  @apply hover:text-white py-2 px-4 rounded-md;
+
+  &--delete {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+
+  &--cancel {
+    @apply hover:bg-gray-500;
+  }
+}
+</style>
