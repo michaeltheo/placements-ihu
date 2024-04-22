@@ -85,10 +85,6 @@ import {
 import type { User } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
-
-definePageMeta({
-  middleware: ["auth"],
-});
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
 const user: User = authStore.user;
