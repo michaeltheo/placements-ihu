@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/v-slot-style -->
 <!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
