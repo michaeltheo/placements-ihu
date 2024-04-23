@@ -176,7 +176,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       "student",
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     serverUsers.value = result?.data ?? [];
     totalItems.value = result?.total_items ?? 0;

@@ -32,7 +32,7 @@ export async function fetchToken(code: string): Promise<TokenResponse | null> {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json"
+        Accept: "application/json",
       },
       body: new URLSearchParams(Object.entries(body) as string[][]).toString(),
     });
@@ -109,7 +109,7 @@ export async function verifyToken(): Promise<
   try {
     const response = await fetch(API_URLS.PLACEMENTS_VERIFY_TOKEN, {
       method: "GET",
-      credentials: "include", 
+      credentials: "include",
     });
 
     if (response.ok) {

@@ -1,6 +1,5 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
-import { useAuthStore } from "@/stores/auth";
 import type {
   DikaiologitikaFilesResponse,
   DikaiologitikaTypesResponse,
@@ -9,18 +8,17 @@ import type {
 } from "~/types/dikaiologitika";
 import { extractErrorMessage } from "@/services/errorHandling";
 
-// Access the authentication store to get the user's tokens.
-const authStore = useAuthStore();
-
 /**
  * Uploads a dikaiologitika file to the server.
  * @param file The file to be uploaded.
  * @param type The type of dikaiologitika being uploaded.
+ * @param token The access token.
  * @returns Promise resolving to the upload response data or an error message.
  */
 export async function uploadDikaiologitika(
   file: File,
   type: string,
+  token: string,
 ): Promise<UploadResponse> {
   // Ensure the file is a PDF
   if (file.type !== "application/pdf") {
@@ -37,7 +35,7 @@ export async function uploadDikaiologitika(
     const response = await fetch(API_URLS.UPLOAD_DIKAIOLOGITIKA, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${authStore.placements_access_token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -58,11 +56,13 @@ export async function uploadDikaiologitika(
  * Updates a specific dikaiologitika file.
  * @param file The new file to update the existing one.
  * @param dikaiologitaId The ID of the dikaiologitika to be updated.
+ * @param token The access token.
  * @returns Promise resolving to the update response data or an error message.
  */
 export async function updateDikaiologitika(
   file: File,
   dikaiologitaId: number,
+  token: string,
 ): Promise<UpdateDeleteResponse> {
   const formData = new FormData();
   formData.append("file", file, file.name);
@@ -73,7 +73,7 @@ export async function updateDikaiologitika(
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${authStore.placements_access_token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       },
@@ -95,15 +95,17 @@ export async function updateDikaiologitika(
  * Deletes a dikaiologitika file by its ID.
  * @param fileID The ID of the file to be deleted.
  * @returns Promise resolving to the delete operation response data or an error message.
+ * @param token The access token.
  */
 export async function deleteDikaiologitika(
   fileID: number,
+  token: string,
 ): Promise<UpdateDeleteResponse> {
   try {
     const response = await fetch(`${API_URLS.DELETE_DIKAIOLOGITIKA}${fileID}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${authStore.placements_access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -122,10 +124,12 @@ export async function deleteDikaiologitika(
 /**
  * Fetches dikaiologitika files associated with a specific user.
  * @param userId The user ID for whom files are being fetched.
+ * @param token The access token.
  * @returns Promise resolving to the files response data or null in case of error.
  */
 export async function fetchDikaiologitaFiles(
   userId: number,
+  token: string,
 ): Promise<DikaiologitikaFilesResponse | null> {
   try {
     const response = await fetch(
@@ -134,7 +138,7 @@ export async function fetchDikaiologitaFiles(
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${authStore.placements_access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -159,16 +163,20 @@ export async function fetchDikaiologitaFiles(
 /**
  * Initiates the download of a dikaiologitika file by its ID.
  * @param fileId The ID of the file to be downloaded.
+ * @param token The access token.
  * @returns Promise resolving when the file download has been initiated.
  */
-export async function downloadDikaiologitika(fileId: number): Promise<void> {
+export async function downloadDikaiologitika(
+  fileId: number,
+  token: string,
+): Promise<void> {
   try {
     const response = await fetch(
       `${API_URLS.DOWNLOAD_DIKAIOLOGITIKA}/${fileId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${authStore.placements_access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -200,7 +208,7 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
 export async function getDikaiologitkaTypes(): Promise<DikaiologitikaTypesResponse | null> {
   try {
     const response = await fetch(`${API_URLS.GET_DIKAIOLOGITIKA_TYPES}`, {
-      method: 'GET',
+      method: "GET",
     });
 
     if (!response.ok) {

@@ -34,6 +34,7 @@
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
 import { withDefaults, watchEffect, ref, defineProps, defineEmits } from "vue";
+import { useAuthStore } from "@/stores/auth";
 import { deleteDikaiologitika } from "@/services/dikaiologitkaService";
 import type {
   DikaiologitikaFile,
@@ -41,6 +42,7 @@ import type {
 } from "@/types/dikaiologitika";
 const $toast = useToast();
 
+const authStore = useAuthStore();
 const props = withDefaults(
   defineProps<{
     modelValue: boolean;
@@ -48,7 +50,7 @@ const props = withDefaults(
   }>(),
   {
     file: null,
-  }
+  },
 );
 
 const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
@@ -67,7 +69,8 @@ const deleteFile = async () => {
   }
   try {
     const response: UpdateDeleteResponse = await deleteDikaiologitika(
-      props.file.id
+      props.file.id,
+      authStore.placements_access_token,
     );
     if (response.error) {
       $toast.error(`${response.error}`, { position: "bottom" });
