@@ -7,17 +7,15 @@
       <div>{{ error }}</div>
     </div>
     <div class="text-center pa-4">
-      <!-- This button now controls the dialog -->
-      <v-btn @click="dialog = true">Open Location Dialog</v-btn>
+      <v-btn @click="dialog = true"> Open Dialog </v-btn>
+      <UpdateDialog v-model="dialog" />
     </div>
-    <TestDialog :model-value="dialog" @update:mode-value="dialog = $event" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useFetch } from "@vueuse/core"; // Assuming you're using @vueuse/core for fetching data
-import TestDialog from "@/components/TestDialog.vue"; // Adjust the path as needed
 
 // Fetching data
 const { data, error, pending, refresh } = await useFetch(
