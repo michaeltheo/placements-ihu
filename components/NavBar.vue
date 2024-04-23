@@ -138,13 +138,24 @@ const handleLogout = () => {
   navigateToHome();
 };
 const navbarLinks = computed(() => {
-  const dynamicLinks = authStore.isAuthenticated
-    ? [
-        { text: "ΠΡΟΦΙΛ", route: "/profile" },
-        { text: "ΕΞΟΔΟΣ", action: handleLogout },
-      ]
-    : [{ text: "ΕΙΣΟΔΟΣ", action: navigateToLogin }];
+  const dynamicLinks = [];
 
+  // Check if the user is authenticated
+  if (authStore.isAuthenticated) {
+    // If the user is an admin, add an admin page link
+    if (authStore.user.isAdmin) {
+      dynamicLinks.push({ text: "ΣΕΛΙΔΑ ΔΙΑΧΕΙΡΙΣΤΗ", route: "/adminPage" });
+    } else {
+      // Add profile link for all authenticated users
+      dynamicLinks.push({ text: "ΠΡΟΦΙΛ", route: "/profile" });
+    }
+    dynamicLinks.push({ text: "ΕΞΟΔΟΣ", action: handleLogout });
+  } else {
+    // If the user is not authenticated, add a login link
+    dynamicLinks.push({ text: "ΕΙΣΟΔΟΣ", action: navigateToLogin });
+  }
+
+  // Combine the static links with the dynamic links
   return [...links, ...dynamicLinks];
 });
 </script>

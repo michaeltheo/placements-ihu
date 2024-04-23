@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/v-slot-style -->
 <!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
@@ -17,8 +18,11 @@
         :items-length="totalItems"
         :loading="loading"
         item-value="type"
+        loading-text="Φόρτωση δεδομένων"
+        no-data-text="Δεν βρέθηκαν Δικαιολογιτικά"
         @update:options="loadItems"
       >
+        <template v-slot:bottom> </template>
         <template #item.actions="{ item }">
           <div class="profile__actions">
             <v-icon
@@ -85,10 +89,6 @@ import {
 import type { User } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
-
-definePageMeta({
-  middleware: ["auth"],
-});
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
 const user: User = authStore.user;
@@ -219,11 +219,6 @@ onMounted(async () => {
   }
   :deep .v-data-table-header__content {
     font-weight: bold;
-  }
-  :deep .v-data-table-header__sort-icon,
-  :deep .v-data-table-footer__items-per-page,
-  :deep .v-data-table-footer {
-    display: none !important;
   }
 }
 </style>
