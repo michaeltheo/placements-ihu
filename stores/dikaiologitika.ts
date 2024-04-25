@@ -1,24 +1,22 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
+type DikaiologitikaTypes = {
+  type: string;
+  description: string;
+};
 
-type DikaiologitikaTypes={
-    type:string
-    description:string
-}
+type State = {
+  dikaiologitikaTypes: DikaiologitikaTypes[];
+};
 
-type State={
-    dikaiologitikaTypes:DikaiologitikaTypes[] 
-}
-
-export const useDikaiologitkaStore = defineStore('dikaiologitika', {
-  state: ():State =>({
-    dikaiologitikaTypes:[],
+export const useDikaiologitkaStore = defineStore("dikaiologitika", {
+  state: (): State => ({
+    dikaiologitikaTypes: [],
   }),
-  actions:{
-    setDikaiologitka(dikaiologitika:DikaiologitikaTypes[]){
-        const store=useDikaiologitkaStore()
-        store.dikaiologitikaTypes=dikaiologitika
-
-    }
-  }
-})
+  actions: {
+    setDikaiologitka(dikaiologitika: DikaiologitikaTypes[]) {
+      const store = useDikaiologitkaStore();
+      store.dikaiologitikaTypes = dikaiologitika;
+    },
+  },
+});

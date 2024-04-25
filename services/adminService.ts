@@ -1,7 +1,6 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 
-
 interface UserResponse {
   data: Array<{
     first_name: string;
@@ -12,13 +11,9 @@ interface UserResponse {
   }>;
   total_items: number;
   message: {
-    detail: string; 
+    detail: string;
   };
 }
-
-
-
-
 
 /**
  * This TypeScript function fetches users based on AM and role parameters with pagination support.
@@ -39,13 +34,18 @@ interface UserResponse {
  * @returns The function `getUsersByAmAndRole` returns a Promise that resolves to a `UserResponse`
  * object or `null`.
  */
-export async function getUsersByAmAndRole(am?: string, role?: string, page = 1, itemsPerPage = 10): Promise<UserResponse | null> {
+export async function getUsersByAmAndRole(
+  am?: string,
+  role?: string,
+  page = 1,
+  itemsPerPage = 10,
+): Promise<UserResponse | null> {
   try {
     const queryParams = new URLSearchParams();
-    if (am) queryParams.append('am', am);
-    if (role) queryParams.append('role', role);
-    queryParams.append('page', page.toString());
-    queryParams.append('items_per_page', itemsPerPage.toString());
+    if (am) queryParams.append("am", am);
+    if (role) queryParams.append("role", role);
+    queryParams.append("page", page.toString());
+    queryParams.append("items_per_page", itemsPerPage.toString());
 
     const response = await useFetch<UserResponse>(
       `${API_URLS.GET_USERS}?${queryParams}`,
@@ -67,4 +67,3 @@ export async function getUsersByAmAndRole(am?: string, role?: string, page = 1, 
     return null;
   }
 }
-
