@@ -114,7 +114,6 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
-import { useAuthStore } from "@/stores/auth";
 import { getUsersByAmAndRole } from "@/services/adminService";
 import {
   fetchDikaiologitaFiles,
@@ -123,11 +122,9 @@ import {
 import type { User, DikaiologitikaFile } from "@/types/dikaiologitika";
 
 // Accessing the authentication store to check if the user is an admin
-const authStore = useAuthStore();
-// Redirect non-admin users
-if (!authStore.user.isAdmin) {
-  navigateTo("/");
-}
+definePageMeta({
+  middleware: "admin",
+});
 
 const $toast = useToast();
 

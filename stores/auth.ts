@@ -4,7 +4,7 @@ import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState= {
   user: User;
-  placements_access_token: string | null;
+  placements_access_token: string ;
   IHU_token: string | null;
   IHU_refresh_token: string | null;
   isAuthenticated: any;
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore("auth", {
     id: 0,
     isAdmin: false
     },
-    placements_access_token: null,
+    placements_access_token: '',
     IHU_token: null,
     IHU_refresh_token: null,
     isAuthenticated: false, 
