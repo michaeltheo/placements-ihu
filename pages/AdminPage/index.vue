@@ -126,6 +126,7 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import { useAuthStore } from "@/stores/auth";
 import { getUsersByAmAndRole } from "@/services/adminService";
 import {
   fetchDikaiologitaFiles,
@@ -157,6 +158,7 @@ const fileHeaders = ref([
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
 
+const authStore = useAuthStore();
 const loading = ref<boolean>(true);
 const serverUsers = ref<Array<User>>([]);
 const openUsersFileDialog = ref<boolean>(false);
@@ -238,7 +240,10 @@ watch(selectedUser, async (newUser) => {
 const loadUserFiles = async (userId: number) => {
   filesLoading.value = true;
   try {
-    const response = await fetchDikaiologitaFiles(userId);
+    const response = await fetchDikaiologitaFiles(
+      userId,
+      authStore.placements_access_token
+    );
     userFiles.value = response?.data.files ?? [];
   } catch (error) {
     $toast.error(`"Error fetching files:", ${error}`, { position: "bottom" });
@@ -251,7 +256,7 @@ const loadUserFiles = async (userId: number) => {
  * Initiates the download of a specific file.
  */
 const downloadFile = async (file: DikaiologitikaFile) => {
-  await downloadDikaiologitika(file.id);
+  await downloadDikaiologitika(file.id, authStore.placements_access_token);
 };
 </script>
 
