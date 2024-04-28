@@ -1,33 +1,35 @@
+<!-- eslint-disable vue/attribute-hyphenation -->
 <template>
   <div class="statisticsPage">
     <section class="statisticsPage__section">
       <h2 class="statisticsPage__title">Σελιδα Στατιστικών</h2>
       <p class="statisticsPage__hint">
         Επελέξτε παρακάτω για ποία ερώτηση θα θέλετε να δείτε στατστικά. Τα
-        σττιστικά εμφανίζονται με μορφή γραφήματος pie και υπάρχει η δυνατότητα
-        αποθήκευσεις του διαγράμαμτος.
+        στατστικά εμφανίζονται με μορφή γραφήματος "PIE" και υπάρχει η
+        δυνατότητα αποθήκευσεις του διαγράμαμτος καθώς και η εξαγωγή των
+        αποτελεσμάτων σε αρχείο CSV.
       </p>
       <div class="statisticsPage__select">
         <v-select
-          label="Επέλεξε ερώτηση"
-          :items="questionNames"
           v-model="selectedQuestion"
-          @update:model-value="updateChart"
+          label="Επέλεξε ερώτηση"
+          class="statisticsPage__select--input"
+          :items="questionNames"
           outlined
           clearable
           dense
-          class="statisticsPage__select-input"
+          @update:model-value="updateChart"
         ></v-select>
       </div>
     </section>
 
     <div v-if="selectedQuestion">
       <section class="statisticsPage__chartSection">
-        <div class="statisticsPage__chartSection-chart">
+        <div class="statisticsPage__chartSection--chart">
           <StatisticsPieChart
             :key="selectedQuestion"
             :titleText="selectedQuestion"
-            :subtitleText="'This is a test'"
+            :subtitleText="'Pie Diagram'"
             :seriesData="selectedQuestionData"
           />
         </div>
@@ -35,8 +37,10 @@
           <v-table>
             <thead>
               <tr>
-                <th class="statisticsPage__table-header">Απαντήσεις</th>
-                <th class="statisticsPage__table-header">Αριθμός Απαντήσεων</th>
+                <th class="statisticsPage__dataTable--header">Απαντήσεις</th>
+                <th class="statisticsPage__dataTable--header">
+                  Αριθμός Απαντήσεων
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -44,12 +48,16 @@
                 v-for="option in transformedSelectedQuestionData"
                 :key="option.text"
               >
-                <td class="statisticsPage__table-cell">{{ option.text }}</td>
-                <td class="statisticsPage__table-cell">{{ option.count }}</td>
+                <td class="statisticsPage__dataTable--cell">
+                  {{ option.text }}
+                </td>
+                <td class="statisticsPage__dataTable--cell">
+                  {{ option.count }}
+                </td>
               </tr>
             </tbody>
           </v-table>
-          <v-btn @click="exportCSV" class="statisticsPage__export-btn"
+          <v-btn class="statisticsPage__export-btn" @click="exportCSV"
             >Export CSV</v-btn
           >
         </div>
@@ -67,12 +75,9 @@ import {
 } from "@/services/adminService";
 
 definePageMeta({
-  middleware: "admin",
+  middleware: ["is-admin", "auth"],
 });
-
 const authStore = useAuthStore();
-console.log("🚀 ~ !authStore.user:", !authStore.user);
-
 const questionNames = ref<string[]>([]);
 const selectedQuestion = ref<string>("");
 const selectedQuestionData = ref<[string, number][]>([]);
@@ -150,40 +155,39 @@ const exportCSV = () => {
 
   &__select {
     @apply flex justify-center mb-6;
+
+    &--input {
+      @apply bg-white text-blue-900 p-2;
+    }
   }
 
   &__chartSection {
     @apply mt-8 shadow-lg border border-gray-200 rounded-lg bg-white;
-  }
 
-  &__chartSection__chart {
-    @apply w-full h-80 md:h-96;
+    &--chart {
+      @apply w-full h-80 md:h-96;
+    }
   }
 
   &__dataTable {
-    @apply overflow-x-auto p-4 relative;
+    @apply w-full overflow-x-auto p-4 relative;
+
+    &--header,
+    &--cell {
+      @apply text-base font-semibold text-center #{!important};
+      color: $primary-dark-blue-color;
+    }
+
+    &--cell {
+      @apply font-thin #{!important};
+    }
   }
 
-  :deep .v-table {
-    @apply w-full;
-  }
-
-  :deep .v-table thead tr th {
-    @apply text-base font-semibold;
-    color: $primary-dark-blue-color;
-  }
-
-  :deep .v-table tbody tr td {
-    @apply text-base;
-    color: $primary-dark-blue-color;
-  }
-
-  :deep .v-btn {
-    @apply ml-2 py-2 px-4 rounded-md  text-black font-semibold shadow-md transition duration-300 ease-in-out;
-  }
-
-  :deep .v-btn:hover {
-    color: $primary-blue-color;
+  &__export-btn {
+    @apply ml-2 py-2 px-4 rounded-md text-black font-semibold shadow-md transition duration-300 ease-in-out  #{!important};
+    :hover {
+      color: $primary-blue-color;
+    }
   }
 }
 </style>

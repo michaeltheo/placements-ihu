@@ -89,6 +89,11 @@ import {
 import type { User } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
+
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
 const user: User = authStore.user;
@@ -109,7 +114,10 @@ const totalItems: Ref<number> = ref(0);
 const loadItems = async () => {
   loading.value = true;
   try {
-    const result = await fetchDikaiologitaFiles(user.id);
+    const result = await fetchDikaiologitaFiles(
+      user.id,
+      authStore?.placements_access_token
+    );
     if (result && result.data && result.data.files) {
       serverItems.value = result.data.files;
       totalItems.value = result.data.files.length;
@@ -147,7 +155,7 @@ const handleDeleteDialogClose = (newValue: boolean) => {
 };
 
 const downloadFile = async (item: DikaiologitikaFile) => {
-  await downloadDikaiologitika(item.id);
+  await downloadDikaiologitika(item.id, authStore?.placements_access_token);
 };
 const deleteItem = (item: DikaiologitikaFile) => {
   selectedItem.value = item;

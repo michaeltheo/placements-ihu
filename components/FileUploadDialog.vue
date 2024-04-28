@@ -80,6 +80,7 @@
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
 import { withDefaults, watch, ref, defineProps, defineEmits } from "vue";
+import { useAuthStore } from "@/stores/auth";
 import {
   updateDikaiologitika,
   uploadDikaiologitika,
@@ -95,9 +96,10 @@ const props = withDefaults(
   }>(),
   {
     editItem: null,
-  }
+  },
 );
 
+const authStore = useAuthStore();
 const dikaiologitikaStore = useDikaiologitkaStore();
 // Determine the dialog mode based on the editItem
 const isEditMode = computed(() => props.editItem !== null);
@@ -128,7 +130,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  }
+  },
 );
 
 // Function to handle file selection
@@ -146,7 +148,7 @@ const submitForm = async () => {
       "Form submission failed due to validation errors or missing data.",
       {
         position: "bottom",
-      }
+      },
     );
     return;
   }
@@ -154,11 +156,16 @@ const submitForm = async () => {
   try {
     let response: any;
     if (isEditMode.value && props.editItem) {
-      response = await updateDikaiologitika(fileInput.value, props.editItem.id);
+      response = await updateDikaiologitika(
+        fileInput.value,
+        props.editItem.id,
+        authStore?.placements_access_token,
+      );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
-        selectedFileType.value
+        selectedFileType.value,
+        authStore?.placements_access_token,
       );
     }
 
