@@ -3,7 +3,7 @@ const PLACEMENTS_BASE_URL = "http://localhost:8000";
 export const API_URLS = {
   IEE_TOKEN_ENDPOINT: "https://login.iee.ihu.gr/token",
   IEE_PROFILE_ENDPOINT: "https://api.iee.ihu.gr/profile",
-  PLACEMENTS_LOGIN: `${PLACEMENTS_BASE_URL}/user/`,
+  PLACEMENTS_LOGIN: `${PLACEMENTS_BASE_URL}/auth/login`,
   GET_USERS: `${PLACEMENTS_BASE_URL}/user`,
   PLACEMENTS_VERIFY_TOKEN: `${PLACEMENTS_BASE_URL}/auth/verify-token`,
   UPLOAD_DIKAIOLOGITIKA: `${PLACEMENTS_BASE_URL}/dikaiologitika/`,
@@ -12,7 +12,7 @@ export const API_URLS = {
   GET_DIKAIOLOGITIKA_FILES: `${PLACEMENTS_BASE_URL}/dikaiologitika/user`,
   DOWNLOAD_DIKAIOLOGITIKA: `${PLACEMENTS_BASE_URL}/dikaiologitika/download`,
   GET_DIKAIOLOGITIKA_TYPES: `${PLACEMENTS_BASE_URL}/dikaiologitika/types`,
-  GET_QUESTION_STATISTICS:`${PLACEMENTS_BASE_URL}/question/stats/answers`
+  GET_QUESTION_STATISTICS: `${PLACEMENTS_BASE_URL}/question/stats/answers`
 };
 
 export const GRANT_TYPE = {

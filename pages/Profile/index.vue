@@ -2,11 +2,48 @@
 <!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <div class="profile">
+  <div class="profile" data-aos="flip-up" data-aos-duration="1000">
     <section class="profile__section profile__section--user">
-      <h1 class="profile__name">{{ user.first_name }} {{ user.last_name }}</h1>
-      <p class="profile__detail profile__detail--role">Role: {{ user.role }}</p>
-      <p class="profile__detail profile__detail--am">AM: {{ user.AM }}</p>
+      <h2 class="profile__name">{{ user.first_name }} {{ user.last_name }}</h2>
+      <div class="md:grid md:grid-cols-4 md:gap-4 flex flex-col">
+        <v-text-field
+          label="'Έτος Εγγραφής"
+          :model-value="user.reg_year"
+          variant="outlined"
+          class="profile__detail profile__detail--regYear"
+          readonly
+        ></v-text-field>
+        <v-text-field
+          label=" Αριθμός Μητρώου"
+          :model-value="user.AM"
+          variant="outlined"
+          class="profile__detail profile__detail--am"
+          readonly
+        ></v-text-field>
+        <v-text-field
+          label="Role"
+          :model-value="user.role"
+          variant="outlined"
+          class="profile__detail profile__detail--role"
+          readonly
+        ></v-text-field>
+        <v-text-field
+          label="Τηλέφωνο"
+          :model-value="user.telephone_number"
+          variant="outlined"
+          class="profile__detail profile__detail--telephone"
+          readonly
+        ></v-text-field>
+      </div>
+      <div class="md:grid grid-cols-3">
+        <v-text-field
+          label="Email"
+          :model-value="user.email"
+          variant="outlined"
+          class="profile__detail profile__detail--email"
+          readonly
+        ></v-text-field>
+      </div>
     </section>
 
     <section class="profile__section profile__section--files">
@@ -50,7 +87,7 @@
         <v-btn
           elevation="4"
           color="#112d4e"
-          append-icon="fa:fas fa-arrows-rotate fa-spin"
+          append-icon="fa:fas fa-arrows-rotate "
           @click="loadItems()"
           >Ανανέωση Πίνακα</v-btn
         >
@@ -86,7 +123,7 @@ import {
   fetchDikaiologitaFiles,
   getDikaiologitkaTypes,
 } from "@/services/dikaiologitkaService";
-import type { User } from "@/types";
+import type { UserDetails } from "@/types/apiTypes";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 
@@ -96,13 +133,13 @@ definePageMeta({
 
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
-const user: User = authStore.user;
+const user: UserDetails = authStore.user;
 const itemsPerPage: Ref<number> = ref(5);
 const headers = ref([
-  { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description" },
-  { title: "ONOMA ARXEIOY", key: "file_name" },
-  { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date" },
-  { title: "ΕΠΙΛΟΓΕΣ", key: "actions" },
+  { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description", sortable: false },
+  { title: "ONOMA ARXEIOY", key: "file_name", sortable: false },
+  { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
+  { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
 const selectedItem: Ref<DikaiologitikaFile | null> = ref(null);
 const serverItems: Ref<DikaiologitikaFile[]> = ref([]);
@@ -191,19 +228,23 @@ onMounted(async () => {
   }
 
   &__name {
-    @apply text-3xl md:text-5xl font-extrabold mb-6 leading-snug;
+    @apply text-3xl md:text-4xl font-extrabold mb-6 leading-snug;
     color: $primary-dark-blue-color;
   }
 
   &__header {
     @apply text-2xl font-semibold text-center my-4;
+    color: $primary-dark-blue-color;
   }
 
   &__detail {
     @apply mt-2 text-xl font-medium mb-5;
 
     &--role,
-    &--am {
+    &--am,
+    &--regYear,
+    &--email,
+    &--telephone {
       color: $primary-blue-color;
     }
   }

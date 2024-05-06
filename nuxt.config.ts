@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@invictus.codes/nuxt-vuetify",
     "@pinia/nuxt",
-    'nuxt-highcharts',
+    "nuxt-highcharts",
   ],
   css: [
     "@/assets/main.scss",
