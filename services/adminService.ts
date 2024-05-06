@@ -15,6 +15,34 @@ interface UserResponse {
   };
 }
 
+interface QuestionStatisticsResponse {
+  data: Array<{
+    question_id: number;
+    question_text: string;
+    statistics: Array<{
+      option_id: number;
+      count: number;
+      text: string;
+    }>;
+    free_text_responses_count: number;
+    free_text_responses: string[];
+    total_responses: number;
+  }>;
+  message: {
+    detail: string;
+  };
+  error?:any
+}
+
+interface QuestionData {
+  questionName: string;
+  answersData: Array<{ text: string; count: number }>;
+}
+
+
+
+
+
 /**
  * This TypeScript function fetches users based on AM and role parameters with pagination support.
  * @param {string} [am] - The `am` parameter in the `getUsersByAmAndRole` function stands for "Account
@@ -66,4 +94,60 @@ export async function getUsersByAmAndRole(
     errorLog("Error fetching users:", error);
     return null;
   }
+}
+
+export async function getQuestionStatistics(token: string): Promise<QuestionStatisticsResponse | null> {
+  try {
+    const response = await fetch(`${API_URLS.GET_QUESTION_STATISTICS}`, {
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    if (!responseData || !responseData.data) {
+      throw new Error("Invalid response data received");
+    }
+    return responseData;
+  } catch (error) {
+    errorLog("Error fetching question statistics:", error);
+    return null;
+  }
+}
+
+/**
+ * Parse the response from the question statistics endpoint to extract relevant data for visualization.
+ * @param {QuestionStatisticsResponse} responseData - The response data from the question statistics endpoint.
+ * @returns {Array<QuestionData>} An array of QuestionData objects containing question names and corresponding answer data.
+ */
+export function parseQuestionStatistics(responseData: QuestionStatisticsResponse): Array<QuestionData> {
+  const questionDataArray: Array<QuestionData> = [];
+
+  if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
+    return questionDataArray;
+  }
+
+  responseData.data.forEach((question) => {
+    const questionData: QuestionData = {
+      questionName: question.question_text,
+      answersData: [],
+    };
+
+    question.statistics.forEach((statistic) => {
+      questionData.answersData.push({
+        text: statistic.text,
+        count: statistic.count,
+      });
+    });
+
+    questionDataArray.push(questionData);
+  });
+
+  return questionDataArray;
 }

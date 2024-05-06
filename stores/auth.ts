@@ -4,7 +4,7 @@ import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState = {
   user: User;
-  placements_access_token: string;
+  placements_access_token: string ;
   IHU_token: string | null;
   IHU_refresh_token: string | null;
   isAuthenticated: any;

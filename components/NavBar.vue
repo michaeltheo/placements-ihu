@@ -94,7 +94,7 @@ const navigateToLogin = () => {
       (
         +c ^
         (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
-      ).toString(16),
+      ).toString(16)
     );
   }
   if (typeof window !== "undefined") {
@@ -145,6 +145,10 @@ const navbarLinks = computed(() => {
     // If the user is an admin, add an admin page link
     if (authStore.user.isAdmin) {
       dynamicLinks.push({ text: "ΣΕΛΙΔΑ ΔΙΑΧΕΙΡΙΣΤΗ", route: "/adminPage" });
+      dynamicLinks.push({
+        text: "ΣΕΛΙΔΑ ΣΤΑΤΙΣΤΙΚΩΝ",
+        route: "/adminPage/statistics",
+      });
     } else {
       // Add profile link for all authenticated users
       dynamicLinks.push({ text: "ΠΡΟΦΙΛ", route: "/profile" });

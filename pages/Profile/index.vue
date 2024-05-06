@@ -89,6 +89,11 @@ import {
 import type { User } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
+
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const dikaiologitikaStore = useDikaiologitkaStore();
 const authStore = useAuthStore();
 const user: User = authStore.user;
@@ -111,7 +116,7 @@ const loadItems = async () => {
   try {
     const result = await fetchDikaiologitaFiles(
       user.id,
-      authStore?.placements_access_token,
+      authStore?.placements_access_token
     );
     if (result && result.data && result.data.files) {
       serverItems.value = result.data.files;

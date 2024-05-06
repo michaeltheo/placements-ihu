@@ -2,6 +2,18 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div class="adminPage">
+    <div class="adminPage__section--statistics">
+      <h3 class="adminPage__title">Στατιστικά Ερωτηματολογίου</h3>
+      <p class="adminPage__hint">
+        Προβολή σελίδας στατιστικών του ερωτηματολογίου των φοιτητών του
+        τμήματος.
+      </p>
+      <BaseComponentsBaseButton
+        class="m-auto"
+        text="Σελίδα Στατιστικών"
+        @click="navigateTo('/adminPage/statistics')"
+      />
+    </div>
     <section class="adminPage__section--files">
       <h2 class="adminPage__title">Πίνακας Φοιτητών</h2>
       <v-data-table-server
@@ -122,15 +134,11 @@ import {
 } from "@/services/dikaiologitkaService";
 import type { User, DikaiologitikaFile } from "@/types/dikaiologitika";
 
-// Accessing the authentication store to check if the user is an admin
-const authStore = useAuthStore();
-// Redirect non-admin users
-if (!authStore.user.isAdmin) {
-  navigateTo("/");
-}
+definePageMeta({
+  middleware: ["is-admin", "auth"],
+});
 
 const $toast = useToast();
-
 // Define reactive states
 const searchAM = ref<string>("");
 const totalItems = ref<number>(0);
@@ -150,6 +158,7 @@ const fileHeaders = ref([
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
 
+const authStore = useAuthStore();
 const loading = ref<boolean>(true);
 const serverUsers = ref<Array<User>>([]);
 const openUsersFileDialog = ref<boolean>(false);
@@ -176,7 +185,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       "student",
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     serverUsers.value = result?.data ?? [];
     totalItems.value = result?.total_items ?? 0;
@@ -231,7 +240,10 @@ watch(selectedUser, async (newUser) => {
 const loadUserFiles = async (userId: number) => {
   filesLoading.value = true;
   try {
-    const response = await fetchDikaiologitaFiles(userId);
+    const response = await fetchDikaiologitaFiles(
+      userId,
+      authStore.placements_access_token
+    );
     userFiles.value = response?.data.files ?? [];
   } catch (error) {
     $toast.error(`"Error fetching files:", ${error}`, { position: "bottom" });
@@ -244,7 +256,7 @@ const loadUserFiles = async (userId: number) => {
  * Initiates the download of a specific file.
  */
 const downloadFile = async (file: DikaiologitikaFile) => {
-  await downloadDikaiologitika(file.id);
+  await downloadDikaiologitika(file.id, authStore.placements_access_token);
 };
 </script>
 
@@ -254,7 +266,8 @@ const downloadFile = async (file: DikaiologitikaFile) => {
 .adminPage {
   @apply container mx-auto px-4 py-8 space-y-12;
 
-  &__section--files {
+  &__section--files,
+  &__section--statistics {
     @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white;
   }
 
