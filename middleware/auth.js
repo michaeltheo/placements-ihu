@@ -9,5 +9,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return;
   }
   if (!authStore.isAuthenticated) {
-    return navigateTo("/");   }
+    return navigateTo("/");
+  }
 });

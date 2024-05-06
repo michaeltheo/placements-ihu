@@ -1,101 +1,34 @@
-import { useRuntimeConfig } from "#imports";
 import { errorLog } from "@/utils/log";
-import { API_URLS, GRANT_TYPE } from "@/constants/apiConfig";
-import type { PlacementUserResponse, UserDetails } from "@/types/apiTypes";
+import { API_URLS } from "@/constants/apiConfig";
+import type { LoginServerResponse, PlacementUserResponse } from "@/types/apiTypes";
+import { extractErrorMessage } from "@/services/errorHandling";
 
-interface TokenResponse {
-  access_token: string;
-  expires_in: number;
-  user: any;
-}
-
-/**
- * The function fetchToken retrieves a token by sending a POST request with authorization code and
- * client credentials.
- * @param {string} code - The `code` parameter in the `fetchToken` function is typically an
- * authorization code that is obtai ned from the authorization server after a user has successfully
- * authenticated and authorized access to their resources. This code is then used to exchange for an
- * access token that allows the client to make authenticated requests on behalf of the
- * @returns The `fetchToken` function is returning a `TokenResponse` object or `null` based on the
- * result of the API call.
- */
-export async function fetchToken(code: string): Promise<TokenResponse | null> {
-  const config = useRuntimeConfig();
-  const body = {
-    client_id: config.public.CLIENT_ID,
-    client_secret: config.public.CLIENT_SECRET,
-    grant_type: GRANT_TYPE.AUTHORIZATION_CODE,
-    code,
-  };
+export async function ServerSideLogin(
+  state: string,
+  code: string,
+): Promise<LoginServerResponse | string> {
   try {
-    const { data } = await useFetch(API_URLS.IEE_TOKEN_ENDPOINT, {
+    const response = await fetch(`${API_URLS.PLACEMENTS_LOGIN}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: new URLSearchParams(Object.entries(body) as string[][]).toString(),
+      body: JSON.stringify({ state, code }),
     });
-    return data.value as TokenResponse;
-  } catch (error) {
-    errorLog("Token fetch error:", error);
-    return null;
-  }
-}
+    if (response.ok) {
+      const data: LoginServerResponse = await response.json();
+      return data;
+    } else {
+      // Extract error message using extractErrorMessage function
+      const errorData = await extractErrorMessage(response);
+      const errorMessage = errorData.error;
 
-/**
- * The function fetchProfile fetches a user profile using an access token and returns the profile data.
- * @param {string} accessToken - The `accessToken` parameter is a string that represents the access
- * token needed to authenticate the user and make authorized requests to the API endpoint. This access
- * token is typically obtained after a user successfully logs in or authorizes the application to
- * access their profile information.
- * @returns The `fetchProfile` function is returning the `data.value` from the response if the fetch is
- * successful. If there is an error during the fetch, it will log the error message and return `null`.
- */
-export async function fetchProfile(accessToken: string): Promise<any> {
-  try {
-    const { data } = await useFetch(API_URLS.IEE_PROFILE_ENDPOINT, {
-      method: "GET",
-      headers: {
-        "x-access-token": accessToken,
-      },
-    });
-
-    return data.value;
-  } catch (error) {
-    errorLog("Profile fetch error:", error);
-    return null;
-  }
-}
-
-/**
- * Creates a new user or retrieves an existing one from the placements system.
- * @param userDetails - The details of the user to create or retrieve.
- * @returns A promise that resolves with the user details or null in case of error.
- */
-export async function createOrGetUser(
-  userDetails: UserDetails,
-): Promise<PlacementUserResponse | null> {
-  try {
-    // Use `useFetch` from Nuxt to make the API call.
-    const { data, error } = await useFetch<PlacementUserResponse>(
-      API_URLS.PLACEMENTS_LOGIN,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userDetails),
-        // Ensures cookies, including HTTP-only, are sent with the request.
-        credentials: "include",
-      },
-    );
-
-    if (error.value) {
-      throw new Error(error.value as unknown as string); // If there's an error, throw it to be caught by the catch block.
+      // Return the error message
+      return errorMessage;
     }
-    return data.value; // If the call was successful, return the user data.
-  } catch (error) {
-    errorLog("Placements login error:", error); // Use your logging/error handling mechanism.
-    return null; // Return null to indicate the failure.
+  } catch (error: any) {
+    // Return the error message
+    return error.message;
   }
 }
 

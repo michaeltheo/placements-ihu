@@ -1,5 +1,6 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
+import { dummyStatistcs } from "@/constants/dummyStaticsts";
 
 interface UserResponse {
   data: Array<{
@@ -8,6 +9,10 @@ interface UserResponse {
     AM: string;
     id: number;
     role: string;
+    fathers_name: string,
+    telephone_number: string,
+    email: string,
+    reg_year: string
   }>;
   total_items: number;
   message: {
@@ -31,17 +36,13 @@ interface QuestionStatisticsResponse {
   message: {
     detail: string;
   };
-  error?:any
+  error?: any;
 }
 
 interface QuestionData {
   questionName: string;
   answersData: Array<{ text: string; count: number }>;
 }
-
-
-
-
 
 /**
  * This TypeScript function fetches users based on AM and role parameters with pagination support.
@@ -96,10 +97,12 @@ export async function getUsersByAmAndRole(
   }
 }
 
-export async function getQuestionStatistics(token: string): Promise<QuestionStatisticsResponse | null> {
+export async function getQuestionStatistics(
+  token: string,
+): Promise<QuestionStatisticsResponse | null> {
   try {
     const response = await fetch(`${API_URLS.GET_QUESTION_STATISTICS}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -114,7 +117,9 @@ export async function getQuestionStatistics(token: string): Promise<QuestionStat
     if (!responseData || !responseData.data) {
       throw new Error("Invalid response data received");
     }
-    return responseData;
+    // TODO: Remove dummy statistics
+    // return responseData;
+    return dummyStatistcs
   } catch (error) {
     errorLog("Error fetching question statistics:", error);
     return null;
@@ -126,10 +131,16 @@ export async function getQuestionStatistics(token: string): Promise<QuestionStat
  * @param {QuestionStatisticsResponse} responseData - The response data from the question statistics endpoint.
  * @returns {Array<QuestionData>} An array of QuestionData objects containing question names and corresponding answer data.
  */
-export function parseQuestionStatistics(responseData: QuestionStatisticsResponse): Array<QuestionData> {
+export function parseQuestionStatistics(
+  responseData: QuestionStatisticsResponse,
+): Array<QuestionData> {
   const questionDataArray: Array<QuestionData> = [];
 
-  if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
+  if (
+    !responseData ||
+    !responseData.data ||
+    !Array.isArray(responseData.data)
+  ) {
     return questionDataArray;
   }
 

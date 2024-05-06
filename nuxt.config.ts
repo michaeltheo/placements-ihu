@@ -1,12 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // @ts-ignore
 export default defineNuxtConfig({
-  runtimeConfig: {
-    public: {
-      CLIENT_ID: process.env.CLIENT_ID,
-      CLIENT_SECRET: process.env.CLIENT_SECRET,
-    },
-  },
   routeRules: {
     "/auth": { ssr: false },
   },
@@ -15,7 +9,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@invictus.codes/nuxt-vuetify",
     "@pinia/nuxt",
-    'nuxt-highcharts',
+    "nuxt-highcharts",
   ],
   css: [
     "@/assets/main.scss",

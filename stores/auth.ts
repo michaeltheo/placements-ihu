@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import { User } from "@/types";
+import { UserDetails } from "@/types/apiTypes";
 import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState = {
-  user: User;
-  placements_access_token: string ;
+  user: UserDetails;
+  placements_access_token: string;
   IHU_token: string | null;
   IHU_refresh_token: string | null;
   isAuthenticated: any;
@@ -15,8 +15,12 @@ export const useAuthStore = defineStore("auth", {
     user: {
       first_name: "",
       last_name: "",
-      role: "",
       AM: "",
+      fathers_name: "",
+      email: "",
+      reg_year: "",
+      telephone_number: "",
+      role: "",
       id: 0,
       isAdmin: false,
     },
@@ -30,7 +34,7 @@ export const useAuthStore = defineStore("auth", {
     // Action methods to manipulate the state
     login(
       receivedToken: string,
-      userProfile: User,
+      userProfile: UserDetails,
       refreshToken: string,
       placementsToken: string,
     ) {
@@ -51,8 +55,12 @@ export const useAuthStore = defineStore("auth", {
       this.user = {
         first_name: "",
         last_name: "",
-        role: "",
         AM: "",
+        fathers_name: "",
+        email: "",
+        reg_year: "",
+        telephone_number: "",
+        role: "",
         id: 0,
         isAdmin: false,
       };

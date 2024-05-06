@@ -39,6 +39,9 @@ const computedChartOptions = computed<any>(() => ({
   title: {
     text: props.titleText,
     align: "left",
+    style: {
+      color: "#112d4e",
+    },
   },
   subtitle: {
     text: props.subtitleText,
@@ -76,6 +79,7 @@ const computedChartOptions = computed<any>(() => ({
       dataLabels: {
         enabled: true,
         format: "{point.name}: {point.percentage:.1f} %",
+        color: "#112d4e",
       },
     },
   },
