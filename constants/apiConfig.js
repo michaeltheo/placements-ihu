@@ -3,6 +3,7 @@ const PLACEMENTS_BASE_URL = "http://localhost:8000";
 export const API_URLS = {
   IEE_TOKEN_ENDPOINT: "https://login.iee.ihu.gr/token",
   IEE_PROFILE_ENDPOINT: "https://api.iee.ihu.gr/profile",
+  REDIRECT_TO_IHU_IEE_FOR_LOGIN: `${PLACEMENTS_BASE_URL}/auth/redirect`,
   PLACEMENTS_LOGIN: `${PLACEMENTS_BASE_URL}/auth/login`,
   GET_USERS: `${PLACEMENTS_BASE_URL}/user`,
   PLACEMENTS_VERIFY_TOKEN: `${PLACEMENTS_BASE_URL}/auth/verify-token`,

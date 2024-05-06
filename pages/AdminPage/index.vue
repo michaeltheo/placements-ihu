@@ -72,8 +72,8 @@
                   label="Όνομα"
                   :model-value="selectedUser?.first_name"
                   readonly
-                  outlined
-                  color="primary-dark-blue"
+                  variant="outlined"
+                  class="adminPage__usersDialog--firstName"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -81,8 +81,8 @@
                   label="Επίθετο"
                   :model-value="selectedUser?.last_name"
                   readonly
-                  outlined
-                  color="primary-dark-blue"
+                  variant="outlined"
+                  class="adminPage__usersDialog--lastName"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -90,8 +90,24 @@
                   label="Αριθμός Μητρώου"
                   :model-value="selectedUser?.AM"
                   readonly
-                  outlined
-                  color="primary-dark-blue"
+                  variant="outlined"
+                  class="adminPage__usersDialog--AM"
+                ></v-text-field>
+                <v-text-field
+                  label="Έτος Εγγραφής"
+                  :model-value="selectedUser?.reg_year"
+                  readonly
+                  variant="outlined"
+                  class="adminPage__usersDialog--regYear"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  label="Email"
+                  :model-value="selectedUser?.email"
+                  readonly
+                  variant="outlined"
+                  class="adminPage__usersDialog--email"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -132,7 +148,8 @@ import {
   fetchDikaiologitaFiles,
   downloadDikaiologitika,
 } from "@/services/dikaiologitkaService";
-import type { User, DikaiologitikaFile } from "@/types/dikaiologitika";
+import type { DikaiologitikaFile } from "@/types/dikaiologitika";
+import { UserDetails } from "@/types/apiTypes";
 
 definePageMeta({
   middleware: ["is-admin", "auth"],
@@ -160,9 +177,9 @@ const fileHeaders = ref([
 
 const authStore = useAuthStore();
 const loading = ref<boolean>(true);
-const serverUsers = ref<Array<User>>([]);
+const serverUsers = ref<Array<UserDetails>>([]);
 const openUsersFileDialog = ref<boolean>(false);
-const selectedUser = ref<User | null>(null);
+const selectedUser = ref<UserDetails | null>(null);
 const userFiles = ref<Array<DikaiologitikaFile>>([]);
 const filesLoading = ref<boolean>(false);
 
@@ -185,7 +202,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       "student",
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     serverUsers.value = result?.data ?? [];
     totalItems.value = result?.total_items ?? 0;
@@ -206,9 +223,10 @@ const applyFilter = () => {
 /**
  * Handles table row click to set the selected user and open the dialog.
  */
-const handleClick = (_event: Event, row: { item: User }) => {
+const handleClick = async (_event: Event, row: { item: UserDetails }) => {
   selectedUser.value = row.item;
   openUsersFileDialog.value = true;
+  await loadUserFiles(row.item.id);
 };
 
 /**
@@ -226,15 +244,6 @@ onMounted(() => {
 });
 
 /**
- * Watches the selected user and loads files when a new user is selected.
- */
-watch(selectedUser, async (newUser) => {
-  if (newUser) {
-    await loadUserFiles(newUser.id);
-  }
-});
-
-/**
  * Fetches files for the given user ID and updates the state.
  */
 const loadUserFiles = async (userId: number) => {
@@ -242,7 +251,7 @@ const loadUserFiles = async (userId: number) => {
   try {
     const response = await fetchDikaiologitaFiles(
       userId,
-      authStore.placements_access_token,
+      authStore.placements_access_token
     );
     userFiles.value = response?.data.files ?? [];
   } catch (error) {
@@ -284,6 +293,13 @@ const downloadFile = async (file: DikaiologitikaFile) => {
     &--title {
       @apply font-bold;
       color: $primary-dark-blue-color;
+    }
+    &--firstName,
+    &--lastName,
+    &--AM,
+    &--regYear,
+    &--email {
+      color: $primary-blue-color;
     }
   }
 }

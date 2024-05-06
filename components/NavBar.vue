@@ -64,9 +64,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
 import { onClickOutside } from "@vueuse/core";
+import { API_URLS } from "@/constants/apiConfig";
 import { useAuthStore } from "@/stores/auth";
 import links from "@/constants/links";
 
@@ -89,7 +88,7 @@ const navigateToHome = () => {
 
 const navigateToLogin = async () => {
   try {
-    const response = await fetch("http://localhost:8000/auth/redirect", {
+    const response = await fetch(`${API_URLS.REDIRECT_TO_IHU_IEE_FOR_LOGIN}`, {
       method: "GET",
     });
 
