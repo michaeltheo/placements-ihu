@@ -153,7 +153,7 @@ const loadItems = async () => {
   try {
     const result = await fetchDikaiologitaFiles(
       user.id,
-      authStore?.placements_access_token
+      authStore?.placements_access_token,
     );
     if (result && result.data && result.data.files) {
       serverItems.value = result.data.files;

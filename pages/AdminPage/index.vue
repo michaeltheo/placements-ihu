@@ -202,7 +202,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       "student",
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     serverUsers.value = result?.data ?? [];
     totalItems.value = result?.total_items ?? 0;
@@ -251,7 +251,7 @@ const loadUserFiles = async (userId: number) => {
   try {
     const response = await fetchDikaiologitaFiles(
       userId,
-      authStore.placements_access_token
+      authStore.placements_access_token,
     );
     userFiles.value = response?.data.files ?? [];
   } catch (error) {
