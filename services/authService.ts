@@ -13,6 +13,7 @@ export async function ServerSideLogin(
   try {
     const response = await fetch(`${API_URLS.PLACEMENTS_LOGIN}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

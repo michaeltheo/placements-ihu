@@ -8,7 +8,7 @@
     >
       <v-card class="dialog__card">
         <v-card-title class="dialog__title">
-          Διαγραφή Δικαιολογιτικού
+          Διαγραφή Δικαιολογητικού
         </v-card-title>
 
         <v-card-text class="dialog__content">

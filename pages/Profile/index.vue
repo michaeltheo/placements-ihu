@@ -47,7 +47,7 @@
     </section>
 
     <section class="profile__section profile__section--files">
-      <h2 class="profile__header">Δικαιολογιτικά</h2>
+      <h2 class="profile__header">Δικαιολογητικά</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -56,7 +56,7 @@
         :loading="loading"
         item-value="type"
         loading-text="Φόρτωση δεδομένων"
-        no-data-text="Δεν βρέθηκαν Δικαιολογιτικά"
+        no-data-text="Δεν βρέθηκαν Δικαιολογητικά"
         @update:options="loadItems"
       >
         <template v-slot:bottom> </template>

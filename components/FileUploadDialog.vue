@@ -10,8 +10,8 @@
         <v-card-title class="file-dialog__title">
           {{
             isEditMode
-              ? `Επεξεργασία Δικαιολογιτικού: ${editItem?.description}`
-              : "Ανέβασμα Δικαιολογιτικού"
+              ? `Επεξεργασία Δικαιολογητικού: ${editItem?.description}`
+              : "Ανέβασμα Δικαιολογητικού"
           }}
         </v-card-title>
 

@@ -18,7 +18,6 @@ import { extractErrorMessage } from "@/services/errorHandling";
 export async function uploadDikaiologitika(
   file: File,
   type: string,
-  token: string,
 ): Promise<UploadResponse> {
   // Ensure the file is a PDF
   if (file.type !== "application/pdf") {
@@ -34,9 +33,7 @@ export async function uploadDikaiologitika(
     // Attempt to upload the file using the fetch API.
     const response = await fetch(API_URLS.UPLOAD_DIKAIOLOGITIKA, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
       body: formData,
     });
 
@@ -56,13 +53,11 @@ export async function uploadDikaiologitika(
  * Updates a specific dikaiologitika file.
  * @param file The new file to update the existing one.
  * @param dikaiologitaId The ID of the dikaiologitika to be updated.
- * @param token The access token.
  * @returns Promise resolving to the update response data or an error message.
  */
 export async function updateDikaiologitika(
   file: File,
   dikaiologitaId: number,
-  token: string,
 ): Promise<UpdateDeleteResponse> {
   const formData = new FormData();
   formData.append("file", file, file.name);
@@ -72,9 +67,7 @@ export async function updateDikaiologitika(
       `${API_URLS.UPDATE_DIKAIOLOGITIKA}${dikaiologitaId}`,
       {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include",
         body: formData,
       },
     );
@@ -95,17 +88,16 @@ export async function updateDikaiologitika(
  * Deletes a dikaiologitika file by its ID.
  * @param fileID The ID of the file to be deleted.
  * @returns Promise resolving to the delete operation response data or an error message.
- * @param token The access token.
  */
 export async function deleteDikaiologitika(
   fileID: number,
-  token: string,
 ): Promise<UpdateDeleteResponse> {
   try {
     const response = await fetch(`${API_URLS.DELETE_DIKAIOLOGITIKA}${fileID}`, {
       method: "GET",
+      credentials: "include",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
     });
 
@@ -124,21 +116,19 @@ export async function deleteDikaiologitika(
 /**
  * Fetches dikaiologitika files associated with a specific user.
  * @param userId The user ID for whom files are being fetched.
- * @param token The access token.
  * @returns Promise resolving to the files response data or null in case of error.
  */
 export async function fetchDikaiologitaFiles(
   userId: number,
-  token: string,
 ): Promise<DikaiologitikaFilesResponse | null> {
   try {
     const response = await fetch(
       `${API_URLS.GET_DIKAIOLOGITIKA_FILES}/${userId}/files`,
       {
         method: "GET",
+        credentials: "include",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -163,20 +153,17 @@ export async function fetchDikaiologitaFiles(
 /**
  * Initiates the download of a dikaiologitika file by its ID.
  * @param fileId The ID of the file to be downloaded.
- * @param token The access token.
  * @returns Promise resolving when the file download has been initiated.
  */
-export async function downloadDikaiologitika(
-  fileId: number,
-  token: string,
-): Promise<void> {
+export async function downloadDikaiologitika(fileId: number): Promise<void> {
   try {
     const response = await fetch(
       `${API_URLS.DOWNLOAD_DIKAIOLOGITIKA}/${fileId}`,
       {
         method: "GET",
+        credentials: "include",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
         },
       },
     );
