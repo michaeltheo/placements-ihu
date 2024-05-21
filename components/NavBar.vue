@@ -86,8 +86,8 @@ const navigateToHome = () => {
   router.push("/");
 };
 
-// TODO: change logic
-const navigateToLogin = async () => {
+// TODO: change lo
+const navigateToLogin = () => {
   try {
     // const response = await fetch(`${API_URLS.REDIRECT_TO_IHU_IEE_FOR_LOGIN}`, {
     //   method: "GET",

@@ -22,6 +22,9 @@
           <v-card-text class="file-dialog__edit-date">
             Τελευταία ημερομηνία επεξεργασίας: <span>{{ editItem?.date }}</span>
           </v-card-text>
+          <v-card-text class="file-dialog__edit-date">
+            Τύπος Υποβολής Αρχείου: <span>{{ editItem?.submission_time }}</span>
+          </v-card-text>
         </div>
 
         <v-form
@@ -31,8 +34,20 @@
         >
           <div class="file-dialog__selections">
             <v-select
+              v-model="selectedProgram"
+              :items="programs"
+              label="Επέλεξε πρόγραμμα"
+              outlined
+              :rules="internshipProgramRules"
+              dense
+              class="file-dialog__select"
+              :disabled="isEditMode"
+              @change="onProgramChange"
+            ></v-select>
+
+            <v-select
               v-model="selectedFileType"
-              :items="fileTypes"
+              :items="filteredFileTypes"
               item-title="description"
               item-value="type"
               :rules="selectRules"
@@ -40,7 +55,7 @@
               outlined
               dense
               class="file-dialog__select"
-              :disabled="isEditMode"
+              :disabled="!selectedProgram || isEditMode"
             ></v-select>
 
             <v-file-input
@@ -61,8 +76,17 @@
             <v-btn
               type="submit"
               class="file-dialog__btn file-dialog__btn--submit"
+              :disabled="loading"
             >
-              {{ isEditMode ? "Ενημέρωση" : "Ανέβασμα" }}
+              <template v-if="loading">
+                <v-icon
+                  color="primary-blue-color"
+                  icon="fas fa-circle-notch fa-spin"
+                ></v-icon>
+              </template>
+              <template v-else>
+                {{ isEditMode ? "Ενημέρωση" : "Ανέβασμα" }}
+              </template>
             </v-btn>
             <v-btn
               class="file-dialog__btn file-dialog__btn--cancel"
@@ -79,53 +103,66 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
-import { withDefaults, watch, ref, defineProps, defineEmits } from "vue";
-import { useAuthStore } from "@/stores/auth";
 import {
   updateDikaiologitika,
   uploadDikaiologitika,
 } from "@/services/dikaiologitkaService";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
-import type { DikaiologitikaFile } from "@/types/dikaiologitika";
+import type {
+  DikaiologitikaFile,
+  DikaiologitikaType,
+} from "@/types/dikaiologitika";
+import type { InternshipRead } from "@/types/internship";
 import "vue-toast-notification/dist/theme-sugar.css";
 
-const props = withDefaults(
-  defineProps<{
-    modelValue: boolean;
-    editItem?: DikaiologitikaFile | null;
-  }>(),
-  {
-    editItem: null,
-  },
-);
+const props = defineProps<{
+  modelValue: boolean;
+  editItem?: DikaiologitikaFile | null;
+  internship: InternshipRead;
+}>();
 
-const authStore = useAuthStore();
 const dikaiologitikaStore = useDikaiologitkaStore();
-// Determine the dialog mode based on the editItem
 const isEditMode = computed(() => props.editItem !== null);
-const form = ref<any>(null); // Reference to the form element
-const emit = defineEmits(["update:modelValue", "refreshFilesList"]); // Emit events for dialog control and refreshing files list
-const localDialog = ref(props.modelValue); // Local state for dialog visibility
-const fileTypes = computed(() => dikaiologitikaStore.dikaiologitikaTypes);
-
+const form = ref<any>(null);
+const loading = ref(false);
+const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
+const localDialog = ref(props.modelValue);
+const programs = computed(() =>
+  Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
+);
+const selectedProgram = ref<string | null>(props.internship?.program);
+const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
+  if (selectedProgram.value) {
+    return dikaiologitikaStore.dikaiologitikaTypes[selectedProgram.value] || [];
+  }
+  return [];
+});
 const $toast = useToast();
 const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
 const fileInput = ref<File | null>(null);
 
-// Reactive watchEffect to update selectedFileType when props.editItem changes
 watchEffect(() => {
   selectedFileType.value = props.editItem?.type ?? null;
+  if (props.editItem) {
+    const program = programs.value.find((p) =>
+      dikaiologitikaStore.dikaiologitikaTypes[p].some(
+        (ft) => ft.type === props.editItem!.type,
+      ),
+    );
+    selectedProgram.value = program || null;
+  }
 });
 
-// Validation rules for form inputs
 const selectRules = [
   (value: string) => !!value || "Πρέπει να επιλέξεις ένα τύπο αρχείου.",
 ];
 const fileRules = [
   (value: any) => !!value || "Πρέπει να επιλέξεις ένα αρχείο.",
 ];
+const internshipProgramRules = [
+  (value: any) => !!value || "Πρέπει να επιλέξεις ένα τύπο πρακτικής.",
+];
 
-// Watcher to synchronize the dialog visibility state
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -133,7 +170,10 @@ watch(
   },
 );
 
-// Function to handle file selection
+const onProgramChange = () => {
+  selectedFileType.value = null;
+};
+
 const fileSelected = (event: Event) => {
   const input = event.target as HTMLInputElement;
   if (input && input.files && input.files.length > 0) {
@@ -141,9 +181,13 @@ const fileSelected = (event: Event) => {
   }
 };
 
-// Function to handle form submission
 const submitForm = async () => {
-  if (!form.value?.validate() || !fileInput.value || !selectedFileType.value) {
+  if (
+    !form.value?.validate() ||
+    !fileInput.value ||
+    !selectedFileType.value ||
+    !selectedProgram.value
+  ) {
     $toast.error(
       "Form submission failed due to validation errors or missing data.",
       {
@@ -153,19 +197,20 @@ const submitForm = async () => {
     return;
   }
 
+  loading.value = true;
   try {
     let response: any;
     if (isEditMode.value && props.editItem) {
       response = await updateDikaiologitika(
         fileInput.value,
         props.editItem.id,
-        authStore?.placements_access_token,
+        selectedProgram.value,
       );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
         selectedFileType.value,
-        authStore?.placements_access_token,
+        selectedProgram.value,
       );
     }
 
@@ -180,14 +225,15 @@ const submitForm = async () => {
     }
   } catch (error) {
     $toast.error("An unexpected error occurred.", { position: "bottom" });
-    errorLog(error);
+  } finally {
+    loading.value = false;
   }
 };
 
-// Function to emit event to close the dialog and reset form state
 const emitClose = () => {
   fileInput.value = null;
   selectedFileType.value = null;
+  selectedProgram.value = null;
   emit("update:modelValue", false);
 };
 </script>

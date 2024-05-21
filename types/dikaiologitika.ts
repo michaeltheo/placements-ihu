@@ -6,6 +6,7 @@ export interface DikaiologitikaFile {
   file_name: string;
   date: string;
   description: string;
+  submission_time: string;
 }
 
 export interface User {
@@ -46,8 +47,22 @@ export interface UploadResponse {
   message?: UploadResponseMessage;
 }
 
+export type DikaiologitikaType = {
+  type: string;
+  description: string;
+  submission_time: string;
+};
+
+export interface InternshipProgram {
+  [key: string]: DikaiologitikaType[];
+}
+
+export interface State {
+  dikaiologitikaTypes: InternshipProgram;
+}
+
 export interface DikaiologitikaTypesResponse {
-  data: Dikaiologitika[];
+  data: InternshipProgram;
   message: {
     detail: string;
   };

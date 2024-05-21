@@ -19,3 +19,7 @@ export interface Question {
   supports_multiple_answers?: boolean;
   answer_options?: Option[];
 }
+
+export interface ErrorResponse {
+  error: string;
+}

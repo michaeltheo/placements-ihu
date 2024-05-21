@@ -5,29 +5,31 @@ import type {
   DikaiologitikaTypesResponse,
   UpdateDeleteResponse,
   UploadResponse,
-} from "~/types/dikaiologitika";
+} from "@/types/dikaiologitika";
 import { extractErrorMessage } from "@/services/errorHandling";
 
 /**
  * Uploads a dikaiologitika file to the server.
  * @param file The file to be uploaded.
  * @param type The type of dikaiologitika being uploaded.
- * @param token The access token.
+ * @param program The program of dikaiologitika being uploaded.
  * @returns Promise resolving to the upload response data or an error message.
  */
 export async function uploadDikaiologitika(
   file: File,
   type: string,
+  program: string,
 ): Promise<UploadResponse> {
   // Ensure the file is a PDF
   if (file.type !== "application/pdf") {
     return { error: "Only PDF files are allowed." };
   }
 
-  // Create FormData to send the file and type to the server.
+  // Create FormData to send the file, type, and program to the server.
   const formData = new FormData();
   formData.append("file", file);
   formData.append("type", type);
+  formData.append("internship_program", program);
 
   try {
     // Attempt to upload the file using the fetch API.
@@ -53,14 +55,17 @@ export async function uploadDikaiologitika(
  * Updates a specific dikaiologitika file.
  * @param file The new file to update the existing one.
  * @param dikaiologitaId The ID of the dikaiologitika to be updated.
+ * @param program The program of dikaiologitika being updated.
  * @returns Promise resolving to the update response data or an error message.
  */
 export async function updateDikaiologitika(
   file: File,
   dikaiologitaId: number,
+  program: string,
 ): Promise<UpdateDeleteResponse> {
   const formData = new FormData();
   formData.append("file", file, file.name);
+  formData.append("program", program);
 
   try {
     const response = await fetch(
@@ -80,10 +85,9 @@ export async function updateDikaiologitika(
     return data;
   } catch (error) {
     errorLog("Error updating dikaiologitika:", error);
-    return { error: "An unexpected error occurred during the upload." };
+    return { error: "An unexpected error occurred during the update." };
   }
 }
-
 /**
  * Deletes a dikaiologitika file by its ID.
  * @param fileID The ID of the file to be deleted.

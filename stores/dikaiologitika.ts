@@ -1,22 +1,17 @@
 import { defineStore } from "pinia";
-
-type DikaiologitikaTypes = {
-  type: string;
-  description: string;
-};
+import { InternshipProgram } from "@/types/dikaiologitika";
 
 type State = {
-  dikaiologitikaTypes: DikaiologitikaTypes[];
+  dikaiologitikaTypes: InternshipProgram;
 };
 
 export const useDikaiologitkaStore = defineStore("dikaiologitika", {
   state: (): State => ({
-    dikaiologitikaTypes: [],
+    dikaiologitikaTypes: {},
   }),
   actions: {
-    setDikaiologitka(dikaiologitika: DikaiologitikaTypes[]) {
-      const store = useDikaiologitkaStore();
-      store.dikaiologitikaTypes = dikaiologitika;
+    setDikaiologitka(dikaiologitika: InternshipProgram) {
+      this.dikaiologitikaTypes = dikaiologitika;
     },
   },
 });
