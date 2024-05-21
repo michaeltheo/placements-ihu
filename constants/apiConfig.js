@@ -13,7 +13,9 @@ export const API_URLS = {
   GET_DIKAIOLOGITIKA_FILES: `${PLACEMENTS_BASE_URL}/dikaiologitika/user`,
   DOWNLOAD_DIKAIOLOGITIKA: `${PLACEMENTS_BASE_URL}/dikaiologitika/download`,
   GET_DIKAIOLOGITIKA_TYPES: `${PLACEMENTS_BASE_URL}/dikaiologitika/types`,
-  GET_QUESTION_STATISTICS: `${PLACEMENTS_BASE_URL}/question/stats/answers`
+  GET_QUESTION_STATISTICS: `${PLACEMENTS_BASE_URL}/question/stats/answers`,
+  INTERNSHIP_BASE_URL: `${PLACEMENTS_BASE_URL}/internship`,
+  COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company`,
 };
 
 export const GRANT_TYPE = {

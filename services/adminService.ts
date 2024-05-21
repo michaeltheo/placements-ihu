@@ -9,10 +9,10 @@ interface UserResponse {
     AM: string;
     id: number;
     role: string;
-    fathers_name: string,
-    telephone_number: string,
-    email: string,
-    reg_year: string
+    fathers_name: string;
+    telephone_number: string;
+    email: string;
+    reg_year: string;
   }>;
   total_items: number;
   message: {
@@ -119,7 +119,7 @@ export async function getQuestionStatistics(
     }
     // TODO: Remove dummy statistics
     // return responseData;
-    return dummyStatistcs
+    return dummyStatistcs;
   } catch (error) {
     errorLog("Error fetching question statistics:", error);
     return null;

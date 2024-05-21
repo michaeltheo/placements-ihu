@@ -1,6 +1,9 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
-import type { LoginServerResponse, PlacementUserResponse } from "@/types/apiTypes";
+import type {
+  LoginServerResponse,
+  PlacementUserResponse,
+} from "@/types/apiTypes";
 import { extractErrorMessage } from "@/services/errorHandling";
 
 export async function ServerSideLogin(
@@ -10,6 +13,7 @@ export async function ServerSideLogin(
   try {
     const response = await fetch(`${API_URLS.PLACEMENTS_LOGIN}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

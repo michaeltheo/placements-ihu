@@ -86,18 +86,18 @@ const navigateToHome = () => {
   router.push("/");
 };
 
-const navigateToLogin = async () => {
+// TODO: change lo
+const navigateToLogin = () => {
   try {
-    const response = await fetch(`${API_URLS.REDIRECT_TO_IHU_IEE_FOR_LOGIN}`, {
-      method: "GET",
-    });
+    // const response = await fetch(`${API_URLS.REDIRECT_TO_IHU_IEE_FOR_LOGIN}`, {
+    //   method: "GET",
+    //   credentials: "include",
+    //   mode: "no-cors",
+    // });
 
-    if (response.ok) {
-      window.location.href = response.url;
-    } else {
-      // Handle server errors or other non-ok responses
-      errorLog("Server responded with a non-ok status");
-    }
+    // const redirectedUrl = response.url;
+    // window.location.href = redirectedUrl;
+    window.location.href = `${API_URLS.REDIRECT_TO_IHU_IEE_FOR_LOGIN}`;
   } catch (error) {
     // Handle network errors or other errors that occurred during the fetch
     errorLog("Failed to fetch:", error);

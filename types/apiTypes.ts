@@ -7,6 +7,7 @@ export interface UserDetails {
   fathers_name: string;
   telephone_number: string;
   email: string;
+  department: string;
   reg_year: string;
   isAdmin: boolean;
 }

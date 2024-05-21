@@ -40,7 +40,7 @@ async function initiateAuthenticationProcess() {
         response.data.tokens.ihu_access_token,
         response.data.user,
         response.data.tokens.ihu_refresh_token,
-        response.data.tokens.placement_token
+        response.data.tokens.placement_token,
       );
       authStore.setIsAuthenticated(true);
     }

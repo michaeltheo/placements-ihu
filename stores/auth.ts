@@ -23,6 +23,7 @@ export const useAuthStore = defineStore("auth", {
       role: "",
       id: 0,
       isAdmin: false,
+      department: "",
     },
     placements_access_token: "",
     IHU_token: null,
@@ -62,6 +63,7 @@ export const useAuthStore = defineStore("auth", {
         telephone_number: "",
         role: "",
         id: 0,
+        department: "",
         isAdmin: false,
       };
       this.isAuthenticated = false;

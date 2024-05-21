@@ -8,7 +8,8 @@
     >
       <v-card class="dialog__card">
         <v-card-title class="dialog__title">
-          Διαγραφή Δικαιολογιτικού
+          <v-icon class="dialog__icon" color="white">fa-solid fa-trash</v-icon>
+          Διαγραφή Δικαιολογητικού
         </v-card-title>
 
         <v-card-text class="dialog__content">
@@ -33,8 +34,6 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
-import { withDefaults, watchEffect, ref, defineProps, defineEmits } from "vue";
-import { useAuthStore } from "@/stores/auth";
 import { deleteDikaiologitika } from "@/services/dikaiologitkaService";
 import type {
   DikaiologitikaFile,
@@ -42,7 +41,6 @@ import type {
 } from "@/types/dikaiologitika";
 const $toast = useToast();
 
-const authStore = useAuthStore();
 const props = withDefaults(
   defineProps<{
     modelValue: boolean;
@@ -70,7 +68,6 @@ const deleteFile = async () => {
   try {
     const response: UpdateDeleteResponse = await deleteDikaiologitika(
       props.file.id,
-      authStore.placements_access_token,
     );
     if (response.error) {
       $toast.error(`${response.error}`, { position: "bottom" });
