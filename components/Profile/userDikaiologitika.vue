@@ -123,7 +123,8 @@ import {
 } from "@/services/dikaiologitkaService";
 import { getInternshipByUser } from "@/services/internshipService";
 import { errorLog } from "@/utils/log";
-import { submissionTime, InternshipStatus } from "@/constants/ApiConstants ";
+import { submissionTime } from "@/constants/ApiConstants ";
+import { InternshipStatus } from "@/types/internship";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
@@ -249,10 +250,10 @@ onMounted(async () => {
 
   const response = await getDikaiologitkaTypes();
   if (response) {
-    if (internship.value.status === InternshipStatus.PENDING_REVIEW) {
+    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTime.start,
+          (type: any) => type.submission_time === submissionTime.start
         );
       }
     }

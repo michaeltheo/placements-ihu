@@ -128,9 +128,9 @@ const loading = ref(false);
 const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
-  Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
+  Object.keys(dikaiologitikaStore.dikaiologitikaTypes)
 );
-const selectedProgram = ref<string | null>(props.internship?.program);
+const selectedProgram = ref<string | null>(props.internship?.program ?? null);
 const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
   if (selectedProgram.value) {
     return dikaiologitikaStore.dikaiologitikaTypes[selectedProgram.value] || [];
@@ -146,8 +146,8 @@ watchEffect(() => {
   if (props.editItem) {
     const program = programs.value.find((p) =>
       dikaiologitikaStore.dikaiologitikaTypes[p].some(
-        (ft) => ft.type === props.editItem!.type,
-      ),
+        (ft) => ft.type === props.editItem!.type
+      )
     );
     selectedProgram.value = program || null;
   }
@@ -167,7 +167,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  },
+  }
 );
 
 const onProgramChange = () => {
@@ -192,7 +192,7 @@ const submitForm = async () => {
       "Form submission failed due to validation errors or missing data.",
       {
         position: "bottom",
-      },
+      }
     );
     return;
   }
@@ -204,13 +204,13 @@ const submitForm = async () => {
       response = await updateDikaiologitika(
         fileInput.value,
         props.editItem.id,
-        selectedProgram.value,
+        selectedProgram.value
       );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
         selectedFileType.value,
-        selectedProgram.value,
+        selectedProgram.value
       );
     }
 
@@ -233,7 +233,6 @@ const submitForm = async () => {
 const emitClose = () => {
   fileInput.value = null;
   selectedFileType.value = null;
-  selectedProgram.value = null;
   emit("update:modelValue", false);
 };
 </script>

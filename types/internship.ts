@@ -1,7 +1,8 @@
 export enum InternshipProgram {
-  OAED = "ΟΑΕΔ",
-  ESPA = "ΕΣΠΑ",
-  EMPLOYER_FINANCED = "Αποκλειστικά χρηματοδοτούμενη από εργοδότη",
+  TEITHE_OAED = "ΠΑΛΑΙΟ ΤΜΗΜΑ ΟΑΕΔ",
+  ESPA = "ΠΑΛΑΙΟ/NEO ΤΜΗΜΑ ΕΣΠΑ",
+  TEITHE_JOB_RECOGNITION = "ΠΑΛΑΙΟ ΤΜΗΜΑ ΑΝΑΓΝΩΡΙΣΗ ΕΡΓΑΣΙΑΣ",
+  EMPLOYER_DECLARATION_OF_RESPONSIBILITY = "ΝΕΟ ΤΜΗΜΑ ΥΠΕΥΘΥΝΗ ΔΗΛΩΣΗ ΤΟΥ ΕΡΓΟΔΟΤΗ"
 }
 
 export enum InternshipStatus {
