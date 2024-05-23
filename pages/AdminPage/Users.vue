@@ -113,11 +113,34 @@
                   class="adminPage__usersDialog--email"
                 ></v-text-field>
               </v-col>
-              <v-col
-                >{{ selectedUser?.role ?? "N/A" }}
-                <button @click="setUserAsAdminb(selectedUser?.id)">
-                  CLICK
-                </button>
+              <v-col cols="12">
+                <div class="adminPage__usersDialog--role-switcher">
+                  <v-text-field
+                    label="Role"
+                    :model-value="selectedUser?.role"
+                    readonly
+                    variant="outlined"
+                    class="adminPage__usersDialog--role"
+                  ></v-text-field>
+                  <div v-if="selectedUser?.role === UserRole.STUDENT">
+                    <v-btn
+                      tonal
+                      elevation="4"
+                      color="primary-blue-color"
+                      @click="setUserAsAdmin(selectedUser?.id)"
+                    >
+                      Μετατροπή Ρόλου σε Διαχειριστή
+                    </v-btn>
+                  </div>
+                  <div v-else>
+                    <v-btn
+                      color="indigo-darken-1"
+                      @click="setUserasStudent(selectedUser?.id)"
+                    >
+                      Μετατροπή Ρόλου σε Φοιτητή
+                    </v-btn>
+                  </div>
+                </div>
               </v-col>
             </v-row>
             <!-- Files Table -->
@@ -152,7 +175,11 @@
 import { useToast } from "vue-toast-notification";
 import { UserRole } from "@/types";
 import { User } from "@/types/user";
-import { getUsersByAmAndRole, setUserAsAdmin } from "@/services/adminService";
+import {
+  getUsersByAmAndRole,
+  adminSetUserAsAdmin,
+  adminSetUserAsStudent,
+} from "@/services/adminService";
 import {
   fetchDikaiologitaFiles,
   downloadDikaiologitika,
@@ -271,9 +298,23 @@ const loadUserFiles = async (userId: number) => {
  * Sets the selected user as admin.
  * @param userId - The ID of the user.
  */
-const setUserAsAdminb = async (userId: number | undefined) => {
+const setUserAsAdmin = async (userId: number | undefined) => {
   if (userId === undefined) return;
-  const response = await setUserAsAdmin(userId);
+  const response = await adminSetUserAsAdmin(userId);
+  closeDialog();
+  if (hasErrorResponse(response)) {
+    $toast.error(`${response.error}`, { position: "bottom" });
+  } else {
+    $toast.success(`${response.detail}`, { position: "bottom" });
+  }
+};
+/**
+ * Sets the selected user as admin.
+ * @param userId - The ID of the user.
+ */
+const setUserasStudent = async (userId: number | undefined) => {
+  if (userId === undefined) return;
+  const response = await adminSetUserAsStudent(userId);
   closeDialog();
   if (hasErrorResponse(response)) {
     $toast.error(`${response.error}`, { position: "bottom" });
@@ -317,6 +358,10 @@ onMounted(() => {
     color: $primary-dark-blue-color;
   }
   &__usersDialog {
+    &--role-switcher {
+      @apply items-center  space-y-2;
+    }
+
     &--title {
       @apply font-bold;
       color: $primary-dark-blue-color;
@@ -325,6 +370,7 @@ onMounted(() => {
     &--lastName,
     &--AM,
     &--regYear,
+    &--role,
     &--email {
       color: $primary-blue-color;
     }

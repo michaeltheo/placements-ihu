@@ -144,7 +144,7 @@ export function parseQuestionStatistics(
   return questionDataArray;
 }
 
-export async function setUserAsAdmin(
+export async function adminSetUserAsAdmin(
   userId: number,
 ): Promise<Message | ErrorResponse> {
   try {
@@ -167,7 +167,7 @@ export async function setUserAsAdmin(
   }
 }
 
-export async function setUserAsStudent(
+export async function adminSetUserAsStudent(
   userId: number,
 ): Promise<Message | ErrorResponse> {
   try {
