@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { User } from "@/types/user";
-import { UserRole,Department } from "@/types";
+import { UserRole, Department } from "@/types";
 import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState = {

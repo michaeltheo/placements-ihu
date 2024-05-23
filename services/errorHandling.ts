@@ -1,3 +1,5 @@
+import { ErrorResponse } from "@/types";
+
 /**
  * Checks if the response from an API call contains an error.
  * @param response - The response object from the fetch call.
@@ -14,7 +16,7 @@ export function hasErrorResponse(response: any): response is { error: string } {
  */
 export async function extractErrorMessage(
   response: Response,
-): Promise<{ error: string }> {
+): Promise<ErrorResponse> {
   try {
     const responseData = await response.json();
     const errorMessage = responseData.detail || "An error occurred.";

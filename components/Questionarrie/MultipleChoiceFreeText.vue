@@ -51,8 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, watch } from "vue";
-import { Question, Option } from "@/types";
+import { Question, Option } from "@/types/question";
 
 // Component props
 const props = defineProps<{

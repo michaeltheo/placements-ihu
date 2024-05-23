@@ -253,7 +253,7 @@ onMounted(async () => {
     if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTime.start
+          (type: any) => type.submission_time === submissionTime.start,
         );
       }
     }

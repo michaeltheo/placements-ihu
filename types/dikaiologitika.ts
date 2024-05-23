@@ -1,3 +1,5 @@
+import { User } from "@/types/user";
+import { Message, SubmissionTime } from "@/types";
 export interface DikaiologitikaFile {
   type: string;
   id: number;
@@ -9,22 +11,12 @@ export interface DikaiologitikaFile {
   submission_time: string;
 }
 
-export interface User {
-  first_name: string;
-  last_name: string;
-  AM: string;
-  id: number;
-  role: string;
-}
-
 export interface DikaiologitikaFilesResponse {
   data: {
     files: DikaiologitikaFile[];
     user: User;
   };
-  message: {
-    detail: string;
-  };
+  message: Message;
 }
 
 export interface Dikaiologitika {
@@ -44,13 +36,13 @@ export interface UpdateDeleteResponse {
 export interface UploadResponse {
   data?: DikaiologitikaFile;
   error?: string;
-  message?: UploadResponseMessage;
+  message?: Message;
 }
 
 export type DikaiologitikaType = {
   type: string;
   description: string;
-  submission_time: string;
+  submission_time: SubmissionTime;
 };
 
 export interface InternshipProgram {
@@ -59,11 +51,4 @@ export interface InternshipProgram {
 
 export interface State {
   dikaiologitikaTypes: InternshipProgram;
-}
-
-export interface DikaiologitikaTypesResponse {
-  data: InternshipProgram;
-  message: {
-    detail: string;
-  };
 }

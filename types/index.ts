@@ -1,4 +1,3 @@
-
 export enum UserRole {
   STUDENT = "student",
   ADMIN = "admin",
@@ -6,36 +5,34 @@ export enum UserRole {
 }
 export enum SubmissionTime {
   START = "Έναρξη",
-  END = "Λήξη"
+  END = "Λήξη",
 }
 
-
-export enum  Department{
-  IT_TEITHE = 'ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ',
-  EL_TEITHE = 'ΤΜΗΜΑ ΗΛΕΚΤΡΟΝΙΚΗΣ',
-  IHU_IEE = 'ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ',
+export enum Department {
+  IT_TEITHE = "ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ",
+  EL_TEITHE = "ΤΜΗΜΑ ΗΛΕΚΤΡΟΝΙΚΗΣ",
+  IHU_IEE = "ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ",
 }
 
-export enum InternshipProgram{
+export enum InternshipProgram {
   TEITHE_OAED = "ΠΑΛΑΙΟ ΤΜΗΜΑ ΟΑΕΔ",
   ESPA = "ΠΑΛΑΙΟ/NEO ΤΜΗΜΑ ΕΣΠΑ",
   TEITHE_JOB_RECOGNITION = "ΠΑΛΑΙΟ ΤΜΗΜΑ ΑΝΑΓΝΩΡΙΣΗ ΕΡΓΑΣΙΑΣ",
-  EMPLOYER_DECLARATION_OF_RESPONSIBILITY = "ΝΕΟ ΤΜΗΜΑ ΥΠΕΥΘΥΝΗ ΔΗΛΩΣΗ ΤΟΥ ΕΡΓΟΔΟΤΗ"
+  EMPLOYER_DECLARATION_OF_RESPONSIBILITY = "ΝΕΟ ΤΜΗΜΑ ΥΠΕΥΘΥΝΗ ΔΗΛΩΣΗ ΤΟΥ ΕΡΓΟΔΟΤΗ",
 }
 
-export enum InternshipStatus{
+export enum InternshipStatus {
   PENDING_REVIEW = "Pending review",
   ACTIVE = "Active",
-  ENDED = "Ended"
+  ENDED = "Ended",
 }
-
 
 export interface ErrorResponse {
   error: string;
 }
 
-export interface Message{
-  detail:string;
+export interface Message {
+  detail: string;
 }
 export interface ResponseWrapper<DataT> {
   data?: DataT;

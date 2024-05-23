@@ -46,7 +46,7 @@ import FreeText from "./FreeText.vue";
 import MultipleChoiceFreeText from "./MultipleChoiceFreeText.vue";
 import { TestQuestions } from "@/constants/questions";
 import { log } from "@/utils/log";
-import { Question } from "@/types";
+import { Question } from "@/types/question";
 
 // Enum for question types
 enum QuestionTypes {

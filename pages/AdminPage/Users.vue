@@ -149,7 +149,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
 import { UserRole } from "@/types";
 import { User } from "@/types/user";
@@ -214,7 +213,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       selectedRole.value,
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
       $toast.error(`${result.error}`, { position: "top" });

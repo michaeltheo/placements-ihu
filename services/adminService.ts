@@ -1,10 +1,9 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 import { dummyStatistcs } from "@/constants/dummyStaticsts";
-import type { ErrorResponse,Message, ResponseTotalItems } from "@/types";
+import type { ErrorResponse, Message, ResponseTotalItems } from "@/types";
 import { extractErrorMessage } from "@/services/errorHandling";
 import { User } from "@/types/user";
-
 
 interface QuestionStatisticsResponse {
   data: Array<{
@@ -62,13 +61,10 @@ export async function getUsersByAmAndRole(
     queryParams.append("page", page.toString());
     queryParams.append("items_per_page", itemsPerPage.toString());
 
-    const response = await fetch(
-      `${API_URLS.GET_USERS}?${queryParams}`,
-      {
-        method: "GET",
-        headers: { Accept: "application/json" },
-      },
-    );
+    const response = await fetch(`${API_URLS.GET_USERS}?${queryParams}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
 
     if (!response.ok) {
       const errorResponse: ErrorResponse = await extractErrorMessage(response);
@@ -81,7 +77,6 @@ export async function getUsersByAmAndRole(
     return { error: "Error fetching users: " + error };
   }
 }
-
 
 export async function getQuestionStatistics(
   token: string,
@@ -149,51 +144,47 @@ export function parseQuestionStatistics(
   return questionDataArray;
 }
 
-
-export async function setUserAsAdmin(userId: number): Promise<Message | ErrorResponse> {
+export async function setUserAsAdmin(
+  userId: number,
+): Promise<Message | ErrorResponse> {
   try {
     const response = await fetch(`${API_URLS.SET_ADMIN}/${userId}`, {
-      method: "PUT", 
+      method: "PUT",
       credentials: "include",
       headers: {
-        'Accept': 'application/json'
+        Accept: "application/json",
       },
     });
 
-
     if (!response.ok) {
-      const errorResponse:ErrorResponse = await extractErrorMessage(response);
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
       return errorResponse;
     }
-    const data:Message = await response.json();
+    const data: Message = await response.json();
     return data;
   } catch (error) {
     throw new Error("Failed to set user as admin");
   }
 }
 
-
-
-export async function setUserAsStudent(userId:number):Promise<Message |ErrorResponse> {
-  try{
-    const response=await fetch(`${API_URLS.SET_STUDENT}/${userId}`,
-      {
-        method: "PUT", 
-        credentials: "include",
-        headers: {
-          'Accept': 'application/json'
-        },
-      }
-    )
-    if(!response.ok){
-      const errorResponse:ErrorResponse=await extractErrorMessage(response)
-      return errorResponse
+export async function setUserAsStudent(
+  userId: number,
+): Promise<Message | ErrorResponse> {
+  try {
+    const response = await fetch(`${API_URLS.SET_STUDENT}/${userId}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
     }
-    const data:Message=await response.json()
-    return data
-  }catch(error)
-  {
+    const data: Message = await response.json();
+    return data;
+  } catch (error) {
     throw new Error("Failed to set user as student");
   }
 }
-

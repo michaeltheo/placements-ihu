@@ -1,6 +1,5 @@
-import {User} from "@/types/user"
+import { User } from "@/types/user";
 import { Message } from "@/types";
-
 
 export interface PlacementUserResponse {
   data: User;
@@ -20,5 +19,5 @@ export interface LoginServerResponse {
     user: User;
     tokens: Tokens;
   };
-  message?:Message
+  message?: Message;
 }

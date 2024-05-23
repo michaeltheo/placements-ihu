@@ -1,15 +1,12 @@
-import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 import { extractErrorMessage } from "@/services/errorHandling";
-import { Company } from "@/types/company";
-import { ResponseWrapper } from "@/types/internship";
-import type { ErrorResponse } from "@/types";
+import { FetchCompanies } from "@/types/company";
 
 export async function getAllCompanies(
   page?: number,
   itemsPerPage?: number,
   name?: string,
-): Promise<ResponseWrapper<Company[]> | ErrorResponse | null> {
+): Promise<FetchCompanies> {
   try {
     const params = new URLSearchParams();
 
@@ -41,7 +38,6 @@ export async function getAllCompanies(
     const data = await response.json();
     return data;
   } catch (error) {
-    errorLog("Error fetching companies: ", error);
-    return null;
+    throw new Error("Error fetching companies: ");
   }
 }
