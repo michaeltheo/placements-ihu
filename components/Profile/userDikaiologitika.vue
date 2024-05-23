@@ -123,8 +123,8 @@ import {
 } from "@/services/dikaiologitkaService";
 import { getInternshipByUser } from "@/services/internshipService";
 import { errorLog } from "@/utils/log";
-import { submissionTime } from "@/constants/ApiConstants ";
-import { InternshipStatus } from "@/types/internship";
+import { submissionTimeValues } from "@/constants/ApiConstants ";
+import { InternshipStatus } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
@@ -179,6 +179,29 @@ const getInternship = async () => {
   } else {
     hasInternship.value = false;
   }
+  await fetchDikaiologitikaTypes();
+};
+
+// Fetch DikaiologitikaTypes and filter if necessary
+const fetchDikaiologitikaTypes = async () => {
+  const response = await getDikaiologitkaTypes();
+  if (response) {
+    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
+      for (const [program, types] of Object.entries(response.data)) {
+        response.data[program] = types.filter(
+          (type: any) => type.submission_time === submissionTimeValues.start
+        );
+      }
+      // TODO: Discuss which will the flow be
+      // } else {
+      //   for (const [program, types] of Object.entries(response.data)) {
+      //     response.data[program] = types.filter(
+      //       (type: any) => type.submission_time === submissionTimeValues.end
+      //     );
+      //   }
+    }
+    dikaiologitikaStore.setDikaiologitka(response.data);
+  }
 };
 
 // Handle create internship dialog close
@@ -187,11 +210,12 @@ const handleCreateInternshipDialogClose = (newValue: boolean) => {
 };
 
 // Handle internship creation
-const handleInternshipCreated = (newInternship: any) => {
+const handleInternshipCreated = async (newInternship: any) => {
   hasInternship.value = true;
   internship.value = newInternship;
   openCreateInternshipDialog.value = false;
-  loadItems();
+  await fetchDikaiologitikaTypes(); // Fetch types after internship creation
+  await loadItems(); // Load items after fetching types
 };
 
 // Handle internship update
@@ -236,9 +260,9 @@ const deleteItem = (item: DikaiologitikaFile) => {
 
 // Get color based on submission time
 const getColor = (fileSubmissionTime: string): string => {
-  if (fileSubmissionTime === submissionTime.start) {
+  if (fileSubmissionTime === submissionTimeValues.start) {
     return "green";
-  } else if (fileSubmissionTime === submissionTime.end) {
+  } else if (fileSubmissionTime === submissionTimeValues.end) {
     return "teal";
   }
   return "default";
@@ -247,18 +271,6 @@ const getColor = (fileSubmissionTime: string): string => {
 // On component mount, fetch data
 onMounted(async () => {
   await getInternship();
-
-  const response = await getDikaiologitkaTypes();
-  if (response) {
-    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
-      for (const [program, types] of Object.entries(response.data)) {
-        response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTime.start,
-        );
-      }
-    }
-    dikaiologitikaStore.setDikaiologitka(response.data);
-  }
 
   if (hasInternship.value) {
     await loadItems();
