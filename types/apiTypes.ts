@@ -9,7 +9,7 @@ export interface UserDetails {
   email: string;
   department: string;
   reg_year: string;
-  isAdmin: boolean;
+  isAdmin?: boolean;
 }
 export interface PlacementUserResponse {
   data: UserDetails;
