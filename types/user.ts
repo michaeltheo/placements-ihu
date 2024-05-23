@@ -11,6 +11,6 @@ export interface User {
     email?: string;
     department?: Department;
     reg_year?: string;
+    isAdmin?:boolean
   }
 
-  

@@ -3,7 +3,7 @@ import { API_URLS } from "@/constants/apiConfig";
 import { dummyStatistcs } from "@/constants/dummyStaticsts";
 import type { ErrorResponse,Message, ResponseTotalItems } from "@/types";
 import { extractErrorMessage } from "@/services/errorHandling";
-import { User } from "types/user";
+import { User } from "@/types/user";
 
 
 interface QuestionStatisticsResponse {

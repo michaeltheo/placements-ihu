@@ -47,7 +47,7 @@
                 color="#112d4e"
                 hint="Αναζήτηση με βάση τον ρόλο του χρήστη"
                 dense
-                @update:model-Value="applyFilter"
+                @update:model-value="applyFilter"
               ></v-select>
             </td>
           </tr>
@@ -73,7 +73,7 @@
               <v-col cols="12" sm="6">
                 <v-text-field
                   label="Όνομα"
-                  :model-value="selectedUser?.first_name"
+                  :model-value="selectedUser?.first_name ?? 'N/A'"
                   readonly
                   variant="outlined"
                   class="adminPage__usersDialog--firstName"
@@ -82,7 +82,7 @@
               <v-col cols="12" sm="6">
                 <v-text-field
                   label="Επίθετο"
-                  :model-value="selectedUser?.last_name"
+                  :model-value="selectedUser?.last_name ?? 'N/A'"
                   readonly
                   variant="outlined"
                   class="adminPage__usersDialog--lastName"
@@ -91,14 +91,14 @@
               <v-col cols="12" sm="6">
                 <v-text-field
                   label="Αριθμός Μητρώου"
-                  :model-value="selectedUser?.AM"
+                  :model-value="selectedUser?.AM ?? 'N/A'"
                   readonly
                   variant="outlined"
                   class="adminPage__usersDialog--AM"
                 ></v-text-field>
                 <v-text-field
                   label="Έτος Εγγραφής"
-                  :model-value="selectedUser?.reg_year"
+                  :model-value="selectedUser?.reg_year ?? 'N/A'"
                   readonly
                   variant="outlined"
                   class="adminPage__usersDialog--regYear"
@@ -114,8 +114,10 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                >{{ user.role }}
-                <button @click="setUserAsAdminb(2)">CLIKC</button>
+                >{{ selectedUser?.role ?? "N/A" }}
+                <button @click="setUserAsAdminb(selectedUser?.id)">
+                  CLICK
+                </button>
               </v-col>
             </v-row>
             <!-- Files Table -->
@@ -127,11 +129,10 @@
               class="elevation-1 mt-4"
               no-data-text="Δεν βρέθηκαν αρχεία"
             >
-              <template v-slot:bottom> </template>
               <template #item.actions="{ item }">
                 <v-icon
                   color="primary-blue-color"
-                  icon="fa:fas fa-download "
+                  icon="fa:fas fa-download"
                   @click="downloadFile(item)"
                 ></v-icon>
               </template>
@@ -148,31 +149,25 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, computed, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
-import {
-  getUsersByAmAndRole,
-  setUserAsAdmin,
-  setUserAsStudent,
-} from "@/services/adminService";
-import { isError } from "@/services/utils";
+import { UserRole } from "@/types";
+import { User } from "@/types/user";
+import { getUsersByAmAndRole, setUserAsAdmin } from "@/services/adminService";
 import {
   fetchDikaiologitaFiles,
   downloadDikaiologitika,
 } from "@/services/dikaiologitkaService";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
-import { UserDetails } from "@/types/apiTypes";
-import { UserRole } from "@/types";
-import { useAuthStore } from "@/stores/auth";
-import { User } from "types/user";
 import { hasErrorResponse } from "@/services/errorHandling";
 
+// Define page metadata
 definePageMeta({
   middleware: ["is-admin", "auth"],
 });
-const authStore = useAuthStore();
-const user = computed<UserDetails>(() => authStore.user);
+
+// Define state
 const $toast = useToast();
-// Define reactive states
 const searchAM = ref<string>("");
 const selectedRole = ref<UserRole>();
 const userRoles = Object.values(UserRole);
@@ -196,12 +191,12 @@ const fileHeaders = ref([
 const loading = ref<boolean>(true);
 const serverUsers = ref<User[]>([]);
 const openUsersFileDialog = ref<boolean>(false);
-const selectedUser = ref<UserDetails | null>(null);
+const selectedUser = ref<User | null>(null);
 const userFiles = ref<Array<DikaiologitikaFile>>([]);
 const filesLoading = ref<boolean>(false);
 
 /**
- * Defines the options interface for pagination and filtering.
+ * Interface for pagination and filtering options.
  */
 interface LoadItemsOptions {
   page: number;
@@ -210,8 +205,8 @@ interface LoadItemsOptions {
 
 /**
  * Fetches user data based on current state of pagination and AM search term.
+ * @param options - Pagination and filtering options.
  */
-
 const loadItems = async (options: LoadItemsOptions) => {
   loading.value = true;
   try {
@@ -241,8 +236,10 @@ const applyFilter = () => {
 
 /**
  * Handles table row click to set the selected user and open the dialog.
+ * @param _event - The click event.
+ * @param row - The row data containing the user.
  */
-const handleClick = async (_event: Event, row: { item: UserDetails }) => {
+const handleClick = async (_event: Event, row: { item: User }) => {
   selectedUser.value = row.item;
   openUsersFileDialog.value = true;
   await loadUserFiles(row.item.id);
@@ -256,14 +253,8 @@ const closeDialog = () => {
 };
 
 /**
- * Initializes the component by applying the current filters.
- */
-onMounted(() => {
-  applyFilter();
-});
-
-/**
  * Fetches files for the given user ID and updates the state.
+ * @param userId - The ID of the user.
  */
 const loadUserFiles = async (userId: number) => {
   filesLoading.value = true;
@@ -271,29 +262,39 @@ const loadUserFiles = async (userId: number) => {
     const response = await fetchDikaiologitaFiles(userId);
     userFiles.value = response?.data.files ?? [];
   } catch (error) {
-    $toast.error(`"Error fetching files:", ${error}`, { position: "bottom" });
+    $toast.error(`Error fetching files: ${error}`, { position: "bottom" });
   } finally {
     filesLoading.value = false;
   }
 };
 
-const setUserAsAdminb = async (userId: number) => {
+/**
+ * Sets the selected user as admin.
+ * @param userId - The ID of the user.
+ */
+const setUserAsAdminb = async (userId: number | undefined) => {
+  if (userId === undefined) return;
   const response = await setUserAsAdmin(userId);
-  if (isError(response)) {
-    // Now TypeScript knows `response` is ErrorResponse
+  closeDialog();
+  if (hasErrorResponse(response)) {
     $toast.error(`${response.error}`, { position: "bottom" });
   } else {
-    // TypeScript knows `response` is Message
     $toast.success(`${response.detail}`, { position: "bottom" });
   }
 };
 
 /**
  * Initiates the download of a specific file.
+ * @param file - The file to download.
  */
 const downloadFile = async (file: DikaiologitikaFile) => {
   await downloadDikaiologitika(file.id);
 };
+
+// Initial data fetch when the component is mounted
+onMounted(() => {
+  applyFilter();
+});
 </script>
 
 <style lang="scss" scoped>
