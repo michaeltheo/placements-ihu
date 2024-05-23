@@ -35,12 +35,12 @@ async function initiateAuthenticationProcess() {
       $toast.error(`${response}`, { position: "bottom" });
     } else {
       // Initialize auth store
-      $toast.success(`${response.message.detail}`, { position: "bottom" });
+      $toast.success(`${response?.message?.detail}`, { position: "bottom" });
       authStore.login(
         response.data.tokens.ihu_access_token,
         response.data.user,
         response.data.tokens.ihu_refresh_token,
-        response.data.tokens.placement_token,
+        response.data.tokens.placement_token
       );
       authStore.setIsAuthenticated(true);
     }

@@ -59,6 +59,6 @@ export async function verifyToken(): Promise<
     }
   } catch (error) {
     errorLog("Token verification error:", error);
-    return null; // Return null to indicate failure
+    return null; 
   }
 }
