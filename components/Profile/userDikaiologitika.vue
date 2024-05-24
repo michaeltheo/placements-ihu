@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <section class="profile__section profile__section--files">
-    <h2 class="profile__header">Δικαιολογητικά</h2>
-    <div v-if="!hasInternship" class="profile__create-internship-button">
+  <section class="user-files user-files--files">
+    <h2 class="user-files__header">Δικαιολογητικά</h2>
+    <div v-if="!hasInternship" class="user-files__create-internship-button">
       <v-btn
         color="primary-blue-color"
         @click="openCreateInternshipDialog = true"
@@ -35,7 +35,7 @@
           </v-chip>
         </template>
         <template #item.actions="{ item }">
-          <div class="profile__actions">
+          <div class="user-files__actions">
             <v-icon
               color="warning"
               icon="fa:fas fa-pen-to-square"
@@ -57,7 +57,7 @@
           </div>
         </template>
       </v-data-table-server>
-      <div class="profile__controls">
+      <div class="user-files__controls">
         <v-btn
           elevation="4"
           color="#112d4e"
@@ -189,7 +189,7 @@ const fetchDikaiologitikaTypes = async () => {
     if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start,
+          (type: any) => type.submission_time === submissionTimeValues.start
         );
       }
       // TODO: Discuss which will the flow be
@@ -281,23 +281,25 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-.profile__section--files {
-  @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white mt-8;
+.user-files {
+  &--files {
+    @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white mt-8;
+  }
 
-  .profile__create-internship-button {
+  &__create-internship-button {
     @apply flex justify-center;
   }
 
-  .profile__header {
+  &__header {
     @apply text-2xl font-semibold text-center my-4;
     color: $primary-dark-blue-color;
   }
 
-  .profile__actions {
+  &__actions {
     @apply flex items-center justify-around;
   }
 
-  .profile__controls {
+  &__controls {
     @apply flex flex-wrap justify-center gap-4 mt-4;
   }
 }

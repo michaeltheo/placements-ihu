@@ -81,6 +81,10 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  middleware: ["auth", "is-admin"],
+});
+
 const router = useRouter();
 const navigateTo = (path: string) => {
   // Logic for navigation
@@ -109,7 +113,7 @@ const navigateTo = (path: string) => {
   }
 
   &__row {
-    @apply flex flex-wrap justify-center gap-6;
+    @apply flex flex-wrap justify-center gap-3;
   }
 
   &__section {
