@@ -237,6 +237,10 @@ const createInternship = async () => {
       });
       emit("internshipCreated", response.data);
       emitClose();
+    } else {
+      $toast.error(`${response.error}`, {
+        position: "bottom",
+      });
     }
   }
 };
@@ -265,6 +269,10 @@ const updateInternship = async () => {
       emit("internshipUpdated", response.data);
       emit("refreshInternship");
       emitClose();
+    } else {
+      $toast.error(`${response.error}`, {
+        position: "bottom",
+      });
     }
   }
 };

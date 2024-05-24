@@ -2,7 +2,7 @@
   <div class="file-dialog">
     <v-dialog
       v-model="localDialog"
-      max-width="800px"
+      max-width="1300px"
       persistent
       class="file-dialog__container"
     >
@@ -72,6 +72,36 @@
             ></v-file-input>
           </div>
 
+          <v-list
+            v-if="additionalInformation"
+            dense
+            class="file-dialog__info-list"
+          >
+            <v-subheader class="file-dialog__info-list--header"
+              >Πρόσθετες Πληροφορίες</v-subheader
+            >
+            <v-subheader class="file-dialog__info-list--subheader"
+              >Τα παρακάτω αρχεία θα πρέπει να τα υποβάλει ο φοιτητής στο
+              Γραφείο Πρακτικής Άσκησης</v-subheader
+            >
+            <v-divider></v-divider>
+            <v-list-item
+              v-for="(item, index) in additionalInformationList"
+              :key="index"
+            >
+              <v-list-item-icon>
+                <v-icon color="primary-blue-color"
+                  >fa-solid fa-circle-info fa-sm</v-icon
+                >
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="file-dialog__info-list--item">{{
+                  item
+                }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+
           <v-card-actions class="file-dialog__actions">
             <v-btn
               type="submit"
@@ -114,6 +144,7 @@ import type {
 } from "@/types/dikaiologitika";
 import type { InternshipRead } from "@/types/internship";
 import "vue-toast-notification/dist/theme-sugar.css";
+import { InternshipProgram } from "@/constants/ApiConstants ";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -230,6 +261,32 @@ const submitForm = async () => {
   }
 };
 
+// Computed property to generate dynamic content (information about intenrnship programs)
+const additionalInformation = computed(() => {
+  switch (selectedProgram.value) {
+    case InternshipProgram.TEITHE_OAED:
+    case InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
+      return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου,Σύμβαση υπογεγραμένη (ΕΝΑΡΞΗ) 
+      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
+    case InternshipProgram.ESPA:
+      return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου (εκτυπωμένη και υπογεγραμμένη) (ΕΝΑΡΞΗ)  
+      Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
+    case InternshipProgram.TEITHE_JOB_RECOGNITION:
+      return `Βεβαίωση Απασχόλησης Ασκούμενου (ΕΝΑΡΞΗ) 
+      Σύμβαση αορίστου (ΕΝΑΡΞΗ) 
+      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
+    default:
+      return null;
+  }
+});
+
+const additionalInformationList = computed(() => {
+  if (additionalInformation.value) {
+    return additionalInformation.value.split("\n").filter((info) => info);
+  }
+  return [];
+});
+
 const emitClose = () => {
   fileInput.value = null;
   selectedFileType.value = null;
@@ -262,6 +319,19 @@ const emitClose = () => {
   &__form {
     @apply space-y-4;
   }
+  &__info-list {
+    @apply m-2 shadow-md p-2 bg-white rounded-md;
+    color: $primary-dark-blue-color;
+    &--header {
+      @apply flex justify-center font-semibold;
+    }
+    &--subheader {
+      @apply flex justify-center font-medium mb-2;
+    }
+    &--item {
+      @apply font-medium;
+    }
+  }
 
   &__select,
   &__file-input {
@@ -283,5 +353,9 @@ const emitClose = () => {
       @apply hover:bg-red-600;
     }
   }
+}
+
+:deep .v-list-item__content {
+  @apply flex items-baseline gap-4;
 }
 </style>

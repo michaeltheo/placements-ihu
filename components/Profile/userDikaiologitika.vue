@@ -129,6 +129,7 @@ import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
 import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
+import { InternshipCreate } from "@/types/internship";
 
 // Store references and reactive properties
 const authStore = useAuthStore();
@@ -189,7 +190,7 @@ const fetchDikaiologitikaTypes = async () => {
     if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start
+          (type: any) => type.submission_time === submissionTimeValues.start,
         );
       }
       // TODO: Discuss which will the flow be
@@ -210,7 +211,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean) => {
 };
 
 // Handle internship creation
-const handleInternshipCreated = async (newInternship: any) => {
+const handleInternshipCreated = async (newInternship: InternshipCreate) => {
   hasInternship.value = true;
   internship.value = newInternship;
   openCreateInternshipDialog.value = false;
@@ -222,7 +223,7 @@ const handleInternshipCreated = async (newInternship: any) => {
 const handleInternshipUpdated = (updatedInternship: any) => {
   internship.value = updatedInternship;
   openCreateInternshipDialog.value = false;
-  getInternship(); // Fetch the updated internship data
+  getInternship();
 };
 
 // Edit file item

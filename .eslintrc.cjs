@@ -13,5 +13,7 @@ module.exports = {
   rules: {
     "prettier/prettier": 0,
     'vue/multi-word-component-names': 'off', // Disable the multi-word component names rule
+    'vue/no-v-html':'off',
+    'vue/no-v-text-v-html-on-component':'off'
   },
 };
