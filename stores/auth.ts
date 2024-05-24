@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
-import { UserDetails } from "@/types/apiTypes";
+import { User } from "@/types/user";
+import { UserRole, Department } from "@/types";
 import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState = {
-  user: UserDetails;
+  user: User;
   placements_access_token: string;
   IHU_token: string | null;
   IHU_refresh_token: string | null;
@@ -20,10 +21,10 @@ export const useAuthStore = defineStore("auth", {
       email: "",
       reg_year: "",
       telephone_number: "",
-      role: "",
+      role: UserRole.STUDENT,
       id: 0,
       isAdmin: false,
-      department: "",
+      department: Department.IT_TEITHE,
     },
     placements_access_token: "",
     IHU_token: null,
@@ -35,7 +36,7 @@ export const useAuthStore = defineStore("auth", {
     // Action methods to manipulate the state
     login(
       receivedToken: string,
-      userProfile: UserDetails,
+      userProfile: User,
       refreshToken: string,
       placementsToken: string,
     ) {
@@ -61,10 +62,10 @@ export const useAuthStore = defineStore("auth", {
         email: "",
         reg_year: "",
         telephone_number: "",
-        role: "",
+        role: UserRole.STUDENT,
         id: 0,
-        department: "",
         isAdmin: false,
+        department: Department.IT_TEITHE,
       };
       this.isAuthenticated = false;
       localStorage.removeItem("ihu_token");

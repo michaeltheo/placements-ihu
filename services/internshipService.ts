@@ -1,12 +1,6 @@
-import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 import { extractErrorMessage } from "@/services/errorHandling";
-import type {
-  ResponseWrapper,
-  InternshipRead,
-  InternshipCreate,
-} from "@/types/internship";
-import type { ErrorResponse } from "@/types";
+import type { InternshipResponse, InternshipCreate } from "@/types/internship";
 
 /**
  * The function `getInternshipByUser` fetches internship data for a specific user and returns it in a
@@ -16,12 +10,12 @@ import type { ErrorResponse } from "@/types";
  * information. This function makes an asynchronous request to a specific API endpoint to fetch
  * internship data associated with the provided `userId`.
  * @returns The function `getInternshipByUser` returns a Promise that resolves to either a
- * `ResponseWrapper<InternshipRead>`, an `ErrorResponse`, or `null`.
+ * `InternshipResponse`.
  */
 
 export async function getInternshipByUser(
   userId: number,
-): Promise<ResponseWrapper<InternshipRead> | ErrorResponse | null> {
+): Promise<InternshipResponse> {
   try {
     const response = await fetch(`${API_URLS.INTERNSHIP_BASE_URL}/${userId}`, {
       method: "GET",
@@ -35,11 +29,10 @@ export async function getInternshipByUser(
       return extractErrorMessage(response);
     }
 
-    const data: ResponseWrapper<InternshipRead> = await response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
-    errorLog("Error getting internship for user: ", error);
-    return null;
+    throw new Error("Error getting internship for user:");
   }
 }
 
@@ -51,11 +44,11 @@ export async function getInternshipByUser(
  * create or update an internship. This data is expected to be in a specific format defined by the
  * `InternshipCreate` type.
  * @returns The `createOrUpdateInternship` function returns a `Promise` that resolves to either a
- * `ResponseWrapper<InternshipRead>`, an `ErrorResponse`, or `null`.
+ * `InternshipResponse`.
  */
 export async function createOrUpdateInternship(
   internshipData: InternshipCreate,
-): Promise<ResponseWrapper<InternshipRead> | ErrorResponse | null> {
+): Promise<InternshipResponse> {
   try {
     const response = await fetch(API_URLS.INTERNSHIP_BASE_URL, {
       method: "POST",
@@ -71,10 +64,9 @@ export async function createOrUpdateInternship(
       return extractErrorMessage(response);
     }
 
-    const data: ResponseWrapper<InternshipRead> = await response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
-    errorLog("Error creating or updating internship: ", error);
-    return { error: "An unexpected error occurred." };
+    throw new Error("Error creating internship for user:");
   }
 }

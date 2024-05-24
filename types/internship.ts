@@ -1,21 +1,11 @@
-export enum InternshipProgram {
-  OAED = "ΟΑΕΔ",
-  ESPA = "ΕΣΠΑ",
-  EMPLOYER_FINANCED = "Αποκλειστικά χρηματοδοτούμενη από εργοδότη",
-}
-
-export enum InternshipStatus {
-  PENDING_REVIEW = "Pending review",
-  ACTIVE = "Active",
-  ENDED = "Ended",
-}
+import { InternshipProgram, InternshipStatus, Message } from "@/types";
 
 export interface InternshipBase {
   company_id?: number;
   company_name?: string;
   program: InternshipProgram;
-  start_date?: string; // Use string if dates are returned as ISO strings
-  end_date?: string; // Use string if dates are returned as ISO strings
+  start_date?: string;
+  end_date?: string;
 }
 
 export interface InternshipCreate extends InternshipBase {}
@@ -29,9 +19,9 @@ export interface InternshipRead extends InternshipBase {
   user_id: number;
   status: InternshipStatus;
 }
-export interface ResponseWrapper<T> {
-  data: T;
-  message: {
-    detail: string;
-  };
+
+export interface InternshipResponse {
+  data?: InternshipRead;
+  message?: Message;
+  error?: string;
 }

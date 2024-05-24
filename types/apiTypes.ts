@@ -1,18 +1,8 @@
-export interface UserDetails {
-  first_name: string;
-  last_name: string;
-  AM: string;
-  id: number;
-  role: string;
-  fathers_name: string;
-  telephone_number: string;
-  email: string;
-  department: string;
-  reg_year: string;
-  isAdmin: boolean;
-}
+import { User } from "@/types/user";
+import { Message } from "@/types";
+
 export interface PlacementUserResponse {
-  data: UserDetails;
+  data: User;
   message: {
     detail: string;
   };
@@ -26,10 +16,8 @@ export interface Tokens {
 
 export interface LoginServerResponse {
   data: {
-    user: UserDetails;
+    user: User;
     tokens: Tokens;
   };
-  message: {
-    detail: string;
-  };
+  message?: Message;
 }

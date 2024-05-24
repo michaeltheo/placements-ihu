@@ -2,7 +2,6 @@ import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 import type {
   DikaiologitikaFilesResponse,
-  DikaiologitikaTypesResponse,
   UpdateDeleteResponse,
   UploadResponse,
 } from "@/types/dikaiologitika";
@@ -196,7 +195,7 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
  * Retrieves the list of available dikaiologitika types.
  * @returns Promise resolving to the types response data or null in case of error.
  */
-export async function getDikaiologitkaTypes(): Promise<DikaiologitikaTypesResponse | null> {
+export async function getDikaiologitkaTypes(): Promise<any> {
   try {
     const response = await fetch(`${API_URLS.GET_DIKAIOLOGITIKA_TYPES}`, {
       method: "GET",

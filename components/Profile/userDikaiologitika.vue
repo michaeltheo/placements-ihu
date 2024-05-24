@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <section class="profile__section profile__section--files">
-    <h2 class="profile__header">Δικαιολογητικά</h2>
-    <div v-if="!hasInternship" class="profile__create-internship-button">
+  <section class="user-files user-files--files">
+    <h2 class="user-files__header">Δικαιολογητικά</h2>
+    <div v-if="!hasInternship" class="user-files__create-internship-button">
       <v-btn
         color="primary-blue-color"
         @click="openCreateInternshipDialog = true"
@@ -35,7 +35,7 @@
           </v-chip>
         </template>
         <template #item.actions="{ item }">
-          <div class="profile__actions">
+          <div class="user-files__actions">
             <v-icon
               color="warning"
               icon="fa:fas fa-pen-to-square"
@@ -57,7 +57,7 @@
           </div>
         </template>
       </v-data-table-server>
-      <div class="profile__controls">
+      <div class="user-files__controls">
         <v-btn
           elevation="4"
           color="#112d4e"
@@ -123,11 +123,13 @@ import {
 } from "@/services/dikaiologitkaService";
 import { getInternshipByUser } from "@/services/internshipService";
 import { errorLog } from "@/utils/log";
-import { submissionTime, InternshipStatus } from "@/constants/ApiConstants ";
+import { submissionTimeValues } from "@/constants/ApiConstants ";
+import { InternshipStatus } from "@/types";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
 import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
+import { InternshipCreate } from "@/types/internship";
 
 // Store references and reactive properties
 const authStore = useAuthStore();
@@ -178,6 +180,29 @@ const getInternship = async () => {
   } else {
     hasInternship.value = false;
   }
+  await fetchDikaiologitikaTypes();
+};
+
+// Fetch DikaiologitikaTypes and filter if necessary
+const fetchDikaiologitikaTypes = async () => {
+  const response = await getDikaiologitkaTypes();
+  if (response) {
+    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
+      for (const [program, types] of Object.entries(response.data)) {
+        response.data[program] = types.filter(
+          (type: any) => type.submission_time === submissionTimeValues.start,
+        );
+      }
+      // TODO: Discuss which will the flow be
+      // } else {
+      //   for (const [program, types] of Object.entries(response.data)) {
+      //     response.data[program] = types.filter(
+      //       (type: any) => type.submission_time === submissionTimeValues.end
+      //     );
+      //   }
+    }
+    dikaiologitikaStore.setDikaiologitka(response.data);
+  }
 };
 
 // Handle create internship dialog close
@@ -186,18 +211,19 @@ const handleCreateInternshipDialogClose = (newValue: boolean) => {
 };
 
 // Handle internship creation
-const handleInternshipCreated = (newInternship: any) => {
+const handleInternshipCreated = async (newInternship: InternshipCreate) => {
   hasInternship.value = true;
   internship.value = newInternship;
   openCreateInternshipDialog.value = false;
-  loadItems();
+  await fetchDikaiologitikaTypes(); // Fetch types after internship creation
+  await loadItems(); // Load items after fetching types
 };
 
 // Handle internship update
 const handleInternshipUpdated = (updatedInternship: any) => {
   internship.value = updatedInternship;
   openCreateInternshipDialog.value = false;
-  getInternship(); // Fetch the updated internship data
+  getInternship();
 };
 
 // Edit file item
@@ -235,9 +261,9 @@ const deleteItem = (item: DikaiologitikaFile) => {
 
 // Get color based on submission time
 const getColor = (fileSubmissionTime: string): string => {
-  if (fileSubmissionTime === submissionTime.start) {
+  if (fileSubmissionTime === submissionTimeValues.start) {
     return "green";
-  } else if (fileSubmissionTime === submissionTime.end) {
+  } else if (fileSubmissionTime === submissionTimeValues.end) {
     return "teal";
   }
   return "default";
@@ -246,18 +272,6 @@ const getColor = (fileSubmissionTime: string): string => {
 // On component mount, fetch data
 onMounted(async () => {
   await getInternship();
-
-  const response = await getDikaiologitkaTypes();
-  if (response) {
-    if (internship.value.status === InternshipStatus.PENDING_REVIEW) {
-      for (const [program, types] of Object.entries(response.data)) {
-        response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTime.start,
-        );
-      }
-    }
-    dikaiologitikaStore.setDikaiologitka(response.data);
-  }
 
   if (hasInternship.value) {
     await loadItems();
@@ -268,23 +282,25 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
-.profile__section--files {
-  @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white mt-8;
+.user-files {
+  &--files {
+    @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white mt-8;
+  }
 
-  .profile__create-internship-button {
+  &__create-internship-button {
     @apply flex justify-center;
   }
 
-  .profile__header {
+  &__header {
     @apply text-2xl font-semibold text-center my-4;
     color: $primary-dark-blue-color;
   }
 
-  .profile__actions {
+  &__actions {
     @apply flex items-center justify-around;
   }
 
-  .profile__controls {
+  &__controls {
     @apply flex flex-wrap justify-center gap-4 mt-4;
   }
 }

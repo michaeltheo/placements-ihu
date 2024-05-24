@@ -1,24 +1,9 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
 import { dummyStatistcs } from "@/constants/dummyStaticsts";
-
-interface UserResponse {
-  data: Array<{
-    first_name: string;
-    last_name: string;
-    AM: string;
-    id: number;
-    role: string;
-    fathers_name: string;
-    telephone_number: string;
-    email: string;
-    reg_year: string;
-  }>;
-  total_items: number;
-  message: {
-    detail: string;
-  };
-}
+import type { ErrorResponse, Message, ResponseTotalItems } from "@/types";
+import { extractErrorMessage } from "@/services/errorHandling";
+import { User } from "@/types/user";
 
 interface QuestionStatisticsResponse {
   data: Array<{
@@ -68,7 +53,7 @@ export async function getUsersByAmAndRole(
   role?: string,
   page = 1,
   itemsPerPage = 10,
-): Promise<UserResponse | null> {
+): Promise<ResponseTotalItems<User[]> | ErrorResponse> {
   try {
     const queryParams = new URLSearchParams();
     if (am) queryParams.append("am", am);
@@ -76,24 +61,20 @@ export async function getUsersByAmAndRole(
     queryParams.append("page", page.toString());
     queryParams.append("items_per_page", itemsPerPage.toString());
 
-    const response = await useFetch<UserResponse>(
-      `${API_URLS.GET_USERS}?${queryParams}`,
-      {
-        method: "GET",
-        headers: { Accept: "application/json" },
-      },
-    );
+    const response = await fetch(`${API_URLS.GET_USERS}?${queryParams}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
 
-    const { data, error } = response;
-
-    if (error.value) {
-      throw new Error(error.value as unknown as string);
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
     }
 
-    return data.value;
+    const data: ResponseTotalItems<User[]> = await response.json();
+    return data;
   } catch (error) {
-    errorLog("Error fetching users:", error);
-    return null;
+    return { error: "Error fetching users: " + error };
   }
 }
 
@@ -161,4 +142,49 @@ export function parseQuestionStatistics(
   });
 
   return questionDataArray;
+}
+
+export async function adminSetUserAsAdmin(
+  userId: number,
+): Promise<Message | ErrorResponse> {
+  try {
+    const response = await fetch(`${API_URLS.SET_ADMIN}/${userId}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: Message = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to set user as admin");
+  }
+}
+
+export async function adminSetUserAsStudent(
+  userId: number,
+): Promise<Message | ErrorResponse> {
+  try {
+    const response = await fetch(`${API_URLS.SET_STUDENT}/${userId}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: Message = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to set user as student");
+  }
 }

@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Question } from "@/types";
+import { Question } from "@/types/question";
 
 // Component props
 const props = defineProps<{

@@ -14,42 +14,42 @@
               >fa-solid fa-calendar</v-icon
             >
             <span class="profile__label">Έτος Εγγραφής:</span>
-            <span class="profile__value">{{ userRegYear }}</span>
+            <span class="profile__value">{{ userRegYear ?? "N/A" }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
               >fa-solid fa-passport</v-icon
             >
             <span class="profile__label">Αριθμός Μητρώου:</span>
-            <span class="profile__value">{{ userAM }}</span>
+            <span class="profile__value">{{ userAM ?? "N/A" }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
               >fa-regular fa-user</v-icon
             >
             <span class="profile__label">Role:</span>
-            <span class="profile__value">{{ userRole }}</span>
+            <span class="profile__value">{{ userRole ?? "N/A" }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
               >fa-solid fa-phone</v-icon
             >
             <span class="profile__label">Τηλέφωνο:</span>
-            <span class="profile__value">{{ userTelephone }}</span>
+            <span class="profile__value">{{ userTelephone ?? "N/A" }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
               >fa-solid fa-envelope</v-icon
             >
             <span class="profile__label">Email:</span>
-            <span class="profile__value">{{ userEmail }}</span>
+            <span class="profile__value">{{ userEmail ?? "N/A" }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
               >fa-solid fa-school</v-icon
             >
             <span class="profile__label">Τμήμα:</span>
-            <span class="profile__value">{{ userDepartment }}</span>
+            <span class="profile__value">{{ userDepartment ?? "N/A" }}</span>
           </v-col>
         </v-row>
       </v-card-text>
@@ -59,11 +59,11 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-import type { UserDetails } from "@/types/apiTypes";
+import type { User } from "@/types/user";
 
 // Fetch user details from the auth store
 const authStore = useAuthStore();
-const user = computed<UserDetails>(() => authStore.user);
+const user = computed<User>(() => authStore.user);
 
 // Define computed properties for user details
 const userRegYear = computed(() => user.value.reg_year);

@@ -86,9 +86,11 @@
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
 import { createOrUpdateInternship } from "@/services/internshipService";
-import { InternshipProgram, InternshipUpdate } from "@/types/internship";
 import { getAllCompanies } from "@/services/companyService";
+import { InternshipUpdate } from "@/types/internship";
+import { InternshipProgram } from "@/types";
 import { Company } from "@/types/company";
+import { hasErrorResponse } from "@/services/errorHandling";
 
 // Define props with default values
 const props = withDefaults(
@@ -193,10 +195,12 @@ onMounted(async () => {
   await fetchCompanies();
 });
 
-// Fetch companies based on search
+/**
+ * Fetch companies based on search input
+ */
 const fetchCompanies = async () => {
   const response = await getAllCompanies(undefined, undefined, search.value);
-  if (response && !("error" in response)) {
+  if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
   } else {
     companyOptions.value = [];
@@ -205,7 +209,9 @@ const fetchCompanies = async () => {
 
 const programOptions = Object.values(InternshipProgram);
 
-// Submit form handler
+/**
+ * Handle form submission
+ */
 const submitForm = () => {
   if (form.value?.validate()) {
     if (props.isUpdate) {
@@ -216,7 +222,9 @@ const submitForm = () => {
   }
 };
 
-// Create new internship
+/**
+ * Create new internship
+ */
 const createInternship = async () => {
   if (selectedProgram.value) {
     const response = await createOrUpdateInternship({
@@ -229,11 +237,17 @@ const createInternship = async () => {
       });
       emit("internshipCreated", response.data);
       emitClose();
+    } else {
+      $toast.error(`${response.error}`, {
+        position: "bottom",
+      });
     }
   }
 };
 
-// Update existing internship
+/**
+ * Update existing internship
+ */
 const updateInternship = async () => {
   if (
     selectedProgram.value &&
@@ -255,11 +269,17 @@ const updateInternship = async () => {
       emit("internshipUpdated", response.data);
       emit("refreshInternship");
       emitClose();
+    } else {
+      $toast.error(`${response.error}`, {
+        position: "bottom",
+      });
     }
   }
 };
 
-// Emit close event
+/**
+ * Emit close event to close the dialog
+ */
 const emitClose = () => {
   selectedProgram.value = null;
   companyId.value = null;
