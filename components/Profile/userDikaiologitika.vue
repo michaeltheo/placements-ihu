@@ -187,7 +187,7 @@ const getInternship = async () => {
 const fetchDikaiologitikaTypes = async () => {
   const response = await getDikaiologitkaTypes();
   if (response) {
-    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
+    if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
           (type: any) => type.submission_time === submissionTimeValues.start,

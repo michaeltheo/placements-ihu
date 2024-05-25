@@ -1,6 +1,45 @@
 import { API_URLS } from "@/constants/apiConfig";
 import { extractErrorMessage } from "@/services/errorHandling";
-import type { InternshipResponse, InternshipCreate } from "@/types/internship";
+import type {
+  InternshipResponse,
+  InternshipCreate,
+  TotalInternshipResponse,
+} from "@/types/internship";
+import { ErrorResponse, InternshipProgram, InternshipStatus } from "@/types";
+
+export async function getAllInternships(
+  internshipStatus?: InternshipStatus | undefined,
+  program?: InternshipProgram,
+  userAM?: string,
+  companyName?: string,
+  page = 1,
+  itemsPerPage = 10,
+): Promise<TotalInternshipResponse> {
+  try {
+    const queryParams = new URLSearchParams();
+    if (internshipStatus)
+      queryParams.append("internship_status", internshipStatus.toString());
+    if (program) queryParams.append("program", program.toString());
+    if (userAM) queryParams.append("user_am", userAM);
+    if (companyName) queryParams.append("company_name", companyName);
+    queryParams.append("page", page.toString());
+    queryParams.append("items_per_page", itemsPerPage.toString());
+
+    const response = await fetch(`${API_URLS.GET_INTERNSHIPS}?${queryParams}`, {
+      method: "GET",
+      credentials: "include",
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: TotalInternshipResponse = await response.json();
+    return data;
+  } catch (error) {
+    return { error: "Error fetching internships: " + error };
+  }
+}
 
 /**
  * The function `getInternshipByUser` fetches internship data for a specific user and returns it in a

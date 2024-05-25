@@ -9,7 +9,7 @@ export const InternshipStatusValues = {
   ENDED: "Ended",
 };
 
-export const InternshipProgram = {
+export const InternshipProgramValues = {
   TEITHE_OAED: "ΠΑΛΑΙΟ ΤΜΗΜΑ ΟΑΕΔ",
   ESPA: "ΠΑΛΑΙΟ/NEO ΤΜΗΜΑ ΕΣΠΑ",
   TEITHE_JOB_RECOGNITION: "ΠΑΛΑΙΟ ΤΜΗΜΑ ΑΝΑΓΝΩΡΙΣΗ ΕΡΓΑΣΙΑΣ",

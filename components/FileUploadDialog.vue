@@ -144,7 +144,7 @@ import type {
 } from "@/types/dikaiologitika";
 import type { InternshipRead } from "@/types/internship";
 import "vue-toast-notification/dist/theme-sugar.css";
-import { InternshipProgram } from "@/constants/ApiConstants ";
+import { InternshipProgramValues } from "@/constants/ApiConstants ";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -264,14 +264,14 @@ const submitForm = async () => {
 // Computed property to generate dynamic content (information about intenrnship programs)
 const additionalInformation = computed(() => {
   switch (selectedProgram.value) {
-    case InternshipProgram.TEITHE_OAED:
-    case InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
+    case InternshipProgramValues.TEITHE_OAED:
+    case InternshipProgramValues.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
       return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου,Σύμβαση υπογεγραμένη (ΕΝΑΡΞΗ) 
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgram.ESPA:
+    case InternshipProgramValues.ESPA:
       return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου (εκτυπωμένη και υπογεγραμμένη) (ΕΝΑΡΞΗ)  
       Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgram.TEITHE_JOB_RECOGNITION:
+    case InternshipProgramValues.TEITHE_JOB_RECOGNITION:
       return `Βεβαίωση Απασχόλησης Ασκούμενου (ΕΝΑΡΞΗ) 
       Σύμβαση αορίστου (ΕΝΑΡΞΗ) 
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
