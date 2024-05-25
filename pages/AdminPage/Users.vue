@@ -153,11 +153,14 @@
               no-data-text="Δεν βρέθηκαν αρχεία"
             >
               <template #item.actions="{ item }">
-                <v-icon
-                  color="primary-blue-color"
-                  icon="fa:fas fa-download"
-                  @click="downloadFile(item)"
-                ></v-icon>
+                <v-btn variant="plain" @click="downloadFile(item)">
+                  <v-icon color="primary-blue-color">
+                    fa:fas fa-download
+                  </v-icon>
+                  <v-tooltip activator="parent" location="top"
+                    >Κατέβασμα Αρχείου</v-tooltip
+                  >
+                </v-btn>
               </template>
             </v-data-table>
           </v-container>
