@@ -18,6 +18,7 @@ export const API_URLS = {
   GET_QUESTION_STATISTICS: `${PLACEMENTS_BASE_URL}/question/stats/answers`,
   INTERNSHIP_BASE_URL: `${PLACEMENTS_BASE_URL}/internship`,
   GET_INTERNSHIPS: `${PLACEMENTS_BASE_URL}/internship/all`,
+  DELETE_INTERNSHIP: `${PLACEMENTS_BASE_URL}/internship/delete`,
   COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company`,
 };
 

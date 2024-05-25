@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div class="mx-auto px-4 py-8 space-y-12;">
@@ -46,6 +47,14 @@
         </template>
         <template #item.end_date="{ item }">
           <span>{{ item?.end_date?.split("T")[0] || "N/A" }}</span>
+        </template>
+        <template #item.actions="{ item }">
+          <v-btn variant="plain" @click="deleteItem(item)">
+            <v-icon color="error"> fa:fas fa-trash </v-icon>
+            <v-tooltip activator="parent" location="top"
+              >Διαγραφή Πρακτικής</v-tooltip
+            >
+          </v-btn>
         </template>
         <template #tfoot>
           <tr class="intersnshipPage__table-filters">
@@ -112,6 +121,22 @@
       <p class="intersnshipPage__hint">
         Επιλέξτε έναν φοιτητή για να δείτε τα δικαιολογητικά του.
       </p>
+      <div>
+        <v-btn
+          elevation="4"
+          color="#112d4e"
+          append-icon="fa:fas fa-arrows-rotate"
+          @click="loadItems"
+        >
+          Ανανέωση Πίνακα
+        </v-btn>
+      </div>
+      <AdminDialogDeleteInternship
+        :model-value="openDeleteInternshipDialog"
+        :internship="selectedInternship"
+        @refreshInternshipList="applyFilter"
+        @update:model-value="handleDeleteDialogClose"
+      />
     </section>
   </div>
 </template>
@@ -138,6 +163,8 @@ const searchAM = ref<string>("");
 const searchCompanyName = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
 const selectedStatus = ref<InternshipStatus | undefined>(undefined);
+const selectedInternship = ref<InternshipRead | undefined>(undefined);
+const openDeleteInternshipDialog = ref<boolean>(false);
 const totalItems = ref<number | undefined>(0);
 const itemsPerPage = ref<number>(20);
 const loading = ref<boolean>(true);
@@ -186,6 +213,7 @@ const headers = ref([
     value: "end_date",
     sortable: false,
   },
+  { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
 
 const loadItems = async (options: LoadItemsOptions) => {
@@ -254,6 +282,20 @@ const getColorForProgram = (status: string): string => {
  */
 const applyFilter = () => {
   loadItems({ page: 1, itemsPerPage: itemsPerPage.value });
+};
+
+// Handle delete internship dialog close
+const handleDeleteDialogClose = (newValue: boolean) => {
+  openDeleteInternshipDialog.value = newValue;
+  if (!newValue) {
+    selectedInternship.value = undefined;
+  }
+};
+
+// Delete internship
+const deleteItem = (item: InternshipRead) => {
+  selectedInternship.value = item;
+  openDeleteInternshipDialog.value = true;
 };
 
 // Fetch companies on mount

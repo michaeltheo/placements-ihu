@@ -5,7 +5,12 @@ import type {
   InternshipCreate,
   TotalInternshipResponse,
 } from "@/types/internship";
-import { ErrorResponse, InternshipProgram, InternshipStatus } from "@/types";
+import {
+  ErrorResponse,
+  InternshipProgram,
+  InternshipStatus,
+  Message,
+} from "@/types";
 
 export async function getAllInternships(
   internshipStatus?: InternshipStatus | undefined,
@@ -38,6 +43,32 @@ export async function getAllInternships(
     return data;
   } catch (error) {
     return { error: "Error fetching internships: " + error };
+  }
+}
+
+export async function deleteInternship(
+  internshipID: number,
+): Promise<Message | ErrorResponse> {
+  try {
+    const response = await fetch(
+      `${API_URLS.DELETE_INTERNSHIP}/${internshipID}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: Message = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error deleting internship:", error);
+    return { error: "An unexpected error occurred." };
   }
 }
 
