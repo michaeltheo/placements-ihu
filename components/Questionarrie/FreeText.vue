@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- /**
  * FreeText Component
  *
@@ -21,7 +20,7 @@
               class="freeText--field"
               clearable
               label="Γράψτε την απάντησή σας"
-              :rules="[(v) => !!v || 'Απαιτείται απάντηση']"
+              :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"
               validate-on="input"
               @update:modelValue="emitInputValue"
             />

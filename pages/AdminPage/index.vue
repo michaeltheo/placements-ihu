@@ -32,7 +32,7 @@
           >
           <h3 class="adminPage__title">Πινακας Χρηστών</h3>
           <p class="adminPage__hint">
-            Διαχείριση χρηστώ, προβολή δικαιολογιτικών των φοιτητων. φοιτητών
+            Διαχείριση χρηστών, προβολή δικαιολογιτικών των φοιτητων. φοιτητών
             του τμήματος.
           </p>
           <BaseComponentsBaseButton
@@ -66,12 +66,11 @@
           >
           <h3 class="adminPage__title">Πινακας Πρακτικών</h3>
           <p class="adminPage__hint">
-            Διαχείριση πρακτικών και προβολή στατιστικών του ερωτηματολογίου των
-            φοιτητών του τμήματος.
+            Διαχείριση πρακτικών και προβολή των δικαιολογητικών των φοιτητών.
           </p>
           <BaseComponentsBaseButton
             class="adminPage__button"
-            text="Σελίδα Πρακτικής"
+            text="Σελίδα Πρακτικών"
             @click="navigateTo('/adminPage/internships')"
           />
         </div>

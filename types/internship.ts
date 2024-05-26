@@ -17,11 +17,21 @@ export interface InternshipUpdate extends InternshipBase {
 export interface InternshipRead extends InternshipBase {
   id: number;
   user_id: number;
+  user_first_name?: string;
+  user_last_name?: string;
+  user_am?: string;
   status: InternshipStatus;
 }
 
 export interface InternshipResponse {
   data?: InternshipRead;
+  message?: Message;
+  error?: string;
+}
+
+export interface TotalInternshipResponse {
+  data?: InternshipRead[];
+  total_items?: number;
   message?: Message;
   error?: string;
 }

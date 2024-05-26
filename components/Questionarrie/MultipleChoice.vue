@@ -1,5 +1,3 @@
-import { wrap } from 'module';
-<!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- /**
  * MultipleChoice Component
  *
@@ -28,7 +26,7 @@ import { wrap } from 'module';
               clearable
               variant="solo-filled"
               label="Επιλέξτε μια επιλογή"
-              :rules="[(v) => !!v || 'Επιλέξτε τουλάχιστον μία επιλογή']"
+              :rules="[(v: any) => !!v || 'Επιλέξτε τουλάχιστον μία επιλογή']"
               class="multipleChoice--select"
               @update:modelValue="emitSelectedValue"
             />

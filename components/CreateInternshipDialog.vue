@@ -48,6 +48,7 @@
               label="Ημερομηνία Έναρξης"
               class="create-internship-dialog__field"
               outlined
+              :min="today"
               dense
               type="date"
               :rules="[dateValidationRule]"
@@ -59,6 +60,7 @@
               class="create-internship-dialog__field"
               outlined
               dense
+              :min="today"
               type="date"
               :rules="[dateValidationRule]"
             ></v-text-field>
@@ -85,6 +87,7 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { createOrUpdateInternship } from "@/services/internshipService";
 import { getAllCompanies } from "@/services/companyService";
 import { InternshipUpdate } from "@/types/internship";
@@ -130,6 +133,15 @@ const search = ref("");
 const companyOptions = ref<Company[]>([]);
 const valid = ref(false);
 const form = ref<any>(null);
+
+// Today property for date validation
+const today = computed(() => {
+  const todayDate = new Date();
+  const year = todayDate.getFullYear();
+  const month = String(todayDate.getMonth() + 1).padStart(2, "0");
+  const day = String(todayDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+});
 
 // Watchers to handle prop changes
 watch(

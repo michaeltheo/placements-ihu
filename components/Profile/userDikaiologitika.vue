@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
-<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <section class="user-files user-files--files">
     <h2 class="user-files__header">Δικαιολογητικά</h2>
@@ -36,31 +34,35 @@
         </template>
         <template #item.actions="{ item }">
           <div class="user-files__actions">
-            <v-icon
-              color="warning"
-              icon="fa:fas fa-pen-to-square"
-              size="large"
-              @click="editItem(item)"
-            ></v-icon>
-            <v-icon
-              color="primary-blue-color"
-              icon="fa:fas fa-download"
-              size="large"
-              @click="downloadFile(item)"
-            ></v-icon>
-            <v-icon
-              icon="fa:fas fa-trash"
-              size="large"
-              color="error"
-              @click="deleteItem(item)"
-            />
+            <v-btn variant="plain" @click="editItem(item)">
+              <v-icon color="warning"> fa:fas fa-pen-to-square </v-icon>
+              <v-tooltip activator="parent" location="top"
+                >Επεξεργασία Αρχείου</v-tooltip
+              >
+            </v-btn>
+
+            <v-btn variant="plain" @click="downloadFile(item)">
+              <v-icon size="large" color="primary-blue-color">
+                fa:fas fa-download
+              </v-icon>
+              <v-tooltip activator="parent" location="top"
+                >Κατέβασμα Αρχείου</v-tooltip
+              >
+            </v-btn>
+            <v-btn variant="plain" @click="deleteItem(item)">
+              <v-icon color="error"> fa:fas fa-trash </v-icon>
+              <v-tooltip activator="parent" location="top"
+                >Διαγραφή Αρχείου</v-tooltip
+              >
+            </v-btn>
           </div>
         </template>
+        <template #bottom></template>
       </v-data-table-server>
       <div class="user-files__controls">
         <v-btn
           elevation="4"
-          color="#112d4e"
+          color="primary-dark-blue-color"
           append-icon="fa:fas fa-arrows-rotate"
           @click="loadItems"
         >
@@ -187,7 +189,7 @@ const getInternship = async () => {
 const fetchDikaiologitikaTypes = async () => {
   const response = await getDikaiologitkaTypes();
   if (response) {
-    if (internship?.value.status === InternshipStatus.PENDING_REVIEW) {
+    if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
           (type: any) => type.submission_time === submissionTimeValues.start,

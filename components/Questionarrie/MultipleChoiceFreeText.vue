@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
 <!-- /**
  * MultipleChoiceFreeText Component
  *
@@ -30,7 +29,10 @@
               :multiple="question.supports_multiple_answers"
               clearable
               label="Επιλέξτε μια επιλογή"
-              :rules="[(v) => !!v.length || 'Επιλέξτε τουλάχιστον μία επιλογή']"
+              :rules="[
+                (v: string | any[]) =>
+                  !!v.length || 'Επιλέξτε τουλάχιστον μία επιλογή',
+              ]"
               @update:modelValue="emitSelectedOptions"
             />
             <v-textarea
@@ -40,7 +42,7 @@
               validate-on="input"
               class="multipleChoiceFreeText--textArea"
               label="Γράψτε την απάντησή σας"
-              :rules="[(v) => !!v || 'Απαιτείται απάντηση']"
+              :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"
               @update:modelValue="emitSelectedOptions"
             />
           </v-card-text>

@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { ServerSideLogin } from "@/services/authService";
