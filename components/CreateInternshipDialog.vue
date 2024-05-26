@@ -87,6 +87,7 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { createOrUpdateInternship } from "@/services/internshipService";
 import { getAllCompanies } from "@/services/companyService";
 import { InternshipUpdate } from "@/types/internship";

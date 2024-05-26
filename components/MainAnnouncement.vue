@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="main-announcement">
     <div ref="titleRef" class="main-announcement__title">

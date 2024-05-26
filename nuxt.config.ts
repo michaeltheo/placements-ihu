@@ -21,6 +21,6 @@ export default defineNuxtConfig({
     "@/plugins/auth-check.js",
   ],
   build: {
-    transpile: ["@vuepic/vue-datepicker", "vuetify"],
+    transpile: ["@vuepic/vue-datepicker", "vuetify", "vue-toastification"],
   },
 });

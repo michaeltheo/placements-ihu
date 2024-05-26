@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/attribute-hyphenation -->
 <template>
   <div class="statisticsPage">
     <section class="statisticsPage__section">

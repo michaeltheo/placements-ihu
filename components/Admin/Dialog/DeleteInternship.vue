@@ -41,6 +41,7 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { deleteInternship } from "@/services/internshipService";
 import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";

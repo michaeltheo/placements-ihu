@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/attribute-hyphenation -->
 <!--
   /**
    * DynamicQuestionnaire Component

@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
-<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div class="mx-auto px-4 py-8 space-y-12;">
     <section class="intersnshipPage">
@@ -49,7 +47,7 @@
           <span>{{ item?.end_date?.split("T")[0] || "N/A" }}</span>
         </template>
         <template #item.actions="{ item }">
-          <v-btn variant="plain" @click="deleteItem(item)">
+          <v-btn variant="plain" @click="deleteItem($event, item)">
             <v-icon color="error"> fa:fas fa-trash </v-icon>
             <v-tooltip activator="parent" location="top"
               >Διαγραφή Πρακτικής</v-tooltip
@@ -64,7 +62,7 @@
                 label="Αναζήτηση με ΑΜ"
                 class="ma-2"
                 variant="outlined"
-                color="#112d4e"
+                color="primary-dark-blue"
                 :clearable="true"
                 prepend-inner-icon="fa:fas fa-search"
                 hint="Αναζήτηση με βάση Αριθμού Μητρώου"
@@ -79,7 +77,7 @@
                 class="ma-2"
                 label="Επιλέξτε πρόγραμμα πρακτικής"
                 variant="outlined"
-                color="#112d4e"
+                color="primary-dark-blue"
                 hint="Αναζήτηση με βάση το πρόγραμμα πρακτικής"
                 dense
                 @update:model-value="applyFilter"
@@ -93,7 +91,7 @@
                 class="ma-2"
                 label="Επιλέξτε κατάσταση πρακτικής"
                 variant="outlined"
-                color="#112d4e"
+                color="primary-dark-blue"
                 hint="Αναζήτηση με βάση την κατάσταση πρακτικής"
                 dense
                 @update:model-value="applyFilter"
@@ -110,7 +108,6 @@
                 variant="outlined"
                 dense
                 clearable
-                class="test"
                 @update:search-input="fetchCompanies"
                 @update:model-value="applyFilter"
               ></v-autocomplete>
@@ -124,7 +121,7 @@
       <div>
         <v-btn
           elevation="4"
-          color="#112d4e"
+          color="primary-dark-blue"
           append-icon="fa:fas fa-arrows-rotate"
           @click="loadItems"
         >
@@ -137,11 +134,18 @@
         @refreshInternshipList="applyFilter"
         @update:model-value="handleDeleteDialogClose"
       />
+      <AdminDialogInternship
+        :model-value="openInternshipDialog"
+        :internship="selectedInternship"
+        @refreshInternshipList="applyFilter"
+        @update:model-value="handleIndternshipDialogClose"
+      />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import "vue-toast-notification/dist/theme-sugar.css";
 import { useToast } from "vue-toast-notification";
 import { getAllInternships } from "@/services/internshipService";
 import { InternshipProgram, InternshipStatus } from "@/types";
@@ -165,6 +169,7 @@ const selectedProgram = ref<InternshipProgram | undefined>(undefined);
 const selectedStatus = ref<InternshipStatus | undefined>(undefined);
 const selectedInternship = ref<InternshipRead | undefined>(undefined);
 const openDeleteInternshipDialog = ref<boolean>(false);
+const openInternshipDialog = ref<boolean>(false);
 const totalItems = ref<number | undefined>(0);
 const itemsPerPage = ref<number>(20);
 const loading = ref<boolean>(true);
@@ -292,8 +297,31 @@ const handleDeleteDialogClose = (newValue: boolean) => {
   }
 };
 
-// Delete internship
-const deleteItem = (item: InternshipRead) => {
+/**
+ * Handles table row click to set the selected user and open the dialog.
+ * @param _event - The click event.
+ * @param row - The row data containing the user.
+ */
+const handleClick = (_event: Event, row: { item: InternshipRead }) => {
+  selectedInternship.value = row.item;
+  openInternshipDialog.value = true;
+};
+
+// Handle internship dialog close
+const handleIndternshipDialogClose = (newValue: boolean) => {
+  openInternshipDialog.value = newValue;
+  if (!newValue) {
+    selectedInternship.value = undefined;
+  }
+};
+
+/**
+ * Deletes an internship item and opens the delete dialog.
+ * @param event - The click event.
+ * @param item - The internship item to delete.
+ */
+const deleteItem = (event: Event, item: InternshipRead) => {
+  event.stopPropagation();
   selectedInternship.value = item;
   openDeleteInternshipDialog.value = true;
 };

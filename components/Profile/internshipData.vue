@@ -51,6 +51,7 @@
             <span class="internship__data__label">Κατάσταση:</span>
             <span
               class="internship__data__value internship__data__value--status"
+              :style="{ color: getColorForStatus(internship?.status) ?? '' }"
               >{{ internship?.status }}</span
             >
           </v-col>
@@ -63,6 +64,7 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
 import { InternshipRead } from "@/types/internship";
+import { InternshipStatus } from "@/types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(
@@ -73,6 +75,22 @@ const props = withDefaults(
     internship: null,
   },
 );
+
+/**
+ * Returns a color based on the internship status.
+ * @param status - The status of the internship.
+ * @returns The color corresponding to the status.
+ */
+const getColorForStatus = (status: string): string => {
+  if (status === InternshipStatus.ACTIVE) {
+    return "green";
+  } else if (status === InternshipStatus.PENDING_REVIEW) {
+    return "orange";
+  } else if (status === InternshipStatus.ENDED) {
+    return "red";
+  }
+  return "default";
+};
 
 // Helper function to format date
 const formatDate = (dateString: string | null | undefined) => {

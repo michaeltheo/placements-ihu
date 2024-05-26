@@ -1,0 +1,380 @@
+<template>
+  <div class="dialog">
+    <v-dialog
+      v-model="localDialog"
+      persistent
+      max-width="1100px"
+      class="dialog__container"
+    >
+      <v-card class="dialog__card">
+        <v-card-title class="dialog__card__title">
+          Πληροφορίες Πρακτικής
+        </v-card-title>
+
+        <div class="dialog__card__info">
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-user
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Ασκούμενος:</span
+                >
+                <span class="dialog__card__info__data-row__value">
+                  {{ internship?.user_first_name }}
+                  {{ internship?.user_last_name }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-id-card
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Αριθμός Μητρώου:</span
+                >
+                <span class="dialog__card__info__data-row__value">
+                  {{ internship?.user_am ?? "N/A" }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-book
+                </v-icon>
+                <span class="dialog__card__info__data-row__label">
+                  Πρόγραμμα Πρακτικής Άσκησης:
+                </span>
+                <span class="dialog__card__info__data-row__value">
+                  {{ internship?.program ?? "N/A" }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-building
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Όνομα Εταιρείας:</span
+                >
+                <span class="dialog__card__info__data-row__value">
+                  {{ internship?.company_name ?? "N/A" }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-regular fa-calendar-days
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Ημερομηνία Έναρξης:</span
+                >
+                <span class="dialog__card__info__data-row__value">
+                  {{ formatDate(internship?.start_date) || "N/A" }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-regular fa-calendar-days
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Ημερομηνία Λήξης:</span
+                >
+                <span class="dialog__card__info__data-row__value">
+                  {{ formatDate(internship?.end_date) || "N/A" }}
+                </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-gear
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Κατάσταση:</span
+                >
+                <span
+                  class="dialog__card__info__data-row__value dialog__card__info__data-row__value--status"
+                  :style="{ color: getColorForStatus(selectedStatus) }"
+                >
+                  {{ selectedStatus }}
+                </span>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider />
+          <v-select
+            v-model="selectedStatus"
+            :items="InternshipsStatus"
+            label="Αλλαγή της κατάστασης πρακτικής"
+            variant="outlined"
+            color="primary-dark-blue"
+            hint="Άλλαξε την κατάστατση της πρακτικής του ασκούμενου"
+            dense
+            class="dialog__select"
+            @update:model-value="updateInernshipStatus"
+          ></v-select>
+        </div>
+
+        <v-data-table
+          :headers="fileHeaders"
+          :items="userFiles"
+          item-key="id"
+          :hover="true"
+          class="dialog__table"
+          no-data-text="Δεν βρέθηκαν αρχεία"
+        >
+          <template #item.actions="{ item }">
+            <v-btn variant="plain" @click="downloadFile(item)">
+              <v-icon color="primary-blue-color"> fa:fas fa-download </v-icon>
+              <v-tooltip activator="parent" location="top"
+                >Κατέβασμα Αρχείου</v-tooltip
+              >
+            </v-btn>
+          </template>
+          <template #bottom></template>
+        </v-data-table>
+
+        <v-card-actions class="dialog__actions">
+          <v-btn class="dialog__actions__btn--cancel" @click="emitClose"
+            >Κλείσιμο</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+import { format } from "date-fns";
+import type { InternshipRead } from "@/types/internship";
+import { InternshipStatus } from "@/types";
+import {
+  downloadDikaiologitika,
+  fetchDikaiologitaFiles,
+} from "@/services/dikaiologitkaService";
+import type { DikaiologitikaFile } from "@/types/dikaiologitika";
+import { hasErrorResponse } from "@/services/errorHandling";
+import { adminUpdateInternshipStatus } from "@/services/internshipService";
+
+const props = defineProps<{
+  modelValue: boolean;
+  internship: InternshipRead;
+}>();
+
+const $toast = useToast();
+const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
+const localDialog = ref(props.modelValue);
+const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
+const filesLoading = ref<boolean>(false);
+const userFiles = ref<DikaiologitikaFile[]>([]);
+const InternshipsStatus = Object.values(InternshipStatus);
+
+watchEffect(() => {
+  localDialog.value = props.modelValue;
+  selectedStatus.value =
+    props.internship?.status || InternshipStatus.PENDING_REVIEW;
+  if (props.internship?.user_id) {
+    loadUserFiles(props.internship.user_id);
+  }
+});
+
+const fileHeaders = ref([
+  { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description", sortable: false },
+  { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
+  { title: "ΟΝΟΜΑ ΑΡΧΕΙΟΥ", key: "file_name", sortable: false },
+  { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
+]);
+
+/**
+ * Fetches files for the given user ID and updates the state.
+ * @param userId - The ID of the user.
+ */
+const loadUserFiles = async (userId: number) => {
+  if (!userId) return;
+  filesLoading.value = true;
+  try {
+    const response = await fetchDikaiologitaFiles(userId);
+    if (hasErrorResponse(response)) {
+      $toast.error(`Error fetching files: ${response.error}`, {
+        position: "bottom",
+      });
+    } else {
+      userFiles.value = response?.data.files ?? [];
+    }
+  } finally {
+    filesLoading.value = false;
+  }
+};
+
+/**
+ * Initiates the download of a specific file.
+ * @param file - The file to download.
+ */
+const downloadFile = async (file: DikaiologitikaFile) => {
+  await downloadDikaiologitika(file.id);
+};
+
+/**
+ * Closes the dialog and refreshes the internship list.
+ */
+const emitClose = () => {
+  emit("refreshInternshipList");
+  userFiles.value = [];
+  emit("update:modelValue", false);
+};
+
+/**
+ * Formats a date string to 'dd-MM-yy' format.
+ * @param dateString - The date string to format.
+ * @returns The formatted date string or "N/A" if invalid.
+ */
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return format(date, "dd-MM-yy");
+};
+
+/**
+ * Returns a color based on the internship status.
+ * @param status - The status of the internship.
+ * @returns The color corresponding to the status.
+ */
+const getColorForStatus = (status: string): string => {
+  if (status === InternshipStatus.ACTIVE) {
+    return "green";
+  } else if (status === InternshipStatus.PENDING_REVIEW) {
+    return "orange";
+  } else if (status === InternshipStatus.ENDED) {
+    return "red";
+  }
+  return "default";
+};
+
+/**
+ * Updates the internship status.
+ */
+const updateInernshipStatus = async () => {
+  if (!selectedStatus) return;
+  const response = await adminUpdateInternshipStatus(
+    props?.internship?.id,
+    selectedStatus.value,
+  );
+  if (hasErrorResponse(response)) {
+    $toast.error(`${response.error}`, {
+      position: "top",
+      duration: 1000,
+    });
+  } else {
+    $toast.success(`${response.message?.detail}`, {
+      position: "top",
+      duration: 1000,
+    });
+  }
+};
+
+watch(
+  () => props.internship,
+  async (newVal) => {
+    selectedStatus.value = newVal?.status;
+    if (newVal?.user_id) {
+      await loadUserFiles(newVal.user_id);
+    }
+  },
+);
+</script>
+
+<style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
+.dialog {
+  &__container {
+    @apply rounded-lg;
+  }
+
+  &__card {
+    @apply p-3 bg-white shadow-lg rounded-lg;
+
+    &__title {
+      @apply text-lg font-bold mb-4;
+      color: $primary-dark-blue-color;
+    }
+
+    &__info {
+      @apply space-y-4 p-4 shadow-md  rounded-sm;
+      color: $primary-dark-blue-color;
+
+      &__data-row {
+        @apply flex items-center mb-4 p-2;
+
+        &__icon {
+          margin-right: 1rem;
+          @apply text-xl;
+        }
+
+        &__label {
+          @apply font-semibold mr-2;
+        }
+
+        &__value {
+          @apply font-medium;
+
+          &--status {
+            @apply font-extrabold;
+          }
+        }
+      }
+    }
+  }
+
+  &__select {
+    @apply mt-4 mb-6;
+  }
+
+  &__table {
+    @apply my-4 p-4 bg-white shadow-md rounded-lg;
+  }
+
+  &__actions {
+    @apply flex justify-end p-4 mt-4 border-t border-gray-200;
+
+    &__btn {
+      &--cancel {
+        @apply py-2 px-4 rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400;
+      }
+
+      &--download {
+        @apply text-white bg-blue-500 hover:bg-blue-600;
+      }
+    }
+  }
+}
+
+:deep .v-data-table__td {
+  @apply border border-gray-200 rounded-lg text-lg text-left md:text-base;
+  color: $primary-dark-blue-color;
+}
+
+:deep .v-data-table-header__content {
+  @apply font-bold;
+  color: $primary-dark-blue-color;
+}
+</style>

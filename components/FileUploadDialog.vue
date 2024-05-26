@@ -303,7 +303,8 @@ const emitClose = () => {
   }
 
   &__title {
-    @apply text-lg font-bold text-blue-900;
+    @apply text-lg font-bold;
+    color: $primary-dark-blue-color;
   }
 
   &__info,

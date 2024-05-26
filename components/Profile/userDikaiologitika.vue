@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
-<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <section class="user-files user-files--files">
     <h2 class="user-files__header">Δικαιολογητικά</h2>
@@ -59,11 +57,12 @@
             </v-btn>
           </div>
         </template>
+        <template #bottom></template>
       </v-data-table-server>
       <div class="user-files__controls">
         <v-btn
           elevation="4"
-          color="#112d4e"
+          color="primary-dark-blue-color"
           append-icon="fa:fas fa-arrows-rotate"
           @click="loadItems"
         >

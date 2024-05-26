@@ -1,6 +1,3 @@
-<!-- eslint-disable vue/v-on-event-hyphenation -->
-<!-- eslint-disable vue/v-slot-style -->
-<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div class="adminPage">
     <section class="adminPage__section--files">
@@ -29,7 +26,7 @@
                 label="Αναζήτηση με ΑΜ"
                 class="ma-2"
                 variant="outlined"
-                color="#112d4e"
+                color="primary-dark-blue"
                 :clearable="true"
                 prepend-inner-icon="fa:fas fa-search"
                 hint="Αναζήτηση με βάση Αριθμού Μητρώου"
@@ -44,7 +41,7 @@
                 class="ma-2"
                 label="Επιλέξτε ρόλο"
                 variant="outlined"
-                color="#112d4e"
+                color="primary-dark-blue"
                 hint="Αναζήτηση με βάση τον ρόλο του χρήστη"
                 dense
                 @update:model-value="applyFilter"
@@ -176,6 +173,7 @@
 
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { UserRole } from "@/types";
 import { User } from "@/types/user";
 import {
@@ -221,7 +219,7 @@ const loading = ref<boolean>(true);
 const serverUsers = ref<User[]>([]);
 const openUsersFileDialog = ref<boolean>(false);
 const selectedUser = ref<User | null>(null);
-const userFiles = ref<Array<DikaiologitikaFile>>([]);
+const userFiles = ref<DikaiologitikaFile[]>([]);
 const filesLoading = ref<boolean>(false);
 
 /**

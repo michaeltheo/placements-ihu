@@ -12,6 +12,16 @@ import {
   Message,
 } from "@/types";
 
+/**
+ * Fetches a paginated list of internships based on various filter parameters.
+ * @param {InternshipStatus} [internshipStatus] - The status of the internship to filter by.
+ * @param {InternshipProgram} [program] - The program of the internship to filter by.
+ * @param {string} [userAM] - The user identification number to filter by.
+ * @param {string} [companyName] - The company name to filter by.
+ * @param {number} [page=1] - The page number for pagination.
+ * @param {number} [itemsPerPage=10] - The number of items per page for pagination.
+ * @returns {Promise<TotalInternshipResponse>} - A promise that resolves to the total internship response.
+ */
 export async function getAllInternships(
   internshipStatus?: InternshipStatus | undefined,
   program?: InternshipProgram,
@@ -46,6 +56,11 @@ export async function getAllInternships(
   }
 }
 
+/**
+ * Deletes an internship by its ID.
+ * @param {number} internshipID - The ID of the internship to delete.
+ * @returns {Promise<Message | ErrorResponse>} - A promise that resolves to a success message or an error response.
+ */
 export async function deleteInternship(
   internshipID: number,
 ): Promise<Message | ErrorResponse> {
@@ -73,16 +88,10 @@ export async function deleteInternship(
 }
 
 /**
- * The function `getInternshipByUser` fetches internship data for a specific user and returns it in a
- * structured format.
- * @param {string} userId - The `userId` parameter in the `getInternshipByUser` function is a string
- * that represents the unique identifier of the user for whom you want to retrieve internship
- * information. This function makes an asynchronous request to a specific API endpoint to fetch
- * internship data associated with the provided `userId`.
- * @returns The function `getInternshipByUser` returns a Promise that resolves to either a
- * `InternshipResponse`.
+ * Fetches internship data for a specific user.
+ * @param {number} userId - The ID of the user whose internship data to fetch.
+ * @returns {Promise<InternshipResponse>} - A promise that resolves to the internship response.
  */
-
 export async function getInternshipByUser(
   userId: number,
 ): Promise<InternshipResponse> {
@@ -107,14 +116,9 @@ export async function getInternshipByUser(
 }
 
 /**
- * The function `createOrUpdateInternship` sends a POST request to a specified API endpoint with
- * internship data and returns a response or an error message.
- * @param {InternshipCreate} internshipData - The `internshipData` parameter in the
- * `createOrUpdateInternship` function is of type `InternshipCreate`. It contains the data needed to
- * create or update an internship. This data is expected to be in a specific format defined by the
- * `InternshipCreate` type.
- * @returns The `createOrUpdateInternship` function returns a `Promise` that resolves to either a
- * `InternshipResponse`.
+ * Creates or updates an internship.
+ * @param {InternshipCreate} internshipData - The data needed to create or update the internship.
+ * @returns {Promise<InternshipResponse>} - A promise that resolves to the internship response.
  */
 export async function createOrUpdateInternship(
   internshipData: InternshipCreate,
@@ -138,5 +142,42 @@ export async function createOrUpdateInternship(
     return data;
   } catch (error) {
     throw new Error("Error creating internship for user:");
+  }
+}
+
+/**
+ * Updates the status of an internship.
+ * @param {number} internshipID - The ID of the internship to update.
+ * @param {InternshipStatus} newInternshipStatus - The new status of the internship.
+ * @returns {Promise<InternshipResponse>} - A promise that resolves to the updated internship response.
+ */
+export async function adminUpdateInternshipStatus(
+  internshipID: number,
+  newInternshipStatus: InternshipStatus,
+): Promise<InternshipResponse> {
+  try {
+    const queryParams = new URLSearchParams();
+    if (newInternshipStatus)
+      queryParams.append("internship_status", newInternshipStatus.toString());
+    const response = await fetch(
+      `${API_URLS.INTERNSHIP_BASE_URL}/${internshipID}?${queryParams}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error updating internship status:", error);
+    return { error: "An unexpected error occurred." };
   }
 }
