@@ -1,5 +1,5 @@
 <template>
-  <div class="adminPage">
+  <div class="adminPage" data-aos="flip-up" data-aos-duration="1000">
     <section class="adminPage__section--files">
       <h2 class="adminPage__title">Πίνακας Φοιτητών</h2>
       <v-data-table-server

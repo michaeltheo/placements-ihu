@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-auto px-4 py-8 space-y-12;">
-    <section class="intersnshipPage">
+  <div class="intersnshipPage" data-aos="flip-up" data-aos-duration="1000">
+    <section class="intersnshipPage__container">
       <h2 class="intersnshipPage__title">Πίκανας Πρακτικής</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
@@ -41,10 +41,10 @@
           <span>{{ item.company_name || "N/A" }}</span>
         </template>
         <template #item.start_date="{ item }">
-          <span>{{ item.start_date?.split("T")[0] || "N/A" }}</span>
+          <span>{{ formatDate(item?.start_date) || "N/A" }}</span>
         </template>
         <template #item.end_date="{ item }">
-          <span>{{ item?.end_date?.split("T")[0] || "N/A" }}</span>
+          <span>{{ formatDate(item?.end_date) || "N/A" }}</span>
         </template>
         <template #item.actions="{ item }">
           <v-btn variant="plain" @click="deleteItem($event, item)">
@@ -146,6 +146,7 @@
 
 <script setup lang="ts">
 import "vue-toast-notification/dist/theme-sugar.css";
+import { format } from "date-fns";
 import { useToast } from "vue-toast-notification";
 import { getAllInternships } from "@/services/internshipService";
 import { InternshipProgram, InternshipStatus } from "@/types";
@@ -161,6 +162,10 @@ interface LoadItemsOptions {
   page: number;
   itemsPerPage: number;
 }
+
+definePageMeta({
+  middleware: ["is-admin", "auth"],
+});
 
 const $toast = useToast();
 const searchAM = ref<string>("");
@@ -259,6 +264,13 @@ const fetchCompanies = async () => {
   }
 };
 
+// Helper function to format date
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return format(date, "dd-MM-yy");
+};
+
 // Get color based on program status
 const getColorForStatus = (status: string): string => {
   if (status === InternshipStatus.ACTIVE) {
@@ -337,7 +349,11 @@ onMounted(async () => {
 @import "@/assets/variables.scss";
 
 .intersnshipPage {
-  @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white;
+  @apply mx-auto px-4 py-8 space-y-12;
+  &__container {
+    @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white;
+  }
+
   &__title {
     @apply text-2xl md:text-3xl font-bold text-center mb-4;
     color: $primary-dark-blue-color;
