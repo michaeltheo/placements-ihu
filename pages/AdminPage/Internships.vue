@@ -41,10 +41,10 @@
           <span>{{ item.company_name || "N/A" }}</span>
         </template>
         <template #item.start_date="{ item }">
-          <span>{{ formatDate(item?.start_date) || "N/A" }}</span>
+          <span>{{ formatDate(item?.start_date) }}</span>
         </template>
         <template #item.end_date="{ item }">
-          <span>{{ formatDate(item?.end_date) || "N/A" }}</span>
+          <span>{{ formatDate(item?.end_date) }}</span>
         </template>
         <template #item.actions="{ item }">
           <v-btn variant="plain" @click="deleteItem($event, item)">
@@ -54,74 +54,65 @@
             >
           </v-btn>
         </template>
-        <template #tfoot>
-          <tr class="intersnshipPage__table-filters">
-            <td>
-              <v-text-field
-                v-model="searchAM"
-                label="Αναζήτηση με ΑΜ"
-                class="ma-2"
-                variant="outlined"
-                color="primary-dark-blue"
-                :clearable="true"
-                prepend-inner-icon="fa:fas fa-search"
-                hint="Αναζήτηση με βάση Αριθμού Μητρώου"
-                @update:model-value="applyFilter"
-              ></v-text-field>
-            </td>
-            <td>
-              <v-select
-                v-model="selectedProgram"
-                :items="InternshipPrograms"
-                clearable
-                class="ma-2"
-                label="Επιλέξτε πρόγραμμα πρακτικής"
-                variant="outlined"
-                color="primary-dark-blue"
-                hint="Αναζήτηση με βάση το πρόγραμμα πρακτικής"
-                dense
-                @update:model-value="applyFilter"
-              ></v-select>
-            </td>
-            <td>
-              <v-select
-                v-model="selectedStatus"
-                :items="InternshipsStatus"
-                clearable
-                class="ma-2"
-                label="Επιλέξτε κατάσταση πρακτικής"
-                variant="outlined"
-                color="primary-dark-blue"
-                hint="Αναζήτηση με βάση την κατάσταση πρακτικής"
-                dense
-                @update:model-value="applyFilter"
-              ></v-select>
-            </td>
-            <td class="test">
-              <v-autocomplete
-                v-model="companyName"
-                v-model:search-input="searchCompanyName"
-                :items="companyOptions"
-                item-value="name"
-                item-title="name"
-                label="Επιλέξτε Εταιρεία"
-                variant="outlined"
-                dense
-                clearable
-                @update:search-input="fetchCompanies"
-                @update:model-value="applyFilter"
-              ></v-autocomplete>
-            </td>
-          </tr>
-        </template>
       </v-data-table-server>
+      <div class="intersnshipPage__table-filters">
+        <v-text-field
+          v-model="searchAM"
+          label="Αναζήτηση με ΑΜ"
+          class="ma-2"
+          variant="outlined"
+          color="primary-dark-blue"
+          :clearable="true"
+          prepend-inner-icon="fa:fas fa-search"
+          hint="Αναζήτηση με βάση Αριθμού Μητρώου"
+          @update:model-value="applyFilter"
+        ></v-text-field>
+        <v-select
+          v-model="selectedProgram"
+          :items="InternshipPrograms"
+          clearable
+          class="ma-2"
+          label="Επιλέξτε πρόγραμμα πρακτικής"
+          variant="outlined"
+          color="primary-dark-blue"
+          hint="Αναζήτηση με βάση το πρόγραμμα πρακτικής"
+          dense
+          @update:model-value="applyFilter"
+        ></v-select>
+        <v-select
+          v-model="selectedStatus"
+          :items="InternshipsStatus"
+          clearable
+          class="ma-2"
+          label="Επιλέξτε κατάσταση πρακτικής"
+          variant="outlined"
+          color="primary-dark-blue"
+          hint="Αναζήτηση με βάση την κατάσταση πρακτικής"
+          dense
+          @update:model-value="applyFilter"
+        ></v-select>
+        <v-autocomplete
+          v-model="companyName"
+          v-model:search-input="searchCompanyName"
+          :items="companyOptions"
+          item-value="name"
+          item-title="name"
+          label="Επιλέξτε Εταιρεία"
+          variant="outlined"
+          dense
+          clearable
+          @update:search-input="fetchCompanies"
+          @update:model-value="applyFilter"
+        ></v-autocomplete>
+      </div>
+
       <p class="intersnshipPage__hint">
         Επιλέξτε έναν φοιτητή για να δείτε τα δικαιολογητικά του.
       </p>
-      <div>
+      <div class="intersnshipPage__buttons">
         <v-btn
           elevation="4"
-          color="primary-dark-blue"
+          class="intersnshipPage__buttons--refresh"
           append-icon="fa:fas fa-arrows-rotate"
           @click="loadItems"
         >
@@ -341,7 +332,6 @@ const deleteItem = (event: Event, item: InternshipRead) => {
 // Fetch companies on mount
 onMounted(async () => {
   await fetchCompanies();
-  applyFilter();
 });
 </script>
 
@@ -359,7 +349,7 @@ onMounted(async () => {
     color: $primary-dark-blue-color;
   }
   &__table-filters {
-    @apply flex flex-wrap items-baseline h-auto p-2 gap-4;
+    @apply flex flex-wrap items-baseline h-auto mt-5 p-2 gap-4;
     td {
       min-width: 10rem;
     }
@@ -367,6 +357,17 @@ onMounted(async () => {
   &__hint {
     @apply text-lg text-center mt-4;
     color: $primary-dark-blue-color;
+  }
+  &__buttons {
+    @apply flex justify-center mt-5;
+    &--refresh {
+      @apply text-base text-white transition-transform duration-200 my-5 md:my-0 md:w-1/4;
+      background-color: $primary-blue-color;
+
+      &:hover {
+        transform: translateY(-7px);
+      }
+    }
   }
 }
 

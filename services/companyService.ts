@@ -47,15 +47,15 @@ export async function getAllCompanies(
 export async function adminCreateCompany(
   companyData: CompanyBase,
 ): Promise<GetCompany> {
-  const formData = new FormData();
-  formData.append("name", companyData.name);
-  formData.append("AFM", companyData.AFM);
-
   try {
     const response = await fetch(API_URLS.COMPANY_BASE_URL, {
       method: "POST",
       credentials: "include",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(companyData),
     });
 
     if (!response.ok) {
@@ -73,15 +73,15 @@ export async function adminUpdateCompany(
   companyID: number,
   companyData: CompanyBase,
 ): Promise<GetCompany> {
-  const formData = new FormData();
-  formData.append("name", companyData.name);
-  formData.append("AFM", companyData.AFM);
-
   try {
     const response = await fetch(`${API_URLS.COMPANY_BASE_URL}/${companyID}`, {
       method: "PUT",
       credentials: "include",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(companyData),
     });
 
     if (!response.ok) {

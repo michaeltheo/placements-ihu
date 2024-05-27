@@ -41,7 +41,7 @@
               :rules="internshipProgramRules"
               dense
               class="file-dialog__select"
-              :disabled="isEditMode"
+              disabled
               @change="onProgramChange"
             ></v-select>
 
