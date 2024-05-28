@@ -1,3 +1,18 @@
+<!--
+/**
+ * FileDialog Component
+ *
+ * Dialog component for uploading or editing a file.
+ * This dialog allows users to select a program, file type, and PDF file,
+ * and provides additional information if required. It includes form validation
+ * and emits events based on user actions.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {Object|null} editItem - The file item to be edited, if in edit mode.
+ * @param {Object} internship - The internship data related to the file upload.
+ * @param {string} internship.program - The selected internship program.
+ */
+-->
 <template>
   <div class="file-dialog">
     <v-dialog
@@ -146,32 +161,37 @@ import type { InternshipRead } from "@/types/internship";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { InternshipProgramValues } from "@/constants/ApiConstants ";
 
+// Define the props received by the component
 const props = defineProps<{
   modelValue: boolean;
   editItem?: DikaiologitikaFile | null;
   internship: InternshipRead;
 }>();
+const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
 
+const $toast = useToast();
 const dikaiologitikaStore = useDikaiologitkaStore();
 const isEditMode = computed(() => props.editItem !== null);
 const form = ref<any>(null);
 const loading = ref(false);
-const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
+const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
+const fileInput = ref<File | null>(null);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
   Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
 );
+
 const selectedProgram = ref<string | null>(props.internship?.program ?? null);
+
+// Computed property for the filtered list of file types based on the selected program
 const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
   if (selectedProgram.value) {
     return dikaiologitikaStore.dikaiologitikaTypes[selectedProgram.value] || [];
   }
   return [];
 });
-const $toast = useToast();
-const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
-const fileInput = ref<File | null>(null);
 
+// Watch for changes in props and update local state accordingly
 watchEffect(() => {
   selectedFileType.value = props.editItem?.type ?? null;
   if (props.editItem) {
@@ -184,6 +204,7 @@ watchEffect(() => {
   }
 });
 
+// Validation rules for form inputs
 const selectRules = [
   (value: string) => !!value || "Πρέπει να επιλέξεις ένα τύπο αρχείου.",
 ];
@@ -194,6 +215,7 @@ const internshipProgramRules = [
   (value: any) => !!value || "Πρέπει να επιλέξεις ένα τύπο πρακτικής.",
 ];
 
+// Watch for changes in modelValue prop and update localDialog state
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -201,10 +223,12 @@ watch(
   },
 );
 
+// Handle program change event
 const onProgramChange = () => {
   selectedFileType.value = null;
 };
 
+// Handle file selection event
 const fileSelected = (event: Event) => {
   const input = event.target as HTMLInputElement;
   if (input && input.files && input.files.length > 0) {
@@ -212,6 +236,7 @@ const fileSelected = (event: Event) => {
   }
 };
 
+// Handle form submission
 const submitForm = async () => {
   if (
     !form.value?.validate() ||
@@ -261,7 +286,7 @@ const submitForm = async () => {
   }
 };
 
-// Computed property to generate dynamic content (information about intenrnship programs)
+// Computed property to generate dynamic content (information about internship programs)
 const additionalInformation = computed(() => {
   switch (selectedProgram.value) {
     case InternshipProgramValues.TEITHE_OAED:
@@ -280,6 +305,7 @@ const additionalInformation = computed(() => {
   }
 });
 
+// Computed property to generate a list of additional information items
 const additionalInformationList = computed(() => {
   if (additionalInformation.value) {
     return additionalInformation.value.split("\n").filter((info) => info);
@@ -287,6 +313,7 @@ const additionalInformationList = computed(() => {
   return [];
 });
 
+// Emit close event to close the dialog
 const emitClose = () => {
   fileInput.value = null;
   selectedFileType.value = null;
@@ -340,7 +367,7 @@ const emitClose = () => {
   }
 
   &__actions {
-    @apply justify-start space-x-2;
+    @apply flex justify-end space-x-2;
   }
 
   &__btn {
@@ -351,7 +378,7 @@ const emitClose = () => {
     }
 
     &--cancel {
-      @apply hover:bg-red-600;
+      @apply py-2 px-4 rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400;
     }
   }
 }

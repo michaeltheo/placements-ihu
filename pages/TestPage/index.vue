@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Questionarrie />
+    <Questionarrie questionnaireType="student" />
   </div>
 </template>
 

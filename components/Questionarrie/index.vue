@@ -1,4 +1,5 @@
-<!--
+<template>
+  <!--
   /**
    * DynamicQuestionnaire Component
    *
@@ -12,8 +13,7 @@
    * @param {boolean} question.supports_multiple_answers - Indicates if multiple answers are allowed.
    * @param {Array<Object>} question.answer_options - An array of options available for selection.
    */
--->
-<template>
+  -->
   <div data-aos="zoom-in">
     <form @submit.prevent="submit">
       <template v-for="question in questions" :key="question.id">
@@ -29,8 +29,8 @@
       </template>
       <v-container>
         <v-row align="center" justify="center">
-          <v-btn size="large" type="submit" :disabled="!isFormValid"
-            >Submit</v-btn
+          <v-btn size="large" type="submit" class="m-2" :disabled="!isFormValid"
+            >Υποβολή Ερωτηματολιγίου</v-btn
           >
         </v-row>
       </v-container>
@@ -39,99 +39,108 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import MultipleChoice from "./MultipleChoice.vue";
 import FreeText from "./FreeText.vue";
 import MultipleChoiceFreeText from "./MultipleChoiceFreeText.vue";
-import { TestQuestions } from "@/constants/questions";
-import { log } from "@/utils/log";
-import { Question } from "@/types/question";
+import { getQuestions, submitAnswers } from "@/services/questionAnswerService";
+import { AnswerSubmission, Question } from "@/types/questionAnswer";
+import { QuestionnaireType, QuestionType } from "@/types";
+import { hasErrorResponse } from "@/services/errorHandling";
 
-// Enum for question types
-enum QuestionTypes {
-  MultipleChoice = "multiple_choice",
-  MultipleChoiceWithText = "multiple_choice_with_text",
-  FreeText = "free_text",
-}
+// Define the props received by the component
+const props = defineProps<{
+  questionnaireType: QuestionnaireType;
+}>();
 
-// Question array and answer types
-const questions = ref<Question[]>(TestQuestions);
+// Define the emits for the component
+const emit = defineEmits(["refreshUserAnswers"]);
 
-type Answer = {
-  options: number[];
-  text: string;
-};
+const $toast = useToast();
+const questions = ref<Question[]>([]);
+const answers = ref<Record<number, any>>({});
 
-// Initialize answers
-const answers = ref<Record<number, Answer>>(
-  questions.value.reduce(
-    (acc: any, question: Question) => {
-      // Initialize answers based on question type
-      if (question.question_type === QuestionTypes.MultipleChoice) {
+/**
+ * Initialize the answers object based on the questions
+ */
+const initializeAnswers = () => {
+  answers.value = questions.value.reduce(
+    (acc, question) => {
+      if (question.question_type === QuestionType.multiple_choice) {
         acc[question.id] = null;
-      } else if (question.question_type === QuestionTypes.FreeText) {
+      } else if (question.question_type === QuestionType.free_text) {
         acc[question.id] = "";
       } else if (
-        question.question_type === QuestionTypes.MultipleChoiceWithText
+        question.question_type === QuestionType.multiple_choice_with_text
       ) {
         acc[question.id] = { options: [], text: "" };
       }
       return acc;
     },
-    {} as Record<number, Answer>,
-  ),
-);
+    {} as Record<number, any>,
+  );
+};
 
 /**
- * Retrieves the ID of the "Άλλο" option
- *
- * @param {Question} question - The question object to find the "Άλλο" option in.
- * @returns {number} - The ID of the "Άλλο" option, or -1 if not found.
+ * Fetch the list of questions based on the questionnaire type
+ */
+const fetchQuestions = async () => {
+  const response = await getQuestions(props.questionnaireType);
+  if (response.data && !hasErrorResponse(response)) {
+    questions.value = response.data ?? [];
+    initializeAnswers();
+  }
+};
+
+// Fetch questions on component mount and when the questionnaire type changes
+onMounted(fetchQuestions);
+watch(() => props.questionnaireType, fetchQuestions);
+
+/**
+ * Get the ID of the "Other" option for a multiple-choice question
+ * @param {Question} question - The question object
+ * @returns {number} - The ID of the "Other" option, or -1 if not found
  */
 const getOtherOptionId = (question: Question): number => {
   const otherOption = question.answer_options?.find(
     (option) => option.option_text === "Άλλο",
   );
-  return otherOption ? otherOption.id : -1; // Return a default value if "Άλλο" is not found
+  return otherOption ? otherOption.id : -1;
 };
 
 /**
- * Chooses the correct component based on the question type
- *
- * @param {Question} question - The question object.
- * @returns {string | object} - The component to render.
+ * Get the component to be used for rendering a question based on its type
+ * @param {Question} question - The question object
+ * @returns {string|object} - The component to be used for rendering the question
  */
 const getQuestionComponent = (question: Question): string | object => {
   switch (question.question_type) {
-    case QuestionTypes.MultipleChoice:
+    case QuestionType.multiple_choice:
       return MultipleChoice;
-    case QuestionTypes.FreeText:
+    case QuestionType.free_text:
       return FreeText;
-    case QuestionTypes.MultipleChoiceWithText:
+    case QuestionType.multiple_choice_with_text:
       return MultipleChoiceFreeText;
     default:
-      return "div"; // Default to a div or an unsupported type
+      return "div";
   }
 };
 
 /**
- * Computes whether the form is valid (all questions are answered)
- *
- * @returns {boolean} - True if all questions are answered correctly, false otherwise.
+ * Validate if the form is complete and ready for submission
+ * @returns {boolean} - True if the form is valid, false otherwise
  */
 const isFormValid = computed(() => {
   return questions.value.every((question: Question) => {
     const answer = answers.value[question.id];
-    // Check validity for multiple-choice questions
-    if (question.question_type === QuestionTypes.MultipleChoice) {
+    if (question.question_type === QuestionType.multiple_choice) {
       return answer !== null;
-      // Check validity for free-text questions
-    } else if (question.question_type === QuestionTypes.FreeText) {
+    } else if (question.question_type === QuestionType.free_text) {
       return typeof answer === "string" && answer !== "";
     } else if (
-      question.question_type === QuestionTypes.MultipleChoiceWithText
+      question.question_type === QuestionType.multiple_choice_with_text
     ) {
-      // Check validity for multiple-choice with text questions
       const typedAnswer = answer as { options: number[]; text: string };
       return typedAnswer.options.length > 0;
     }
@@ -140,29 +149,25 @@ const isFormValid = computed(() => {
 });
 
 /**
- * Transforms the answers into a consistent structure based on question type
- *
- * @returns {Array<Record<string, any>>} - An array of formatted answers.
+ * Transform the user's answers into a format suitable for submission
+ * @returns {AnswerSubmission[]} - An array of formatted answer submissions
  */
-const transformAnswers = (): Array<Record<string, any>> => {
+const transformAnswers = (): AnswerSubmission[] => {
   return questions.value
     .map((question: Question) => {
       const answer = answers.value[question.id];
-      // Transform answers for multiple-choice questions
-      if (question.question_type === QuestionTypes.MultipleChoice) {
+      if (question.question_type === QuestionType.multiple_choice) {
         return {
           question_id: question.id,
           answer_option_ids: Array.isArray(answer) ? answer : [answer],
         };
-        // Transform answers for free-text questions
-      } else if (question.question_type === QuestionTypes.FreeText) {
+      } else if (question.question_type === QuestionType.free_text) {
         return {
           question_id: question.id,
           answer_text: answer,
         };
-      } // Transform answers for multiple-choice with text questions
-      else if (
-        question.question_type === QuestionTypes.MultipleChoiceWithText
+      } else if (
+        question.question_type === QuestionType.multiple_choice_with_text
       ) {
         const typedAnswer = answer as { options: number[]; text: string };
         return {
@@ -173,16 +178,28 @@ const transformAnswers = (): Array<Record<string, any>> => {
       }
       return null;
     })
-    .filter(Boolean) as Array<Record<string, any>>; // Filter out any null values
+    .filter(Boolean) as AnswerSubmission[];
 };
 
-// Form submission
-const submit = (): void => {
-  const formattedAnswers = transformAnswers();
-  log(
-    "🚀 ~ submit ~ JSON.stringify(formattedAnswers, null, 2):",
-    JSON.stringify(formattedAnswers, null, 2),
-  );
-  alert(JSON.stringify(formattedAnswers, null, 2));
+/**
+ * Handle form submission
+ */
+const submit = async () => {
+  const formattedAnswers: AnswerSubmission[] = transformAnswers();
+  const response = await submitAnswers(formattedAnswers);
+  if (hasErrorResponse(response)) {
+    $toast.error(`${response.error}`, {
+      position: "top",
+      duration: 1000,
+    });
+  } else {
+    $toast.success(`${response?.detail}`, {
+      position: "top",
+      duration: 1000,
+    });
+    if (emit) {
+      emit("refreshUserAnswers");
+    }
+  }
 };
 </script>
