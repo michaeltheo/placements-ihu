@@ -5,9 +5,10 @@ export interface Option {
   option_text: string;
 }
 
-export interface userAnswer {
+export interface UserAnswer {
   answer_option_id: number;
   answer_text?: string;
+  answer_option_text?: string;
 }
 export interface AnswerSubmission {
   question_id: number;
@@ -20,7 +21,7 @@ export interface UserAnswers {
   question_text: string;
   question_type: QuestionType;
   supports_multiple_answers: boolean;
-  user_answers: userAnswer[];
+  user_answers: UserAnswer[];
 }
 
 export interface Question {

@@ -4,6 +4,7 @@
  * Renders a selection field  for questions requiring multiple-choice selections with an additional free-text field for "Άλλο".
  *
  * @param {Object} question - The question object containing question details.
+ * @param {boolean} disabled - Make selcet input and textarea read-only when needed.
  * @param {number} question.id - Unique identifier of the question.
  * @param {string} question.question_text - The question text to be displayed.
  * @param {boolean} question.supports_multiple_answers - Indicates if multiple answers are allowed.
@@ -33,6 +34,7 @@
                 (v: string | any[]) =>
                   !!v.length || 'Επιλέξτε τουλάχιστον μία επιλογή',
               ]"
+              :disabled="disabled"
               @update:modelValue="emitSelectedOptions"
             />
             <v-textarea
@@ -43,6 +45,7 @@
               class="multipleChoiceFreeText--textArea"
               label="Γράψτε την απάντησή σας"
               :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"
+              :disabled="disabled"
               @update:modelValue="emitSelectedOptions"
             />
           </v-card-text>
@@ -53,11 +56,12 @@
 </template>
 
 <script lang="ts" setup>
-import { Question, Option } from "@/types/question";
+import { Question, Option } from "@/types/questionAnswer";
 
 // Component props
 const props = defineProps<{
   question: Question;
+  disabled?: boolean;
   options: Option[];
   otherOptionId: number;
   modelValue: {

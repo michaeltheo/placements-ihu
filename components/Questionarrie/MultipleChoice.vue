@@ -4,6 +4,7 @@
  * Renders a multiple-choice selection field for questions requiring one or multiple selections.
  *
  * @param {Object} question - The question object containing question details.
+ * @param {boolean} disabled - Make the select input read-obly when needed.
  * @param {number} question.id - Unique identifier of the question.
  * @param {string} question.question_text - The question text to be displayed.
  * @param {boolean} question.supports_multiple_answers - Indicates if multiple answers are allowed.
@@ -28,6 +29,7 @@
               label="Επιλέξτε μια επιλογή"
               :rules="[(v: any) => !!v || 'Επιλέξτε τουλάχιστον μία επιλογή']"
               class="multipleChoice--select"
+              :disabled="disabled"
               @update:modelValue="emitSelectedValue"
             />
           </v-card-text>
@@ -38,10 +40,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Question, Option } from "@/types/question";
+import { Question, Option } from "@/types/questionAnswer";
 
 // Component props
 const props = defineProps<{
+  disabled?: boolean;
   question: Question;
   options: Option[];
   modelValue: number | number[] | null;
