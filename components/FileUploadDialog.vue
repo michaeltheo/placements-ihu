@@ -137,7 +137,7 @@
               class="file-dialog__btn file-dialog__btn--cancel"
               @click="emitClose"
             >
-              Άκυρο
+              Κλείσιμο
             </v-btn>
           </v-card-actions>
         </v-form>

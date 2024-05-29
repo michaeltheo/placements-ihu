@@ -8,7 +8,6 @@
  */ -->
 <template>
   <div>
-    {{ questions }}
     <template v-for="question in questions" :key="question.id">
       <component
         :is="getQuestionComponent(question)"

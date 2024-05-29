@@ -93,33 +93,6 @@
             Ενημέρωση Πρακτικής
           </v-btn>
         </div>
-        <!-- Dialogs for file upload and deletion -->
-        <FileUploadDialog
-          :model-value="openAddFilesDialog"
-          :edit-item="selectedItem"
-          :internship="internship"
-          @update:modelValue="handleDialogClose"
-          @refreshFilesList="loadItems"
-        />
-        <DeleteFileDialog
-          :model-value="openDeleteFileDialog"
-          :file="selectedItem"
-          @update:modelValue="handleDeleteDialogClose"
-          @refreshFilesList="loadItems"
-        />
-        <!-- Dialog for updating internship -->
-        <CreateInternshipDialog
-          v-if="
-            hasInternship &&
-            internship.status !== InternshipStatus.PENDING_REVIEW
-          "
-          :model-value="openCreateInternshipDialog"
-          :is-update="true"
-          :internship="internship"
-          @update:modelValue="handleCreateInternshipDialogClose"
-          @internshipUpdated="handleInternshipUpdated"
-          @refreshInternship="getInternship"
-        />
       </div>
     </section>
     <div v-if="internship?.status === InternshipStatus.ENDED">
@@ -151,6 +124,13 @@
         color="primary-blue-color"
       >
         Ο χρήστης έχει ήδη υποβάλει το ερωτηματολόγιο.
+        <v-btn
+          v-if="questionarrieAnswers"
+          class="m-4 md:w-1/2 w-full"
+          color="primary-blue-color"
+          @click="openViewQuestionnarieAnswersDialog = true"
+          >Προβολή Ερωτηματολιγίου
+        </v-btn>
       </v-alert>
       <div v-if="!userHasSubmittedQuestionnaire" class="shadow-lg">
         <Questionarrie
@@ -170,9 +150,43 @@
         type="info"
       ></v-alert>
     </div>
+    <!-- Dialogs for file upload and deletion -->
+    <FileUploadDialog
+      :model-value="openAddFilesDialog"
+      :edit-item="selectedItem"
+      :internship="internship"
+      @update:modelValue="handleDialogClose"
+      @refreshFilesList="loadItems"
+    />
+    <DeleteFileDialog
+      :model-value="openDeleteFileDialog"
+      :file="selectedItem"
+      @update:modelValue="handleDeleteDialogClose"
+      @refreshFilesList="loadItems"
+    />
+    <!-- Dialog for updating internship -->
+    <CreateInternshipDialog
+      v-if="
+        hasInternship && internship.status !== InternshipStatus.PENDING_REVIEW
+      "
+      :model-value="openCreateInternshipDialog"
+      :is-update="true"
+      :internship="internship"
+      @update:modelValue="handleCreateInternshipDialogClose"
+      @internshipUpdated="handleInternshipUpdated"
+      @refreshInternship="getInternship"
+    />
+    <!-- Dialog for viewing questionnarie answers -->
+    <ProfileQuestionnarieDialog
+      :model-value="openViewQuestionnarieAnswersDialog"
+      :question-answers="questionarrieAnswers"
+      @update:model-value="handleQuestionnarieDialogClose"
+    />
   </div>
 </template>
 <script lang="ts" setup>
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
 import { useAuthStore } from "@/stores/auth";
 import {
@@ -191,6 +205,7 @@ import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
 import { getUserAnswers } from "@/services/questionAnswerService";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { InternshipCreate } from "@/types/internship";
+import { UserAnswer } from "@/types/questionAnswer";
 
 definePageMeta({
   middleware: ["auth"],
@@ -211,11 +226,14 @@ const loading = ref<boolean>(true);
 const openAddFilesDialog = ref<boolean>(false);
 const openDeleteFileDialog = ref<boolean>(false);
 const openCreateInternshipDialog = ref<boolean>(false);
+const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
 const openQuestionnaire = ref<boolean>(false);
 const totalItems = ref(0);
 const hasInternship = ref<boolean>(false);
 const internship = ref<any>(null);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
+const questionarrieAnswers = ref<UserAnswer[]>([]);
+const $toast = useToast();
 
 /**
  * Fetches and loads the list of files for the authenticated user.
@@ -243,11 +261,12 @@ const loadItems = async (): Promise<void> => {
  */
 const getInternship = async (): Promise<void> => {
   const response = await getInternshipByUser(authStore.user.id);
-  if (response && !("error" in response)) {
+  if (hasErrorResponse(response)) {
+    hasInternship.value = false;
+    $toast.error(`${response.error}`, { position: "bottom" });
+  } else {
     hasInternship.value = true;
     internship.value = response.data;
-  } else {
-    hasInternship.value = false;
   }
   await fetchDikaiologitikaTypes();
 };
@@ -331,6 +350,13 @@ const handleDeleteDialogClose = (newValue: boolean): void => {
     selectedItem.value = null;
   }
 };
+/**
+ * Handles closing of the QuestionarrieAnswersDialog.
+ * @param newValue - The new value for the dialog visibility.
+ */
+const handleQuestionnarieDialogClose = (newValue: boolean): void => {
+  openViewQuestionnarieAnswersDialog.value = newValue;
+};
 
 /**
  * Downloads a specific file.
@@ -372,6 +398,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 
     if (response.data && !hasErrorResponse(response)) {
       userHasSubmittedQuestionnaire.value = response.data.length > 0;
+      questionarrieAnswers.value = response.data;
     } else {
       userHasSubmittedQuestionnaire.value = false;
     }
