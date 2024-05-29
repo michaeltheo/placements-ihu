@@ -142,7 +142,13 @@ const isFormValid = computed(() => {
       question.question_type === QuestionType.multiple_choice_with_text
     ) {
       const typedAnswer = answer as { options: number[]; text: string };
-      return typedAnswer.options.length > 0;
+      const isOtherSelected = typedAnswer.options.includes(
+        getOtherOptionId(question),
+      );
+      return (
+        typedAnswer.options.length > 0 &&
+        (!isOtherSelected || typedAnswer.text.trim() !== "")
+      );
     }
     return false;
   });
