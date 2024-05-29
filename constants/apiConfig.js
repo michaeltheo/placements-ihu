@@ -20,6 +20,9 @@ export const API_URLS = {
   GET_INTERNSHIPS: `${PLACEMENTS_BASE_URL}/internship/all`,
   DELETE_INTERNSHIP: `${PLACEMENTS_BASE_URL}/internship/delete`,
   COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company`,
+  QUESTION_BASE_URL: `${PLACEMENTS_BASE_URL}/question`,
+  GET_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers`,
+  SUBMIT_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers/submit-answers/`,
 };
 
 export const GRANT_TYPE = {

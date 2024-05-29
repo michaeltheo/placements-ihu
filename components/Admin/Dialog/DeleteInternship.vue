@@ -85,7 +85,7 @@ const emitClose = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
 .dialog__overlay {

@@ -26,6 +26,16 @@ export enum InternshipStatus {
   ACTIVE = "Active",
   ENDED = "Ended",
 }
+export enum QuestionnaireType {
+  STUDENT = "student",
+  COMPANY = "company",
+}
+
+export enum QuestionType {
+  multiple_choice = "multiple_choice",
+  multiple_choice_with_text = "multiple_choice_with_text",
+  free_text = "free_text",
+}
 
 export interface ErrorResponse {
   error: string;

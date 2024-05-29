@@ -4,6 +4,7 @@
  * Renders a free-text input field  for answering questions that require textual responses.
  *
  * @param {Object} question - The question object containing question details.
+ * @param {boolean} disabled - Make the text area disabled when needed.
  * @param {number} question.id - Unique identifier of the question.
  * @param {string} question.question_text - The question text to be displayed.
  * @param {string | null} modelValue - The current value of the textarea.
@@ -22,6 +23,7 @@
               label="Γράψτε την απάντησή σας"
               :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"
               validate-on="input"
+              :disabled="disabled"
               @update:modelValue="emitInputValue"
             />
           </v-card-text>
@@ -32,10 +34,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Question } from "@/types/question";
+import { Question } from "@/types/questionAnswer";
 
 // Component props
 const props = defineProps<{
+  disabled?: boolean;
   question: Question;
   modelValue: string | null;
 }>();

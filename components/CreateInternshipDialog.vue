@@ -1,3 +1,21 @@
+<!--
+/**
+ * CreateInternshipDialog Component
+ *
+ * Dialog component for creating or updating an internship.
+ * This dialog allows users to select an internship program,
+ * choose a company, and set start and end dates for the internship.
+ * It includes form validation and emits events based on user actions.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {boolean} isUpdate - Indicates if the form is for updating an internship.
+ * @param {Object|null} internship - The internship data for updating.
+ * @param {Object} internship.program - The selected internship program.
+ * @param {number} internship.company_id - The ID of the selected company.
+ * @param {string} internship.start_date - The start date of the internship.
+ * @param {string} internship.end_date - The end date of the internship.
+ */
+-->
 <template>
   <div class="create-internship-dialog">
     <v-dialog
@@ -323,7 +341,7 @@ const emitClose = () => {
   }
 
   &__actions {
-    @apply justify-start space-x-2;
+    @apply flex justify-end space-x-2;
   }
 
   &__btn {
@@ -334,7 +352,7 @@ const emitClose = () => {
     }
 
     &--cancel {
-      @apply hover:bg-red-600;
+      @apply py-2 px-4 rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400;
     }
   }
 }

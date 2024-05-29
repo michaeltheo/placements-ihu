@@ -1,7 +1,25 @@
 <template>
-  <div>
-    <Questionarrie />
+  <div class="bg-red-300">
+    <QuestionarrieDisplayAnswers :questions="questionsWithAnswers" />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { getUserAnswers } from "@/services/questionAnswerService";
+const questionsWithAnswers = ref([]);
+
+const fetchUserAnswers = async () => {
+  try {
+    const response = await getUserAnswers(2);
+    questionsWithAnswers.value = response.data;
+    console.log(
+      "🚀 ~ fetchUserAnswers ~ questionsWithAnswers:",
+      questionsWithAnswers
+    );
+  } catch (error) {
+    console.error("Error fetching user answers:", error);
+  }
+};
+
+onMounted(fetchUserAnswers);
+</script>
