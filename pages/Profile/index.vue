@@ -107,6 +107,7 @@
       >
         Η συμπλήρωση του ερωτηματολογίου είναι διαθέσιμη μόνο μία φορά. Παρακαλώ
         ελέγξτε τις απαντήσεις σας.
+        <v-spacer></v-spacer>
         <v-btn
           v-if="!openQuestionnaire"
           class="m-4 md:w-1/2 w-full"
@@ -124,6 +125,7 @@
         color="primary-blue-color"
       >
         Ο χρήστης έχει ήδη υποβάλει το ερωτηματολόγιο.
+        <v-spacer></v-spacer>
         <v-btn
           v-if="questionarrieAnswers"
           class="m-4 md:w-1/2 w-full"
@@ -152,6 +154,7 @@
     </div>
     <!-- Dialogs for file upload and deletion -->
     <FileUploadDialog
+      v-if="hasInternship"
       :model-value="openAddFilesDialog"
       :edit-item="selectedItem"
       :internship="internship"
@@ -452,7 +455,7 @@ onMounted(async () => {
   color: $primary-dark-blue-color;
 }
 :deep .v-data-table-header__content {
-  font-weight: bold;
+  @apply font-bold;
 }
 :deep .v-alert__content {
   @apply flex flex-col justify-start;

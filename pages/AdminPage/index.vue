@@ -48,10 +48,7 @@
             >fa-solid fa-building</v-icon
           >
           <h3 class="adminPage__title">Πινακας Εταιρειών</h3>
-          <p class="adminPage__hint">
-            Διαχείριση εταιρειών και προβολή στατιστικών του ερωτηματολογίου των
-            φοιτητών του τμήματος.
-          </p>
+          <p class="adminPage__hint">Διαχείριση εταιρειών της πρακτικής.</p>
           <BaseComponentsBaseButton
             class="adminPage__button"
             text="Σελίδα Εταιρειών"
@@ -66,7 +63,8 @@
           >
           <h3 class="adminPage__title">Πινακας Πρακτικών</h3>
           <p class="adminPage__hint">
-            Διαχείριση πρακτικών και προβολή των δικαιολογητικών των φοιτητών.
+            Διαχείριση πρακτικών και προβολή των δικαιολογητικών/ερωτηματολογίου
+            των φοιτητών.
           </p>
           <BaseComponentsBaseButton
             class="adminPage__button"
