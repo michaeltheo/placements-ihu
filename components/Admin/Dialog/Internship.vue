@@ -39,9 +39,9 @@
                 <span class="dialog__card__info__data-row__label"
                   >Αριθμός Μητρώου:</span
                 >
-                <span class="dialog__card__info__data-row__value">
-                  {{ internship?.user_am ?? "N/A" }}
-                </span>
+                <span class="dialog__card__info__data-row__value">{{
+                  internship?.user_am ?? "N/A"
+                }}</span>
               </v-col>
               <v-col cols="12" md="6" class="dialog__card__info__data-row">
                 <v-icon
@@ -50,12 +50,12 @@
                 >
                   fa-solid fa-book
                 </v-icon>
-                <span class="dialog__card__info__data-row__label">
-                  Πρόγραμμα Πρακτικής Άσκησης:
-                </span>
-                <span class="dialog__card__info__data-row__value">
-                  {{ internship?.program ?? "N/A" }}
-                </span>
+                <span class="dialog__card__info__data-row__label"
+                  >Πρόγραμμα Πρακτικής Άσκησης:</span
+                >
+                <span class="dialog__card__info__data-row__value">{{
+                  internship?.program ?? "N/A"
+                }}</span>
               </v-col>
               <v-col cols="12" md="6" class="dialog__card__info__data-row">
                 <v-icon
@@ -67,9 +67,9 @@
                 <span class="dialog__card__info__data-row__label"
                   >Όνομα Εταιρείας:</span
                 >
-                <span class="dialog__card__info__data-row__value">
-                  {{ internship?.company_name ?? "N/A" }}
-                </span>
+                <span class="dialog__card__info__data-row__value">{{
+                  internship?.company_name ?? "N/A"
+                }}</span>
               </v-col>
               <v-col cols="12" md="6" class="dialog__card__info__data-row">
                 <v-icon
@@ -81,9 +81,9 @@
                 <span class="dialog__card__info__data-row__label"
                   >Ημερομηνία Έναρξης:</span
                 >
-                <span class="dialog__card__info__data-row__value">
-                  {{ formatDate(internship?.start_date) || "N/A" }}
-                </span>
+                <span class="dialog__card__info__data-row__value">{{
+                  formatDate(internship?.start_date) || "N/A"
+                }}</span>
               </v-col>
               <v-col cols="12" md="6" class="dialog__card__info__data-row">
                 <v-icon
@@ -95,9 +95,9 @@
                 <span class="dialog__card__info__data-row__label"
                   >Ημερομηνία Λήξης:</span
                 >
-                <span class="dialog__card__info__data-row__value">
-                  {{ formatDate(internship?.end_date) || "N/A" }}
-                </span>
+                <span class="dialog__card__info__data-row__value">{{
+                  formatDate(internship?.end_date) || "N/A"
+                }}</span>
               </v-col>
               <v-col cols="12" md="6" class="dialog__card__info__data-row">
                 <v-icon
@@ -115,6 +115,43 @@
                 >
                   {{ selectedStatus }}
                 </span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-circle-question
+                </v-icon>
+                <div class="dialog__card__info__data-row__content">
+                  <span class="dialog__card__info__data-row__label"
+                    >Ερωτηματολόγιο:</span
+                  >
+                  <span
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
+                    :style="{
+                      color: getColorForQuestionnarie(
+                        userHasSubmittedQuestionnaire,
+                      ),
+                    }"
+                  >
+                    {{
+                      userHasSubmittedQuestionnaire
+                        ? "Ολοκληρωμένο"
+                        : "Δεν βρέθηκε"
+                    }}
+                  </span>
+                  <v-btn
+                    v-if="userHasSubmittedQuestionnaire"
+                    variant="plain"
+                    @click="openViewQuestionnarieAnswersDialog = true"
+                  >
+                    <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
+                    <v-tooltip activator="parent" location="top"
+                      >Προβολή Ερωτηματολιγίου</v-tooltip
+                    >
+                  </v-btn>
+                </div>
               </v-col>
             </v-row>
           </v-card-text>
@@ -158,6 +195,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Dialog for viewing user's questionnaire -->
+    <ProfileQuestionnarieDialog
+      :model-value="openViewQuestionnarieAnswersDialog"
+      :question-answers="questionarrieAnswers"
+      @update:model-value="handleQuestionnarieDialogClose"
+    />
   </div>
 </template>
 
@@ -171,9 +215,11 @@ import {
   downloadDikaiologitika,
   fetchDikaiologitaFiles,
 } from "@/services/dikaiologitkaService";
+import { UserAnswer } from "@/types/questionAnswer";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { adminUpdateInternshipStatus } from "@/services/internshipService";
+import { getUserAnswers } from "@/services/questionAnswerService";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -185,7 +231,10 @@ const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
 const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
 const filesLoading = ref<boolean>(false);
+const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
+const questionarrieAnswers = ref<UserAnswer[]>([]);
+const userHasSubmittedQuestionnaire = ref<boolean>(false);
 const InternshipsStatus = Object.values(InternshipStatus);
 
 watchEffect(() => {
@@ -194,6 +243,7 @@ watchEffect(() => {
     props.internship?.status || InternshipStatus.PENDING_REVIEW;
   if (props.internship?.user_id) {
     loadUserFiles(props.internship.user_id);
+    loadUserQuestionnarie(props.internship.user_id, props.internship.status);
   }
 });
 
@@ -239,6 +289,8 @@ const downloadFile = async (file: DikaiologitikaFile) => {
 const emitClose = () => {
   emit("refreshInternshipList");
   userFiles.value = [];
+  questionarrieAnswers.value = [];
+  userHasSubmittedQuestionnaire.value = false;
   emit("update:modelValue", false);
 };
 
@@ -268,6 +320,17 @@ const getColorForStatus = (status: string): string => {
   }
   return "default";
 };
+/**
+ * Returns a color if a user has a questionnarie.
+ * @param hasQuestionnarie - The status of the internship.
+ * @returns The color corresponding to the questionnarie.
+ */
+const getColorForQuestionnarie = (hasQuestionnarie: boolean): string => {
+  if (hasQuestionnarie) {
+    return "green";
+  }
+  return "default";
+};
 
 /**
  * Updates the internship status.
@@ -279,10 +342,7 @@ const updateInernshipStatus = async () => {
     selectedStatus.value,
   );
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, {
-      position: "top",
-      duration: 1000,
-    });
+    $toast.error(`${response.error}`, { position: "top", duration: 1000 });
   } else {
     $toast.success(`${response.message?.detail}`, {
       position: "top",
@@ -291,12 +351,40 @@ const updateInernshipStatus = async () => {
   }
 };
 
+/**
+ * Checks if the user has submitted the questionnaire.
+ */
+const loadUserQuestionnarie = async (
+  userId: number,
+  status: InternshipStatus,
+): Promise<void> => {
+  if (status === InternshipStatus.ENDED) {
+    const response: any = await getUserAnswers(userId);
+
+    if (response.data && !hasErrorResponse(response)) {
+      userHasSubmittedQuestionnaire.value = response.data.length > 0;
+      questionarrieAnswers.value = response.data;
+    } else {
+      userHasSubmittedQuestionnaire.value = false;
+    }
+  }
+};
+
+/**
+ * Handles closing of the QuestionarrieAnswersDialog.
+ * @param newValue - The new value for the dialog visibility.
+ */
+const handleQuestionnarieDialogClose = (newValue: boolean): void => {
+  openViewQuestionnarieAnswersDialog.value = newValue;
+};
+
 watch(
   () => props.internship,
   async (newVal) => {
     selectedStatus.value = newVal?.status;
     if (newVal?.user_id) {
       await loadUserFiles(newVal.user_id);
+      await loadUserQuestionnarie(newVal.user_id, newVal.status);
     }
   },
 );
@@ -323,22 +411,30 @@ watch(
       color: $primary-dark-blue-color;
 
       &__data-row {
-        @apply flex items-center mb-4 p-2;
+        @apply flex flex-col md:flex-row items-start md:items-baseline mb-4 p-2;
 
         &__icon {
           margin-right: 1rem;
-          @apply text-xl;
+          @apply text-xl mb-2 md:mb-0;
         }
 
         &__label {
-          @apply font-semibold mr-2;
+          @apply font-semibold mr-2 mb-1 md:mb-0;
         }
 
         &__value {
           @apply font-medium;
 
-          &--status {
+          &--status,
+          &--questionnarie {
             @apply font-extrabold;
+          }
+        }
+
+        &__content {
+          @apply flex items-baseline;
+          &__btn {
+            @apply mt-2;
           }
         }
       }
