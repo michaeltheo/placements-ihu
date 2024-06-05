@@ -125,7 +125,7 @@
                 </v-icon>
                 <div class="dialog__card__info__data-row__content">
                   <span class="dialog__card__info__data-row__label"
-                    >Ερωτηματολόγιο:</span
+                    >Ερωτηματολόγιο Φοιτητή:</span
                   >
                   <span
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
@@ -143,6 +143,41 @@
                   </span>
                   <v-btn
                     v-if="userHasSubmittedQuestionnaire"
+                    variant="plain"
+                    @click="openViewQuestionnarieAnswersDialog = true"
+                  >
+                    <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
+                    <v-tooltip activator="parent" location="top"
+                      >Προβολή Ερωτηματολιγίου</v-tooltip
+                    >
+                  </v-btn>
+                </div>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-circle-question
+                </v-icon>
+                <div class="dialog__card__info__data-row__content">
+                  <span class="dialog__card__info__data-row__label"
+                    >Ερωτηματολόγιο Εταιρείας:</span
+                  >
+                  <span
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
+                    :style="{
+                      color: getColorForQuestionnarie(c),
+                    }"
+                  >
+                    {{
+                      companyHasSubmittedQuestionnarie
+                        ? "Ολοκληρωμένο"
+                        : "Δεν βρέθηκε"
+                    }}
+                  </span>
+                  <v-btn
+                    v-if="companyHasSubmittedQuestionnarie"
                     variant="plain"
                     @click="openViewQuestionnarieAnswersDialog = true"
                   >
@@ -177,6 +212,11 @@
           class="dialog__table"
           no-data-text="Δεν βρέθηκαν αρχεία"
         >
+          <template #item.submission_time="{ item }">
+            <v-chip variant="elevated" :color="getColor(item.submission_time)">
+              {{ item.submission_time }}
+            </v-chip>
+          </template>
           <template #item.actions="{ item }">
             <v-btn variant="plain" @click="downloadFile(item)">
               <v-icon color="primary-blue-color"> fa:fas fa-download </v-icon>
@@ -215,11 +255,16 @@ import {
   downloadDikaiologitika,
   fetchDikaiologitaFiles,
 } from "@/services/dikaiologitkaService";
+import { submissionTimeValues } from "@/constants/ApiConstants ";
+
 import { UserAnswer } from "@/types/questionAnswer";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { adminUpdateInternshipStatus } from "@/services/internshipService";
-import { getUserAnswers } from "@/services/questionAnswerService";
+import {
+  getInternshipCompanyQuestionnarie,
+  getUserAnswers,
+} from "@/services/questionAnswerService";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -234,7 +279,9 @@ const filesLoading = ref<boolean>(false);
 const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
+const compnayQuestionnarieAnswers = ref<UserAnswer[]>([]);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
+const companyHasSubmittedQuestionnarie = ref<boolean>(false);
 const InternshipsStatus = Object.values(InternshipStatus);
 
 watchEffect(() => {
@@ -249,10 +296,25 @@ watchEffect(() => {
 
 const fileHeaders = ref([
   { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description", sortable: false },
+  { title: "ΤΥΠΟΣ ΑΡΧΕΙΟΥ", key: "submission_time", sortable: false },
   { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
   { title: "ΟΝΟΜΑ ΑΡΧΕΙΟΥ", key: "file_name", sortable: false },
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
+
+/**
+ * Gets the color for the submission time chip based on the submission time value.
+ * @param fileSubmissionTime - The submission time of the file.
+ * @returns The color string for the chip.
+ */
+const getColor = (fileSubmissionTime: string): string => {
+  if (fileSubmissionTime === submissionTimeValues.start) {
+    return "green";
+  } else if (fileSubmissionTime === submissionTimeValues.end) {
+    return "teal";
+  }
+  return "default";
+};
 
 /**
  * Fetches files for the given user ID and updates the state.
@@ -342,11 +404,14 @@ const updateInernshipStatus = async () => {
     selectedStatus.value,
   );
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, { position: "top", duration: 1000 });
+    $toast.error(`${response.error}`, {
+      position: "top-right",
+      duration: 3000,
+    });
   } else {
     $toast.success(`${response.message?.detail}`, {
-      position: "top",
-      duration: 1000,
+      position: "top-right",
+      duration: 3000,
     });
   }
 };
@@ -359,13 +424,22 @@ const loadUserQuestionnarie = async (
   status: InternshipStatus,
 ): Promise<void> => {
   if (status === InternshipStatus.ENDED) {
-    const response: any = await getUserAnswers(userId);
+    const userAsnswers: any = await getUserAnswers(userId);
 
-    if (response.data && !hasErrorResponse(response)) {
-      userHasSubmittedQuestionnaire.value = response.data.length > 0;
-      questionarrieAnswers.value = response.data;
+    if (userAsnswers.data && !hasErrorResponse(userAsnswers)) {
+      userHasSubmittedQuestionnaire.value = userAsnswers.data.length > 0;
+      questionarrieAnswers.value = userAsnswers.data;
     } else {
       userHasSubmittedQuestionnaire.value = false;
+    }
+    const companyAnswers: any = await getInternshipCompanyQuestionnarie(
+      props.internship.id,
+    );
+    if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
+      companyHasSubmittedQuestionnarie.value = companyAnswers.data.length > 0;
+      compnayQuestionnarieAnswers.value = companyAnswers.data;
+    } else {
+      companyHasSubmittedQuestionnarie.value = false;
     }
   }
 };

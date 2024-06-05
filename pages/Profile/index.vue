@@ -98,12 +98,34 @@
     <div v-if="internship?.status === InternshipStatus.ENDED">
       <!-- Alerts for questionnaire -->
       <v-alert
+        v-if="!companyHasSubmittedQuestionnarie"
+        type="info"
+        variant="outlined"
+        prominent
+        border="top"
+        title="Ερωτηματολόγιο Εταιρείας"
+      >
+        Για τη συμπλήρωση του ερωτηματολογίου είναι αναγκαία η δημιουργία
+        κωδικού μιας χρήσης που θα δώσετε στον υπεύθυνο της εταιρείας. Ο κωδικός
+        είναι διαθέσιμος για 15 λεπτά.
+        <v-spacer></v-spacer>
+        <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
+        <div class="m-3 font-bold">
+          Λήξη κωδικού: {{ formatDate(OTPcode?.expiry) }}
+        </div>
+        <v-spacer></v-spacer>
+        <v-btn class="m-4 md:w-1/3" @click="userGenerateOTP"
+          >Δημιουργία κωδικού
+        </v-btn>
+      </v-alert>
+      <v-alert
         v-if="!userHasSubmittedQuestionnaire"
+        class="mt-2"
         type="warning"
         variant="outlined"
         prominent
         border="top"
-        title="Ερωτηματολόγιο"
+        title="Ερωτηματολόγιο Φοιτητή"
       >
         Η συμπλήρωση του ερωτηματολογίου είναι διαθέσιμη μόνο μία φορά. Παρακαλώ
         ελέγξτε τις απαντήσεις σας.
@@ -115,10 +137,12 @@
           >Έναρξη Ερωτηματολογίου
         </v-btn>
       </v-alert>
+
       <v-alert
         v-else
+        class="mt-2"
         type="info"
-        title="Ερωτηματολόγιο"
+        title="Ερωτηματολόγιο Φοιτητή"
         variant="outlined"
         prominent
         border="top"
@@ -189,6 +213,7 @@
 </template>
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
+import { format } from "date-fns";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
 import { useAuthStore } from "@/stores/auth";
@@ -205,10 +230,15 @@ import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
 import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
-import { getUserAnswers } from "@/services/questionAnswerService";
+import {
+  getInternshipCompanyQuestionnarie,
+  getUserAnswers,
+} from "@/services/questionAnswerService";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { InternshipCreate } from "@/types/internship";
 import { UserAnswer } from "@/types/questionAnswer";
+import { generateOTP } from "@/services/otpService";
+import { OTPBase } from "types/otp";
 
 definePageMeta({
   middleware: ["auth"],
@@ -235,8 +265,17 @@ const totalItems = ref(0);
 const hasInternship = ref<boolean>(false);
 const internship = ref<any>(null);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
+const companyHasSubmittedQuestionnarie = ref<boolean>(false);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
+const OTPcode = ref<OTPBase>();
 const $toast = useToast();
+
+// Helper function to format expiry date
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return format(date, "dd-MM-yyyy HH:mm:ss");
+};
 
 /**
  * Fetches and loads the list of files for the authenticated user.
@@ -409,11 +448,41 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 };
 
 /**
+ * Checks if the company has submitted the questionnaire for user's internship.
+ */
+const checkCompanyQuestionnarieAnswers = async (): Promise<void> => {
+  if (internship.value.status === InternshipStatus.ENDED) {
+    const response: any = await getInternshipCompanyQuestionnarie(
+      internship.value.id,
+    );
+    if (response.data && !hasErrorResponse(response)) {
+      companyHasSubmittedQuestionnarie.value = response.data.length > 0;
+    } else {
+      companyHasSubmittedQuestionnarie.value = false;
+    }
+  }
+};
+
+/**
+ * Generates an OTP password in order company can submit the questionnarie
+ */
+const userGenerateOTP = async (): Promise<void> => {
+  const response = await generateOTP();
+  if (hasErrorResponse(response)) {
+    $toast.error(`${response.error}`, { position: "bottom" });
+  } else {
+    OTPcode.value = response.data;
+    $toast.success(`${response.message?.detail}`, { position: "bottom" });
+  }
+};
+
+/**
  * Lifecycle hook to fetch internship and quesitonnarie answers on component mount.
  */
 onMounted(async () => {
   await getInternship();
   await checkUserQuestionnaireAnswers();
+  await checkCompanyQuestionnarieAnswers();
 });
 </script>
 

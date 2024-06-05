@@ -1,0 +1,25 @@
+import { API_URLS } from "@/constants/apiConfig";
+import { extractErrorMessage } from "@/services/errorHandling";
+import { GenerateOTPResponse } from "@/types/otp";
+import { ErrorResponse } from "@/types";
+
+export async function generateOTP(): Promise<GenerateOTPResponse> {
+  try {
+    const response = await fetch(API_URLS.OTP_GENERATE, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: GenerateOTPResponse = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error generating  OTP:", error);
+    return { error: "An unexpected error occurred during OTP generation." };
+  }
+}

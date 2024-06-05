@@ -98,3 +98,34 @@ export async function getUserAnswers(
     return { error: "Error fetching user answers" };
   }
 }
+/**
+ * Fetches company answers submitted for a specific internship.
+ *
+ * @param {number} internshipID - The ID of the intenrship whose answers are to be fetched.
+ * @returns {Promise<GetAnswersResponse>} - A promise that resolves to the user's answers or an error response.
+ */
+export async function getInternshipCompanyQuestionnarie(
+  internshipID: number,
+): Promise<GetAnswersResponse> {
+  try {
+    const response = await fetch(
+      `${API_URLS.GET_INTERNSHIP_COMPANY_ANSWERS}/${internshipID}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: GetAnswersResponse = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error fetching company answers:", error);
+    return { error: "Error fetching company answers" };
+  }
+}
