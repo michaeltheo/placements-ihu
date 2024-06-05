@@ -35,7 +35,9 @@
               >fa-solid fa-phone</v-icon
             >
             <span class="profile__label">Τηλέφωνο:</span>
-            <span class="profile__value">{{ userTelephone ?? "N/A" }}</span>
+            <span class="profile__value">{{
+              !userTelephone || userTelephone != "0" ? userTelephone : "N/A"
+            }}</span>
           </v-col>
           <v-col cols="12" md="6" class="profile__col">
             <v-icon class="profile__icon" color="primary-blue-color"
