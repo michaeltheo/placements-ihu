@@ -170,7 +170,7 @@
         </v-btn>
       </v-alert>
       <div v-if="!userHasSubmittedQuestionnaire" class="shadow-lg">
-        <Questionarrie
+        <Questionnaire
           v-if="openQuestionnaire"
           :questionnaireType="QuestionnaireType.STUDENT"
           @refreshUserAnswers="checkUserQuestionnaireAnswers"
