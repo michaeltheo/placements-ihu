@@ -44,7 +44,11 @@ import "vue-toast-notification/dist/theme-sugar.css";
 import MultipleChoice from "./MultipleChoice.vue";
 import FreeText from "./FreeText.vue";
 import MultipleChoiceFreeText from "./MultipleChoiceFreeText.vue";
-import { getQuestions, submitAnswers } from "@/services/questionAnswerService";
+import {
+  getQuestions,
+  submitCompanyAnswers,
+  submitUserAnswers,
+} from "@/services/questionAnswerService";
 import { AnswerSubmission, Question } from "@/types/questionAnswer";
 import { QuestionnaireType, QuestionType } from "@/types";
 import { hasErrorResponse } from "@/services/errorHandling";
@@ -52,6 +56,8 @@ import { hasErrorResponse } from "@/services/errorHandling";
 // Define the props received by the component
 const props = defineProps<{
   questionnaireType: QuestionnaireType;
+  internshipId?: number;
+  token?: string;
 }>();
 
 // Define the emits for the component
@@ -192,19 +198,47 @@ const transformAnswers = (): AnswerSubmission[] => {
  */
 const submit = async () => {
   const formattedAnswers: AnswerSubmission[] = transformAnswers();
-  const response = await submitAnswers(formattedAnswers);
-  if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, {
-      position: "top",
-      duration: 1000,
-    });
-  } else {
-    $toast.success(`${response?.detail}`, {
-      position: "top",
-      duration: 1000,
-    });
-    if (emit) {
-      emit("refreshUserAnswers");
+  // submit user answers
+  if (props.questionnaireType === QuestionnaireType.STUDENT) {
+    const response = await submitUserAnswers(formattedAnswers);
+    if (hasErrorResponse(response)) {
+      $toast.error(`${response.error}`, {
+        position: "top",
+        duration: 1000,
+      });
+    } else {
+      $toast.success(`${response?.detail}`, {
+        position: "top",
+        duration: 1000,
+      });
+      if (emit) {
+        emit("refreshUserAnswers");
+      }
+    }
+  } else if (
+    props.questionnaireType === QuestionnaireType.COMPANY &&
+    props.internshipId &&
+    props.token
+  ) {
+    // Submit company answers
+    const response = await submitCompanyAnswers(
+      formattedAnswers,
+      props.internshipId,
+      props.token,
+    );
+    if (hasErrorResponse(response)) {
+      $toast.error(`${response.error}`, {
+        position: "top",
+        duration: 1000,
+      });
+    } else {
+      $toast.success(`${response?.detail}`, {
+        position: "top",
+        duration: 1000,
+      });
+      setTimeout(() => {
+        console.log("Route to Home");
+      }, 5000);
     }
   }
 };

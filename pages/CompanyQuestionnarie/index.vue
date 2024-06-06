@@ -7,17 +7,20 @@
       max-width="500"
       width="100%"
     >
-      <h3 class="otp-title">Verification Code</h3>
+      <h3 class="otp-title">Ερωτηματολόγιο Πρακτικής Άσκησης</h3>
       <div class="otp-subtitle">
-        Please enter the verification code sent to your mobile
+        Παρακαλούμε εισάγετε τον κωδικό επαλήθευσης που σας έστειλε ο φοιτητής
+        της πρακτικής άσκησης.
       </div>
 
       <v-otp-input
         v-model="otp"
         class="otp-input"
+        placeholder="X"
         divider="-"
+        color="primary"
         length="6"
-        variant="outlined"
+        variant="solo-filled"
         focus-all
         :loading="loading"
         focused
@@ -27,7 +30,7 @@
         <v-btn
           :disabled="otp.length < 6 || loading"
           class="otp-submit-button"
-          color="primary"
+          color="primary-blue-color"
           @click="verifyOTP"
         >
           Submit
@@ -38,6 +41,11 @@
     <div v-else class="otp-data">
       <h3 class="otp-title">OTP Data</h3>
       <pre>{{ otpData }}</pre>
+      <Questionnaire
+        :questionnaireType="QuestionnaireType.COMPANY"
+        :internship-id="otpData?.internship_id"
+        :token="otpData?.token"
+      />
     </div>
   </div>
 </template>
@@ -47,6 +55,7 @@ import { useToast } from "vue-toast-notification";
 import { validateOTP } from "@/services/otpService";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { ValidateOTPData } from "@/types/otp";
+import { QuestionnaireType } from "@/types";
 
 const otp = ref<string>("");
 const otpData = ref<ValidateOTPData | null>(null);
@@ -60,6 +69,7 @@ const verifyOTP = async () => {
       const response = await validateOTP(otp.value);
       if (hasErrorResponse(response)) {
         $toast.error(`${response.error}`, { position: "bottom" });
+        otp.value = "";
       } else {
         otpData.value = response.data;
       }
@@ -77,12 +87,14 @@ watch(otp, (newVal) => {
 });
 </script>
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
 .container {
   @apply mx-auto px-4 py-8 flex justify-center;
 }
 
 .otp-card {
   @apply py-8 px-6 mx-auto  text-center bg-white rounded-lg shadow-lg;
+  color: $primary-dark-blue-color;
 }
 
 .otp-title {
@@ -90,7 +102,7 @@ watch(otp, (newVal) => {
 }
 
 .otp-subtitle {
-  @apply text-base font-light mb-6 text-gray-600;
+  @apply text-base font-semibold mb-6;
 }
 
 .otp-input {

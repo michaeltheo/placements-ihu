@@ -209,11 +209,11 @@ const handleCompanyDialogClose = (newValue: boolean) => {
   }
 
   &__buttons {
-    @apply mt-6 w-full flex flex-col md:flex-row md:justify-around;
+    @apply mt-6 w-full flex flex-col md:flex-row md:justify-around md:text-sm;
 
     &--refresh,
     &--add {
-      @apply text-base transition-transform duration-200 my-5 md:my-0 md:w-1/4;
+      @apply transition-transform duration-200 my-5 md:my-0 md:w-1/4;
 
       &:hover {
         transform: translateY(-7px);

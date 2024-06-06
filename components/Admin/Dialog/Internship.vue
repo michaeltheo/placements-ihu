@@ -128,9 +128,9 @@
                     >Ερωτηματολόγιο Φοιτητή:</span
                   >
                   <span
-                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
-                      color: getColorForQuestionnarie(
+                      color: getColorForQuestionnaire(
                         userHasSubmittedQuestionnaire,
                       ),
                     }"
@@ -144,7 +144,7 @@
                   <v-btn
                     v-if="userHasSubmittedQuestionnaire"
                     variant="plain"
-                    @click="openViewQuestionnarieAnswersDialog = true"
+                    @click="openViewQuestionnaireAnswersDialog = true"
                   >
                     <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
                     <v-tooltip activator="parent" location="top"
@@ -165,21 +165,23 @@
                     >Ερωτηματολόγιο Εταιρείας:</span
                   >
                   <span
-                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
-                      color: getColorForQuestionnarie(c),
+                      color: getColorForQuestionnaire(
+                        companyHasSubmittedQuestionnaire,
+                      ),
                     }"
                   >
                     {{
-                      companyHasSubmittedQuestionnarie
+                      companyHasSubmittedQuestionnaire
                         ? "Ολοκληρωμένο"
                         : "Δεν βρέθηκε"
                     }}
                   </span>
                   <v-btn
-                    v-if="companyHasSubmittedQuestionnarie"
+                    v-if="companyHasSubmittedQuestionnaire"
                     variant="plain"
-                    @click="openViewQuestionnarieAnswersDialog = true"
+                    @click="openViewQuestionnaireCompanyAnswersDialog = true"
                   >
                     <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
                     <v-tooltip activator="parent" location="top"
@@ -237,10 +239,16 @@
     </v-dialog>
 
     <!-- Dialog for viewing user's questionnaire -->
-    <ProfileQuestionnarieDialog
-      :model-value="openViewQuestionnarieAnswersDialog"
-      :question-answers="questionarrieAnswers"
-      @update:model-value="handleQuestionnarieDialogClose"
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireAnswersDialog"
+      :question-answers="questionnaireAnswers"
+      @update:model-value="handleQuestionnaireDialogClose"
+    />
+    <!-- Dialog for viewing company's questionnaire -->
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireCompanyAnswersDialog"
+      :question-answers="questionnaireCompanyAnswers"
+      @update:model-value="handleQuestionnaireCompanyDialogClose"
     />
   </div>
 </template>
@@ -262,7 +270,7 @@ import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { adminUpdateInternshipStatus } from "@/services/internshipService";
 import {
-  getInternshipCompanyQuestionnarie,
+  getInternshipCompanyQuestionnaire,
   getUserAnswers,
 } from "@/services/questionAnswerService";
 
@@ -276,12 +284,13 @@ const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
 const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
 const filesLoading = ref<boolean>(false);
-const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireCompanyAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
-const questionarrieAnswers = ref<UserAnswer[]>([]);
-const compnayQuestionnarieAnswers = ref<UserAnswer[]>([]);
+const questionnaireAnswers = ref<UserAnswer[]>([]);
+const questionnaireCompanyAnswers = ref<UserAnswer[]>([]);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
-const companyHasSubmittedQuestionnarie = ref<boolean>(false);
+const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const InternshipsStatus = Object.values(InternshipStatus);
 
 watchEffect(() => {
@@ -290,7 +299,7 @@ watchEffect(() => {
     props.internship?.status || InternshipStatus.PENDING_REVIEW;
   if (props.internship?.user_id) {
     loadUserFiles(props.internship.user_id);
-    loadUserQuestionnarie(props.internship.user_id, props.internship.status);
+    loadUserQuestionnaire(props.internship.user_id, props.internship.status);
   }
 });
 
@@ -351,7 +360,8 @@ const downloadFile = async (file: DikaiologitikaFile) => {
 const emitClose = () => {
   emit("refreshInternshipList");
   userFiles.value = [];
-  questionarrieAnswers.value = [];
+  questionnaireAnswers.value = [];
+  questionnaireCompanyAnswers.value = [];
   userHasSubmittedQuestionnaire.value = false;
   emit("update:modelValue", false);
 };
@@ -383,12 +393,12 @@ const getColorForStatus = (status: string): string => {
   return "default";
 };
 /**
- * Returns a color if a user has a questionnarie.
- * @param hasQuestionnarie - The status of the internship.
- * @returns The color corresponding to the questionnarie.
+ * Returns a color if a user has a Questionnaire.
+ * @param hasQuestionnaire - The status of the internship.
+ * @returns The color corresponding to the Questionnaire.
  */
-const getColorForQuestionnarie = (hasQuestionnarie: boolean): string => {
-  if (hasQuestionnarie) {
+const getColorForQuestionnaire = (hasQuestionnaire: boolean): string => {
+  if (hasQuestionnaire) {
     return "green";
   }
   return "default";
@@ -419,37 +429,41 @@ const updateInernshipStatus = async () => {
 /**
  * Checks if the user has submitted the questionnaire.
  */
-const loadUserQuestionnarie = async (
+const loadUserQuestionnaire = async (
   userId: number,
   status: InternshipStatus,
 ): Promise<void> => {
   if (status === InternshipStatus.ENDED) {
-    const userAsnswers: any = await getUserAnswers(userId);
+    const userAnswers: any = await getUserAnswers(userId);
 
-    if (userAsnswers.data && !hasErrorResponse(userAsnswers)) {
-      userHasSubmittedQuestionnaire.value = userAsnswers.data.length > 0;
-      questionarrieAnswers.value = userAsnswers.data;
+    if (userAnswers.data && !hasErrorResponse(userAnswers)) {
+      userHasSubmittedQuestionnaire.value = userAnswers.data.length > 0;
+      questionnaireAnswers.value = userAnswers.data;
     } else {
       userHasSubmittedQuestionnaire.value = false;
     }
-    const companyAnswers: any = await getInternshipCompanyQuestionnarie(
+    const companyAnswers: any = await getInternshipCompanyQuestionnaire(
       props.internship.id,
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
-      companyHasSubmittedQuestionnarie.value = companyAnswers.data.length > 0;
-      compnayQuestionnarieAnswers.value = companyAnswers.data;
+      companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
+      questionnaireCompanyAnswers.value = companyAnswers.data;
     } else {
-      companyHasSubmittedQuestionnarie.value = false;
+      companyHasSubmittedQuestionnaire.value = false;
     }
   }
 };
 
 /**
- * Handles closing of the QuestionarrieAnswersDialog.
+ * Handles closing of the QuestionnaireAnswersDialog.
  * @param newValue - The new value for the dialog visibility.
  */
-const handleQuestionnarieDialogClose = (newValue: boolean): void => {
-  openViewQuestionnarieAnswersDialog.value = newValue;
+const handleQuestionnaireDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireAnswersDialog.value = newValue;
+};
+
+const handleQuestionnaireCompanyDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireCompanyAnswersDialog.value = newValue;
 };
 
 watch(
@@ -458,7 +472,7 @@ watch(
     selectedStatus.value = newVal?.status;
     if (newVal?.user_id) {
       await loadUserFiles(newVal.user_id);
-      await loadUserQuestionnarie(newVal.user_id, newVal.status);
+      await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
   },
 );
@@ -500,7 +514,7 @@ watch(
           @apply font-medium;
 
           &--status,
-          &--questionnarie {
+          &--Questionnaire {
             @apply font-extrabold;
           }
         }

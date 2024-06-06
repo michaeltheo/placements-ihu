@@ -98,7 +98,7 @@
     <div v-if="internship?.status === InternshipStatus.ENDED">
       <!-- Alerts for questionnaire -->
       <v-alert
-        v-if="!companyHasSubmittedQuestionnarie"
+        v-if="!companyHasSubmittedQuestionnaire"
         type="info"
         variant="outlined"
         prominent
@@ -118,6 +118,17 @@
           >Δημιουργία κωδικού
         </v-btn>
       </v-alert>
+      <v-alert
+        v-else
+        class="mt-4"
+        type="info"
+        variant="outlined"
+        prominent
+        border="top"
+        title="Ερωτηματολόγιο Εταιρείας"
+        >Η εταιρεία έχει υποβάλει το ερωτηματολόγιο γιατ την πρακτική
+        άσκηση.</v-alert
+      >
       <v-alert
         v-if="!userHasSubmittedQuestionnaire"
         class="mt-2"
@@ -154,7 +165,7 @@
           v-if="questionarrieAnswers"
           class="m-4 md:w-1/2 w-full"
           color="primary-blue-color"
-          @click="openViewQuestionnarieAnswersDialog = true"
+          @click="openViewQuestionnaireAnswersDialog = true"
           >Προβολή Ερωτηματολιγίου
         </v-btn>
       </v-alert>
@@ -203,11 +214,11 @@
       @internshipUpdated="handleInternshipUpdated"
       @refreshInternship="getInternship"
     />
-    <!-- Dialog for viewing questionnarie answers -->
-    <ProfileQuestionnarieDialog
-      :model-value="openViewQuestionnarieAnswersDialog"
+    <!-- Dialog for viewing Questionnaire answers -->
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireAnswersDialog"
       :question-answers="questionarrieAnswers"
-      @update:model-value="handleQuestionnarieDialogClose"
+      @update:model-value="handleQuestionnaireDialogClose"
     />
   </div>
 </template>
@@ -231,7 +242,7 @@ import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
 import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
 import {
-  getInternshipCompanyQuestionnarie,
+  getInternshipCompanyQuestionnaire,
   getUserAnswers,
 } from "@/services/questionAnswerService";
 import { hasErrorResponse } from "@/services/errorHandling";
@@ -259,13 +270,13 @@ const loading = ref<boolean>(true);
 const openAddFilesDialog = ref<boolean>(false);
 const openDeleteFileDialog = ref<boolean>(false);
 const openCreateInternshipDialog = ref<boolean>(false);
-const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
 const openQuestionnaire = ref<boolean>(false);
 const totalItems = ref(0);
 const hasInternship = ref<boolean>(false);
 const internship = ref<any>(null);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
-const companyHasSubmittedQuestionnarie = ref<boolean>(false);
+const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
 const OTPcode = ref<OTPBase>();
 const $toast = useToast();
@@ -396,8 +407,8 @@ const handleDeleteDialogClose = (newValue: boolean): void => {
  * Handles closing of the QuestionarrieAnswersDialog.
  * @param newValue - The new value for the dialog visibility.
  */
-const handleQuestionnarieDialogClose = (newValue: boolean): void => {
-  openViewQuestionnarieAnswersDialog.value = newValue;
+const handleQuestionnaireDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireAnswersDialog.value = newValue;
 };
 
 /**
@@ -450,21 +461,21 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 /**
  * Checks if the company has submitted the questionnaire for user's internship.
  */
-const checkCompanyQuestionnarieAnswers = async (): Promise<void> => {
+const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internship.value.status === InternshipStatus.ENDED) {
-    const response: any = await getInternshipCompanyQuestionnarie(
+    const response: any = await getInternshipCompanyQuestionnaire(
       internship.value.id,
     );
     if (response.data && !hasErrorResponse(response)) {
-      companyHasSubmittedQuestionnarie.value = response.data.length > 0;
+      companyHasSubmittedQuestionnaire.value = response.data.length > 0;
     } else {
-      companyHasSubmittedQuestionnarie.value = false;
+      companyHasSubmittedQuestionnaire.value = false;
     }
   }
 };
 
 /**
- * Generates an OTP password in order company can submit the questionnarie
+ * Generates an OTP password in order company can submit the Questionnaire
  */
 const userGenerateOTP = async (): Promise<void> => {
   const response = await generateOTP();
@@ -482,7 +493,7 @@ const userGenerateOTP = async (): Promise<void> => {
 onMounted(async () => {
   await getInternship();
   await checkUserQuestionnaireAnswers();
-  await checkCompanyQuestionnarieAnswers();
+  await checkCompanyQuestionnaireAnswers();
 });
 </script>
 
