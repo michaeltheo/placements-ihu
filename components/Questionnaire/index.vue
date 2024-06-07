@@ -3,13 +3,16 @@
   /**
    * DynamicQuestionnaire Component
    *
-   * Renders a dynamic form based on the question type provided.
-   * Supports multiple-choice, free-text, and multiple-choice-with-free-text questions.
+   * Renders a dynamic form based on the questions provided. This component
+   * supports multiple question types: multiple-choice, free-text, and 
+   * multiple-choice-with-free-text. It handles the initialization, display,
+   * and submission of answers, ensuring that form validation and answer 
+   * transformation are properly managed.
    *
    * @param {Array<Object>} questions - An array of question objects.
-   * @param {number} question.id - Unique identifier of the question.
-   * @param {string} question.question_text - The question text to be displayed.
-   * @param {string} question.question_type - The type of the question.
+   * @param {number} question.id - Unique identifier for each question.
+   * @param {string} question.question_text - The text of the question to be displayed.
+   * @param {string} question.question_type - The type of question (multiple_choice, free_text, multiple_choice_with_text).
    * @param {boolean} question.supports_multiple_answers - Indicates if multiple answers are allowed.
    * @param {Array<Object>} question.answer_options - An array of options available for selection.
    */
@@ -62,7 +65,7 @@ const props = defineProps<{
 
 // Define the emits for the component
 const emit = defineEmits(["refreshUserAnswers"]);
-
+const router = useRouter();
 const $toast = useToast();
 const questions = ref<Question[]>([]);
 const answers = ref<Record<number, any>>({});
@@ -229,15 +232,18 @@ const submit = async () => {
     if (hasErrorResponse(response)) {
       $toast.error(`${response.error}`, {
         position: "top",
-        duration: 1000,
+        duration: 3000,
       });
     } else {
-      $toast.success(`${response?.detail}`, {
-        position: "top",
-        duration: 1000,
-      });
+      $toast.success(
+        `${response?.detail}, Θα μεταφερθείτε αυτόματα στην αρχική σελίδα. Ευχαριστούμε!`,
+        {
+          position: "top",
+          duration: 3000,
+        },
+      );
       setTimeout(() => {
-        console.log("Route to Home");
+        router.push("/");
       }, 5000);
     }
   }

@@ -19,6 +19,7 @@
             <v-textarea
               v-model="inputValue"
               class="freeText--field"
+              color="primary-dark-blue"
               clearable
               label="Γράψτε την απάντησή σας"
               :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"

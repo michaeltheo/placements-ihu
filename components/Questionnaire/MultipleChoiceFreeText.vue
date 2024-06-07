@@ -24,6 +24,7 @@
             <v-select
               v-model="selectedOptions"
               class="multipleChoiceFreeText--select"
+              color="primary-dark-blue"
               :items="options"
               item-title="option_text"
               item-value="id"
@@ -42,6 +43,7 @@
               v-model="inputValue"
               clearable
               validate-on="input"
+              color="primary-dark-blue"
               class="multipleChoiceFreeText--textArea"
               label="Γράψτε την απάντησή σας"
               :rules="[(v: any) => !!v || 'Απαιτείται απάντηση']"

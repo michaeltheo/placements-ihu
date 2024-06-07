@@ -100,6 +100,7 @@
       <v-alert
         v-if="!companyHasSubmittedQuestionnaire"
         type="info"
+        color="primary-blue-color"
         variant="outlined"
         prominent
         border="top"
@@ -111,7 +112,7 @@
         <v-spacer></v-spacer>
         <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
         <div class="m-3 font-bold">
-          Λήξη κωδικού: {{ formatDate(OTPcode?.expiry) }}
+          Λήξη κωδικού: {{ formatOtpExpireDate(OTPcode?.expiry) }}
         </div>
         <v-spacer></v-spacer>
         <v-btn class="m-4 md:w-1/3" @click="userGenerateOTP"
@@ -126,7 +127,8 @@
         prominent
         border="top"
         title="Ερωτηματολόγιο Εταιρείας"
-        >Η εταιρεία έχει υποβάλει το ερωτηματολόγιο γιατ την πρακτική
+        color="primary-blue-color"
+        >Η εταιρεία έχει υποβάλει το ερωτηματολόγιο για την πρακτική
         άσκηση.</v-alert
       >
       <v-alert
@@ -224,7 +226,6 @@
 </template>
 <script lang="ts" setup>
 import { useToast } from "vue-toast-notification";
-import { format } from "date-fns";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
 import { useAuthStore } from "@/stores/auth";
@@ -282,10 +283,17 @@ const OTPcode = ref<OTPBase>();
 const $toast = useToast();
 
 // Helper function to format expiry date
-const formatDate = (dateString: string | null | undefined) => {
+const formatOtpExpireDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return format(date, "dd-MM-yyyy HH:mm:ss");
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
 /**
@@ -333,7 +341,7 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
     if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start,
+          (type: any) => type.submission_time === submissionTimeValues.start
         );
       }
     }
@@ -354,7 +362,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean): void => {
  * @param newInternship - The new internship created.
  */
 const handleInternshipCreated = async (
-  newInternship: InternshipCreate,
+  newInternship: InternshipCreate
 ): Promise<void> => {
   hasInternship.value = true;
   internship.value = newInternship;
@@ -464,7 +472,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internship.value.status === InternshipStatus.ENDED) {
     const response: any = await getInternshipCompanyQuestionnaire(
-      internship.value.id,
+      internship.value.id
     );
     if (response.data && !hasErrorResponse(response)) {
       companyHasSubmittedQuestionnaire.value = response.data.length > 0;

@@ -131,7 +131,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        userHasSubmittedQuestionnaire,
+                        userHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -168,7 +168,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        companyHasSubmittedQuestionnaire,
+                        companyHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -202,7 +202,7 @@
             hint="Άλλαξε την κατάστατση της πρακτικής του ασκούμενου"
             dense
             class="dialog__select"
-            @update:model-value="updateInernshipStatus"
+            @update:model-value="updateInternshipStatus"
           ></v-select>
         </div>
 
@@ -256,7 +256,6 @@
 <script setup lang="ts">
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
-import { format } from "date-fns";
 import type { InternshipRead } from "@/types/internship";
 import { InternshipStatus } from "@/types";
 import {
@@ -363,6 +362,7 @@ const emitClose = () => {
   questionnaireAnswers.value = [];
   questionnaireCompanyAnswers.value = [];
   userHasSubmittedQuestionnaire.value = false;
+  companyHasSubmittedQuestionnaire.value = false;
   emit("update:modelValue", false);
 };
 
@@ -373,8 +373,12 @@ const emitClose = () => {
  */
 const formatDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return format(date, "dd-MM-yy");
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
 /**
@@ -407,11 +411,11 @@ const getColorForQuestionnaire = (hasQuestionnaire: boolean): string => {
 /**
  * Updates the internship status.
  */
-const updateInernshipStatus = async () => {
+const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
-    selectedStatus.value,
+    selectedStatus.value
   );
   if (hasErrorResponse(response)) {
     $toast.error(`${response.error}`, {
@@ -431,7 +435,7 @@ const updateInernshipStatus = async () => {
  */
 const loadUserQuestionnaire = async (
   userId: number,
-  status: InternshipStatus,
+  status: InternshipStatus
 ): Promise<void> => {
   if (status === InternshipStatus.ENDED) {
     const userAnswers: any = await getUserAnswers(userId);
@@ -443,7 +447,7 @@ const loadUserQuestionnaire = async (
       userHasSubmittedQuestionnaire.value = false;
     }
     const companyAnswers: any = await getInternshipCompanyQuestionnaire(
-      props.internship.id,
+      props.internship.id
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
       companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
@@ -474,7 +478,7 @@ watch(
       await loadUserFiles(newVal.user_id);
       await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
-  },
+  }
 );
 </script>
 
