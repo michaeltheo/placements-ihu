@@ -28,6 +28,10 @@
               ? `Επεξεργασία Δικαιολογητικού: ${editItem?.description}`
               : "Ανέβασμα Δικαιολογητικού"
           }}
+          <v-spacer></v-spacer>
+          <v-btn icon @click="emitClose">
+            <v-icon>fa-solid fa-xmark</v-icon>
+          </v-btn>
         </v-card-title>
 
         <div v-if="isEditMode" class="file-dialog__info">
@@ -330,7 +334,7 @@ const emitClose = () => {
   }
 
   &__title {
-    @apply text-lg font-bold;
+    @apply flex items-baseline text-lg font-bold;
     color: $primary-dark-blue-color;
   }
 

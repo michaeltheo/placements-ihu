@@ -51,7 +51,7 @@
         </template>
       </v-data-table-server>
       <p class="adminPage__hint">
-        Επιλέξτε έναν φοιτητή για να δείτε τα δικαιολογητικά του.
+        Επιλέξτε έναν φοιτητή για να δείτε τα στοιχεία του.
       </p>
     </section>
     <!-- User Details Dialog -->
@@ -62,8 +62,12 @@
     >
       <v-card>
         <v-card-title class="adminPage__usersDialog--title"
-          >Πληροφορίες Φοιτητή</v-card-title
-        >
+          >Πληροφορίες Φοιτητή
+          <v-spacer></v-spacer>
+          <v-btn icon @click="closeDialog">
+            <v-icon>fa-solid fa-xmark</v-icon>
+          </v-btn>
+        </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
@@ -132,7 +136,7 @@
                   <div v-else>
                     <v-btn
                       color="indigo-darken-1"
-                      @click="setUserasStudent(selectedUser?.id)"
+                      @click="setUserAsStudent(selectedUser?.id)"
                     >
                       Μετατροπή Ρόλου σε Φοιτητή
                     </v-btn>
@@ -140,26 +144,6 @@
                 </div>
               </v-col>
             </v-row>
-            <!-- Files Table -->
-            <v-data-table
-              :headers="fileHeaders"
-              :items="userFiles"
-              item-key="id"
-              :hover="true"
-              class="elevation-1 mt-4"
-              no-data-text="Δεν βρέθηκαν αρχεία"
-            >
-              <template #item.actions="{ item }">
-                <v-btn variant="plain" @click="downloadFile(item)">
-                  <v-icon color="primary-blue-color">
-                    fa:fas fa-download
-                  </v-icon>
-                  <v-tooltip activator="parent" location="top"
-                    >Κατέβασμα Αρχείου</v-tooltip
-                  >
-                </v-btn>
-              </template>
-            </v-data-table>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -181,11 +165,6 @@ import {
   adminSetUserAsAdmin,
   adminSetUserAsStudent,
 } from "@/services/adminService";
-import {
-  fetchDikaiologitaFiles,
-  downloadDikaiologitika,
-} from "@/services/dikaiologitkaService";
-import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import { hasErrorResponse } from "@/services/errorHandling";
 
 // Define page metadata
@@ -207,20 +186,10 @@ const headers = ref([
   { title: "ΑΡΙΘΜΟΣ ΜΗΤΡΩΟΥ", key: "AM", value: "AM", sortable: false },
 ]);
 
-const fileHeaders = ref([
-  { title: "ID", key: "id", sortable: false },
-  { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description", sortable: false },
-  { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
-  { title: "ΟΝΟΜΑ ΑΡΧΕΙΟΥ", key: "file_name", sortable: false },
-  { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
-]);
-
 const loading = ref<boolean>(true);
 const serverUsers = ref<User[]>([]);
 const openUsersFileDialog = ref<boolean>(false);
 const selectedUser = ref<User | null>(null);
-const userFiles = ref<DikaiologitikaFile[]>([]);
-const filesLoading = ref<boolean>(false);
 
 /**
  * Interface for pagination and filtering options.
@@ -266,10 +235,9 @@ const applyFilter = () => {
  * @param _event - The click event.
  * @param row - The row data containing the user.
  */
-const handleClick = async (_event: Event, row: { item: User }) => {
+const handleClick = (_event: Event, row: { item: User }) => {
   selectedUser.value = row.item;
   openUsersFileDialog.value = true;
-  await loadUserFiles(row.item.id);
 };
 
 /**
@@ -277,22 +245,6 @@ const handleClick = async (_event: Event, row: { item: User }) => {
  */
 const closeDialog = () => {
   openUsersFileDialog.value = false;
-};
-
-/**
- * Fetches files for the given user ID and updates the state.
- * @param userId - The ID of the user.
- */
-const loadUserFiles = async (userId: number) => {
-  filesLoading.value = true;
-  try {
-    const response = await fetchDikaiologitaFiles(userId);
-    userFiles.value = response?.data.files ?? [];
-  } catch (error) {
-    $toast.error(`Error fetching files: ${error}`, { position: "bottom" });
-  } finally {
-    filesLoading.value = false;
-  }
 };
 
 /**
@@ -313,7 +265,7 @@ const setUserAsAdmin = async (userId: number | undefined) => {
  * Sets the selected user as admin.
  * @param userId - The ID of the user.
  */
-const setUserasStudent = async (userId: number | undefined) => {
+const setUserAsStudent = async (userId: number | undefined) => {
   if (userId === undefined) return;
   const response = await adminSetUserAsStudent(userId);
   closeDialog();
@@ -323,19 +275,6 @@ const setUserasStudent = async (userId: number | undefined) => {
     $toast.success(`${response.detail}`, { position: "bottom" });
   }
 };
-
-/**
- * Initiates the download of a specific file.
- * @param file - The file to download.
- */
-const downloadFile = async (file: DikaiologitikaFile) => {
-  await downloadDikaiologitika(file.id);
-};
-
-// Initial data fetch when the component is mounted
-onMounted(() => {
-  applyFilter();
-});
 </script>
 
 <style lang="scss" scoped>
@@ -364,7 +303,7 @@ onMounted(() => {
     }
 
     &--title {
-      @apply font-bold;
+      @apply flex items-baseline font-bold;
       color: $primary-dark-blue-color;
     }
     &--firstName,
