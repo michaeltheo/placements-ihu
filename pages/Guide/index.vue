@@ -32,7 +32,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import guidePageData from "@/constants/guidePageData";
 
 const activeTab = ref(0);
