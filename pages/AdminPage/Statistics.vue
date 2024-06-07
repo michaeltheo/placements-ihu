@@ -3,12 +3,30 @@
     <section class="statisticsPage__section">
       <h2 class="statisticsPage__title">Σελιδα Στατιστικών</h2>
       <p class="statisticsPage__hint">
-        Επελέξτε παρακάτω για ποία ερώτηση θα θέλετε να δείτε στατστικά. Τα
-        στατστικά εμφανίζονται με μορφή γραφήματος "PIE" και υπάρχει η
-        δυνατότητα αποθήκευσεις του διαγράμαμτος καθώς και η εξαγωγή των
+        Επελέξτε παρακάτω για ποία ερώτηση θα θέλετε να δείτε στατιστικά. Τα
+        στατιστικά εμφανίζονται με μορφή γραφήματος "PIE" και υπάρχει η
+        δυνατότητα αποθήκευσης του διαγράμματος καθώς και η εξαγωγή των
         αποτελεσμάτων σε αρχείο CSV.
       </p>
+
+      <!-- New select for choosing questionnaire type -->
       <div class="statisticsPage__select">
+        <v-select
+          v-model="selectedQuestionnaireType"
+          label="Επέλεξε τύπο ερωτηματολογίου"
+          :items="questionnaireTypes"
+          item-title="text"
+          item-value="value"
+          class="statisticsPage__select--input"
+          outlined
+          clearable
+          dense
+          @update:model-value="fetchQuestionStatistics"
+        ></v-select>
+      </div>
+
+      <!-- Existing select for choosing a question -->
+      <div v-if="selectedQuestionnaireType" class="statisticsPage__select">
         <v-select
           v-model="selectedQuestion"
           label="Επέλεξε ερώτηση"
@@ -66,33 +84,51 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
-import { useAuthStore } from "@/stores/auth";
+import { useToast } from "vue-toast-notification";
+import { QuestionnaireType } from "@/types";
 import {
   getQuestionStatistics,
   parseQuestionStatistics,
 } from "@/services/adminService";
+import { hasErrorResponse } from "@/services/errorHandling";
 
 definePageMeta({
   middleware: ["is-admin", "auth"],
 });
-const authStore = useAuthStore();
+
+// Define questionnaire types with display text and actual values
+const questionnaireTypes = [
+  { text: "Εταιρείες", value: QuestionnaireType.COMPANY },
+  { text: "Φοιτητές", value: QuestionnaireType.STUDENT },
+];
+
+// Ref variables to store selected questionnaire type, question, and their respective data
+const selectedQuestionnaireType = ref<QuestionnaireType>();
 const questionNames = ref<string[]>([]);
 const selectedQuestion = ref<string>("");
 const selectedQuestionData = ref<[string, number][]>([]);
 let parsedData: Array<any> = [];
+const $toast = useToast();
 
-// Fetch question statistics data on component mount
-onMounted(async () => {
-  const response = await getQuestionStatistics(
-    authStore?.placements_access_token,
-  );
-  // const response = dummyStatistcs;
-  if (response) {
-    parsedData = parseQuestionStatistics(response);
-    questionNames.value = parsedData.map((item) => item.questionName);
+// Fetch question statistics data when the selected questionnaire type changes
+const fetchQuestionStatistics = async () => {
+  if (selectedQuestionnaireType.value) {
+    const response = await getQuestionStatistics(
+      selectedQuestionnaireType.value,
+    );
+    if (hasErrorResponse(response)) {
+      $toast.error(`${response.error}`, { position: "top" });
+    } else {
+      parsedData = parseQuestionStatistics(response);
+      questionNames.value = parsedData.map((item) => item.questionName);
+      selectedQuestion.value = "";
+      selectedQuestionData.value = [];
+    }
   }
-});
+};
+
+// Watch for changes in selectedQuestionnaireType to fetch new statistics
+watch(selectedQuestionnaireType, fetchQuestionStatistics);
 
 // Function to update the chart data based on the selected question from the dropdown
 const updateChart = () => {
@@ -183,7 +219,7 @@ const exportCSV = () => {
   }
 
   &__export-btn {
-    @apply ml-2 py-2 px-4 rounded-md text-black font-semibold shadow-md transition duration-300 ease-in-out  #{!important};
+    @apply ml-2 py-2 px-4 rounded-md text-black font-semibold shadow-md transition duration-300 ease-in-out #{!important};
     :hover {
       color: $primary-blue-color;
     }

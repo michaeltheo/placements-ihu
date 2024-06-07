@@ -44,3 +44,25 @@ export interface GetQuestionsResponse {
   message?: Message;
   error?: string;
 }
+
+export interface QuestionData {
+  questionName: string;
+  answersData: Array<{ text: string; count: number }>;
+}
+
+export interface QuestionStatisticsResponse {
+  data?: Array<{
+    question_id: number;
+    question_text: string;
+    statistics: Array<{
+      option_id: number;
+      count: number;
+      text: string;
+    }>;
+    free_text_responses_count: number;
+    free_text_responses: string[];
+    total_responses: number;
+  }>;
+  message?: Message;
+  error?: string;
+}
