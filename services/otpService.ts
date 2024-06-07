@@ -10,7 +10,6 @@ import { ErrorResponse } from "@/types";
  */
 export async function generateOTP(): Promise<GenerateOTPResponse> {
   try {
-    // Fetch the OTP generation endpoint
     const response = await fetch(API_URLS.OTP_GENERATE, {
       method: "GET",
       credentials: "include",
