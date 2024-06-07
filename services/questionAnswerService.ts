@@ -45,7 +45,7 @@ export async function getQuestions(
  * @param {AnswerSubmission[]} submissions - An array of answer submissions to be sent.
  * @returns {Promise<Message | ErrorResponse>} - A promise that resolves to a success message or an error response.
  */
-export async function submitAnswers(
+export async function submitUserAnswers(
   submissions: AnswerSubmission[],
 ): Promise<Message | ErrorResponse> {
   try {
@@ -67,6 +67,46 @@ export async function submitAnswers(
   } catch (error) {
     errorLog("Error submitting answers:", error);
     return { error: "Error submitting answers" };
+  }
+}
+
+/**
+ * Submits answers for a company's questionnaire.
+ *
+ * @param {AnswerSubmission[]} submissions - An array of answer submissions to be sent.
+ * @param {number} internshipID - The ID of the internship for which answers are submitted.
+ * @param {string} token - The JWT token for authentication.
+ * @returns {Promise<Message | ErrorResponse>} - A promise that resolves to a success message or an error response.
+ */
+export async function submitCompanyAnswers(
+  submissions: AnswerSubmission[],
+  internshipID: number,
+  token: string,
+): Promise<Message | ErrorResponse> {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/company_answers/submit-answers/${internshipID}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          token,
+        },
+        body: JSON.stringify(submissions),
+      },
+    );
+
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+
+    const data: Message = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error submitting company answers:", error);
+    return { error: "Error submitting company answers" };
   }
 }
 
@@ -96,5 +136,36 @@ export async function getUserAnswers(
   } catch (error) {
     errorLog("Error fetching user answers:", error);
     return { error: "Error fetching user answers" };
+  }
+}
+/**
+ * Fetches company answers submitted for a specific internship.
+ *
+ * @param {number} internshipID - The ID of the intenrship whose answers are to be fetched.
+ * @returns {Promise<GetAnswersResponse>} - A promise that resolves to the user's answers or an error response.
+ */
+export async function getInternshipCompanyQuestionnaire(
+  internshipID: number,
+): Promise<GetAnswersResponse> {
+  try {
+    const response = await fetch(
+      `${API_URLS.GET_INTERNSHIP_COMPANY_ANSWERS}/${internshipID}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+    const data: GetAnswersResponse = await response.json();
+    return data;
+  } catch (error) {
+    errorLog("Error fetching company answers:", error);
+    return { error: "Error fetching company answers" };
   }
 }

@@ -125,12 +125,12 @@
                 </v-icon>
                 <div class="dialog__card__info__data-row__content">
                   <span class="dialog__card__info__data-row__label"
-                    >Ερωτηματολόγιο:</span
+                    >Ερωτηματολόγιο Φοιτητή:</span
                   >
                   <span
-                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--questionnarie"
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
-                      color: getColorForQuestionnarie(
+                      color: getColorForQuestionnaire(
                         userHasSubmittedQuestionnaire,
                       ),
                     }"
@@ -144,7 +144,44 @@
                   <v-btn
                     v-if="userHasSubmittedQuestionnaire"
                     variant="plain"
-                    @click="openViewQuestionnarieAnswersDialog = true"
+                    @click="openViewQuestionnaireAnswersDialog = true"
+                  >
+                    <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
+                    <v-tooltip activator="parent" location="top"
+                      >Προβολή Ερωτηματολιγίου</v-tooltip
+                    >
+                  </v-btn>
+                </div>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
+                  fa-solid fa-circle-question
+                </v-icon>
+                <div class="dialog__card__info__data-row__content">
+                  <span class="dialog__card__info__data-row__label"
+                    >Ερωτηματολόγιο Εταιρείας:</span
+                  >
+                  <span
+                    class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
+                    :style="{
+                      color: getColorForQuestionnaire(
+                        companyHasSubmittedQuestionnaire,
+                      ),
+                    }"
+                  >
+                    {{
+                      companyHasSubmittedQuestionnaire
+                        ? "Ολοκληρωμένο"
+                        : "Δεν βρέθηκε"
+                    }}
+                  </span>
+                  <v-btn
+                    v-if="companyHasSubmittedQuestionnaire"
+                    variant="plain"
+                    @click="openViewQuestionnaireCompanyAnswersDialog = true"
                   >
                     <v-icon color="primary-blue-color">fa-solid fa-eye</v-icon>
                     <v-tooltip activator="parent" location="top"
@@ -165,7 +202,7 @@
             hint="Άλλαξε την κατάστατση της πρακτικής του ασκούμενου"
             dense
             class="dialog__select"
-            @update:model-value="updateInernshipStatus"
+            @update:model-value="updateInternshipStatus"
           ></v-select>
         </div>
 
@@ -177,6 +214,11 @@
           class="dialog__table"
           no-data-text="Δεν βρέθηκαν αρχεία"
         >
+          <template #item.submission_time="{ item }">
+            <v-chip variant="elevated" :color="getColor(item.submission_time)">
+              {{ item.submission_time }}
+            </v-chip>
+          </template>
           <template #item.actions="{ item }">
             <v-btn variant="plain" @click="downloadFile(item)">
               <v-icon color="primary-blue-color"> fa:fas fa-download </v-icon>
@@ -197,10 +239,16 @@
     </v-dialog>
 
     <!-- Dialog for viewing user's questionnaire -->
-    <ProfileQuestionnarieDialog
-      :model-value="openViewQuestionnarieAnswersDialog"
-      :question-answers="questionarrieAnswers"
-      @update:model-value="handleQuestionnarieDialogClose"
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireAnswersDialog"
+      :question-answers="questionnaireAnswers"
+      @update:model-value="handleQuestionnaireDialogClose"
+    />
+    <!-- Dialog for viewing company's questionnaire -->
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireCompanyAnswersDialog"
+      :question-answers="questionnaireCompanyAnswers"
+      @update:model-value="handleQuestionnaireCompanyDialogClose"
     />
   </div>
 </template>
@@ -208,18 +256,22 @@
 <script setup lang="ts">
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
-import { format } from "date-fns";
 import type { InternshipRead } from "@/types/internship";
 import { InternshipStatus } from "@/types";
 import {
   downloadDikaiologitika,
   fetchDikaiologitaFiles,
 } from "@/services/dikaiologitkaService";
+import { submissionTimeValues } from "@/constants/ApiConstants ";
+
 import { UserAnswer } from "@/types/questionAnswer";
 import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { adminUpdateInternshipStatus } from "@/services/internshipService";
-import { getUserAnswers } from "@/services/questionAnswerService";
+import {
+  getInternshipCompanyQuestionnaire,
+  getUserAnswers,
+} from "@/services/questionAnswerService";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -231,10 +283,13 @@ const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
 const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
 const filesLoading = ref<boolean>(false);
-const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireCompanyAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
-const questionarrieAnswers = ref<UserAnswer[]>([]);
+const questionnaireAnswers = ref<UserAnswer[]>([]);
+const questionnaireCompanyAnswers = ref<UserAnswer[]>([]);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
+const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const InternshipsStatus = Object.values(InternshipStatus);
 
 watchEffect(() => {
@@ -243,16 +298,31 @@ watchEffect(() => {
     props.internship?.status || InternshipStatus.PENDING_REVIEW;
   if (props.internship?.user_id) {
     loadUserFiles(props.internship.user_id);
-    loadUserQuestionnarie(props.internship.user_id, props.internship.status);
+    loadUserQuestionnaire(props.internship.user_id, props.internship.status);
   }
 });
 
 const fileHeaders = ref([
   { title: "ΕΙΔΟΣ ΑΡΧΕΙΟΥ", key: "description", sortable: false },
+  { title: "ΤΥΠΟΣ ΑΡΧΕΙΟΥ", key: "submission_time", sortable: false },
   { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
   { title: "ΟΝΟΜΑ ΑΡΧΕΙΟΥ", key: "file_name", sortable: false },
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
+
+/**
+ * Gets the color for the submission time chip based on the submission time value.
+ * @param fileSubmissionTime - The submission time of the file.
+ * @returns The color string for the chip.
+ */
+const getColor = (fileSubmissionTime: string): string => {
+  if (fileSubmissionTime === submissionTimeValues.start) {
+    return "green";
+  } else if (fileSubmissionTime === submissionTimeValues.end) {
+    return "teal";
+  }
+  return "default";
+};
 
 /**
  * Fetches files for the given user ID and updates the state.
@@ -289,8 +359,10 @@ const downloadFile = async (file: DikaiologitikaFile) => {
 const emitClose = () => {
   emit("refreshInternshipList");
   userFiles.value = [];
-  questionarrieAnswers.value = [];
+  questionnaireAnswers.value = [];
+  questionnaireCompanyAnswers.value = [];
   userHasSubmittedQuestionnaire.value = false;
+  companyHasSubmittedQuestionnaire.value = false;
   emit("update:modelValue", false);
 };
 
@@ -301,8 +373,12 @@ const emitClose = () => {
  */
 const formatDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return format(date, "dd-MM-yy");
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
 /**
@@ -321,12 +397,12 @@ const getColorForStatus = (status: string): string => {
   return "default";
 };
 /**
- * Returns a color if a user has a questionnarie.
- * @param hasQuestionnarie - The status of the internship.
- * @returns The color corresponding to the questionnarie.
+ * Returns a color if a user has a Questionnaire.
+ * @param hasQuestionnaire - The status of the internship.
+ * @returns The color corresponding to the Questionnaire.
  */
-const getColorForQuestionnarie = (hasQuestionnarie: boolean): string => {
-  if (hasQuestionnarie) {
+const getColorForQuestionnaire = (hasQuestionnaire: boolean): string => {
+  if (hasQuestionnaire) {
     return "green";
   }
   return "default";
@@ -335,18 +411,21 @@ const getColorForQuestionnarie = (hasQuestionnarie: boolean): string => {
 /**
  * Updates the internship status.
  */
-const updateInernshipStatus = async () => {
+const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
     selectedStatus.value,
   );
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, { position: "top", duration: 1000 });
+    $toast.error(`${response.error}`, {
+      position: "top-right",
+      duration: 3000,
+    });
   } else {
     $toast.success(`${response.message?.detail}`, {
-      position: "top",
-      duration: 1000,
+      position: "top-right",
+      duration: 3000,
     });
   }
 };
@@ -354,28 +433,41 @@ const updateInernshipStatus = async () => {
 /**
  * Checks if the user has submitted the questionnaire.
  */
-const loadUserQuestionnarie = async (
+const loadUserQuestionnaire = async (
   userId: number,
   status: InternshipStatus,
 ): Promise<void> => {
   if (status === InternshipStatus.ENDED) {
-    const response: any = await getUserAnswers(userId);
+    const userAnswers: any = await getUserAnswers(userId);
 
-    if (response.data && !hasErrorResponse(response)) {
-      userHasSubmittedQuestionnaire.value = response.data.length > 0;
-      questionarrieAnswers.value = response.data;
+    if (userAnswers.data && !hasErrorResponse(userAnswers)) {
+      userHasSubmittedQuestionnaire.value = userAnswers.data.length > 0;
+      questionnaireAnswers.value = userAnswers.data;
     } else {
       userHasSubmittedQuestionnaire.value = false;
+    }
+    const companyAnswers: any = await getInternshipCompanyQuestionnaire(
+      props.internship.id,
+    );
+    if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
+      companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
+      questionnaireCompanyAnswers.value = companyAnswers.data;
+    } else {
+      companyHasSubmittedQuestionnaire.value = false;
     }
   }
 };
 
 /**
- * Handles closing of the QuestionarrieAnswersDialog.
+ * Handles closing of the QuestionnaireAnswersDialog.
  * @param newValue - The new value for the dialog visibility.
  */
-const handleQuestionnarieDialogClose = (newValue: boolean): void => {
-  openViewQuestionnarieAnswersDialog.value = newValue;
+const handleQuestionnaireDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireAnswersDialog.value = newValue;
+};
+
+const handleQuestionnaireCompanyDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireCompanyAnswersDialog.value = newValue;
 };
 
 watch(
@@ -384,7 +476,7 @@ watch(
     selectedStatus.value = newVal?.status;
     if (newVal?.user_id) {
       await loadUserFiles(newVal.user_id);
-      await loadUserQuestionnarie(newVal.user_id, newVal.status);
+      await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
   },
 );
@@ -426,7 +518,7 @@ watch(
           @apply font-medium;
 
           &--status,
-          &--questionnarie {
+          &--Questionnaire {
             @apply font-extrabold;
           }
         }

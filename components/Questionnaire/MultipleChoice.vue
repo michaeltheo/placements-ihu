@@ -25,6 +25,7 @@
               item-value="id"
               :multiple="question.supports_multiple_answers"
               clearable
+              color="primary-dark-blue"
               variant="solo-filled"
               label="Επιλέξτε μια επιλογή"
               :rules="[(v: any) => !!v || 'Επιλέξτε τουλάχιστον μία επιλογή']"

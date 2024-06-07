@@ -3,13 +3,16 @@
   /**
    * DynamicQuestionnaire Component
    *
-   * Renders a dynamic form based on the question type provided.
-   * Supports multiple-choice, free-text, and multiple-choice-with-free-text questions.
+   * Renders a dynamic form based on the questions provided. This component
+   * supports multiple question types: multiple-choice, free-text, and 
+   * multiple-choice-with-free-text. It handles the initialization, display,
+   * and submission of answers, ensuring that form validation and answer 
+   * transformation are properly managed.
    *
    * @param {Array<Object>} questions - An array of question objects.
-   * @param {number} question.id - Unique identifier of the question.
-   * @param {string} question.question_text - The question text to be displayed.
-   * @param {string} question.question_type - The type of the question.
+   * @param {number} question.id - Unique identifier for each question.
+   * @param {string} question.question_text - The text of the question to be displayed.
+   * @param {string} question.question_type - The type of question (multiple_choice, free_text, multiple_choice_with_text).
    * @param {boolean} question.supports_multiple_answers - Indicates if multiple answers are allowed.
    * @param {Array<Object>} question.answer_options - An array of options available for selection.
    */
@@ -44,7 +47,11 @@ import "vue-toast-notification/dist/theme-sugar.css";
 import MultipleChoice from "./MultipleChoice.vue";
 import FreeText from "./FreeText.vue";
 import MultipleChoiceFreeText from "./MultipleChoiceFreeText.vue";
-import { getQuestions, submitAnswers } from "@/services/questionAnswerService";
+import {
+  getQuestions,
+  submitCompanyAnswers,
+  submitUserAnswers,
+} from "@/services/questionAnswerService";
 import { AnswerSubmission, Question } from "@/types/questionAnswer";
 import { QuestionnaireType, QuestionType } from "@/types";
 import { hasErrorResponse } from "@/services/errorHandling";
@@ -52,11 +59,13 @@ import { hasErrorResponse } from "@/services/errorHandling";
 // Define the props received by the component
 const props = defineProps<{
   questionnaireType: QuestionnaireType;
+  internshipId?: number;
+  token?: string;
 }>();
 
 // Define the emits for the component
 const emit = defineEmits(["refreshUserAnswers"]);
-
+const router = useRouter();
 const $toast = useToast();
 const questions = ref<Question[]>([]);
 const answers = ref<Record<number, any>>({});
@@ -192,19 +201,50 @@ const transformAnswers = (): AnswerSubmission[] => {
  */
 const submit = async () => {
   const formattedAnswers: AnswerSubmission[] = transformAnswers();
-  const response = await submitAnswers(formattedAnswers);
-  if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, {
-      position: "top",
-      duration: 1000,
-    });
-  } else {
-    $toast.success(`${response?.detail}`, {
-      position: "top",
-      duration: 1000,
-    });
-    if (emit) {
-      emit("refreshUserAnswers");
+  // submit user answers
+  if (props.questionnaireType === QuestionnaireType.STUDENT) {
+    const response = await submitUserAnswers(formattedAnswers);
+    if (hasErrorResponse(response)) {
+      $toast.error(`${response.error}`, {
+        position: "top",
+        duration: 1000,
+      });
+    } else {
+      $toast.success(`${response?.detail}`, {
+        position: "top",
+        duration: 1000,
+      });
+      if (emit) {
+        emit("refreshUserAnswers");
+      }
+    }
+  } else if (
+    props.questionnaireType === QuestionnaireType.COMPANY &&
+    props.internshipId &&
+    props.token
+  ) {
+    // Submit company answers
+    const response = await submitCompanyAnswers(
+      formattedAnswers,
+      props.internshipId,
+      props.token,
+    );
+    if (hasErrorResponse(response)) {
+      $toast.error(`${response.error}`, {
+        position: "top",
+        duration: 3000,
+      });
+    } else {
+      $toast.success(
+        `${response?.detail}, Θα μεταφερθείτε αυτόματα στην αρχική σελίδα. Ευχαριστούμε!`,
+        {
+          position: "top",
+          duration: 3000,
+        },
+      );
+      setTimeout(() => {
+        router.push("/");
+      }, 5000);
     }
   }
 };

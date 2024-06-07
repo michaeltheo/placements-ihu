@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts" setup>
-import { format } from "date-fns";
 import { InternshipRead } from "@/types/internship";
 import { InternshipStatus } from "@/types";
 
@@ -92,11 +91,19 @@ const getColorForStatus = (status: string): string => {
   return "default";
 };
 
-// Helper function to format date
+/**
+ * Helper function to format date.
+ * @param dateString - The date string to format.
+ * @returns The formatted date string or "N/A" if the date is invalid.
+ */
 const formatDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return format(date, "dd-MM-yy");
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 </script>
 

@@ -22,7 +22,11 @@ export const API_URLS = {
   COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company`,
   QUESTION_BASE_URL: `${PLACEMENTS_BASE_URL}/question`,
   GET_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers`,
+  GET_INTERNSHIP_COMPANY_ANSWERS: `${PLACEMENTS_BASE_URL}/company_answers`,
   SUBMIT_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers/submit-answers/`,
+  SUBMIT_COMPANY_ANSWERS: `${PLACEMENTS_BASE_URL}/company_answers/submit-answers`,
+  OTP_GENERATE: `${PLACEMENTS_BASE_URL}/otp/generate`,
+  OTP_VALIDATE: `${PLACEMENTS_BASE_URL}/otp/validate`,
 };
 
 export const GRANT_TYPE = {
