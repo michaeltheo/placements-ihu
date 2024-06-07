@@ -110,9 +110,11 @@
         κωδικού μιας χρήσης που θα δώσετε στον υπεύθυνο της εταιρείας. Ο κωδικός
         είναι διαθέσιμος για 15 λεπτά.
         <v-spacer></v-spacer>
-        <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
-        <div class="m-3 font-bold">
-          Λήξη κωδικού: {{ formatOtpExpireDate(OTPcode?.expiry) }}
+        <div v-if="OTPcode?.code">
+          <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
+          <div class="m-3 font-bold">
+            Λήξη κωδικού: {{ formatOtpExpireDate(OTPcode?.expiry) }}
+          </div>
         </div>
         <v-spacer></v-spacer>
         <v-btn class="m-4 md:w-1/3" @click="userGenerateOTP"
