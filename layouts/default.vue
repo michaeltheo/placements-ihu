@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { useAuthStore } from "@/stores/auth";
