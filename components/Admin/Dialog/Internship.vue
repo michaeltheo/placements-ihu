@@ -9,6 +9,10 @@
       <v-card class="dialog__card">
         <v-card-title class="dialog__card__title">
           Πληροφορίες Πρακτικής
+          <v-spacer></v-spacer>
+          <v-btn icon @click="emitClose">
+            <v-icon>fa-solid fa-xmark</v-icon>
+          </v-btn>
         </v-card-title>
 
         <div class="dialog__card__info">
@@ -494,7 +498,7 @@ watch(
     @apply p-3 bg-white shadow-lg rounded-lg;
 
     &__title {
-      @apply text-lg font-bold mb-4;
+      @apply flex items-baseline text-lg font-bold mb-4;
       color: $primary-dark-blue-color;
     }
 
