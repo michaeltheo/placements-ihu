@@ -30,9 +30,9 @@
           </p>
         </div>
         <BaseComponentsBaseButton
-          text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
+          text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ "
           class="home-page__grid-section-button"
-          @click="() => navigateTo('/guide')"
+          @click="() => navigateTo('/internshipGuides')"
         />
       </div>
 
@@ -65,10 +65,10 @@
       <div class="home-page__footer-section">
         <p class="home-page__footer-section-text">
           Είστε φοιτητές του παλαιού προγράμματος σπουδών; (Πρώην τμήμα Τ.Ε.
-          Μηχανικών Πληροφορικής)
+          Μηχανικών Πληροφορικής / Ηλεκτρονικής)
         </p>
         <BaseComponentsBaseButton
-          text="ΟΔΗΓΟΣ ΠΑΛΑΙΟΥ ΠΡΟΓΡΑΜΜΑΤΟΣ"
+          text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΠΡΟΓΡΑΜΜΑΤΟΣ"
           :glow="false"
           @click="() => navigateTo('/oldProgram')"
         />
