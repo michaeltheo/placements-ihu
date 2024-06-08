@@ -137,7 +137,6 @@
 
 <script setup lang="ts">
 import "vue-toast-notification/dist/theme-sugar.css";
-import { format } from "date-fns";
 import { useToast } from "vue-toast-notification";
 import { getAllInternships } from "@/services/internshipService";
 import { InternshipProgram, InternshipStatus } from "@/types";
@@ -254,12 +253,19 @@ const fetchCompanies = async () => {
     companyOptions.value = [];
   }
 };
-
-// Helper function to format date
+/**
+ * Formats a date string to 'dd-MM-yy' format.
+ * @param dateString - The date string to format.
+ * @returns The formatted date string or "N/A" if invalid.
+ */
 const formatDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return format(date, "dd-MM-yy");
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
 // Get color based on program status

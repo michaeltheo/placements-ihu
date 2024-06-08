@@ -1,5 +1,5 @@
 <!-- /**
- * Questionnarie Dialog Component
+ * Questionnaire Dialog Component
  *
  * Renders a dialog witha list of questions and their answers,
  *
@@ -23,7 +23,7 @@
             <v-icon>fa-solid fa-xmark</v-icon>
           </v-btn>
         </v-card-title>
-        <QuestionarrieDisplayAnswers :questions="questionAnswers" />
+        <QuestionnaireDisplayAnswers :questions="questionAnswers" />
         <v-card-actions class="dialog__actions">
           <v-btn
             class="dialog__button dialog__button--cancel"

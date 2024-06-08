@@ -1,52 +1,25 @@
 import { errorLog } from "@/utils/log";
 import { API_URLS } from "@/constants/apiConfig";
-import { dummyStatistcs } from "@/constants/dummyStaticsts";
-import type { ErrorResponse, Message, ResponseTotalItems } from "@/types";
+import type {
+  ErrorResponse,
+  Message,
+  QuestionnaireType,
+  ResponseTotalItems,
+} from "@/types";
 import { extractErrorMessage } from "@/services/errorHandling";
 import { User } from "@/types/user";
-
-interface QuestionStatisticsResponse {
-  data: Array<{
-    question_id: number;
-    question_text: string;
-    statistics: Array<{
-      option_id: number;
-      count: number;
-      text: string;
-    }>;
-    free_text_responses_count: number;
-    free_text_responses: string[];
-    total_responses: number;
-  }>;
-  message: {
-    detail: string;
-  };
-  error?: any;
-}
-
-interface QuestionData {
-  questionName: string;
-  answersData: Array<{ text: string; count: number }>;
-}
+import {
+  QuestionData,
+  QuestionStatisticsResponse,
+} from "@/types/questionAnswer";
 
 /**
- * This TypeScript function fetches users based on AM and role parameters with pagination support.
- * @param {string} [am] - The `am` parameter in the `getUsersByAmAndRole` function stands for "Account
- * Manager". It is used to filter users based on their account manager. If a value is provided for
- * `am`, only users associated with that specific account manager will be retrieved. If no value is
- * provided
- * @param {string} [role] - The `role` parameter in the `getUsersByAmAndRole` function is used to
- * filter users based on a specific role. If you provide a value for the `role` parameter when calling
- * this function, only users with that specific role will be returned in the response. If you don't
- * @param [page=1] - The `page` parameter in the `getUsersByAmAndRole` function represents the page
- * number of results to retrieve. It defaults to 1 if not provided. This parameter is used to paginate
- * the results, allowing you to fetch a specific page of user data from the API.
- * @param [itemsPerPage=10] - The `itemsPerPage` parameter in the `getUsersByAmAndRole` function
- * specifies the number of user items to be displayed per page when fetching users. By default, it is
- * set to 10, meaning that the function will retrieve and display 10 user items per page unless a
- * different value
- * @returns The function `getUsersByAmAndRole` returns a Promise that resolves to a `UserResponse`
- * object or `null`.
+ * Fetches users based on Account Manager (AM) and role parameters with pagination support.
+ * @param {string} [am] - The Account Manager to filter users by. Optional.
+ * @param {string} [role] - The role to filter users by. Optional.
+ * @param {number} [page=1] - The page number of results to retrieve. Defaults to 1.
+ * @param {number} [itemsPerPage=10] - The number of user items to display per page. Defaults to 10.
+ * @returns {Promise<ResponseTotalItems<User[]> | ErrorResponse>} A promise resolving to the user data or an error response.
  */
 export async function getUsersByAmAndRole(
   am?: string,
@@ -78,37 +51,41 @@ export async function getUsersByAmAndRole(
   }
 }
 
+/**
+ * Fetches statistics for a specified questionnaire type.
+ * @param {QuestionnaireType} questionnaireType - The type of questionnaire to fetch statistics for.
+ * @returns {Promise<QuestionStatisticsResponse>} A promise resolving to the question statistics data or an error response.
+ */
 export async function getQuestionStatistics(
-  token: string,
-): Promise<QuestionStatisticsResponse | null> {
+  questionnaireType: QuestionnaireType,
+): Promise<QuestionStatisticsResponse> {
   try {
-    const response = await fetch(`${API_URLS.GET_QUESTION_STATISTICS}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
+    const response = await fetch(
+      `${API_URLS.GET_QUESTION_STATISTICS}?questionnaire_type=${questionnaireType}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
       },
-    });
+    );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
     }
 
     const responseData = await response.json();
-    if (!responseData || !responseData.data) {
-      throw new Error("Invalid response data received");
-    }
-    // TODO: Remove dummy statistics
-    // return responseData;
-    return dummyStatistcs;
+    return responseData;
   } catch (error) {
     errorLog("Error fetching question statistics:", error);
-    return null;
+    return { error: "Error fetching question statistics." };
   }
 }
 
 /**
- * Parse the response from the question statistics endpoint to extract relevant data for visualization.
+ * Parses the response from the question statistics endpoint to extract relevant data for visualization.
  * @param {QuestionStatisticsResponse} responseData - The response data from the question statistics endpoint.
  * @returns {Array<QuestionData>} An array of QuestionData objects containing question names and corresponding answer data.
  */
@@ -144,6 +121,11 @@ export function parseQuestionStatistics(
   return questionDataArray;
 }
 
+/**
+ * Sets a specified user as an admin.
+ * @param {number} userId - The ID of the user to set as admin.
+ * @returns {Promise<Message | ErrorResponse>} A promise resolving to a success message or an error response.
+ */
 export async function adminSetUserAsAdmin(
   userId: number,
 ): Promise<Message | ErrorResponse> {
@@ -167,6 +149,11 @@ export async function adminSetUserAsAdmin(
   }
 }
 
+/**
+ * Sets a specified user as a student.
+ * @param {number} userId - The ID of the user to set as student.
+ * @returns {Promise<Message | ErrorResponse>} A promise resolving to a success message or an error response.
+ */
 export async function adminSetUserAsStudent(
   userId: number,
 ): Promise<Message | ErrorResponse> {

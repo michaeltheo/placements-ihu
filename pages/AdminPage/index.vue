@@ -8,7 +8,7 @@
       </p>
     </div>
     <v-row class="adminPage__row" dense>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="5">
         <div class="adminPage__section">
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-chart-simple</v-icon
@@ -25,15 +25,14 @@
           />
         </div>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="5">
         <div class="adminPage__section">
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-user</v-icon
           >
           <h3 class="adminPage__title">Πινακας Χρηστών</h3>
           <p class="adminPage__hint">
-            Διαχείριση χρηστών, προβολή δικαιολογιτικών των φοιτητων. φοιτητών
-            του τμήματος.
+            Διαχείριση χρηστών, φοιτητών του τμήματος.
           </p>
           <BaseComponentsBaseButton
             class="adminPage__button"
@@ -42,7 +41,7 @@
           />
         </div>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="5">
         <div class="adminPage__section">
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-building</v-icon
@@ -56,7 +55,7 @@
           />
         </div>
       </v-col>
-      <v-col cols="12" sm="6" md="4">
+      <v-col cols="12" sm="6" md="5">
         <div class="adminPage__section">
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-file-contract</v-icon
@@ -64,7 +63,7 @@
           <h3 class="adminPage__title">Πινακας Πρακτικών</h3>
           <p class="adminPage__hint">
             Διαχείριση πρακτικών και προβολή των δικαιολογητικών/ερωτηματολογίου
-            των φοιτητών.
+            των φοιτητών, εταιρειών.
           </p>
           <BaseComponentsBaseButton
             class="adminPage__button"

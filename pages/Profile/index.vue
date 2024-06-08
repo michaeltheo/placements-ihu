@@ -98,12 +98,49 @@
     <div v-if="internship?.status === InternshipStatus.ENDED">
       <!-- Alerts for questionnaire -->
       <v-alert
+        v-if="!companyHasSubmittedQuestionnaire"
+        type="info"
+        color="primary-blue-color"
+        variant="outlined"
+        prominent
+        border="top"
+        title="Ερωτηματολόγιο Εταιρείας"
+      >
+        Για τη συμπλήρωση του ερωτηματολογίου είναι αναγκαία η δημιουργία
+        κωδικού μιας χρήσης που θα δώσετε στον υπεύθυνο της εταιρείας. Ο κωδικός
+        είναι διαθέσιμος για 15 λεπτά.
+        <v-spacer></v-spacer>
+        <div v-if="OTPcode?.code">
+          <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
+          <div class="m-3 font-bold">
+            Λήξη κωδικού: {{ formatOtpExpireDate(OTPcode?.expiry) }}
+          </div>
+        </div>
+        <v-spacer></v-spacer>
+        <v-btn class="m-4 md:w-1/3" @click="userGenerateOTP"
+          >Δημιουργία κωδικού
+        </v-btn>
+      </v-alert>
+      <v-alert
+        v-else
+        class="mt-4"
+        type="info"
+        variant="outlined"
+        prominent
+        border="top"
+        title="Ερωτηματολόγιο Εταιρείας"
+        color="primary-blue-color"
+        >Η εταιρεία έχει υποβάλει το ερωτηματολόγιο για την πρακτική
+        άσκηση.</v-alert
+      >
+      <v-alert
         v-if="!userHasSubmittedQuestionnaire"
+        class="mt-2"
         type="warning"
         variant="outlined"
         prominent
         border="top"
-        title="Ερωτηματολόγιο"
+        title="Ερωτηματολόγιο Φοιτητή"
       >
         Η συμπλήρωση του ερωτηματολογίου είναι διαθέσιμη μόνο μία φορά. Παρακαλώ
         ελέγξτε τις απαντήσεις σας.
@@ -115,10 +152,12 @@
           >Έναρξη Ερωτηματολογίου
         </v-btn>
       </v-alert>
+
       <v-alert
         v-else
+        class="mt-2"
         type="info"
-        title="Ερωτηματολόγιο"
+        title="Ερωτηματολόγιο Φοιτητή"
         variant="outlined"
         prominent
         border="top"
@@ -130,12 +169,12 @@
           v-if="questionarrieAnswers"
           class="m-4 md:w-1/2 w-full"
           color="primary-blue-color"
-          @click="openViewQuestionnarieAnswersDialog = true"
+          @click="openViewQuestionnaireAnswersDialog = true"
           >Προβολή Ερωτηματολιγίου
         </v-btn>
       </v-alert>
       <div v-if="!userHasSubmittedQuestionnaire" class="shadow-lg">
-        <Questionarrie
+        <Questionnaire
           v-if="openQuestionnaire"
           :questionnaireType="QuestionnaireType.STUDENT"
           @refreshUserAnswers="checkUserQuestionnaireAnswers"
@@ -179,11 +218,11 @@
       @internshipUpdated="handleInternshipUpdated"
       @refreshInternship="getInternship"
     />
-    <!-- Dialog for viewing questionnarie answers -->
-    <ProfileQuestionnarieDialog
-      :model-value="openViewQuestionnarieAnswersDialog"
+    <!-- Dialog for viewing Questionnaire answers -->
+    <ProfileQuestionnaireDialog
+      :model-value="openViewQuestionnaireAnswersDialog"
       :question-answers="questionarrieAnswers"
-      @update:model-value="handleQuestionnarieDialogClose"
+      @update:model-value="handleQuestionnaireDialogClose"
     />
   </div>
 </template>
@@ -205,10 +244,15 @@ import type { DikaiologitikaFile } from "@/types/dikaiologitika";
 import FileUploadDialog from "@/components/FileUploadDialog.vue";
 import DeleteFileDialog from "@/components/DeleteFileDialog.vue";
 import CreateInternshipDialog from "@/components/CreateInternshipDialog.vue";
-import { getUserAnswers } from "@/services/questionAnswerService";
+import {
+  getInternshipCompanyQuestionnaire,
+  getUserAnswers,
+} from "@/services/questionAnswerService";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { InternshipCreate } from "@/types/internship";
 import { UserAnswer } from "@/types/questionAnswer";
+import { generateOTP } from "@/services/otpService";
+import { OTPBase } from "types/otp";
 
 definePageMeta({
   middleware: ["auth"],
@@ -229,14 +273,30 @@ const loading = ref<boolean>(true);
 const openAddFilesDialog = ref<boolean>(false);
 const openDeleteFileDialog = ref<boolean>(false);
 const openCreateInternshipDialog = ref<boolean>(false);
-const openViewQuestionnarieAnswersDialog = ref<boolean>(false);
+const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
 const openQuestionnaire = ref<boolean>(false);
 const totalItems = ref(0);
 const hasInternship = ref<boolean>(false);
 const internship = ref<any>(null);
 const userHasSubmittedQuestionnaire = ref<boolean>(false);
+const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
+const OTPcode = ref<OTPBase>();
 const $toast = useToast();
+
+// Helper function to format expiry date
+const formatOtpExpireDate = (dateString: string | null | undefined) => {
+  if (!dateString) return "N/A";
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
+};
 
 /**
  * Fetches and loads the list of files for the authenticated user.
@@ -357,8 +417,8 @@ const handleDeleteDialogClose = (newValue: boolean): void => {
  * Handles closing of the QuestionarrieAnswersDialog.
  * @param newValue - The new value for the dialog visibility.
  */
-const handleQuestionnarieDialogClose = (newValue: boolean): void => {
-  openViewQuestionnarieAnswersDialog.value = newValue;
+const handleQuestionnaireDialogClose = (newValue: boolean): void => {
+  openViewQuestionnaireAnswersDialog.value = newValue;
 };
 
 /**
@@ -409,11 +469,41 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 };
 
 /**
+ * Checks if the company has submitted the questionnaire for user's internship.
+ */
+const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
+  if (internship.value.status === InternshipStatus.ENDED) {
+    const response: any = await getInternshipCompanyQuestionnaire(
+      internship.value.id,
+    );
+    if (response.data && !hasErrorResponse(response)) {
+      companyHasSubmittedQuestionnaire.value = response.data.length > 0;
+    } else {
+      companyHasSubmittedQuestionnaire.value = false;
+    }
+  }
+};
+
+/**
+ * Generates an OTP password in order company can submit the Questionnaire
+ */
+const userGenerateOTP = async (): Promise<void> => {
+  const response = await generateOTP();
+  if (hasErrorResponse(response)) {
+    $toast.error(`${response.error}`, { position: "bottom" });
+  } else {
+    OTPcode.value = response.data;
+    $toast.success(`${response.message?.detail}`, { position: "bottom" });
+  }
+};
+
+/**
  * Lifecycle hook to fetch internship and quesitonnarie answers on component mount.
  */
 onMounted(async () => {
   await getInternship();
   await checkUserQuestionnaireAnswers();
+  await checkCompanyQuestionnaireAnswers();
 });
 </script>
 
