@@ -6,6 +6,7 @@ import type {
   TotalInternshipResponse,
 } from "@/types/internship";
 import {
+  Department,
   ErrorResponse,
   InternshipProgram,
   InternshipStatus,
@@ -24,6 +25,7 @@ import {
  */
 export async function getAllInternships(
   internshipStatus?: InternshipStatus | undefined,
+  department?: Department,
   program?: InternshipProgram,
   userAM?: string,
   companyName?: string,
@@ -34,6 +36,7 @@ export async function getAllInternships(
     const queryParams = new URLSearchParams();
     if (internshipStatus)
       queryParams.append("internship_status", internshipStatus.toString());
+    if (department) queryParams.append("department", department.toString());
     if (program) queryParams.append("program", program.toString());
     if (userAM) queryParams.append("user_am", userAM);
     if (companyName) queryParams.append("company_name", companyName);

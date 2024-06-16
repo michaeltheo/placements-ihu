@@ -35,15 +35,25 @@
         <v-card-text>
           <v-form ref="form" v-model="valid">
             <v-select
+              v-model="selectedDepartment"
+              :items="departmentOptions"
+              label="Επιλέξτε Τμήμα"
+              class="create-internship-dialog__select"
+              outlined
+              clearable
+              dense
+              :disabled="isUpdate"
+            ></v-select>
+            <v-select
               v-model="selectedProgram"
-              :items="programOptions"
+              :items="filteredProgramOptions"
               :rules="internshipProgramRules"
               label="Επιλέξτε Πρόγραμμα"
               class="create-internship-dialog__select"
               outlined
               clearable
               dense
-              :disabled="isUpdate"
+              :disabled="!selectedDepartment || isUpdate"
             ></v-select>
             <v-autocomplete
               v-if="isUpdate"
@@ -56,32 +66,33 @@
               class="create-internship-dialog__field"
               :rules="internshipCompanyRules"
               outlined
+              :disabled="isAdmin"
               dense
               clearable
               @update:search-input="fetchCompanies"
             ></v-autocomplete>
-            <v-text-field
-              v-if="isUpdate"
-              v-model="startDate"
-              label="Ημερομηνία Έναρξης"
-              class="create-internship-dialog__field"
-              outlined
-              :min="today"
-              dense
-              type="date"
-              :rules="[dateValidationRule]"
-            ></v-text-field>
-            <v-text-field
-              v-if="isUpdate"
-              v-model="endDate"
-              label="Ημερομηνία Λήξης"
-              class="create-internship-dialog__field"
-              outlined
-              dense
-              :min="today"
-              type="date"
-              :rules="[dateValidationRule]"
-            ></v-text-field>
+            <template v-if="isUpdate && isAdmin">
+              <v-text-field
+                v-model="startDate"
+                label="Ημερομηνία Έναρξης"
+                class="create-internship-dialog__field"
+                outlined
+                :min="today"
+                dense
+                type="date"
+                :rules="[dateValidationRule]"
+              ></v-text-field>
+              <v-text-field
+                v-model="endDate"
+                label="Ημερομηνία Λήξης"
+                class="create-internship-dialog__field"
+                outlined
+                dense
+                :min="today"
+                type="date"
+                :rules="[dateValidationRule]"
+              ></v-text-field>
+            </template>
           </v-form>
         </v-card-text>
         <v-card-actions class="create-internship-dialog__actions">
@@ -108,8 +119,8 @@ import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { createOrUpdateInternship } from "@/services/internshipService";
 import { getAllCompanies } from "@/services/companyService";
-import { InternshipUpdate } from "@/types/internship";
-import { InternshipProgram } from "@/types";
+import { InternshipCreate, InternshipUpdate } from "@/types/internship";
+import { Department, InternshipProgram } from "@/types";
 import { Company } from "@/types/company";
 import { hasErrorResponse } from "@/services/errorHandling";
 
@@ -118,10 +129,12 @@ const props = withDefaults(
   defineProps<{
     modelValue: boolean;
     isUpdate?: boolean;
-    internship?: InternshipUpdate | null;
+    isAdmin?: boolean;
+    internship?: InternshipUpdate | InternshipCreate | null;
   }>(),
   {
     isUpdate: false,
+    isAdmin: false,
     internship: null,
   },
 );
@@ -136,6 +149,9 @@ const emit = defineEmits([
 
 // Reactive properties
 const localDialog = ref(props.modelValue);
+const selectedDepartment = ref<Department | null>(
+  props.internship?.department ?? null,
+);
 const selectedProgram = ref<InternshipProgram | null>(
   props.internship?.program ?? null,
 );
@@ -167,7 +183,8 @@ watch(
   (newVal) => {
     localDialog.value = newVal;
     if (newVal && props.isUpdate && props.internship) {
-      selectedProgram.value = props.internship.program;
+      selectedProgram.value = props.internship?.program ?? null;
+      selectedDepartment.value = props.internship?.department ?? null;
       companyId.value = props.internship.company_id ?? null;
       startDate.value = props.internship.start_date
         ? props.internship.start_date.split("T")[0]
@@ -183,7 +200,8 @@ watch(
   () => props.internship,
   (newInternship) => {
     if (newInternship && props.isUpdate) {
-      selectedProgram.value = newInternship.program;
+      selectedProgram.value = newInternship?.program ?? null;
+      selectedDepartment.value = newInternship?.department ?? null;
       companyId.value = newInternship.company_id ?? null;
       startDate.value = newInternship.start_date
         ? newInternship.start_date.split("T")[0]
@@ -202,6 +220,14 @@ watchEffect(() => {
     companyOptions.value = [];
   }
 });
+
+// Watcher to clear selectedProgram when selectedDepartment changes
+watch(
+  () => selectedDepartment.value,
+  () => {
+    if (!props.isUpdate) selectedProgram.value = null;
+  },
+);
 
 // Validation rules
 const internshipProgramRules = [
@@ -237,7 +263,31 @@ const fetchCompanies = async () => {
   }
 };
 
-const programOptions = Object.values(InternshipProgram);
+// Options for departments and programs
+const departmentOptions = Object.values(Department);
+const programOptions: Record<Department, InternshipProgram[]> = {
+  [Department.IT_TEITHE]: [
+    InternshipProgram.TEITHE_OAED,
+    InternshipProgram.ESPA,
+    InternshipProgram.TEITHE_JOB_RECOGNITION,
+  ],
+  [Department.EL_TEITHE]: [
+    InternshipProgram.TEITHE_OAED,
+    InternshipProgram.ESPA,
+    InternshipProgram.TEITHE_JOB_RECOGNITION,
+  ],
+  [Department.IHU_IEE]: [
+    InternshipProgram.ESPA,
+    InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY,
+  ],
+};
+
+// Computed property to get filtered program options based on selected department
+const filteredProgramOptions = computed(() => {
+  return selectedDepartment.value
+    ? programOptions[selectedDepartment.value]
+    : [];
+});
 
 /**
  * Handle form submission
@@ -256,9 +306,10 @@ const submitForm = () => {
  * Create new internship
  */
 const createInternship = async () => {
-  if (selectedProgram.value) {
+  if (selectedProgram.value && selectedDepartment.value) {
     const response = await createOrUpdateInternship({
       program: selectedProgram.value,
+      department: selectedDepartment.value,
     });
 
     if (response && !("error" in response)) {
@@ -281,16 +332,25 @@ const createInternship = async () => {
 const updateInternship = async () => {
   if (
     selectedProgram.value &&
+    selectedDepartment.value &&
     companyId.value !== null &&
-    startDate.value !== null &&
-    endDate.value !== null
+    (!props.isAdmin ||
+      (startDate.value !== null &&
+        endDate.value !== null &&
+        props.internship?.id))
   ) {
-    const response = await createOrUpdateInternship({
+    const payload: any = {
       program: selectedProgram.value,
+      department: selectedDepartment.value,
       company_id: companyId.value,
-      start_date: startDate.value,
-      end_date: endDate.value,
-    });
+    };
+
+    if (props.isAdmin) {
+      payload.id = props.internship?.id;
+      payload.start_date = startDate.value;
+      payload.end_date = endDate.value;
+    }
+    const response = await createOrUpdateInternship(payload);
 
     if (response && !("error" in response)) {
       $toast.success("Πρακτική Άσκηση ενημερώθηκε επιτυχώς!", {
@@ -311,6 +371,7 @@ const updateInternship = async () => {
  * Emit close event to close the dialog
  */
 const emitClose = () => {
+  selectedDepartment.value = null;
   selectedProgram.value = null;
   companyId.value = null;
   startDate.value = null;

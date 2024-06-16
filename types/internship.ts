@@ -1,8 +1,14 @@
-import { InternshipProgram, InternshipStatus, Message } from "@/types";
+import {
+  Department,
+  InternshipProgram,
+  InternshipStatus,
+  Message,
+} from "@/types";
 
 export interface InternshipBase {
   company_id?: number;
   company_name?: string;
+  department?: Department;
   program: InternshipProgram;
   start_date?: string;
   end_date?: string;
@@ -11,6 +17,7 @@ export interface InternshipBase {
 export interface InternshipCreate extends InternshipBase {}
 
 export interface InternshipUpdate extends InternshipBase {
+  id?: number;
   status?: InternshipStatus;
 }
 

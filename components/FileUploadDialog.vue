@@ -53,6 +53,17 @@
         >
           <div class="file-dialog__selections">
             <v-select
+              v-model="selectedDepartment"
+              label="Επέλεξε τμήμα"
+              outlined
+              dense
+              class="file-dialog__select"
+              disabled
+              @change="onProgramChange"
+            >
+            </v-select>
+
+            <v-select
               v-model="selectedProgram"
               :items="programs"
               label="Επέλεξε πρόγραμμα"
@@ -120,7 +131,6 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-
           <v-card-actions class="file-dialog__actions">
             <v-btn
               type="submit"
@@ -161,9 +171,9 @@ import type {
   DikaiologitikaFile,
   DikaiologitikaType,
 } from "@/types/dikaiologitika";
+import { InternshipProgram } from "@/types";
 import type { InternshipRead } from "@/types/internship";
 import "vue-toast-notification/dist/theme-sugar.css";
-import { InternshipProgramValues } from "@/constants/ApiConstants ";
 
 // Define the props received by the component
 const props = defineProps<{
@@ -186,6 +196,9 @@ const programs = computed(() =>
 );
 
 const selectedProgram = ref<string | null>(props.internship?.program ?? null);
+const selectedDepartment = ref<string | null>(
+  props.internship?.department ?? null,
+);
 
 // Computed property for the filtered list of file types based on the selected program
 const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
@@ -293,14 +306,14 @@ const submitForm = async () => {
 // Computed property to generate dynamic content (information about internship programs)
 const additionalInformation = computed(() => {
   switch (selectedProgram.value) {
-    case InternshipProgramValues.TEITHE_OAED:
-    case InternshipProgramValues.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
+    case InternshipProgram.TEITHE_OAED:
+    case InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
       return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου,Σύμβαση υπογεγραμένη (ΕΝΑΡΞΗ) 
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgramValues.ESPA:
+    case InternshipProgram.ESPA:
       return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου (εκτυπωμένη και υπογεγραμμένη) (ΕΝΑΡΞΗ)  
       Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgramValues.TEITHE_JOB_RECOGNITION:
+    case InternshipProgram.TEITHE_JOB_RECOGNITION:
       return `Βεβαίωση Απασχόλησης Ασκούμενου (ΕΝΑΡΞΗ) 
       Σύμβαση αορίστου (ΕΝΑΡΞΗ) 
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
@@ -378,7 +391,7 @@ const emitClose = () => {
     @apply hover:text-white py-2 px-4 rounded-md;
 
     &--submit {
-      @apply bg-blue-500 hover:bg-blue-700;
+      @apply bg-blue-200 hover:bg-blue-700;
     }
 
     &--cancel {

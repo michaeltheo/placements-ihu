@@ -32,6 +32,11 @@
             {{ item.status || "N/A" }}
           </v-chip>
         </template>
+        <!-- <template #item.department="{ item }">
+          <v-chip :color="getColorForDepartment(item.department)">
+            {{ item.department || "N/A" }}
+          </v-chip>
+        </template> -->
         <template #item.program="{ item }">
           <v-chip :color="getColorForProgram(item.program)">
             {{ item.program || "N/A" }}
@@ -68,8 +73,22 @@
           @update:model-value="applyFilter"
         ></v-text-field>
         <v-select
+          v-model="selectedDepartment"
+          :items="departmentOptions"
+          clearable
+          class="ma-2"
+          label="Επιλέξτε Τμήμα"
+          variant="outlined"
+          color="primary-dark-blue"
+          hint="Αναζήτηση με βάση το τμήμα"
+          dense
+          @update:model-value="applyFilter"
+        ></v-select>
+
+        <v-select
+          v-if="selectedDepartment"
           v-model="selectedProgram"
-          :items="InternshipPrograms"
+          :items="filteredProgramOptions"
           clearable
           class="ma-2"
           label="Επιλέξτε πρόγραμμα πρακτικής"
@@ -79,6 +98,7 @@
           dense
           @update:model-value="applyFilter"
         ></v-select>
+
         <v-select
           v-model="selectedStatus"
           :items="InternshipsStatus"
@@ -139,7 +159,7 @@
 import "vue-toast-notification/dist/theme-sugar.css";
 import { useToast } from "vue-toast-notification";
 import { getAllInternships } from "@/services/internshipService";
-import { InternshipProgram, InternshipStatus } from "@/types";
+import { Department, InternshipProgram, InternshipStatus } from "@/types";
 import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { getAllCompanies } from "@/services/companyService";
@@ -163,6 +183,7 @@ const searchCompanyName = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
 const selectedStatus = ref<InternshipStatus | undefined>(undefined);
 const selectedInternship = ref<InternshipRead | undefined>(undefined);
+const selectedDepartment = ref<Department | undefined>(undefined);
 const openDeleteInternshipDialog = ref<boolean>(false);
 const openInternshipDialog = ref<boolean>(false);
 const totalItems = ref<number | undefined>(0);
@@ -171,7 +192,6 @@ const loading = ref<boolean>(true);
 const companyName = ref<string | undefined>();
 const companyOptions = ref<Company[]>([]);
 const serverInternships = ref<InternshipRead[]>([]);
-const InternshipPrograms = Object.values(InternshipProgram);
 const InternshipsStatus = Object.values(InternshipStatus);
 
 const headers = ref([
@@ -194,6 +214,7 @@ const headers = ref([
     sortable: false,
   },
   { title: "STATUS", key: "status", value: "status", sortable: false },
+  // { title: "ΤΜΗΜΑ", key: "department", value: "department", sortable: false },
   { title: "ΠΡΟΓΡΑΜΜΑ", key: "program", value: "program", sortable: false },
   {
     title: "ΟΝΟΜΑ ΕΤΑΙΡΕΙΑΣ",
@@ -221,6 +242,7 @@ const loadItems = async (options: LoadItemsOptions) => {
   try {
     const result = await getAllInternships(
       selectedStatus.value,
+      selectedDepartment.value,
       selectedProgram.value,
       searchAM.value,
       companyName.value,
@@ -291,6 +313,18 @@ const getColorForProgram = (status: string): string => {
   return "default";
 };
 
+// Get color based on internship department
+// const getColorForDepartment = (department: string): string => {
+//   if (department === Department.IT_TEITHE) {
+//     return "teal-lighten-1";
+//   } else if (department === Department.EL_TEITHE) {
+//     return "light-blue-darken-1";
+//   } else if (department === Department.IHU_IEE) {
+//     return "orange-lighten-3";
+//   }
+//   return "default";
+// };
+
 /**
  * Applies the current search filter and triggers data re-fetch.
  */
@@ -334,6 +368,40 @@ const deleteItem = (event: Event, item: InternshipRead) => {
   selectedInternship.value = item;
   openDeleteInternshipDialog.value = true;
 };
+// Watcher to clear selectedProgram when selectedDepartment changes
+watch(
+  () => selectedDepartment.value,
+  () => {
+    selectedProgram.value = undefined;
+    applyFilter();
+  },
+);
+
+// Options for departments and programs
+const departmentOptions = Object.values(Department);
+const programOptions: Record<Department, InternshipProgram[]> = {
+  [Department.IT_TEITHE]: [
+    InternshipProgram.TEITHE_OAED,
+    InternshipProgram.ESPA,
+    InternshipProgram.TEITHE_JOB_RECOGNITION,
+  ],
+  [Department.EL_TEITHE]: [
+    InternshipProgram.TEITHE_OAED,
+    InternshipProgram.ESPA,
+    InternshipProgram.TEITHE_JOB_RECOGNITION,
+  ],
+  [Department.IHU_IEE]: [
+    InternshipProgram.ESPA,
+    InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY,
+  ],
+};
+
+// Computed property to get filtered program options based on selected department
+const filteredProgramOptions = computed(() => {
+  return selectedDepartment.value
+    ? programOptions[selectedDepartment.value]
+    : [];
+});
 
 // Fetch companies on mount
 onMounted(async () => {
