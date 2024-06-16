@@ -44,7 +44,7 @@
               <v-btn variant="plain" @click="editItem(item)">
                 <v-icon color="warning">fa:fas fa-pen-to-square</v-icon>
                 <v-tooltip activator="parent" location="top"
-                  >Επεξεργασία Αρχείου</v-tooltip
+                  >Επεξεργασία Δικαιολογητικού</v-tooltip
                 >
               </v-btn>
               <v-btn variant="plain" @click="downloadFile(item)">
@@ -52,13 +52,13 @@
                   >fa:fas fa-download</v-icon
                 >
                 <v-tooltip activator="parent" location="top"
-                  >Κατέβασμα Αρχείου</v-tooltip
+                  >Κατέβασμα Δικαιολογητικού</v-tooltip
                 >
               </v-btn>
               <v-btn variant="plain" @click="deleteItem(item)">
                 <v-icon color="error">fa:fas fa-trash</v-icon>
                 <v-tooltip activator="parent" location="top"
-                  >Διαγραφή Αρχείου</v-tooltip
+                  >Διαγραφή Δικαιολογητικού</v-tooltip
                 >
               </v-btn>
             </div>
@@ -79,7 +79,7 @@
             color="green-lighten-1"
             @click="openAddFilesDialog = true"
           >
-            Προσθήκη Αρχείου
+            Προσθήκη Δικαιολογητικού
           </v-btn>
           <v-btn
             v-if="
@@ -344,6 +344,12 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
           (type: any) => type.submission_time === submissionTimeValues.start,
+        );
+      }
+    } else {
+      for (const [program, types] of Object.entries(response.data)) {
+        response.data[program] = types.filter(
+          (type: any) => type.submission_time === submissionTimeValues.end,
         );
       }
     }

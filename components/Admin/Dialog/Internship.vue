@@ -194,6 +194,14 @@
                   </v-btn>
                 </div>
               </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-btn
+                  prepend-icon="fa-solid fa-pen"
+                  color="warning"
+                  @click="openCreateInternshipDialog = true"
+                  >Επεξεργασία Πρακτικής</v-btn
+                >
+              </v-col>
             </v-row>
           </v-card-text>
           <v-divider />
@@ -254,6 +262,14 @@
       :question-answers="questionnaireCompanyAnswers"
       @update:model-value="handleQuestionnaireCompanyDialogClose"
     />
+    <!-- Dialog ot update students internship -->
+    <CreateInternshipDialog
+      :model-value="openCreateInternshipDialog"
+      :is-update="true"
+      :internship="internship"
+      :is-admin="true"
+      @update:modelValue="handleCreateInternshipDialogClose"
+    />
   </div>
 </template>
 
@@ -287,6 +303,8 @@ const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
 const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
 const filesLoading = ref<boolean>(false);
+const openCreateInternshipDialog = ref<boolean>(false);
+
 const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
 const openViewQuestionnaireCompanyAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
@@ -301,8 +319,8 @@ watchEffect(() => {
   selectedStatus.value =
     props.internship?.status || InternshipStatus.PENDING_REVIEW;
   if (props.internship?.user_id) {
-    loadUserFiles(props.internship.user_id);
-    loadUserQuestionnaire(props.internship.user_id, props.internship.status);
+    loadUserFiles(props.internship?.user_id);
+    loadUserQuestionnaire(props.internship?.user_id, props.internship?.status);
   }
 });
 
@@ -472,6 +490,15 @@ const handleQuestionnaireDialogClose = (newValue: boolean): void => {
 
 const handleQuestionnaireCompanyDialogClose = (newValue: boolean): void => {
   openViewQuestionnaireCompanyAnswersDialog.value = newValue;
+};
+
+/**
+ * Handles closing of the CreateInternshipDialog.
+ * @param newValue - The new value for the dialog visibility.
+ */
+const handleCreateInternshipDialogClose = (newValue: boolean): void => {
+  openCreateInternshipDialog.value = newValue;
+  emitClose();
 };
 
 watch(
