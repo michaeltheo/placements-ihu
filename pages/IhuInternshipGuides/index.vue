@@ -2,7 +2,7 @@
   <v-container class="internshipGuides" data-aos="zoom-in">
     <div class="internshipGuides__header">
       <div class="internshipGuides__header--title">
-        Οδηγοι Πρακτικής Άσκησης Νέου Τμήματος
+        Οδηγοι Πρακτικής Άσκησης {{ Department.IHU_IEE }}
       </div>
       <p class="internshipGuides__header--subtitle">
         Επιλέξτε μία από τις παρακάτω σελίδες για να δείτε το περιεχόμενο.
@@ -17,30 +17,7 @@
             >fa-solid fa-book</v-icon
           >
           <h3 class="internshipGuides__row__section--title">
-            Πρακτική Άσκηση χωρίς ΕΣΠΑ ή ΟΑΕΔ
-          </h3>
-          <p class="internshipGuides__row__section--hint">
-            Προβολή οδηγού πρακτικής του τμήματος Μηχανικών Πληροφορικής και
-            Ηλεκτρονικών Συστημάτων για Πρακτική Άσκηση χωρίς ΕΣΠΑ ή ΟΑΕΔ.
-          </p>
-          <BaseComponentsBaseButton
-            class="internshipGuides__row__section--button"
-            text="Πρακτική Άσκηση χωρίς ΕΣΠΑ ή ΟΑΕΔ"
-            @click="navigateTo('/adminPage/statistics')"
-          />
-        </div>
-      </v-col>
-    </v-row>
-    <v-row class="internshipGuides__row" dense>
-      <v-col cols="12">
-        <div class="internshipGuides__row__section">
-          <v-icon
-            class="internshipGuides__row__section--icon"
-            color="primary-blue-color"
-            >fa-solid fa-book</v-icon
-          >
-          <h3 class="internshipGuides__row__section--title">
-            Πρακτική Άσκηση μέσω Προγράμματος ΕΣΠΑ
+            {{ InternshipProgram.ESPA }}
           </h3>
           <p class="internshipGuides__row__section--hint">
             Προβολή οδηγού πρακτικής του τμήματος Μηχανικών Πληροφορικής και
@@ -48,12 +25,13 @@
           </p>
           <BaseComponentsBaseButton
             class="internshipGuides__row__section--button"
-            text="Πρακτική Άσκηση μέσω Προγράμματος ΕΣΠΑ"
-            @click="navigateTo('/internshipGuides/Espa')"
+            :text="InternshipProgram.ESPA"
+            @click="navigateTo('/IhuInternshipGuides/Espa')"
           />
         </div>
       </v-col>
     </v-row>
+
     <v-row class="internshipGuides__row" dense>
       <v-col cols="12">
         <div class="internshipGuides__row__section">
@@ -63,7 +41,7 @@
             >fa-solid fa-briefcase</v-icon
           >
           <h3 class="internshipGuides__row__section--title">
-            Αναγνώριση Εργασίας σαν Πρακτική Άσκηση
+            {{ InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY }}
           </h3>
           <p class="internshipGuides__row__section--hint">
             Προβολή οδηγού πρακτικής του τμήματος Μηχανικών Πληροφορικής και
@@ -71,8 +49,8 @@
           </p>
           <BaseComponentsBaseButton
             class="internshipGuides__row__section--button"
-            text=" Αναγνώριση Εργασίας σαν Πρακτική Άσκηση"
-            @click="navigateTo('/internshipGuides/AnagnorisiErgasias')"
+            :text="InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY"
+            @click="navigateTo('/IhuInternshipGuides/AnagnorisiErgasias')"
           />
         </div>
       </v-col>
@@ -81,6 +59,7 @@
 </template>
 
 <script setup>
+import { Department, InternshipProgram } from "@/types";
 </script>
 
 <style lang="scss" scoped>

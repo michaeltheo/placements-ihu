@@ -32,7 +32,7 @@
         <BaseComponentsBaseButton
           text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ "
           class="home-page__grid-section-button"
-          @click="() => navigateTo('/internshipGuides')"
+          @click="() => navigateTo('/IhuInternshipGuides')"
         />
       </div>
 
@@ -58,6 +58,20 @@
             :width="4"
           ></v-progress-circular>
         </div>
+      </div>
+    </div>
+
+    <div class="home-page__footer">
+      <div class="home-page__footer-section">
+        <p class="home-page__footer-section-text">
+          Είστε φοιτητές του παλαιού προγράμματος σπουδών; (Πρώην τμήμα Τ.Ε.
+          Μηχανικών Πληροφορικής / Ηλεκτρονικής)
+        </p>
+        <BaseComponentsBaseButton
+          text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΠΡΟΓΡΑΜΜΑΤΟΣ"
+          :glow="false"
+          @click="() => navigateTo('/ItTeitheInternshipGuides')"
+        />
       </div>
     </div>
 
