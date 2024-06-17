@@ -2,10 +2,11 @@
   <div data-aos="zoom-in" class="guide">
     <div class="guide__container">
       <div class="guide__container--header">
-        {{ Department.IHU_IEE }}
+        {{ Department.EL_TEITHE }}
       </div>
       <div class="guide__container--header--internship-program">
-        Προϋποθέσεις για {{ InternshipProgram.ESPA }}
+        Προϋποθέσεις για
+        {{ InternshipProgram.TEITHE_OAED }}
       </div>
       <div class="guide__container__stepper">
         <v-stepper
@@ -16,33 +17,9 @@
           color="primary-blue-color"
           prev-text="Προηγούμενο"
           next-text="Επόμενο"
-          :items="[
-            'Πληροφορίες',
-            'Δικιαιολογιτικά Έναρξης',
-            'Δικιαιολογιτικά Λήξης',
-            'Πρόσθετες Πληροφορίες',
-          ]"
+          :items="['Δικιαιολογιτικά Έναρξης', 'Δικιαιολογιτικά Λήξης']"
         >
           <template v-slot:item.1>
-            <div class="guide__container__stepper__requirements">
-              <div class="guide__container__stepper__requirements__text">
-                Για να μπορέσετε να κάνετε Πρακτική με ΕΣΠΑ και να σας εκδώσει η
-                Γραμματεία την <span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ </span>θα πρέπει
-                να πληρούνται οι παρακάτω προϋποθέσεις:
-                <ul class="guide__container__stepper__requirements__list mt-10">
-                  <li>
-                    Να βρίσκεστε σε τυπικό <span>εξάμηνο</span> μεγαλύτερο του
-                    Η’ (τουλάχιστον 5ο έτος).
-                  </li>
-                  <li>
-                    Να έχετε παρακολουθήσει με επιτυχία μαθήματα
-                    <span>τουλάχιστον 210 ΠΜ</span> του προγράμματος σπουδών.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </template>
-          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
@@ -53,7 +30,9 @@
               <v-table class="guide__container__stepper__table">
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Αίτηση πρακτικής</td>
+                    <td class="font-bold">
+                      Βεβαίωση πρακτικής από την γραμματεία
+                    </td>
                     <td>
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
@@ -77,7 +56,9 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Βεβαίωση πρακτικής</td>
+                    <td class="font-bold">
+                      Αίτηση Φορέα για Απασχόληση Φοιτητή
+                    </td>
                     <td>
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
@@ -102,11 +83,14 @@
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Αίτηση Φορέα για Απασχόληση Φοιτητή.
+                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
                     </td>
                     <td>
-                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
+                      <span class="highlight"
+                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
+                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                      </span>
                     </td>
                     <td>
                       <v-btn
@@ -128,9 +112,7 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">
-                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου.
-                    </td>
+                    <td class="font-bold">Σύμβαση υπογεγραμένη</td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε.
                       <span class="highlight"
@@ -158,61 +140,11 @@
                       </v-btn>
                     </td>
                   </tr>
-                  <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Δήλωση Ατομικών Στοιχείων</td>
-                    <td>
-                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
-                    </td>
-                  </tr>
-                  <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Δήλωση Μοριοδότησης</td>
-                    <td>
-                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
-                    </td>
-                  </tr>
                 </tbody>
               </v-table>
             </div>
           </template>
-          <template v-slot:item.3>
+          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
@@ -224,9 +156,37 @@
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης
+                      Αντίγραφο του εντύπου Ε3.5. λήξης της ΠΑ
                     </td>
                     <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης
+                    </td>
+                    <td>
+                      Θα πρέπει οι ημερομηνίες να συμφωνούν με τη Σύμβαση και τη
+                      Βεβαίωση Απασχόλησης και Ασφάλισης.
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
@@ -240,6 +200,63 @@
                         @click="
                           openFile(
                             'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Βεβαίωση ενσήμων από το ΕΦΚΑ για τους μήνες που
+                      εμφανίζονται
+                    </td>
+                    <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας. Τα
+                      ένσυμα μπορείτε να τα πάρετε μέσω του efka.gr
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Αποδείξεις εξόφλησης της μηνιαίας αποζημίωσης πρακτικής
+                      άσκησης του φορέα απασχόλησης μέσω του τραπεζικού σας
+                      λογαριασμού
+                    </td>
+                    <td>
+                      Αποδείξεις κατάθεσης στον τραπεζικό λογαριασμό του φοιτητή
+                      από το φορέα απασχόλησης. Τα ανεβάζετε μέσω τις πλατφόρμας
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
                           )
                         "
                       >
@@ -313,27 +330,6 @@
                   </tr>
                 </tbody>
               </v-table>
-            </div>
-          </template>
-          <template v-slot:item.4>
-            <div class="guide__container__stepper__requirements">
-              <div class="guide__container__stepper__requirements__text">
-                <span>Αποζημίωση Φοιτητών</span>
-                <ul class="guide__container__stepper__requirements__list mt-10">
-                  <li>
-                    Αν η θέση απασχόλησης είναι στο Δημόσιο Τομέα, θα πρέπει να
-                    υπάρχει θεσμοθετημένη θέση με ασφάλιση για τον/την
-                    ασκούμενο/η φοιτητή/τρια.
-                  </li>
-                  <li>
-                    Η αποζημίωση των φοιτητών από το πρόγραμμα ΕΣΠΑ είναι 280€
-                    μηνιαίως.
-                  </li>
-                  <li>Η συμμετοχή του φορέα απασχόλησης είναι :</li>
-                  <li>Δημόσιος Τομέας : Δεν υπάρχει συμμετοχή.</li>
-                  <li>Ιδιωτικός τομέας 416,80 € (696,80€ - 280,00€).</li>
-                </ul>
-              </div>
             </div>
           </template>
         </v-stepper>

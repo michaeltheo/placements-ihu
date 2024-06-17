@@ -5,7 +5,8 @@
         {{ Department.IT_TEITHE }}
       </div>
       <div class="guide__container--header--internship-program">
-        Προϋποθέσεις για {{ InternshipProgram.TEITHE_OAED }}
+        Προϋποθέσεις για
+        {{ InternshipProgram.TEITHE_OAED }}
       </div>
       <div class="guide__container__stepper">
         <v-stepper
@@ -16,123 +17,24 @@
           color="primary-blue-color"
           prev-text="Προηγούμενο"
           next-text="Επόμενο"
-          :items="['Βήμα 1', 'Βήμα 2', 'Βήμα 3']"
+          :items="['Δικιαιολογιτικά Έναρξης', 'Δικιαιολογιτικά Λήξης']"
         >
           <template v-slot:item.1>
-            <div class="guide__container__stepper__info">
-              Να καταθέσετε την
-              <button
-                class="guide__link"
-                @click="
-                  openFile(
-                    'https://docs.google.com/document/d/1Lm4AG7kWu8LUdiTNldcBHVgMvXkU-sBG/edit'
-                  )
-                "
-              >
-                Αίτηση Έγκρισης Πρακτικής Άσκησης ΤΜΠ</button
-              >, εκτυπωμένη και υπογεγραμμένη στη Γραμματεία, η οποία θα σας
-              εκδώσει την ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ, την οποία και θα ανεβάσετε
-              μέσω της πλατφόρμας.
-            </div>
-            <div class="guide__container__stepper__requirements">
-              <p class="guide__container__stepper__requirements__text">
-                Για να εκδώσει η Γραμματεία την ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ σε
-                κάποια φοιτήτρια ή φοιτητή θα πρέπει να πληρούνται οι παρακάτω
-                προϋποθέσεις:
-              </p>
-              <ul class="guide__container__stepper__requirements__list">
-                <li>
-                  Να βρίσκεται σε τυπικό
-                  <span>εξάμηνο</span> μεγαλύτερο του Z'.
-                </li>
-                <li>
-                  Να έχει παρακολουθήσει με επιτυχία τα
-                  <span>2/3</span> των μαθημάτων του προγράμματος σπουδών.
-                </li>
-                <li>
-                  Να μην οφείλει <span>κανένα</span> μάθημα ειδικότητας, τα
-                  οποία είναι για τους υπάρχοντες φοιτητές, οι οποίοι
-                  <span>δεν έχουν επιλέξει κατεύθυνση</span>
-                  (εισαγωγή πριν το 2013) τα παρακάτω :
-                </li>
-                <li>
-                  Εισαγωγή στα Λειτουργικά Συστήματα ( Θ+Ε ) - (Β' Εξάμηνο)
-                </li>
-                <li>
-                  Δομές Δεδομένων και Ανάλυση Αλγορίθμων ( Θ+Ε ) - ( Γ' Εξάμηνο
-                  )
-                </li>
-                <li>Τεχνολογία Βάσεων Δεδομένων ( Θ+Ε ) - ( Δ' Εξάμηνο )</li>
-                <li>
-                  Τηλεπικοινωνίες και Δίκτυα Υπολογιστών ( Θ+Ε ) - ( Δ' Εξάμηνο
-                  )
-                </li>
-                <li>Μηχανική Λογισμικού Ι ( Θ+Ε ) - ( Ε' Εξάμηνο )</li>
-                <li>
-                  Τέσσερα (4) από το σύνολο των Μαθημάτων του Ζ' Εξαμήνου και
-                  των Μαθημάτων Επιλογής.
-                </li>
-              </ul>
-              <div class="guide__container__stepper__requirements__text mt-5">
-                Eνώ για τους φοιτητές (εισαγωγή από το 2013 και μετά), οι οποίοι
-                είναι υποχρεωμένοι να επιλέξουν κατεύθυνση, είναι τα παρακάτω :
-              </div>
-              <ul class="guide__container__stepper__requirements__list">
-                <li>Εισαγωγή στα Λειτουργικά Συστήματα ( Θ+Ε )</li>
-                <li>Δομές Δεδομένων και Ανάλυση Αλγορίθμων ( Θ+Ε )</li>
-                <li>Τεχνολογία Βάσεων Δεδομένων ( Θ+Ε )</li>
-                <li>Μηχανική Λογισμικού Ι ( Θ+Ε )</li>
-                <li>
-                  Επιλογής υποχρεωτικά Μαθήματα Κατεύθυνσης του ΣΤ' και Ζ'
-                  Εξαμήνου τα οποία συμπληρώνουν 24 (από τις 30 υποχρεωτικές)
-                  πιστωτικές μονάδες
-                </li>
-              </ul>
-              <ul class="guide__container__stepper__requirements__list mt-10">
-                <li>
-                  Αν κάνετε πρακτική
-                  <span>χωρίς ΕΣΠΑ</span> μπορείτε να οφείλετε
-                  <span>το πολύ ένα </span>μάθημα ειδικότητας.
-                </li>
-                <li>
-                  Αν οφείλετε
-                  <span>περισσότερα από ένα μάθημα</span>
-                  ειδικότητας, θα πρέπει να καταθέσετε μαζί με την Αίτησή σας
-                  και τα αντίστοιχα δικαιολογητικά, τα οποία πιστοποιούν ότι
-                  έχετε πολύ σοβαρούς λόγους (οικονομικούς, κοινωνικούς, υγείας)
-                  να κάνετε πρακτική αυτό το εξάμηνο και δεν μπορείτε να
-                  περιμένετε το επόμενο.
-                </li>
-                <li class="guide__container__stepper__requirements__note">
-                  Καταθέτετε δικαιολογητικά όπως Φορολογική Δήλωση, όπου
-                  φαίνεται ότι είστε εξαρτώμενο μέλος και το εισόδημα που
-                  δηλώνετε είναι μικρό ή αν κάνετε μόνοι σας Φορολογική Δήλωση
-                  με μικρό εισόδημα, αν είστε πολύτεκνοι, τρίτεκνοι, από
-                  μονογονεϊκή οικογένεια, ορφανοί ή με γονείς με αναπηρία κ.λπ..
-                </li>
-              </ul>
-            </div>
-          </template>
-          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
               >
-                Η ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ σας επιτρέπει γενικά να κάνετε
-                πρακτική άσκηση. Αν θα κάνετε και σε ποιον φορέα, εξαρτάται απ’
-                τα επόμενα βήματα :
-              </p>
-              <p class="guide__container__stepper__requirements__text">
-                Ο φορέας, στον οποίο θα κάνετε την πρακτική σας θα πρέπει να
-                συμπληρώσει τα παρακάτω έντυπα :
+                Μέσω τις πλατφόρμας θα πρέπει να ανεβάσετε τα ακόλουθα
+                δικαιολογητικά έναρξης.
               </p>
               <v-table class="guide__container__stepper__table">
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Αίτηση Φορέα Απασχόλησης</td>
+                    <td class="font-bold">
+                      Βεβαίωση πρακτικής από την γραμματεία
+                    </td>
                     <td>
-                      Τη συμπληρώνει και την υπογράφει και με σφραγίδα ο Φορέας
-                      και περιγράφει το είδος της απασχόλησης
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
                       <v-btn
@@ -155,12 +57,10 @@
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου/ης
+                      Αίτηση Φορέα για Απασχόληση Φοιτητή
                     </td>
                     <td>
-                      Την συμπληρώνει και την υπογράφει και με σφραγίδα ο Φορέας
-                      και περιλαμβάνει τον τρόπο εργασίας και την ασφάλιση
-                      έναντι κινδύνου.
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
                       <v-btn
@@ -182,8 +82,45 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Δήλωση Προσωπικών Δεδομένων</td>
-                    <td>Την συμπληρώνετε και την υπογράφετε.</td>
+                    <td class="font-bold">
+                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
+                    </td>
+                    <td>
+                      <span class="highlight"
+                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
+                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                      </span>
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Σύμβαση υπογεγραμένη</td>
+                    <td>
+                      Την συμπληρώνετε και την υπογράφετε.
+                      <span class="highlight"
+                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
+                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                      </span>
+                    </td>
                     <td>
                       <v-btn
                         variant="plain"
@@ -207,140 +144,192 @@
               </v-table>
             </div>
           </template>
-          <template v-slot:item.3>
+          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
               >
-                Ανεβάζετε Ηλεκτρονικά τα παρακάτω έντυπα :
+                Μέσω τις πλατφόρμας θα πρέπει να ανεβάσετε τα ακόλουθα
+                δικαιολογητικά Λήξης.
               </p>
-              <ul class="guide__container__stepper__requirements__list mt-10">
-                <li>
-                  <span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span>, την οποία σας
-                  χορήγησε η γραμματεία, αφού καταθέσατε Αίτηση και
-                  Πιστοποιητικό Αναλυτικής Βαθμολογίας.
-                </li>
-                <li>
-                  <span>ΑΙΤΗΣΗ ΦΟΡΕΑ ΑΠΑΣΧΟΛΗΣΗΣ.</span>
-                </li>
-                <li>
-                  <span>ΒΕΒΑΙΩΣΗ ΑΠΑΣΧΟΛΗΣΗΣ & ΑΣΦΑΛΙΣΗΣ ΑΣΚΟΥΜΕΝΟΥ/ΗΣ.</span>
-                </li>
-                <li>
-                  <span>ΔΗΛΩΣΗ ΠΡΟΣΩΠΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</span>
-                </li>
-              </ul>
-              <div class="guide__container__stepper__requirements__text mt-10">
-                Αν η Επιτροπή Πρακτικής Άσκησης κρίνει ότι η θέση απασχόλησης, η
-                οποία περιγράφεται στην
-                <button
-                  class="guide__link"
-                  @click="
-                    openFile(
-                      'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
-                    )
-                  "
-                >
-                  Αίτηση Φορέα Απασχόλησης
-                </button>
-                , είναι
-                <span>σχετική με το αντικείμενο</span> και όλα τα υπόλοιπα
-                <span>δικαιολογητικά</span> σας είναι<span>εντάξει</span>
-                , θα σας δώσουμε να συμπληρώσετε την
-                <span>ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span>, την οποία θα πρέπει να
-                υπογράψετε (εσείς και ο νόμιμος εκπρόσωπος του φορέα) σε 3
-                αντίγραφα, να τη δώσετε στη Γραμματεία για να την υπογράψουμε
-                και εμείς και θα πάρετε τα 2 αντίγραφα, ένα για σας και ένα για
-                τον εργοδότη.
-              </div>
-              <div class="text-red-500 mt-4">
-                Προσοχή, χωρίς την<span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span>
-                , και την
-                <span>ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span> ο εργοδότης ΔΕΝ ΜΠΟΡΕΙ να
-                πάρει την αποζημίωση απ’ τον ΟΑΕΔ.
-              </div>
-              <div class="guide__container__stepper__requirements__text mt-5">
-                Το τμήμα θα ορίσει κάποιον από τους διδάσκοντες ακαδημαϊκό
-                επόπτη (θα ενημερωθείτε γι’ αυτό) στον οποίο απευθύνεστε για
-                οποιοδήποτε πρόβλημα.
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                Η γραμματεία θα σας δώσει τα 2 αντίγραφα της Σύμβασης και το
-                Γραφείο Πρακτικής Άσκησης θα σας δώσει και το ΒΙΒΛΙΑΡΙΟ
-                ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ, στο οποίο θα πρέπει κάθε εβδομάδα να γράφετε
-                τις δραστηριότητές σας, τις άδειες απουσίας κ.λ.π..
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                ́Έχετε δικαίωμα να απουσιάσετε από την εργασία σας 5 εργάσιμες
-                ημέρες για όλο το εξάμηνο.
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                Αν θέλετε να απουσιάσετε και κάποιο χρονικό διάστημα στην
-                εξεταστική, σε συνεννόηση με τον εργοδότη μπορείτε να καλύψετε
-                κάποια άλλη μέρα ή ώρα το χρονικό διάστημα που πρέπει να
-                απουσιάσετε.
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                Περισσότερες πληροφορίες για τη συμπλήρωση του ΒΙΒΛΙΑΡΙΟΥ
-                ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ θα βρείτε στο
-                <button
-                  class="guide__link"
-                  @click="
-                    openFile(
-                      'https://praktiki.teithe.gr/wp-content/uploads/2020/08/%CE%9F%CE%B4%CE%B7%CE%B3%CF%8C%CF%82-%CE%92%CE%B9%CE%B2%CE%BB%CE%B9%CE%B1%CF%81%CE%AF%CE%BF%CF%85-%CE%A0%CF%81%CE%B1%CE%BA%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CE%86%CF%83%CE%BA%CE%B7%CF%83%CE%B7%CF%82-%CE%95%CE%A3%CE%A0%CE%91-2020.pdf'
-                    )
-                  "
-                >
-                  σύνδεσμο
-                </button>
-                .
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                <p
-                  class="guide__container__stepper__requirements__text font-bold"
-                >
-                  Αποζημίωση Φοιτητών
-                </p>
-                Αν η θέση απασχόλησης είναι στο Δημόσιο Τομέα, θα πρέπει να
-                υπάρχει θεσμοθετημένη θέση με αμοιβή (176,08€) και ασφάλιση για
-                τον/την ασκούμενο/η φοιτητή/τρια. Η αποζημίωση των φοιτητών
-                είναι :
-                <ul class="guide__container__stepper__requirements__list mt-10">
-                  <li>Δημόσιος τομέας 176,08 € το μήνα.</li>
-                  <li>Ιδιωτικός τομέας 696,80 € το μήνα.</li>
-                </ul>
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                Διαβάστε το
-                <button
-                  class="guide__link"
-                  @click="
-                    openFile(
-                      'https://drive.google.com/file/d/1jue01sLPrR0e6JRQj7tGZIiN_NoF41Xt/view'
-                    )
-                  "
-                >
-                  Ενημερωτικό Έντυπο ΠΡΑΚΤΙΚΗ ΧΩΡΙΣ ΕΣΠΑ
-                </button>
-                για περισσότερες πληροφορίες.
-              </div>
-              <div class="guide__container__stepper__requirements__text">
-                Σύμφωνα με το
-                <button
-                  class="guide__link"
-                  @click="
-                    openFile(
-                      'https://people.iee.ihu.gr/~gouliana/Praktikh/fek%202639_28.6.19_ergani.pdf'
-                    )
-                  "
-                >
-                  ΦΕΚ 2639/28-06-2019
-                </button>
-                , ο φορέας απασχόλησης είναι υποχρεωμένος να αναγγείλει στο
-                ΕΡΓΑΝΗ την έναρξη πρακτικής άσκησης του ασκούμενου φοιτητή μέσω
-                των Εντύπων Ε 3.5 ΟΑΕΔ και Ε 4 στην Επιθεώρηση Εργασίας
-                (Σ.Ε.Π.Ε.).
-              </div>
+              <v-table class="guide__container__stepper__table">
+                <tbody>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Αντίγραφο του εντύπου Ε3.5. λήξης της ΠΑ
+                    </td>
+                    <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης
+                    </td>
+                    <td>
+                      Θα πρέπει οι ημερομηνίες να συμφωνούν με τη Σύμβαση και τη
+                      Βεβαίωση Απασχόλησης και Ασφάλισης.
+                      <span class="highlight"
+                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
+                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης </span
+                      >.
+                    </td>
+                    <td>
+                      <v-btn
+                        class="guide__container__stepper__button"
+                        variant="plain"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Βεβαίωση ενσήμων από το ΕΦΚΑ για τους μήνες που
+                      εμφανίζονται
+                    </td>
+                    <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας. Τα
+                      ένσυμα μπορείτε να τα πάρετε μέσω του efka.gr
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Αποδείξεις εξόφλησης της μηνιαίας αποζημίωσης πρακτικής
+                      άσκησης του φορέα απασχόλησης μέσω του τραπεζικού σας
+                      λογαριασμού
+                    </td>
+                    <td>
+                      Αποδείξεις κατάθεσης στον τραπεζικό λογαριασμό του φοιτητή
+                      από το φορέα απασχόλησης. Τα ανεβάζετε μέσω τις πλατφόρμας
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Ερωτηματολόγιο Αξιολόγησης Πρακτικής Άσκησης από τον
+                      Επιβλέποντα του φορέα.
+                    </td>
+                    <td>
+                      Η συμπλήρωση του Ερωτηματολόγιο για τον Επιβλέποντα φορέα
+                      θα γίνει μέσω τις πλατόρμας. Δεν χρείαζεται να ανεβάσετε
+                      κάποιο διακιολογιτικό.
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Ερωτηματολόγιο Αξιολόγησης Πρακτικής Άσκησης από τον/την
+                      Ασκούμενο/η
+                    </td>
+                    <td>
+                      Η συμπλήρωση του Ερωτηματολόγιο απο τον Ασκούμενο θα γίνει
+                      μέσω τις πλατόρμας. Δεν χρείαζεται να ανεβάσετε κάποιο
+                      διακιολογιτικό.
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Αίτηση Ολοκλήρωσης Πρακτικής Άσκησης.
+                    </td>
+                    <td>
+                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
+                      μέσω της πλατφόρμας
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">ΒΙΒΛΙΑΡΙΟ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</td>
+                    <td>
+                      <span class="highlight"
+                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
+                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </v-table>
             </div>
           </template>
         </v-stepper>
@@ -435,8 +424,16 @@ const openFile = (path: string) => {
   @apply font-semibold underline cursor-pointer hover:text-blue-700;
 }
 
+.highlight {
+  @apply bg-yellow-200 font-semibold px-2 rounded;
+}
 span {
   font-weight: bold;
+}
+tr {
+  td {
+    padding: 1em !important;
+  }
 }
 
 :deep .v-stepper-item {

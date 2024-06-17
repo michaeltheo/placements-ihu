@@ -2,7 +2,7 @@
   <div data-aos="zoom-in" class="guide">
     <div class="guide__container">
       <div class="guide__container--header">
-        {{ Department.IHU_IEE }}
+        {{ Department.EL_TEITHE }}
       </div>
       <div class="guide__container--header--internship-program">
         Προϋποθέσεις για {{ InternshipProgram.ESPA }}
