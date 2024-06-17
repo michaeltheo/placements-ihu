@@ -9,6 +9,10 @@
       </div>
       <div class="guide__container__stepper">
         <v-stepper
+          non-linear
+          hide-actions
+          edit-icon="fa:fas fa-search"
+          :editable="true"
           color="primary-blue-color"
           prev-text="Προηγούμενο"
           next-text="Επόμενο"
@@ -17,12 +21,15 @@
           <template v-slot:item.1>
             <div class="guide__container__stepper__info">
               Να καταθέσετε την
-              <a
-                :href="`https://docs.google.com/document/d/1Lm4AG7kWu8LUdiTNldcBHVgMvXkU-sBG/edit`"
-                target="_blank"
+              <button
                 class="guide__link"
+                @click="
+                  openFile(
+                    'https://docs.google.com/document/d/1Lm4AG7kWu8LUdiTNldcBHVgMvXkU-sBG/edit'
+                  )
+                "
               >
-                Αίτηση Έγκρισης Πρακτικής Άσκησης ΤΜΠ</a
+                Αίτηση Έγκρισης Πρακτικής Άσκησης ΤΜΠ</button
               >, εκτυπωμένη και υπογεγραμμένη στη Γραμματεία, η οποία θα σας
               εκδώσει την ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ, την οποία και θα ανεβάσετε
               μέσω της πλατφόρμας.
@@ -36,18 +43,16 @@
               <ul class="guide__container__stepper__requirements__list">
                 <li>
                   Να βρίσκεται σε τυπικό
-                  <span class="font-semibold">εξάμηνο</span> μεγαλύτερο του Z'.
+                  <span>εξάμηνο</span> μεγαλύτερο του Z'.
                 </li>
                 <li>
                   Να έχει παρακολουθήσει με επιτυχία τα
-                  <span class="font-semibold">2/3</span> των μαθημάτων του
-                  προγράμματος σπουδών.
+                  <span>2/3</span> των μαθημάτων του προγράμματος σπουδών.
                 </li>
                 <li>
-                  Να μην οφείλει <span class="font-bold">κανένα</span> μάθημα
-                  ειδικότητας, τα οποία είναι για τους υπάρχοντες φοιτητές, οι
-                  οποίοι
-                  <span class="font-bold">δεν έχουν επιλέξει κατεύθυνση</span>
+                  Να μην οφείλει <span>κανένα</span> μάθημα ειδικότητας, τα
+                  οποία είναι για τους υπάρχοντες φοιτητές, οι οποίοι
+                  <span>δεν έχουν επιλέξει κατεύθυνση</span>
                   (εισαγωγή πριν το 2013) τα παρακάτω :
                 </li>
                 <li>
@@ -86,12 +91,12 @@
               <ul class="guide__container__stepper__requirements__list mt-10">
                 <li>
                   Αν κάνετε πρακτική
-                  <span class="font-bold">χωρίς ΕΣΠΑ</span> μπορείτε να οφείλετε
-                  <span class="font-bold">το πολύ ένα </span>μάθημα ειδικότητας.
+                  <span>χωρίς ΕΣΠΑ</span> μπορείτε να οφείλετε
+                  <span>το πολύ ένα </span>μάθημα ειδικότητας.
                 </li>
                 <li>
                   Αν οφείλετε
-                  <span class="font-bold">περισσότερα από ένα μάθημα</span>
+                  <span>περισσότερα από ένα μάθημα</span>
                   ειδικότητας, θα πρέπει να καταθέσετε μαζί με την Αίτησή σας
                   και τα αντίστοιχα δικαιολογητικά, τα οποία πιστοποιούν ότι
                   έχετε πολύ σοβαρούς λόγους (οικονομικούς, κοινωνικούς, υγείας)
@@ -211,52 +216,48 @@
               </p>
               <ul class="guide__container__stepper__requirements__list mt-10">
                 <li>
-                  <span class="font-bold">ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span>, την
-                  οποία σας χορήγησε η γραμματεία, αφού καταθέσατε Αίτηση και
+                  <span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span>, την οποία σας
+                  χορήγησε η γραμματεία, αφού καταθέσατε Αίτηση και
                   Πιστοποιητικό Αναλυτικής Βαθμολογίας.
                 </li>
                 <li>
-                  <span class="font-bold">ΑΙΤΗΣΗ ΦΟΡΕΑ ΑΠΑΣΧΟΛΗΣΗΣ.</span>
+                  <span>ΑΙΤΗΣΗ ΦΟΡΕΑ ΑΠΑΣΧΟΛΗΣΗΣ.</span>
                 </li>
                 <li>
-                  <span class="font-bold"
-                    >ΒΕΒΑΙΩΣΗ ΑΠΑΣΧΟΛΗΣΗΣ & ΑΣΦΑΛΙΣΗΣ ΑΣΚΟΥΜΕΝΟΥ/ΗΣ.</span
-                  >
+                  <span>ΒΕΒΑΙΩΣΗ ΑΠΑΣΧΟΛΗΣΗΣ & ΑΣΦΑΛΙΣΗΣ ΑΣΚΟΥΜΕΝΟΥ/ΗΣ.</span>
                 </li>
                 <li>
-                  <span class="font-bold">ΔΗΛΩΣΗ ΠΡΟΣΩΠΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</span>
+                  <span>ΔΗΛΩΣΗ ΠΡΟΣΩΠΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</span>
                 </li>
               </ul>
               <div class="guide__container__stepper__requirements__text mt-10">
                 Αν η Επιτροπή Πρακτικής Άσκησης κρίνει ότι η θέση απασχόλησης, η
                 οποία περιγράφεται στην
-                <a
-                  :href="`https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit`"
-                  target="_blank"
+                <button
                   class="guide__link"
+                  @click="
+                    openFile(
+                      'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                    )
+                  "
                 >
-                  Αίτηση Φορέα Απασχόλησης</a
-                >, είναι
-                <span class="font-semibold">σχετική με το αντικείμενο</span> και
-                όλα τα υπόλοιπα
-                <span class="font-semibold">δικαιολογητικά</span> σας είναι<span
-                  class="font-semibold"
-                  >εντάξει</span
-                >
+                  Αίτηση Φορέα Απασχόλησης
+                </button>
+                , είναι
+                <span>σχετική με το αντικείμενο</span> και όλα τα υπόλοιπα
+                <span>δικαιολογητικά</span> σας είναι<span>εντάξει</span>
                 , θα σας δώσουμε να συμπληρώσετε την
-                <span class="font-extrabold">ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span>, την
-                οποία θα πρέπει να υπογράψετε (εσείς και ο νόμιμος εκπρόσωπος
-                του φορέα) σε 3 αντίγραφα, να τη δώσετε στη Γραμματεία για να
-                την υπογράψουμε και εμείς και θα πάρετε τα 2 αντίγραφα, ένα για
-                σας και ένα για τον εργοδότη.
+                <span>ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span>, την οποία θα πρέπει να
+                υπογράψετε (εσείς και ο νόμιμος εκπρόσωπος του φορέα) σε 3
+                αντίγραφα, να τη δώσετε στη Γραμματεία για να την υπογράψουμε
+                και εμείς και θα πάρετε τα 2 αντίγραφα, ένα για σας και ένα για
+                τον εργοδότη.
               </div>
               <div class="text-red-500 mt-4">
-                Προσοχή, χωρίς την<span class="font-semibold"
-                  >ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span
-                >
+                Προσοχή, χωρίς την<span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</span>
                 , και την
-                <span class="font-semibold">ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span> ο
-                εργοδότης ΔΕΝ ΜΠΟΡΕΙ να πάρει την αποζημίωση απ’ τον ΟΑΕΔ.
+                <span>ΕΙΔΙΚΗ ΣΥΜΒΑΣΗ ΕΡΓΑΣΙΑΣ</span> ο εργοδότης ΔΕΝ ΜΠΟΡΕΙ να
+                πάρει την αποζημίωση απ’ τον ΟΑΕΔ.
               </div>
               <div class="guide__container__stepper__requirements__text mt-5">
                 Το τμήμα θα ορίσει κάποιον από τους διδάσκοντες ακαδημαϊκό
@@ -282,12 +283,17 @@
               <div class="guide__container__stepper__requirements__text">
                 Περισσότερες πληροφορίες για τη συμπλήρωση του ΒΙΒΛΙΑΡΙΟΥ
                 ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ θα βρείτε στο
-                <a
-                  :href="`https://praktiki.teithe.gr/wp-content/uploads/2020/08/%CE%9F%CE%B4%CE%B7%CE%B3%CF%8C%CF%82-%CE%92%CE%B9%CE%B2%CE%BB%CE%B9%CE%B1%CF%81%CE%AF%CE%BF%CF%85-%CE%A0%CF%81%CE%B1%CE%BA%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CE%86%CF%83%CE%BA%CE%B7%CF%83%CE%B7%CF%82-%CE%95%CE%A3%CE%A0%CE%91-2020.pdf`"
-                  target="_blank"
+                <button
                   class="guide__link"
-                  >σύνδεσμο</a
-                >.
+                  @click="
+                    openFile(
+                      'https://praktiki.teithe.gr/wp-content/uploads/2020/08/%CE%9F%CE%B4%CE%B7%CE%B3%CF%8C%CF%82-%CE%92%CE%B9%CE%B2%CE%BB%CE%B9%CE%B1%CF%81%CE%AF%CE%BF%CF%85-%CE%A0%CF%81%CE%B1%CE%BA%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CE%86%CF%83%CE%BA%CE%B7%CF%83%CE%B7%CF%82-%CE%95%CE%A3%CE%A0%CE%91-2020.pdf'
+                    )
+                  "
+                >
+                  σύνδεσμο
+                </button>
+                .
               </div>
               <div class="guide__container__stepper__requirements__text">
                 <p
@@ -306,22 +312,31 @@
               </div>
               <div class="guide__container__stepper__requirements__text">
                 Διαβάστε το
-                <a
-                  :href="`https://drive.google.com/file/d/1jue01sLPrR0e6JRQj7tGZIiN_NoF41Xt/view`"
-                  target="_blank"
+                <button
                   class="guide__link"
+                  @click="
+                    openFile(
+                      'https://drive.google.com/file/d/1jue01sLPrR0e6JRQj7tGZIiN_NoF41Xt/view'
+                    )
+                  "
                 >
-                  Ενημερωτικό Έντυπο ΠΡΑΚΤΙΚΗ ΧΩΡΙΣ ΕΣΠΑ </a
-                >για περισσότερες πληροφορίες.
+                  Ενημερωτικό Έντυπο ΠΡΑΚΤΙΚΗ ΧΩΡΙΣ ΕΣΠΑ
+                </button>
+                για περισσότερες πληροφορίες.
               </div>
               <div class="guide__container__stepper__requirements__text">
                 Σύμφωνα με το
-                <a
-                  :href="`https://people.iee.ihu.gr/~gouliana/Praktikh/fek%202639_28.6.19_ergani.pdf`"
-                  target="_blank"
+                <button
                   class="guide__link"
-                  >ΦΕΚ 2639/28-06-2019 </a
-                >, ο φορέας απασχόλησης είναι υποχρεωμένος να αναγγείλει στο
+                  @click="
+                    openFile(
+                      'https://people.iee.ihu.gr/~gouliana/Praktikh/fek%202639_28.6.19_ergani.pdf'
+                    )
+                  "
+                >
+                  ΦΕΚ 2639/28-06-2019
+                </button>
+                , ο φορέας απασχόλησης είναι υποχρεωμένος να αναγγείλει στο
                 ΕΡΓΑΝΗ την έναρξη πρακτικής άσκησης του ασκούμενου φοιτητή μέσω
                 των Εντύπων Ε 3.5 ΟΑΕΔ και Ε 4 στην Επιθεώρηση Εργασίας
                 (Σ.Ε.Π.Ε.).
@@ -419,11 +434,22 @@ const openFile = (path: string) => {
 .guide__link {
   @apply font-semibold underline cursor-pointer hover:text-blue-700;
 }
+
+span {
+  font-weight: bold;
+}
+
 :deep .v-stepper-item {
   color: $primary-blue-color;
 }
-:deep .v-stepper-item__avatar,
-.v-stepper-item--selected {
-  background-color: $primary-blue-color;
+:deep .v-stepper-item--selected {
+  color: $primary-dark-blue-color;
+  @apply bg-gray-200;
+}
+:deep .v-stepper-item__avatar {
+  background: $primary-blue-color;
+}
+:deep .fa-edit {
+  display: none;
 }
 </style>
