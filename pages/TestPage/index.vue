@@ -1,6 +1,7 @@
 <template>
   <div class="bg-red-300">
     <QuestionarrieDisplayAnswers :questions="questionsWithAnswers" />
+    <BaseComponentsInfoBanner status="Pending review" />
   </div>
 </template>
 
@@ -12,10 +13,6 @@ const fetchUserAnswers = async () => {
   try {
     const response = await getUserAnswers(2);
     questionsWithAnswers.value = response.data;
-    console.log(
-      "🚀 ~ fetchUserAnswers ~ questionsWithAnswers:",
-      questionsWithAnswers
-    );
   } catch (error) {
     console.error("Error fetching user answers:", error);
   }

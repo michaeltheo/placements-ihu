@@ -91,7 +91,6 @@ const fetchAndSetAnnouncements = async () => {
   loading.value = true;
   try {
     const response = await fetchAnnouncements({
-      page: currentPage.value,
       itemsPerPage: itemsPerPage.value,
       updatedAfter,
       updatedBefore,

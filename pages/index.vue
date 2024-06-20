@@ -62,7 +62,7 @@
     </div>
     <div class="home-page__footer home-page__footer--itTeithe">
       <p class="home-page__footer-section-text">
-        Είστε φοιτητές του πρώην Τμήματος Μηχανικών Πληροφορικής ?
+        Είστε φοιτητές του πρώην Τμήματος Μηχανικών Πληροφορικής;
       </p>
       <BaseComponentsBaseButton
         text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΠΛΗΡΟΦΟΡΙΚΗΣ"

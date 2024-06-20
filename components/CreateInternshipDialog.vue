@@ -136,7 +136,7 @@ const props = withDefaults(
     isUpdate: false,
     isAdmin: false,
     internship: null,
-  }
+  },
 );
 
 // Define emits
@@ -150,17 +150,17 @@ const emit = defineEmits([
 // Reactive properties
 const localDialog = ref(props.modelValue);
 const selectedDepartment = ref<Department | null>(
-  props.internship?.department ?? null
+  props.internship?.department ?? null,
 );
 const selectedProgram = ref<InternshipProgram | null>(
-  props.internship?.program ?? null
+  props.internship?.program ?? null,
 );
 const companyId = ref<number | null>(props.internship?.company_id ?? null);
 const startDate = ref<string | null>(
-  props.internship?.start_date?.split("T")[0] ?? null
+  props.internship?.start_date?.split("T")[0] ?? null,
 );
 const endDate = ref<string | null>(
-  props.internship?.end_date?.split("T")[0] ?? null
+  props.internship?.end_date?.split("T")[0] ?? null,
 );
 const $toast = useToast();
 const search = ref("");
@@ -193,7 +193,7 @@ watch(
         ? props.internship.end_date.split("T")[0]
         : null;
     }
-  }
+  },
 );
 
 watch(
@@ -210,7 +210,7 @@ watch(
         ? newInternship.end_date.split("T")[0]
         : null;
     }
-  }
+  },
 );
 
 watchEffect(() => {
@@ -226,7 +226,7 @@ watch(
   () => selectedDepartment.value,
   () => {
     if (!props.isUpdate) selectedProgram.value = null;
-  }
+  },
 );
 
 // Validation rules
@@ -239,14 +239,9 @@ const internshipCompanyRules = [
 const dateValidationRule = (value: string) => {
   if (!value) return "Η ημερομηνία είναι απαραίτητη.";
 
-  const todayDate = new Date();
   const start = startDate.value ? new Date(startDate.value) : null;
   const end = endDate.value ? new Date(endDate.value) : null;
 
-  // Ensure the start date is greater than the current date
-  if (start && start <= todayDate) {
-    return "Η ημερομηνία έναρξης πρέπει να είναι μελλοντική.";
-  }
   // Ensure the start and end dates are not the same
   if (start && end && start.getTime() === end.getTime()) {
     return "H ημερομηνία έναρξης δεν πρέπει να είναι ίδια με την ημερομηνία λήξης.";
@@ -257,14 +252,15 @@ const dateValidationRule = (value: string) => {
     return "Η ημερομηνία λήξης πρέπει να είναι μετά την ημερομηνία έναρξης.";
   }
 
-  // Ensure the dates are not just one day apart
-  if (start && end) {
-    const oneDayDifference = new Date(start);
-    oneDayDifference.setDate(oneDayDifference.getDate() + 1);
-    if (oneDayDifference.getTime() === end.getTime()) {
-      return "Η ημερομηνία λήξης δεν πρέπει να είναι μία ημέρα μετά την ημερομηνία έναρξης.";
-    }
-  }
+  // TODO: uncomment
+  // // Ensure the dates are not just one day apart
+  // if (start && end) {
+  //   const oneDayDifference = new Date(start);
+  //   oneDayDifference.setDate(oneDayDifference.getDate() + 1);
+  //   if (oneDayDifference.getTime() === end.getTime()) {
+  //     return "Η ημερομηνία λήξης δεν πρέπει να είναι μία ημέρα μετά την ημερομηνία έναρξης.";
+  //   }
+  // }
 
   return true;
 };

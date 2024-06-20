@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage" data-aos="flip-up" data-aos-duration="1000">
     <section class="adminPage__section--files">
-      <h2 class="adminPage__title">Πίνακας Φοιτητών</h2>
+      <h2 class="adminPage__title">Πίνακας Χρηστών</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -254,6 +254,7 @@ const closeDialog = () => {
 const setUserAsAdmin = async (userId: number | undefined) => {
   if (userId === undefined) return;
   const response = await adminSetUserAsAdmin(userId);
+  applyFilter();
   closeDialog();
   if (hasErrorResponse(response)) {
     $toast.error(`${response.error}`, { position: "bottom" });
@@ -268,6 +269,7 @@ const setUserAsAdmin = async (userId: number | undefined) => {
 const setUserAsStudent = async (userId: number | undefined) => {
   if (userId === undefined) return;
   const response = await adminSetUserAsStudent(userId);
+  applyFilter();
   closeDialog();
   if (hasErrorResponse(response)) {
     $toast.error(`${response.error}`, { position: "bottom" });

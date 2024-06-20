@@ -459,7 +459,7 @@ const loadUserQuestionnaire = async (
   userId: number,
   status: InternshipStatus,
 ): Promise<void> => {
-  if (status === InternshipStatus.ENDED) {
+  if (status !== InternshipStatus.PENDING_REVIEW) {
     const userAnswers: any = await getUserAnswers(userId);
 
     if (userAnswers.data && !hasErrorResponse(userAnswers)) {

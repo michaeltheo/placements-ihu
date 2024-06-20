@@ -42,7 +42,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                            'https://docs.google.com/document/d/1CKQedUXtqzVR2C-1D7n_k-754adYJjt9/edit',
                           )
                         "
                       >
@@ -68,7 +68,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                            'https://docs.google.com/document/d/1CKQedUXtqzVR2C-1D7n_k-754adYJjt9/edit',
                           )
                         "
                       >
@@ -98,7 +98,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -127,7 +127,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -167,7 +167,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
                           )
                         "
                       >
@@ -199,7 +199,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
                           )
                         "
                       >
@@ -227,7 +227,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
                           )
                         "
                       >
@@ -256,7 +256,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
                           )
                         "
                       >
@@ -305,7 +305,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
