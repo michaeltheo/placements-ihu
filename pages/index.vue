@@ -30,9 +30,9 @@
           </p>
         </div>
         <BaseComponentsBaseButton
-          text="ΟΔΗΓΟΣ ΠΡΑΚΤΙΚΗΣ"
+          text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ "
           class="home-page__grid-section-button"
-          @click="() => navigateTo('/guide')"
+          @click="() => navigateTo('/IhuInternshipGuides')"
         />
       </div>
 
@@ -60,19 +60,26 @@
         </div>
       </div>
     </div>
+    <div class="home-page__footer home-page__footer--itTeithe">
+      <p class="home-page__footer-section-text">
+        Είστε φοιτητές του πρώην Τμήματος Μηχανικών Πληροφορικής;
+      </p>
+      <BaseComponentsBaseButton
+        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΠΛΗΡΟΦΟΡΙΚΗΣ"
+        :glow="true"
+        @click="() => navigateTo('/ItTeitheInternshipGuides')"
+      />
+    </div>
 
-    <div class="home-page__footer">
-      <div class="home-page__footer-section">
-        <p class="home-page__footer-section-text">
-          Είστε φοιτητές του παλαιού προγράμματος σπουδών; (Πρώην τμήμα Τ.Ε.
-          Μηχανικών Πληροφορικής)
-        </p>
-        <BaseComponentsBaseButton
-          text="ΟΔΗΓΟΣ ΠΑΛΑΙΟΥ ΠΡΟΓΡΑΜΜΑΤΟΣ"
-          :glow="false"
-          @click="() => navigateTo('/oldProgram')"
-        />
-      </div>
+    <div class="home-page__footer home-page__footer--eleTeithe">
+      <p class="home-page__footer-section-text">
+        Είστε φοιτητές του Πρώην Τμήματος Ηλεκτρονικής;
+      </p>
+      <BaseComponentsBaseButton
+        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΗΛΕΚΤΡΟΝΙΚΗΣ"
+        :glow="true"
+        @click="() => navigateTo('/ElTeitheInternshipGuides')"
+      />
     </div>
   </div>
 </template>
@@ -173,10 +180,15 @@ onMounted(async () => {
 
   &__footer {
     @apply flex flex-col md:flex-row justify-between items-center h-full p-2 md:p-4 bg-cover bg-no-repeat md:h-36 h-48 rounded-lg shadow-lg;
-    background-image: url("/img/test.png");
     background-position: 0 0;
     background-repeat: repeat-y;
     animation: animatedBackground 10s linear infinite alternate;
+    &--itTeithe {
+      background-image: url("/img/test.png");
+    }
+    &--eleTeithe {
+      background-image: url("/img/elteithe.png");
+    }
 
     &-section {
       @apply flex flex-col md:flex-row justify-between items-center h-full;

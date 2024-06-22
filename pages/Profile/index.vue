@@ -2,6 +2,7 @@
   <div class="profile" data-aos="flip-up" data-aos-duration="1000">
     <ProfileUserData />
 
+    <BaseComponentsInfoBanner v-if="internship" :status="internship?.status" />
     <section class="user-files user-files--files">
       <h2 class="user-files__header">Δικαιολογητικά</h2>
       <!-- Check if the user has an internship -->
@@ -95,7 +96,7 @@
         </div>
       </div>
     </section>
-    <div v-if="internship?.status === InternshipStatus.ENDED">
+    <div v-if="internshipHasEnded">
       <!-- Alerts for questionnaire -->
       <v-alert
         v-if="!companyHasSubmittedQuestionnaire"
@@ -183,13 +184,18 @@
     </div>
     <div v-else>
       <v-alert
+        v-if="internship"
         variant="outlined"
         prominent
         border="top"
-        text="Η συμπλήρωση του ερωτηματολογίου θα είναι διαθέσιμη στη λήξη της πρακτικής."
         title="Ερωτηματολόγιο"
         type="info"
-      ></v-alert>
+      >
+        Η συμπλήρωση του ερωτηματολογίου θα είναι διαθέσιμη στη λήξη της
+        πρακτικής:<span class="font-bold">{{
+          formatDate(internship?.end_date)
+        }}</span></v-alert
+      >
     </div>
     <!-- Dialogs for file upload and deletion -->
     <FileUploadDialog
@@ -294,6 +300,33 @@ const formatOtpExpireDate = (dateString: string | null | undefined) => {
     hour: "numeric",
     minute: "numeric",
     second: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("el-GR", options);
+};
+
+// Helper function to check if the internship end date has passed
+const internshipHasEnded = computed<boolean>(() => {
+  if (!internship.value || !internship.value.end_date) return false;
+  const endDate: Date = new Date(internship.value.end_date);
+  const currentDate: Date = new Date();
+
+  // Reset the time part for both dates to check only for day/month/year
+  endDate.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
+  return currentDate >= endDate;
+});
+
+/**
+ * Helper function to format date.
+ * @param dateString - The date string to format.
+ * @returns The formatted date string or "N/A" if the date is invalid.
+ */
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return "N/A";
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
   return new Date(dateString).toLocaleDateString("el-GR", options);
 };
@@ -462,7 +495,7 @@ const getColor = (fileSubmissionTime: string): string => {
  * Checks if the user has submitted the questionnaire.
  */
 const checkUserQuestionnaireAnswers = async (): Promise<void> => {
-  if (internship.value.status === InternshipStatus.ENDED) {
+  if (internshipHasEnded.value) {
     const response: any = await getUserAnswers(authStore.user.id);
 
     if (response.data && !hasErrorResponse(response)) {
@@ -478,7 +511,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
  * Checks if the company has submitted the questionnaire for user's internship.
  */
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
-  if (internship.value.status === InternshipStatus.ENDED) {
+  if (internshipHasEnded.value) {
     const response: any = await getInternshipCompanyQuestionnaire(
       internship.value.id,
     );
