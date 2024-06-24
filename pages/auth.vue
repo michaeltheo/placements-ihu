@@ -6,8 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { ServerSideLogin } from "@/services/authService";
@@ -15,7 +14,6 @@ import { ServerSideLogin } from "@/services/authService";
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
-const $toast = useToast();
 
 async function initiateAuthenticationProcess() {
   const code = Array.isArray(route.query.code)
@@ -26,17 +24,15 @@ async function initiateAuthenticationProcess() {
     : route.query.state;
 
   if (!code || !state) {
-    $toast.warning(`Authorization code or state not found.`, {
-      position: "bottom",
-    });
+    toast.warning(`Authorization code or state not found.`);
   } else {
     // login Via Server Side
     const response = await ServerSideLogin(state, code);
     if (typeof response === "string") {
-      $toast.error(`${response}`, { position: "bottom" });
+      toast.error(`${response}`);
     } else {
       // Initialize auth store
-      $toast.success(`${response?.message?.detail}`, { position: "bottom" });
+      toast.success(`${response?.message?.detail}`);
       authStore.login(
         response.data.tokens.ihu_access_token,
         response.data.user,

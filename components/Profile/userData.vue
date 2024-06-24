@@ -1,3 +1,21 @@
+<!--
+/**
+ * UserData Component
+ *
+ * This component displays the user profile information in a card layout. It fetches user details from
+ * the authentication store and presents them in a structured format with icons and labels.
+ *
+ * @prop {Object} user - The user object containing user details.
+ * @prop {string} user.first_name - The first name of the user.
+ * @prop {string} user.last_name - The last name of the user.
+ * @prop {string} [user.reg_year] - The registration year of the user.
+ * @prop {string} [user.AM] - The registration number of the user.
+ * @prop {string} [user.role] - The role of the user.
+ * @prop {string} [user.telephone_number] - The telephone number of the user.
+ * @prop {string} [user.email] - The email address of the user.
+ * @prop {string} [user.department] - The department of the user.
+ */
+-->
 <template>
   <section class="profile__section profile__section--user">
     <v-card class="profile__card">

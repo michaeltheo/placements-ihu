@@ -1,5 +1,5 @@
 <template>
-  <div class="profile" data-aos="flip-up" data-aos-duration="1000">
+  <div class="profile" data-aos="fade-down" data-aos-duration="1000">
     <ProfileUserData />
 
     <BaseComponentsInfoBanner v-if="internship" :status="internship?.status" />
@@ -233,8 +233,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
 import { useAuthStore } from "@/stores/auth";
 import {
@@ -288,7 +287,6 @@ const userHasSubmittedQuestionnaire = ref<boolean>(false);
 const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
 const OTPcode = ref<OTPBase>();
-const $toast = useToast();
 
 // Helper function to format expiry date
 const formatOtpExpireDate = (dateString: string | null | undefined) => {
@@ -359,7 +357,7 @@ const getInternship = async (): Promise<void> => {
   const response = await getInternshipByUser(authStore.user.id);
   if (hasErrorResponse(response)) {
     hasInternship.value = false;
-    $toast.error(`${response.error}`, { position: "bottom" });
+    toast.error(`${response.error}`);
   } else {
     hasInternship.value = true;
     internship.value = response.data;
@@ -529,10 +527,10 @@ const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
 const userGenerateOTP = async (): Promise<void> => {
   const response = await generateOTP();
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, { position: "bottom" });
+    toast.error(`${response.error}`);
   } else {
     OTPcode.value = response.data;
-    $toast.success(`${response.message?.detail}`, { position: "bottom" });
+    toast.success(`${response.message?.detail}`);
   }
 };
 

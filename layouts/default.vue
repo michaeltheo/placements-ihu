@@ -5,7 +5,7 @@
     <div class="min-h-[calc(100vh)]">
       <slot />
     </div>
-    <AppFooter />
+    <AppFooter class="mt-5" />
   </div>
 </template>
 

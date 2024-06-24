@@ -1,3 +1,15 @@
+<!--
+/**
+ * MiniAnnouncement Component
+ *
+ * This component displays a compact announcement with a title and a date.
+ * The title will animate with a marquee effect if it overflows its container.
+ * This component uses a ResizeObserver to monitor the title's width and activate the animation if necessary.
+ *
+ * @param {string} title - The title of the announcement.
+ * @param {string} date - The date of the announcement.
+ */
+-->
 <template>
   <div ref="container" class="mini-announcement">
     <div
@@ -12,8 +24,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
-
 const props = defineProps({
   title: {
     type: String,

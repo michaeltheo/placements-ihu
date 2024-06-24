@@ -114,6 +114,7 @@ const navigateTo = (path: string) => {
 
   &__section {
     @apply shadow-lg border border-gray-200 rounded-lg p-6 bg-white text-center transition-all duration-300 ease-in-out hover:shadow-xl;
+    min-height: 15.6rem;
 
     &:hover {
       transform: translateY(-7px);

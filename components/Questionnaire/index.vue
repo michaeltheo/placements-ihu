@@ -42,8 +42,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
+
 import MultipleChoice from "./MultipleChoice.vue";
 import FreeText from "./FreeText.vue";
 import MultipleChoiceFreeText from "./MultipleChoiceFreeText.vue";
@@ -66,7 +66,6 @@ const props = defineProps<{
 // Define the emits for the component
 const emit = defineEmits(["refreshUserAnswers"]);
 const router = useRouter();
-const $toast = useToast();
 const questions = ref<Question[]>([]);
 const answers = ref<Record<number, any>>({});
 
@@ -205,15 +204,9 @@ const submit = async () => {
   if (props.questionnaireType === QuestionnaireType.STUDENT) {
     const response = await submitUserAnswers(formattedAnswers);
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, {
-        position: "top",
-        duration: 1000,
-      });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response?.detail}`, {
-        position: "top",
-        duration: 1000,
-      });
+      toast.success(`${response?.detail}`);
       if (emit) {
         emit("refreshUserAnswers");
       }
@@ -230,21 +223,14 @@ const submit = async () => {
       props.token,
     );
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, {
-        position: "top",
-        duration: 3000,
-      });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(
+      toast.success(
         `${response?.detail}, Θα μεταφερθείτε αυτόματα στην αρχική σελίδα. Ευχαριστούμε!`,
-        {
-          position: "top",
-          duration: 3000,
-        },
       );
       setTimeout(() => {
         router.push("/");
-      }, 5000);
+      }, 4000);
     }
   }
 };

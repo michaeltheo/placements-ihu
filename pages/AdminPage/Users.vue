@@ -156,8 +156,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { UserRole } from "@/types";
 import { User } from "@/types/user";
 import {
@@ -172,8 +171,6 @@ definePageMeta({
   middleware: ["is-admin", "auth"],
 });
 
-// Define state
-const $toast = useToast();
 const searchAM = ref<string>("");
 const selectedRole = ref<UserRole>();
 const userRoles = Object.values(UserRole);
@@ -213,7 +210,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
-      $toast.error(`${result.error}`, { position: "top" });
+      toast.error(`${result.error}`);
     } else {
       serverUsers.value = result.data ?? [];
       totalItems.value = result.total_items;
@@ -257,9 +254,9 @@ const setUserAsAdmin = async (userId: number | undefined) => {
   applyFilter();
   closeDialog();
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, { position: "bottom" });
+    toast.error(`${response.error}`);
   } else {
-    $toast.success(`${response.detail}`, { position: "bottom" });
+    toast.success(`${response.detail}`);
   }
 };
 /**
@@ -272,9 +269,9 @@ const setUserAsStudent = async (userId: number | undefined) => {
   applyFilter();
   closeDialog();
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, { position: "bottom" });
+    toast.error(`${response.error}`);
   } else {
-    $toast.success(`${response.detail}`, { position: "bottom" });
+    toast.success(`${response.detail}`);
   }
 };
 </script>

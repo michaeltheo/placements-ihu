@@ -40,12 +40,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { deleteInternship } from "@/services/internshipService";
 import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";
-const $toast = useToast();
 
 const props = withDefaults(
   defineProps<{
@@ -69,14 +67,14 @@ const deleteSelectedInternship = async () => {
     if (!props.internship) return;
     const response = await deleteInternship(props.internship?.id);
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, { position: "bottom" });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response?.detail}`, { position: "bottom" });
+      toast.success(`${response?.detail}`);
       emit("refreshInternshipList");
       emitClose();
     }
   } catch (error) {
-    $toast.error("Error processing request", { position: "bottom" });
+    toast.error(`${error}`);
   }
 };
 

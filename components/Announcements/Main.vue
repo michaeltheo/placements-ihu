@@ -1,3 +1,21 @@
+<!--
+/**
+ * Announcement Component
+ *
+ * This component displays an announcement with a title, body content, author details, and attachments.
+ *
+ * @param {Object} announcement - The announcement object containing details to display.
+ * @param {string} announcement.title - The title of the announcement.
+ * @param {string} announcement.body - The HTML body content of the announcement.
+ * @param {string} announcement.created_at - The creation date of the announcement.
+ * @param {Object} announcement.author - The author of the announcement.
+ * @param {string} announcement.author.name - The name of the author.
+ * @param {Array<Object>} [announcement.attachments] - The list of attachments related to the announcement.
+ * @param {number} announcement.attachments[].id - The ID of the attachment.
+ * @param {string} announcement.attachments[].attachment_url - The URL of the attachment.
+ * @param {string} announcement.attachments[].filename - The filename of the attachment.
+ */
+-->
 <template>
   <div class="main-announcement">
     <div ref="titleRef" class="main-announcement__title">
@@ -24,7 +42,7 @@
           target="_blank"
           class="main-announcement__attachment"
         >
-          <font-awesome-icon :icon="['fas', 'paperclip']" />
+          <v-icon>fa-solid fa-paperclip</v-icon>
           {{ attachment.filename }}
         </a>
       </div>
@@ -33,8 +51,6 @@
 </template>
 
 <script setup>
-import { toRefs } from "vue";
-
 const props = defineProps({
   announcement: {
     type: Object,

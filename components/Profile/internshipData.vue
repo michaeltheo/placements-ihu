@@ -1,3 +1,19 @@
+<!--
+/**
+ * InternshipData Component
+ *
+ * This component displays detailed information about a user's internship in a card layout. 
+ * It presents various details such as the internship program, company name, start and end dates, 
+ * and the status of the internship. Icons and labels are used to enhance readability.
+ *
+ * @prop {Object|null} internship - The internship object containing details to display.
+ * @prop {string} [internship.program] - The name of the internship program.
+ * @prop {string} [internship.company_name] - The name of the company.
+ * @prop {string} [internship.start_date] - The start date of the internship.
+ * @prop {string} [internship.end_date] - The end date of the internship.
+ * @prop {string} [internship.status] - The status of the internship.
+ */
+-->
 <template>
   <section class="internship__data__section internship__data__section--user">
     <v-card class="internship__data__card" elevation="0">

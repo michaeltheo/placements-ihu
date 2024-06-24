@@ -115,8 +115,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { createOrUpdateInternship } from "@/services/internshipService";
 import { getAllCompanies } from "@/services/companyService";
 import { InternshipCreate, InternshipUpdate } from "@/types/internship";
@@ -162,7 +161,7 @@ const startDate = ref<string | null>(
 const endDate = ref<string | null>(
   props.internship?.end_date?.split("T")[0] ?? null,
 );
-const $toast = useToast();
+// const $toast = useToast();
 const search = ref("");
 const companyOptions = ref<Company[]>([]);
 const valid = ref(false);
@@ -332,15 +331,11 @@ const createInternship = async () => {
     });
 
     if (response && !("error" in response)) {
-      $toast.success("Πρακτική Άσκηση δημιουργήθηκε επιτυχώς!", {
-        position: "bottom",
-      });
+      toast.success("Πρακτική Άσκηση δημιουργήθηκε επιτυχώς!");
       emit("internshipCreated", response.data);
       emitClose();
     } else {
-      $toast.error(`${response.error}`, {
-        position: "bottom",
-      });
+      toast.error(`${response.error}`);
     }
   }
 };
@@ -372,16 +367,12 @@ const updateInternship = async () => {
     const response = await createOrUpdateInternship(payload);
 
     if (response && !("error" in response)) {
-      $toast.success("Πρακτική Άσκηση ενημερώθηκε επιτυχώς!", {
-        position: "bottom",
-      });
+      toast.success("Πρακτική Άσκηση ενημερώθηκε επιτυχώς!");
       emit("internshipUpdated", response.data);
       emit("refreshInternship");
       emitClose();
     } else {
-      $toast.error(`${response.error}`, {
-        position: "bottom",
-      });
+      toast.error(`${response.error}`);
     }
   }
 };

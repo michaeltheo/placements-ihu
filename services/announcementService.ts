@@ -29,8 +29,7 @@ export async function fetchAnnouncements({
       url.searchParams.append("updatedBefore", updatedBefore);
     }
     if (searchText) {
-      url.searchParams.append("title", encodeURIComponent(searchText));
-      url.searchParams.append("body", encodeURIComponent(searchText));
+      url.searchParams.append("title", searchText);
     }
 
     const response = await fetch(url.toString(), {

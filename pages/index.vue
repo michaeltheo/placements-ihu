@@ -42,7 +42,7 @@
           v-if="allAnnouncements.length > 0"
           class="home-page__announcement-list"
         >
-          <MiniAnnouncement
+          <AnnouncementsMini
             v-for="announcement in allAnnouncements"
             :key="announcement.id"
             :title="announcement.title"
@@ -175,7 +175,7 @@ onMounted(async () => {
   }
 
   &__loading {
-    @apply flex justify-center;
+    @apply flex justify-center h-60  items-center;
   }
 
   &__footer {

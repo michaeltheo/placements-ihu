@@ -161,7 +161,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
+import { toast } from "vue3-toastify";
 import {
   updateDikaiologitika,
   uploadDikaiologitika,
@@ -173,7 +173,6 @@ import type {
 } from "@/types/dikaiologitika";
 import { InternshipProgram } from "@/types";
 import type { InternshipRead } from "@/types/internship";
-import "vue-toast-notification/dist/theme-sugar.css";
 
 // Define the props received by the component
 const props = defineProps<{
@@ -183,7 +182,6 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
 
-const $toast = useToast();
 const dikaiologitikaStore = useDikaiologitkaStore();
 const isEditMode = computed(() => props.editItem !== null);
 const form = ref<any>(null);
@@ -261,11 +259,8 @@ const submitForm = async () => {
     !selectedFileType.value ||
     !selectedProgram.value
   ) {
-    $toast.error(
-      "Form submission failed due to validation errors or missing data.",
-      {
-        position: "bottom",
-      },
+    toast.error(
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
     );
     return;
   }
@@ -288,16 +283,14 @@ const submitForm = async () => {
     }
 
     if (response.error) {
-      $toast.error(`${response.error}`, { position: "bottom" });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response.detail || response.message?.detail}`, {
-        position: "bottom",
-      });
+      toast.success(`${response.detail || response.message?.detail}`);
       emit("refreshFilesList");
       emitClose();
     }
   } catch (error) {
-    $toast.error("An unexpected error occurred.", { position: "bottom" });
+    toast.error(`${error}`);
   } finally {
     loading.value = false;
   }
