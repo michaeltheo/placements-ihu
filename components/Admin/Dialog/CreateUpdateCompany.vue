@@ -65,8 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import {
   adminCreateCompany,
   adminUpdateCompany,
@@ -82,7 +81,6 @@ const props = defineProps<{
 const emit = defineEmits(["update:modelValue", "refreshCompaniesList"]);
 
 // Toast notification setup
-const $toast = useToast();
 
 // State and computed properties
 const isEditMode = computed(() => props.editCompany !== null);
@@ -128,11 +126,8 @@ watch(
 // Handle form submission
 const submitForm = async () => {
   if (!form.value?.validate() || !companyAFM.value || !companyName.value) {
-    $toast.error(
-      "Form submission failed due to validation errors or missing data.",
-      {
-        position: "bottom",
-      },
+    toast.error(
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
     );
     return;
   }
@@ -151,16 +146,14 @@ const submitForm = async () => {
     }
 
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, { position: "bottom" });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response.detail || response.message?.detail}`, {
-        position: "bottom",
-      });
+      toast.success(`${response.detail || response.message?.detail}`);
       emit("refreshCompaniesList");
       emitClose();
     }
   } catch (error) {
-    $toast.error("An unexpected error occurred.", { position: "bottom" });
+    toast.error(`${error}`);
   } finally {
     loading.value = false;
   }

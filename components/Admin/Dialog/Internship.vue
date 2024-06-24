@@ -274,8 +274,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import type { InternshipRead } from "@/types/internship";
 import { InternshipStatus } from "@/types";
 import {
@@ -298,7 +297,6 @@ const props = defineProps<{
   internship: InternshipRead;
 }>();
 
-const $toast = useToast();
 const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
 const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
@@ -356,9 +354,7 @@ const loadUserFiles = async (userId: number) => {
   try {
     const response = await fetchDikaiologitaFiles(userId);
     if (hasErrorResponse(response)) {
-      $toast.error(`Error fetching files: ${response.error}`, {
-        position: "bottom",
-      });
+      toast.error(`Σφάλμα ανάκτησης αρχείων: ${response.error}`);
     } else {
       userFiles.value = response?.data.files ?? [];
     }
@@ -440,15 +436,9 @@ const updateInternshipStatus = async () => {
     selectedStatus.value,
   );
   if (hasErrorResponse(response)) {
-    $toast.error(`${response.error}`, {
-      position: "top-right",
-      duration: 3000,
-    });
+    toast.error(`${response.error}`);
   } else {
-    $toast.success(`${response.message?.detail}`, {
-      position: "top-right",
-      duration: 3000,
-    });
+    toast.success(`${response.message?.detail}`);
   }
 };
 

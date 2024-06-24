@@ -88,8 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import "vue-toast-notification/dist/theme-sugar.css";
-import { useToast } from "vue-toast-notification";
+import { toast } from "vue3-toastify";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { getAllCompanies } from "@/services/companyService";
 import { Company } from "@/types/company";
@@ -106,7 +105,6 @@ definePageMeta({
   middleware: ["is-admin", "auth"],
 });
 
-const $toast = useToast();
 const searchCompanyName = ref<string>("");
 const serverCompanies = ref<Company[]>([]);
 const openDeleteCompanyDialog = ref<boolean>(false);
@@ -141,7 +139,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchCompanyName.value,
     );
     if (hasErrorResponse(result)) {
-      $toast.error(`${result.error}`, { position: "top" });
+      toast.error(`${result.error}`);
     } else {
       serverCompanies.value = result.data ?? [];
       totalItems.value = result.total_items;

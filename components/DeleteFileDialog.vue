@@ -33,13 +33,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
+import { toast } from "vue3-toastify";
 import { deleteDikaiologitika } from "@/services/dikaiologitkaService";
 import type {
   DikaiologitikaFile,
   UpdateDeleteResponse,
 } from "@/types/dikaiologitika";
-const $toast = useToast();
 
 const props = withDefaults(
   defineProps<{
@@ -60,9 +59,7 @@ watchEffect(() => {
 
 const deleteFile = async () => {
   if (!props.file) {
-    $toast.error("Something unexpected happened", {
-      position: "bottom",
-    });
+    toast.error("Δεν βρέθηκε αρχείο.");
     return;
   }
   try {
@@ -70,14 +67,14 @@ const deleteFile = async () => {
       props.file.id,
     );
     if (response.error) {
-      $toast.error(`${response.error}`, { position: "bottom" });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response?.detail}`, { position: "bottom" });
+      toast.success(`${response?.detail}`);
       emit("refreshFilesList");
       emitClose();
     }
   } catch (error) {
-    $toast.error("Error processing request", { position: "bottom" });
+    toast.error(`${error}`);
   }
 };
 

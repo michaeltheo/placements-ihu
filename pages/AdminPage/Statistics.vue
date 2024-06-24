@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toast-notification";
+import { toast } from "vue3-toastify";
 import { QuestionnaireType } from "@/types";
 import {
   getQuestionStatistics,
@@ -108,7 +108,6 @@ const questionNames = ref<string[]>([]);
 const selectedQuestion = ref<string>("");
 const selectedQuestionData = ref<[string, number][]>([]);
 let parsedData: Array<any> = [];
-const $toast = useToast();
 
 // Fetch question statistics data when the selected questionnaire type changes
 const fetchQuestionStatistics = async () => {
@@ -117,7 +116,7 @@ const fetchQuestionStatistics = async () => {
       selectedQuestionnaireType.value,
     );
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, { position: "top" });
+      toast.error(`${response.error}`);
     } else {
       parsedData = parseQuestionStatistics(response);
       questionNames.value = parsedData.map((item) => item.questionName);

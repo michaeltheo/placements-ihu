@@ -36,8 +36,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
+
 import { adminDeleteCompany } from "@/services/companyService";
 import type { Company } from "@/types/company";
 import { hasErrorResponse } from "@/services/errorHandling";
@@ -49,7 +49,6 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue", "refreshCompaniesList"]);
 const localDialog = ref(props.modelValue);
-const $toast = useToast();
 
 watch(
   () => props.modelValue,
@@ -63,14 +62,14 @@ const deleteSelectedCompany = async () => {
     if (!props.company) return;
     const response = await adminDeleteCompany(props.company?.id);
     if (hasErrorResponse(response)) {
-      $toast.error(`${response.error}`, { position: "bottom" });
+      toast.error(`${response.error}`);
     } else {
-      $toast.success(`${response?.detail}`, { position: "bottom" });
+      toast.success(`${response?.detail}`);
       emit("refreshCompaniesList");
       emitClose();
     }
   } catch (error) {
-    $toast.error("Error processing request", { position: "bottom" });
+    toast.error(`${error}`);
   }
 };
 

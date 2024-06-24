@@ -175,7 +175,7 @@ onMounted(async () => {
   }
 
   &__loading {
-    @apply flex justify-center;
+    @apply flex justify-center h-60  items-center;
   }
 
   &__footer {

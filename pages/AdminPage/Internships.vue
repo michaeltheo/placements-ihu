@@ -156,8 +156,7 @@
 </template>
 
 <script setup lang="ts">
-import "vue-toast-notification/dist/theme-sugar.css";
-import { useToast } from "vue-toast-notification";
+import { toast } from "vue3-toastify";
 import { getAllInternships } from "@/services/internshipService";
 import { Department, InternshipProgram, InternshipStatus } from "@/types";
 import { InternshipRead } from "@/types/internship";
@@ -177,7 +176,6 @@ definePageMeta({
   middleware: ["is-admin", "auth"],
 });
 
-const $toast = useToast();
 const searchAM = ref<string>("");
 const searchCompanyName = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
@@ -250,7 +248,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
-      $toast.error(`${result.error}`, { position: "top" });
+      toast.error(`${result.error}`);
     } else {
       serverInternships.value = result.data ?? [];
       totalItems.value = result.total_items;

@@ -72,8 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
+import { toast } from "vue3-toastify";
 import { validateOTP } from "@/services/otpService";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { ValidateOTPData } from "@/types/otp";
@@ -82,7 +81,6 @@ import { QuestionnaireType } from "@/types";
 const otp = ref<string>("");
 const otpData = ref<ValidateOTPData>();
 const loading = ref<boolean>(false);
-const $toast = useToast();
 
 const verifyOTP = async () => {
   try {
@@ -90,7 +88,7 @@ const verifyOTP = async () => {
       loading.value = true;
       const response = await validateOTP(otp.value);
       if (hasErrorResponse(response)) {
-        $toast.error(`${response.error}`, { position: "bottom" });
+        toast.error(`${response.error}`);
         otp.value = "";
       } else {
         otpData.value = response.data;
