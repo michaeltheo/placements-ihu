@@ -1,3 +1,14 @@
+<!--
+/**
+ * InfoBanner Component
+ *
+ * This component displays an informational banner with different messages and colors based on the internship status.
+ * It uses Vuetify's v-alert component to show messages and icons, and the content changes dynamically based on the
+ * provided status prop.
+ *
+ * @prop {InternshipStatus} status - The current status of the internship which determines the banner's content and color.
+ */
+-->
 <template>
   <div class="shadow-lg">
     <v-alert :color="bannerColor" icon="fa-solid fa-info" stacked>

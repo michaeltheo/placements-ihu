@@ -1,3 +1,20 @@
+<!--
+/**
+ * DeleteConfirmationDialog Component
+ *
+ * This component provides a confirmation dialog for deleting a file. It is built with Vuetify's v-dialog component
+ * and includes actions for confirming or canceling the deletion. The dialog displays the file name and uses
+ * a persistent overlay to prevent interaction with other elements until the dialog is dismissed.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {Object|null} file - The file object to be deleted, including file details.
+ * @param {string} file.file_name - The name of the file to be displayed in the confirmation message.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits when the dialog visibility should be updated.
+ * - refreshFilesList: Emits when the file list should be refreshed after a successful deletion.
+ */
+-->
 <template>
   <div class="dialog__overlay">
     <v-dialog

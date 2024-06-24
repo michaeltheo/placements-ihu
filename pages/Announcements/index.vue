@@ -55,12 +55,13 @@
         data-aos-easing="linear"
         data-aos-duration="1000"
       >
-        <MainAnnouncement :announcement="announcement" />
+        <AnnouncementsMain :announcement="announcement" />
       </div>
 
       <div v-if="totalPages > 1" class="announcements-page__pagination">
         <v-pagination
           v-model="currentPage"
+          :total-visible="10"
           :length="totalPages"
           rounded="circle"
         ></v-pagination>

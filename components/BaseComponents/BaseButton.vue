@@ -1,3 +1,18 @@
+<!--
+/**
+ * BaseButton Component
+ *
+ * This component renders a customizable button with text and an optional glowing hover effect.
+ * It displays an icon that animates when the button is hovered over.
+ *
+ * @prop {string} text - The display text of the button.
+ * @prop {boolean} glow - Enables glowing hover effect. Set to `false` to disable.
+ *
+ * Usage:
+ * <BaseButton text="Button Text" />
+ * <BaseButton text="Button Text" :glow="false" />
+ */
+-->
 <template>
   <button
     class="button"
@@ -13,14 +28,6 @@
     </div>
   </button>
 </template>
-
-/** * BaseButton Component: * * @param {string} text - Display text of the
-button. * @param {Boolean} glow - Enables glowing hover effect. Set to `false`
-to disable. * * Usage: *
-<BaseButton text="Button Text" />
-*
-<BaseButton text="Button Text" :glow="false" />
-*/
 
 <script setup>
 const props = defineProps({
