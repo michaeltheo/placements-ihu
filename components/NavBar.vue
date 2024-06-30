@@ -95,6 +95,7 @@ const links = [
   { text: "ΟΔΗΓΟΣ", route: "/guide" },
   { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
   { text: "ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ", route: "/oldProgram" },
+  { text: "ABOUT", route: "/about" },
 ];
 const authStore = useAuthStore();
 const router = useRouter();

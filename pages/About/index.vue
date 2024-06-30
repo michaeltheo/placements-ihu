@@ -1,5 +1,5 @@
 <template>
-  <v-container class="about-page" data-aos="zoom-in-down">
+  <div class="about-page">
     <v-alert
       title="Σχετικά με την Σελίδα Πρακτικής"
       text="Η υλοποίηση της σελίδας πρακτικής αποτελεί το αποτέλεσμα της διπλωματικής μου εργασίας στο Τμήμα Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων (πρώην Τμήμα Μηχανικών Πληροφορικής). Σε περίπτωση που αντιμετωπίσετε οποιοδήποτε σφάλμα ή άλλο θέμα κατά τη χρήση της υπηρεσίας, παρακαλώ επικοινωνήστε μαζί μας μέσω email στη διεύθυνση που παρατίθεται παρακάτω, συμπληρώνοντας ως πρόθεμα του μηνύματος 'Placements Issue (2239)'."
@@ -33,8 +33,9 @@
         <div>
           <v-btn
             class="about-page__info__send-email-btn"
-            color="primary-dark-blue-color"
-            href="mailto:test@example.com?subject=Placements%20Issue%20(2239)"
+            prepend-icon="fa-solid fa-envelope"
+            color="primary-dark-blue"
+            href="mailto:placement@it.teithe.gr?subject=Placements%20Issue%20(2239)"
           >
             Επικοινωνήστε μαζί μας
           </v-btn>
@@ -44,7 +45,6 @@
 
     <div class="about-page__developers-section" data-aos="zoom-in-down">
       <h1 class="about-page__developers-section-title">Developers</h1>
-      <!-- Cards Container -->
       <v-row>
         <v-col
           v-for="dev in developers"
@@ -58,7 +58,7 @@
         </v-col>
       </v-row>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -81,7 +81,7 @@ const developers: Developer[] = [
 @import "@/assets/variables.scss";
 
 .about-page {
-  @apply container;
+  @apply container  mx-auto px-4 py-8 space-y-12;
   &__info {
     @apply pt-5;
     padding-top: 20px;
@@ -95,6 +95,9 @@ const developers: Developer[] = [
     &__send-email-btn {
       margin-top: 20px;
       margin-bottom: 20px;
+      &:hover {
+        transform: translateY(-7px);
+      }
     }
   }
 

@@ -175,7 +175,7 @@ onMounted(async () => {
   }
 
   &__loading {
-    @apply flex justify-center h-60  items-center;
+    @apply flex justify-center h-60 items-center;
   }
 
   &__footer {
@@ -183,6 +183,18 @@ onMounted(async () => {
     background-position: 0 0;
     background-repeat: repeat-y;
     animation: animatedBackground 10s linear infinite alternate;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
     &--itTeithe {
       background-image: url("/img/test.png");
     }
@@ -195,7 +207,7 @@ onMounted(async () => {
     }
 
     &-section-text {
-      @apply text-white font-semibold text-lg md:text-3xl mb-2 md:mb-0;
+      @apply z-10 text-white font-semibold text-lg md:text-3xl mb-2 md:mb-0;
     }
   }
 }
