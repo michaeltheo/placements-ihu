@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   routeRules: {
     "/auth": { ssr: false },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV !== "production" },
   modules: [
     "@nuxtjs/tailwindcss",
     "@invictus.codes/nuxt-vuetify",

@@ -13,3 +13,11 @@ export interface User {
   reg_year?: string;
   isAdmin?: boolean;
 }
+export interface Developer {
+  name: string;
+  AM: string;
+  icon: string | null;
+  description: string;
+  github_url: string;
+  linkedin_url: string;
+}
