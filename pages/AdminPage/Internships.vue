@@ -245,7 +245,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       companyName.value,
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -265,7 +265,7 @@ const fetchCompanies = async () => {
   const response = await getAllCompanies(
     undefined,
     undefined,
-    searchCompanyName.value
+    searchCompanyName.value,
   );
   if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
@@ -372,7 +372,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  }
+  },
 );
 
 // Options for departments and programs

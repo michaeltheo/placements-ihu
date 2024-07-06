@@ -70,7 +70,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  }
+  },
 );
 
 const deleteSelectedCompany = async () => {

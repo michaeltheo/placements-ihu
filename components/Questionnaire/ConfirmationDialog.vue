@@ -48,7 +48,7 @@
     </v-dialog>
   </div>
 </template>
-  
+
 <script lang="ts" setup>
 const props = defineProps<{
   modelValue: boolean;
@@ -74,7 +74,7 @@ const confirm = (value: boolean) => {
   emit("confirmed", value);
 };
 </script>
-  
+
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
 
