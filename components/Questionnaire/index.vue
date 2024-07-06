@@ -18,7 +18,7 @@
    */
   -->
   <div data-aos="zoom-in">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="showConfirmationDialog">
       <template v-for="question in questions" :key="question.id">
         <div data-aos="zoom-in-down" class="my-5">
           <component
@@ -38,6 +38,10 @@
         </v-row>
       </v-container>
     </form>
+    <QuestionnaireConfirmationDialog
+      v-model="showDialog"
+      @confirmed="handleConfirmation"
+    />
   </div>
 </template>
 
@@ -68,6 +72,7 @@ const emit = defineEmits(["refreshUserAnswers"]);
 const router = useRouter();
 const questions = ref<Question[]>([]);
 const answers = ref<Record<number, any>>({});
+const showDialog = ref<boolean>(false);
 
 /**
  * Initialize the answers object based on the questions
@@ -161,6 +166,23 @@ const isFormValid = computed(() => {
     return false;
   });
 });
+
+/**
+ * Show the confirmation dialog
+ */
+const showConfirmationDialog = () => {
+  showDialog.value = true;
+};
+
+/**
+ * Handle the confirmation dialog response
+ * @param {boolean} confirmed - Indicates whether the user confirmed the action
+ */
+const handleConfirmation = async (confirmed: boolean) => {
+  if (confirmed) {
+    await submit();
+  }
+};
 
 /**
  * Transform the user's answers into a format suitable for submission

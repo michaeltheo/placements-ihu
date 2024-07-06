@@ -1,3 +1,19 @@
+<!--
+/**
+ * AdminDialogCreateUpdateCompany Component
+ *
+ * This component renders a dialog for creating or updating a company.
+ * It contains a form with fields for the company's name and tax identification number (AFM).
+ * The dialog is controlled by a prop and emits events to handle closing and refreshing the company list.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {Company | null}  editCompany - If provided, the dialog will be in edit mode and pre-fill the form with the company's details.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits an event to update the visibility of the dialog.
+ * - refreshCompaniesList (): Emits an event to refresh the list of companies.
+ */
+-->
 <template>
   <div class="company-dialog">
     <v-dialog

@@ -1,3 +1,19 @@
+<!--
+/**
+ * AdminDialogInternship Component
+ *
+ * This component displays detailed information about an internship in a dialog format.
+ * It allows the admin to view and update the status of the internship, view associated files,
+ * and check the status of questionnaires submitted by the user and the company.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {InternshipRead} internship - The internship object containing detailed information about the internship.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits an event to update the visibility of the dialog.
+ * - refreshInternshipList (): Emits an event to refresh the list of internships after an update.
+ */
+-->
 <template>
   <div class="dialog">
     <v-dialog

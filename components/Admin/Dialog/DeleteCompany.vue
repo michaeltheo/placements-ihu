@@ -1,3 +1,19 @@
+<!--
+/**
+ * AdminDialogDeleteCompany Component
+ *
+ * This component renders a dialog for deleting a company.
+ * It contains a confirmation message and two buttons: one for confirming the deletion and another for canceling the action.
+ * The dialog is controlled by a prop and emits events to handle closing and refreshing the company list.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {Company | undefined}  company - The company object to be deleted. If not provided, deletion will not proceed.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits an event to update the visibility of the dialog.
+ * - refreshCompaniesList (): Emits an event to refresh the list of companies after a successful deletion.
+ */
+-->
 <template>
   <div class="dialog__overlay">
     <v-dialog

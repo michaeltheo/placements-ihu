@@ -149,7 +149,7 @@
         :model-value="openInternshipDialog"
         :internship="selectedInternship"
         @refreshInternshipList="applyFilter"
-        @update:model-value="handleIndternshipDialogClose"
+        @update:model-value="handleInternshipDialogClose"
       />
     </section>
   </div>
@@ -349,7 +349,7 @@ const handleClick = (_event: Event, row: { item: InternshipRead }) => {
 };
 
 // Handle internship dialog close
-const handleIndternshipDialogClose = (newValue: boolean) => {
+const handleInternshipDialogClose = (newValue: boolean) => {
   openInternshipDialog.value = newValue;
   if (!newValue) {
     selectedInternship.value = undefined;
