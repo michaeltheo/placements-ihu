@@ -1,3 +1,19 @@
+<!--
+/**
+ * AdminDialogDeleteInternship Component
+ *
+ * This component displays a confirmation dialog for deleting an internship. It is designed to confirm
+ * the user's intent before performing a potentially destructive action. It features a modal overlay
+ * with options to either proceed with the deletion or cancel the operation.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {InternshipRead | undefined}internship - The internship object to be deleted; contains at least an ID and user details.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits an event to update the visibility of the dialog.
+ * - refreshInternshipList (): Emits an event to refresh the list of internships after a successful deletion.
+ */
+-->
 <template>
   <div class="dialog__overlay">
     <v-dialog
@@ -52,7 +68,7 @@ const props = withDefaults(
   }>(),
   {
     internship: undefined,
-  },
+  }
 );
 
 const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);

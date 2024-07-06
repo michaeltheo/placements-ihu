@@ -1,3 +1,19 @@
+<!--
+/**
+ * AdminDialogInternship Component
+ *
+ * This component displays detailed information about an internship in a dialog format.
+ * It allows the admin to view and update the status of the internship, view associated files,
+ * and check the status of questionnaires submitted by the user and the company.
+ *
+ * @param {boolean} modelValue - Controls the visibility of the dialog.
+ * @param {InternshipRead} internship - The internship object containing detailed information about the internship.
+ *
+ * Emits:
+ * - update:modelValue (boolean): Emits an event to update the visibility of the dialog.
+ * - refreshInternshipList (): Emits an event to refresh the list of internships after an update.
+ */
+-->
 <template>
   <div class="dialog">
     <v-dialog
@@ -135,7 +151,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        userHasSubmittedQuestionnaire,
+                        userHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -172,7 +188,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        companyHasSubmittedQuestionnaire,
+                        companyHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -433,7 +449,7 @@ const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
-    selectedStatus.value,
+    selectedStatus.value
   );
   if (hasErrorResponse(response)) {
     toast.error(`${response.error}`);
@@ -447,7 +463,7 @@ const updateInternshipStatus = async () => {
  */
 const loadUserQuestionnaire = async (
   userId: number,
-  status: InternshipStatus,
+  status: InternshipStatus
 ): Promise<void> => {
   if (status !== InternshipStatus.PENDING_REVIEW) {
     const userAnswers: any = await getUserAnswers(userId);
@@ -459,7 +475,7 @@ const loadUserQuestionnaire = async (
       userHasSubmittedQuestionnaire.value = false;
     }
     const companyAnswers: any = await getInternshipCompanyQuestionnaire(
-      props.internship.id,
+      props.internship.id
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
       companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
@@ -499,7 +515,7 @@ watch(
       await loadUserFiles(newVal.user_id);
       await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
-  },
+  }
 );
 </script>
 

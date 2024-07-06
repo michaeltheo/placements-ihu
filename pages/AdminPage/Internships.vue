@@ -149,7 +149,7 @@
         :model-value="openInternshipDialog"
         :internship="selectedInternship"
         @refreshInternshipList="applyFilter"
-        @update:model-value="handleIndternshipDialogClose"
+        @update:model-value="handleInternshipDialogClose"
       />
     </section>
   </div>
@@ -245,7 +245,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       companyName.value,
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -265,7 +265,7 @@ const fetchCompanies = async () => {
   const response = await getAllCompanies(
     undefined,
     undefined,
-    searchCompanyName.value,
+    searchCompanyName.value
   );
   if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
@@ -349,7 +349,7 @@ const handleClick = (_event: Event, row: { item: InternshipRead }) => {
 };
 
 // Handle internship dialog close
-const handleIndternshipDialogClose = (newValue: boolean) => {
+const handleInternshipDialogClose = (newValue: boolean) => {
   openInternshipDialog.value = newValue;
   if (!newValue) {
     selectedInternship.value = undefined;
@@ -372,7 +372,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  },
+  }
 );
 
 // Options for departments and programs

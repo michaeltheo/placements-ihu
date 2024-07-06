@@ -18,7 +18,7 @@
    */
   -->
   <div data-aos="zoom-in">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="showConfirmationDialog">
       <template v-for="question in questions" :key="question.id">
         <div data-aos="zoom-in-down" class="my-5">
           <component
@@ -38,6 +38,10 @@
         </v-row>
       </v-container>
     </form>
+    <QuestionnaireConfirmationDialog
+      v-model="showDialog"
+      @confirmed="handleConfirmation"
+    />
   </div>
 </template>
 
@@ -68,26 +72,24 @@ const emit = defineEmits(["refreshUserAnswers"]);
 const router = useRouter();
 const questions = ref<Question[]>([]);
 const answers = ref<Record<number, any>>({});
+const showDialog = ref<boolean>(false);
 
 /**
  * Initialize the answers object based on the questions
  */
 const initializeAnswers = () => {
-  answers.value = questions.value.reduce(
-    (acc, question) => {
-      if (question.question_type === QuestionType.multiple_choice) {
-        acc[question.id] = null;
-      } else if (question.question_type === QuestionType.free_text) {
-        acc[question.id] = "";
-      } else if (
-        question.question_type === QuestionType.multiple_choice_with_text
-      ) {
-        acc[question.id] = { options: [], text: "" };
-      }
-      return acc;
-    },
-    {} as Record<number, any>,
-  );
+  answers.value = questions.value.reduce((acc, question) => {
+    if (question.question_type === QuestionType.multiple_choice) {
+      acc[question.id] = null;
+    } else if (question.question_type === QuestionType.free_text) {
+      acc[question.id] = "";
+    } else if (
+      question.question_type === QuestionType.multiple_choice_with_text
+    ) {
+      acc[question.id] = { options: [], text: "" };
+    }
+    return acc;
+  }, {} as Record<number, any>);
 };
 
 /**
@@ -112,7 +114,7 @@ watch(() => props.questionnaireType, fetchQuestions);
  */
 const getOtherOptionId = (question: Question): number => {
   const otherOption = question.answer_options?.find(
-    (option) => option.option_text === "Άλλο",
+    (option) => option.option_text === "Άλλο"
   );
   return otherOption ? otherOption.id : -1;
 };
@@ -151,7 +153,7 @@ const isFormValid = computed(() => {
     ) {
       const typedAnswer = answer as { options: number[]; text: string };
       const isOtherSelected = typedAnswer.options.includes(
-        getOtherOptionId(question),
+        getOtherOptionId(question)
       );
       return (
         typedAnswer.options.length > 0 &&
@@ -161,6 +163,23 @@ const isFormValid = computed(() => {
     return false;
   });
 });
+
+/**
+ * Show the confirmation dialog
+ */
+const showConfirmationDialog = () => {
+  showDialog.value = true;
+};
+
+/**
+ * Handle the confirmation dialog response
+ * @param {boolean} confirmed - Indicates whether the user confirmed the action
+ */
+const handleConfirmation = async (confirmed: boolean) => {
+  if (confirmed) {
+    await submit();
+  }
+};
 
 /**
  * Transform the user's answers into a format suitable for submission
@@ -220,13 +239,13 @@ const submit = async () => {
     const response = await submitCompanyAnswers(
       formattedAnswers,
       props.internshipId,
-      props.token,
+      props.token
     );
     if (hasErrorResponse(response)) {
       toast.error(`${response.error}`);
     } else {
       toast.success(
-        `${response?.detail}, Θα μεταφερθείτε αυτόματα στην αρχική σελίδα. Ευχαριστούμε!`,
+        `${response?.detail}, Θα μεταφερθείτε αυτόματα στην αρχική σελίδα. Ευχαριστούμε!`
       );
       setTimeout(() => {
         router.push("/");

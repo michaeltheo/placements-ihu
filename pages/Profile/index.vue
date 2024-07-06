@@ -109,7 +109,7 @@
       >
         Για τη συμπλήρωση του ερωτηματολογίου είναι αναγκαία η δημιουργία
         κωδικού μιας χρήσης που θα δώσετε στον υπεύθυνο της εταιρείας. Ο κωδικός
-        είναι διαθέσιμος για 15 λεπτά.
+        είναι διαθέσιμος για 60 λεπτά.
         <v-spacer></v-spacer>
         <div v-if="OTPcode?.code">
           <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
@@ -311,7 +311,8 @@ const internshipHasEnded = computed<boolean>(() => {
   // Reset the time part for both dates to check only for day/month/year
   endDate.setHours(0, 0, 0, 0);
   currentDate.setHours(0, 0, 0, 0);
-  return currentDate >= endDate;
+  // return currentDate >= endDate;
+  return true;
 });
 
 /**
@@ -374,13 +375,13 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
     if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start,
+          (type: any) => type.submission_time === submissionTimeValues.start
         );
       }
     } else {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.end,
+          (type: any) => type.submission_time === submissionTimeValues.end
         );
       }
     }
@@ -401,7 +402,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean): void => {
  * @param newInternship - The new internship created.
  */
 const handleInternshipCreated = async (
-  newInternship: InternshipCreate,
+  newInternship: InternshipCreate
 ): Promise<void> => {
   hasInternship.value = true;
   internship.value = newInternship;
@@ -511,7 +512,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internshipHasEnded.value) {
     const response: any = await getInternshipCompanyQuestionnaire(
-      internship.value.id,
+      internship.value.id
     );
     if (response.data && !hasErrorResponse(response)) {
       companyHasSubmittedQuestionnaire.value = response.data.length > 0;

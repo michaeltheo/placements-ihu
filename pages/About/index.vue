@@ -44,7 +44,7 @@
     </v-alert>
 
     <div class="about-page__developers-section" data-aos="zoom-in-down">
-      <h1 class="about-page__developers-section-title">Developers</h1>
+      <h1 class="about-page__developers-section-title">Contributors</h1>
       <v-row>
         <v-col
           v-for="dev in developers"
