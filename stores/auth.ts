@@ -45,9 +45,6 @@ export const useAuthStore = defineStore("auth", {
       this.placements_access_token = placementsToken;
       this.user = userProfile;
       this.isAuthenticated = true;
-      localStorage.setItem("ihu_token", receivedToken);
-      localStorage.setItem("ihu_refresh_token", refreshToken);
-      localStorage.setItem("user", JSON.stringify(userProfile));
     },
 
     async logout() {
@@ -68,9 +65,6 @@ export const useAuthStore = defineStore("auth", {
         department: Department.IT_TEITHE,
       };
       this.isAuthenticated = false;
-      localStorage.removeItem("ihu_token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("ihu_refresh_token");
     },
 
     async verifyToken() {
