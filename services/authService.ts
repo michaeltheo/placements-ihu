@@ -51,7 +51,7 @@ export async function verifyToken(): Promise<
 
     if (response.ok) {
       const result: PlacementUserResponse = await response.json();
-      return result.data; // Return user data on success
+      return result.data;
     } else {
       throw new Error(
         `Token verification failed with status: ${response.status}`,
