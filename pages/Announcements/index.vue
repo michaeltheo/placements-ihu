@@ -92,6 +92,7 @@ const fetchAndSetAnnouncements = async () => {
   loading.value = true;
   try {
     const response = await fetchAnnouncements({
+      page: currentPage.value,
       itemsPerPage: itemsPerPage.value,
       updatedAfter,
       updatedBefore,
@@ -100,6 +101,7 @@ const fetchAndSetAnnouncements = async () => {
 
     if (response.data && response.meta) {
       allAnnouncements.value = response.data;
+      currentPage.value = response.meta.current_page;
       totalPages.value = response.meta.last_page;
       totalItems.value = response.meta.total;
     } else {

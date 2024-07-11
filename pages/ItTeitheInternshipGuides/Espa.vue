@@ -17,32 +17,13 @@
           prev-text="Προηγούμενο"
           next-text="Επόμενο"
           :items="[
-            'Πληροφορίες',
+            // 'Πληροφορίες',
             'Δικιαιολογιτικά Έναρξης',
             'Δικιαιολογιτικά Λήξης',
-            'Πρόσθετες Πληροφορίες',
+            // 'Πρόσθετες Πληροφορίες',
           ]"
         >
           <template v-slot:item.1>
-            <div class="guide__container__stepper__requirements">
-              <div class="guide__container__stepper__requirements__text">
-                Για να μπορέσετε να κάνετε Πρακτική με ΕΣΠΑ και να σας εκδώσει η
-                Γραμματεία την <span>ΒΕΒΑΙΩΣΗ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ </span>θα πρέπει
-                να πληρούνται οι παρακάτω προϋποθέσεις:
-                <ul class="guide__container__stepper__requirements__list mt-10">
-                  <li>
-                    Να βρίσκεστε σε τυπικό <span>εξάμηνο</span> μεγαλύτερο του
-                    Η’ (τουλάχιστον 5ο έτος).
-                  </li>
-                  <li>
-                    Να έχετε παρακολουθήσει με επιτυχία μαθήματα
-                    <span>τουλάχιστον 210 ΠΜ</span> του προγράμματος σπουδών.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </template>
-          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
@@ -63,7 +44,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
                           )
                         "
                       >
@@ -79,6 +60,15 @@
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Βεβαίωση πρακτικής</td>
                     <td>
+                      Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη
+                      γραμματεία και έπειτα θα το ανεβάσετε μέσω της πλατφόρμας.
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Αίτηση Φορέα για Απασχόληση Φοιτητή
+                    </td>
+                    <td>
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
@@ -87,7 +77,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
+                            'https://docs.google.com/document/d/11TNWYC1Ot_7rj-2R6rNhqzAs5-bOuxKe/edit'
                           )
                         "
                       >
@@ -102,41 +92,14 @@
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Αίτηση Φορέα για Απασχόληση Φοιτητή.
-                    </td>
-                    <td>
-                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/11TNWYC1Ot_7rj-2R6rNhqzAs5-bOuxKe/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
-                    </td>
-                  </tr>
-                  <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">
-                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου.
+                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
                     </td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε.
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
                       </span>
                     </td>
                     <td>
@@ -145,7 +108,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -170,7 +133,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -195,7 +158,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -208,11 +171,30 @@
                       </v-btn>
                     </td>
                   </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
+                    <td>
+                      <div>
+                        Ο φοιτητής πρέπει να παραλάβει το Βιβλιάριο Πρακτικής
+                        Άσκησης από το Γραφείο Πρακτικής Άσκησης στην αίθουσα
+                        209 του κτιρίου Πληροφορικής. Ο φοιτητής οφείλει να
+                        συμπληρώνει σωστά ΚΑΘΕ εβδομάδα στο Βιβλιάριο Πρακτικής
+                        Άσκησης το Έντυπο 1.
+                      </div>
+                      <div>
+                        Στο τέλος της εκπόνησης της πρακτικής άσκησης, πρέπει να
+                        δώσει στον εργοδότη το Βιβλιάριο Πρακτικής Άσκησης για
+                        να υπογράψει το Έντυπο 1 για κάθε εβδομάδα και να
+                        συμπληρώσει το Έντυπο 4. Επίσης, ο φοιτητής πρέπει να
+                        συμπληρώσει και την Αυτοξιολόγηση.
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </v-table>
             </div>
           </template>
-          <template v-slot:item.3>
+          <template v-slot:item.2>
             <div class="guide__container__stepper__requirements">
               <p
                 class="guide__container__stepper__requirements__text font-bold"
@@ -230,32 +212,16 @@
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης </span
-                      >.
-                    </td>
-                    <td>
-                      <v-btn
-                        class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης. Ο φοιτητής θα
+                        βρει το δικαιολογητικό στο email που έχει λάβει από το
+                        γραφείο ΕΣΠΑ.
+                      </span>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Ερωτηματολόγιο Αξιολόγησης Πρακτικής Άσκησης από τον
-                      Επιβλέποντα του φορέα.
+                      Επιβλέποντα του φορέα
                     </td>
                     <td>
                       Η συμπλήρωση του Ερωτηματολόγιο για τον Επιβλέποντα φορέα
@@ -288,7 +254,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
+                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit'
                           )
                         "
                       >
@@ -302,12 +268,12 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">ΒΙΒΛΙΑΡΙΟ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</td>
+                    <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
                     <td>
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
                       </span>
                     </td>
                   </tr>
