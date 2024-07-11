@@ -1,7 +1,7 @@
 <template>
   <div class="intersnshipPage" data-aos="flip-up" data-aos-duration="1000">
     <section class="intersnshipPage__container">
-      <h2 class="intersnshipPage__title">Πίκανας Πρακτικής</h2>
+      <h2 class="intersnshipPage__title">Πίνακας Πρακτικής</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -245,7 +245,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       companyName.value,
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -265,7 +265,7 @@ const fetchCompanies = async () => {
   const response = await getAllCompanies(
     undefined,
     undefined,
-    searchCompanyName.value,
+    searchCompanyName.value
   );
   if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
@@ -372,7 +372,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  },
+  }
 );
 
 // Options for departments and programs

@@ -1,7 +1,7 @@
 <template>
   <div class="companies-page" data-aos="flip-up" data-aos-duration="1000">
     <section class="companies-page__container">
-      <h2 class="companies-page__title">Πίκανας Εταιρειών</h2>
+      <h2 class="companies-page__title">Πίνακας Εταιρειών</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -136,7 +136,7 @@ const loadItems = async (options: LoadItemsOptions) => {
     const result = await getAllCompanies(
       options.page,
       options.itemsPerPage,
-      searchCompanyName.value,
+      searchCompanyName.value
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);

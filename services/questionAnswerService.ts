@@ -85,7 +85,7 @@ export async function submitCompanyAnswers(
 ): Promise<Message | ErrorResponse> {
   try {
     const response = await fetch(
-      `http://localhost:8000/company_answers/submit-answers/${internshipID}`,
+      `${API_URLS.SUBMIT_COMPANY_ANSWERS}/${internshipID}`,
       {
         method: "POST",
         headers: {
