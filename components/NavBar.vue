@@ -142,6 +142,8 @@ const navbarLinks = computed(() => {
     // If the user is an admin, add an admin page link
     if (authStore.user.isAdmin) {
       dynamicLinks.push({ text: "ΣΕΛΙΔΑ ΔΙΑΧΕΙΡΙΣΤΗ", route: "/adminPage" });
+      // Added in case the admin also has an internship
+      dynamicLinks.push({ text: "H ΠΡΑΚΤΙΚΗ ΜΟΥ", route: "/profile" });
     } else {
       // Add profile link for all authenticated users
       dynamicLinks.push({ text: "H ΠΡΑΚΤΙΚΗ ΜΟΥ", route: "/profile" });
