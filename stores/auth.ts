@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { User } from "@/types/user";
 import { UserRole, Department } from "@/types";
+import { User } from "@/types/user";
 import { verifyToken as verifyTokenService } from "@/services/authService";
 
 type AuthState = {
@@ -8,7 +8,7 @@ type AuthState = {
   placements_access_token: string;
   IHU_token: string | null;
   IHU_refresh_token: string | null;
-  isAuthenticated: any;
+  isAuthenticated: boolean;
 };
 
 export const useAuthStore = defineStore("auth", {
@@ -17,7 +17,6 @@ export const useAuthStore = defineStore("auth", {
       first_name: "",
       last_name: "",
       AM: "",
-      fathers_name: "",
       email: "",
       reg_year: "",
       telephone_number: "",
@@ -33,7 +32,6 @@ export const useAuthStore = defineStore("auth", {
   }),
 
   actions: {
-    // Action methods to manipulate the state
     login(
       receivedToken: string,
       userProfile: User,
@@ -55,7 +53,6 @@ export const useAuthStore = defineStore("auth", {
         first_name: "",
         last_name: "",
         AM: "",
-        fathers_name: "",
         email: "",
         reg_year: "",
         telephone_number: "",
@@ -68,8 +65,11 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async verifyToken() {
-      const isValid = await verifyTokenService();
-      this.isAuthenticated = isValid;
+      const user = await verifyTokenService();
+      this.isAuthenticated = user !== null;
+      if (user) {
+        this.user = user;
+      }
     },
 
     isLoggedIn() {
@@ -79,9 +79,29 @@ export const useAuthStore = defineStore("auth", {
       this.isAuthenticated = value;
     },
     setUser(userInfo: any) {
-      this.user = userInfo;
+      const departmentValues = Object.values(Department);
+      let department = Department.IT_TEITHE;
+      if (departmentValues.includes(userInfo.department)) {
+        department = userInfo.department;
+      } else {
+        errorLog(`Received unknown department: ${userInfo.department}`);
+      }
+
+      // Update user information
+      this.user = {
+        first_name: userInfo.first_name,
+        last_name: userInfo.last_name,
+        AM: userInfo.AM,
+        email: userInfo.email,
+        reg_year: userInfo.reg_year,
+        telephone_number: userInfo.telephone_number,
+        role: userInfo.role,
+        id: userInfo.id,
+        isAdmin: userInfo.role === UserRole.ADMIN,
+        department: department as Department,
+      };
+
       this.isAuthenticated = true;
-      this.placements_access_token = userInfo.accessToken;
     },
   },
 });

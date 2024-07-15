@@ -71,9 +71,26 @@
             <span class="profile__label">Τμήμα:</span>
             <span class="profile__value">{{ userDepartment ?? "N/A" }}</span>
           </v-col>
+          <v-col cols="12" md="12">
+            <div class="text-sky-900">
+              Είναι λάθος κάποια πληροφορία στο προφίλ σας;
+              <v-btn
+                size="x-small"
+                class="ml-2"
+                color="primary-dark-blue"
+                @click="openEditProfileDialog = true"
+              >
+                Επεξεργασία προφίλ
+              </v-btn>
+            </div>
+          </v-col>
         </v-row>
       </v-card-text>
     </v-card>
+    <ProfileUpdateUserData
+      :model-value="openEditProfileDialog"
+      @update:modelValue="openEditProfileDialog = $event"
+    />
   </section>
 </template>
 
@@ -92,6 +109,7 @@ const userRole = computed(() => user.value.role);
 const userTelephone = computed(() => user.value.telephone_number);
 const userEmail = computed(() => user.value.email);
 const userDepartment = computed(() => user.value.department);
+const openEditProfileDialog = ref<boolean>(false);
 </script>
 
 <style lang="scss" scoped>

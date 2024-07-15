@@ -161,7 +161,6 @@ const startDate = ref<string | null>(
 const endDate = ref<string | null>(
   props.internship?.end_date?.split("T")[0] ?? null,
 );
-// const $toast = useToast();
 const search = ref("");
 const companyOptions = ref<Company[]>([]);
 const valid = ref(false);

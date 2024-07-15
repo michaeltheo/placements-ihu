@@ -1,4 +1,4 @@
-import { Department, UserRole } from "@/types";
+import { Department, UserRole, Message } from "@/types";
 
 export interface User {
   first_name: string;
@@ -6,7 +6,6 @@ export interface User {
   AM: string;
   id: number;
   role: UserRole;
-  fathers_name?: string;
   telephone_number?: string;
   email?: string;
   department?: Department;
@@ -20,4 +19,19 @@ export interface Developer {
   description: string;
   github_url: string;
   linkedin_url: string;
+}
+
+export interface UpdateUser {
+  first_name?: string;
+  last_name?: string;
+  AM?: string;
+  telephone_number?: string;
+  email?: string;
+  department?: Department;
+  reg_year?: string;
+}
+export interface UpdateUserResponse {
+  data?: User;
+  message?: Message;
+  error?: string;
 }
