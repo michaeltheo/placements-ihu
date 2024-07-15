@@ -374,13 +374,13 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
     if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start
+          (type: any) => type.submission_time === submissionTimeValues.start,
         );
       }
     } else {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.end
+          (type: any) => type.submission_time === submissionTimeValues.end,
         );
       }
     }
@@ -401,7 +401,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean): void => {
  * @param newInternship - The new internship created.
  */
 const handleInternshipCreated = async (
-  newInternship: InternshipCreate
+  newInternship: InternshipCreate,
 ): Promise<void> => {
   hasInternship.value = true;
   internship.value = newInternship;
@@ -511,7 +511,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internshipHasEnded.value) {
     const response: any = await getInternshipCompanyQuestionnaire(
-      internship.value.id
+      internship.value.id,
     );
     if (response.data && !hasErrorResponse(response)) {
       companyHasSubmittedQuestionnaire.value = response.data.length > 0;

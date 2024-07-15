@@ -8,6 +8,7 @@ export const API_URLS = {
   GET_USERS: `${PLACEMENTS_BASE_URL}/user`,
   SET_STUDENT: `${PLACEMENTS_BASE_URL}/user/set-student`,
   SET_ADMIN: `${PLACEMENTS_BASE_URL}/user/set-admin`,
+  UPDATE_USER_PROFILE: `${PLACEMENTS_BASE_URL}/user/update-profile`,
   PLACEMENTS_VERIFY_TOKEN: `${PLACEMENTS_BASE_URL}/auth/verify-token`,
   UPLOAD_DIKAIOLOGITIKA: `${PLACEMENTS_BASE_URL}/dikaiologitika/`,
   UPDATE_DIKAIOLOGITIKA: `${PLACEMENTS_BASE_URL}/dikaiologitika/`,
