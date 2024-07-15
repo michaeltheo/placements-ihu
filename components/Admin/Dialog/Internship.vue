@@ -151,7 +151,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        userHasSubmittedQuestionnaire,
+                        userHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -188,7 +188,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        companyHasSubmittedQuestionnaire,
+                        companyHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -259,6 +259,15 @@
         </v-data-table>
 
         <v-card-actions class="dialog__actions">
+          <v-btn
+            class="dialog__actions__btn--downloadAll"
+            @click="downloadAllFiles()"
+          >
+            <v-tooltip activator="parent" location="top"
+              >Κατέβασμα όλων των αρχείων σε μορφή ZIP</v-tooltip
+            >
+            Κατέβασε όλα τα αρχεία</v-btn
+          >
           <v-btn class="dialog__actions__btn--cancel" @click="emitClose"
             >Κλείσιμο</v-btn
           >
@@ -296,6 +305,7 @@ import { InternshipStatus } from "@/types";
 import {
   downloadDikaiologitika,
   fetchDikaiologitaFiles,
+  downloadAllUserFiles,
 } from "@/services/dikaiologitkaService";
 import { submissionTimeValues } from "@/constants/ApiConstants ";
 
@@ -388,6 +398,13 @@ const downloadFile = async (file: DikaiologitikaFile) => {
 };
 
 /**
+ * Initiates the download all user files as a ZIP.
+ */
+const downloadAllFiles = async () => {
+  await downloadAllUserFiles(props.internship?.user_id);
+};
+
+/**
  * Closes the dialog and refreshes the internship list.
  */
 const emitClose = () => {
@@ -449,7 +466,7 @@ const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
-    selectedStatus.value,
+    selectedStatus.value
   );
   if (hasErrorResponse(response)) {
     toast.error(`${response.error}`);
@@ -463,7 +480,7 @@ const updateInternshipStatus = async () => {
  */
 const loadUserQuestionnaire = async (
   userId: number,
-  status: InternshipStatus,
+  status: InternshipStatus
 ): Promise<void> => {
   if (status !== InternshipStatus.PENDING_REVIEW) {
     const userAnswers: any = await getUserAnswers(userId);
@@ -475,7 +492,7 @@ const loadUserQuestionnaire = async (
       userHasSubmittedQuestionnaire.value = false;
     }
     const companyAnswers: any = await getInternshipCompanyQuestionnaire(
-      props.internship.id,
+      props.internship.id
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
       companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
@@ -515,7 +532,7 @@ watch(
       await loadUserFiles(newVal.user_id);
       await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
-  },
+  }
 );
 </script>
 
@@ -586,7 +603,8 @@ watch(
         @apply py-2 px-4 rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400;
       }
 
-      &--download {
+      &--download,
+      &--downloadAll {
         @apply text-white bg-blue-500 hover:bg-blue-600;
       }
     }
