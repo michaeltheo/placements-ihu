@@ -66,7 +66,7 @@
         Είστε φοιτητές του Πρώην Τμήματος Ηλεκτρονικής;
       </p>
       <BaseComponentsBaseButton
-        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΗΛΕΚΤΡΟΝΙΚΗΣ"
+        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ"
         :glow="true"
         @click="() => navigateTo('/ElTeitheInternshipGuides')"
       />

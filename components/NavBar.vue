@@ -169,7 +169,7 @@ const navbarLinks = computed(() => {
           route: "/ItTeitheInternshipGuides",
         },
         {
-          name: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΗΛΕΚΤΡΟΝΙΚΗΣ",
+          name: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ",
           route: "/ElTeitheInternshipGuides",
         },
       ],
