@@ -192,6 +192,45 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
 }
 
 /**
+ * Initiates the download of all dikaiologitika files for a specific user as a ZIP file.
+ * @param userId The ID of the user whose files are to be downloaded.
+ * @returns Promise resolving when the file download has been initiated.
+ */
+export async function downloadAllUserFiles(userId: number): Promise<void> {
+  try {
+    const response = await fetch(
+      `${API_URLS.GET_DIKAIOLOGITIKA_FILES}/${userId}/download-zip`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      const errorDetail = await response.text();
+      throw new Error(errorDetail || "Failed to download file.");
+    }
+
+    // Create a URL for the file blob and initiate download.
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = downloadUrl;
+    a.download = `user_${userId}_files.zip`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(downloadUrl);
+    a.remove();
+  } catch (error) {
+    errorLog("Error downloading file:", error);
+  }
+}
+
+
+/**
  * Retrieves the list of available dikaiologitika types.
  * @returns Promise resolving to the types response data or null in case of error.
  */

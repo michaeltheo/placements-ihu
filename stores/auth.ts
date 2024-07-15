@@ -97,7 +97,7 @@ export const useAuthStore = defineStore("auth", {
         telephone_number: userInfo.telephone_number,
         role: userInfo.role,
         id: userInfo.id,
-        isAdmin: userInfo.role === UserRole.ADMIN,
+        isAdmin: userInfo.role === UserRole.ADMIN || userInfo.role === UserRole.SUPER_ADMIN,
         department: department as Department,
       };
 
