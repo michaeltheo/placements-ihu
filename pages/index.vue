@@ -1,15 +1,5 @@
 <template>
   <div class="home-page" data-aos="fade-up" data-aos-duration="3000">
-    <div class="home-page__alert">
-      <div class="home-page__alert-icon">
-        <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
-      </div>
-      <div class="home-page__alert-text">
-        Προσοχή. Η πρακτική άσκηση του νέου τμήματος δεν θα προσφέρεται μέχρι
-        την ψήφιση θεσμικού πλαισίου.
-      </div>
-    </div>
-
     <div class="home-page__grid-section">
       <div class="home-page__grid-section-info">
         <h2 class="home-page__grid-section-header">
@@ -133,18 +123,6 @@ onMounted(async () => {
 .home-page {
   @apply mx-auto mt-10 px-2 sm:px-4 lg:px-8 space-y-6;
 
-  &__alert {
-    @apply bg-red-300 w-full p-4 rounded-lg flex items-center space-x-4 text-red-800 shadow-md transition-transform transform;
-
-    &-icon {
-      @apply text-red-700 md:text-4xl text-3xl flex-shrink-0;
-    }
-
-    &-text {
-      @apply flex-grow font-semibold text-sm md:text-xl lg:text-2xl;
-    }
-  }
-
   &__grid-section {
     @apply grid grid-cols-1 md:grid-cols-3 gap-6;
 
@@ -154,7 +132,7 @@ onMounted(async () => {
     }
 
     &-info {
-      @apply p-4 sm:p-6 rounded-lg shadow-md md:col-span-2 relative;
+      @apply p-4 sm:p-6 rounded-lg shadow-lg md:col-span-2 relative;
     }
 
     &-content {

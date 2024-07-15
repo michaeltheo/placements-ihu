@@ -1,7 +1,7 @@
 <template>
   <div class="companies-page" data-aos="flip-up" data-aos-duration="1000">
     <section class="companies-page__container">
-      <h2 class="companies-page__title">Πίκανας Εταιρειών</h2>
+      <h2 class="companies-page__title">Πίνακας Εταιρειών</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"

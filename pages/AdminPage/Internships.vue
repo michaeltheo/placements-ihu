@@ -1,7 +1,7 @@
 <template>
   <div class="intersnshipPage" data-aos="flip-up" data-aos-duration="1000">
     <section class="intersnshipPage__container">
-      <h2 class="intersnshipPage__title">Πίκανας Πρακτικής</h2>
+      <h2 class="intersnshipPage__title">Πίνακας Πρακτικής</h2>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"

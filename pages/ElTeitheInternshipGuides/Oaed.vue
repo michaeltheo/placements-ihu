@@ -34,25 +34,8 @@
                       Βεβαίωση πρακτικής από την γραμματεία
                     </td>
                     <td>
-                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
-                    </td>
-                    <td>
-                      <v-btn
-                        class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                      Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη
+                      γραμματεία και έπειτα θα το ανεβάσετε μέσω της πλατφόρμας.
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -89,7 +72,7 @@
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
                       </span>
                     </td>
                     <td>
@@ -118,26 +101,27 @@
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
                       </span>
                     </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
                     <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                      <div>
+                        Ο φοιτητής πρέπει να παραλάβει το Βιβλιάριο Πρακτικής
+                        Άσκησης από το Γραφείο Πρακτικής Άσκησης στην αίθουσα
+                        209 του κτιρίου Πληροφορικής. Ο φοιτητής οφείλει να
+                        συμπληρώνει σωστά ΚΑΘΕ εβδομάδα στο Βιβλιάριο Πρακτικής
+                        Άσκησης το Έντυπο 1.
+                      </div>
+                      <div>
+                        Στο τέλος της εκπόνησης της πρακτικής άσκησης, πρέπει να
+                        δώσει στον εργοδότη το Βιβλιάριο Πρακτικής Άσκησης για
+                        να υπογράψει το Έντυπο 1 για κάθε εβδομάδα και να
+                        συμπληρώσει το Έντυπο 4. Επίσης, ο φοιτητής πρέπει να
+                        συμπληρώσει και την Αυτοξιολόγηση.
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -159,25 +143,8 @@
                       Αντίγραφο του εντύπου Ε3.5. λήξης της ΠΑ
                     </td>
                     <td>
-                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                      Ο φοιτητής ζητάει το έγγραφο από τον εργοδότη. Αφού το
+                      συμπληρώσετε, το ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -190,7 +157,7 @@
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης </span
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.</span
                       >.
                     </td>
                     <td>
@@ -218,26 +185,21 @@
                       εμφανίζονται
                     </td>
                     <td>
-                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας. Τα
-                      ένσυμα μπορείτε να τα πάρετε μέσω του efka.gr
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                      <div>
+                        Ο φοιτητής εκδίδει το έγγραφο μόνος του ηλεκτρονικά μέσω
+                        του ΕΦΚΑ και το ανεβάζει μέσω της πλατφόρμας. Τα ένσημα
+                        μπορείτε να τα πάρετε μέσω του efka.gr.
+                      </div>
+                      <div class="mt-3">
+                        Ο φοιτητής ζητάει την βεβαίωση ενσήμων από τον εργοδότη
+                        μόνο αν δεν εμφανίζονται τα ένσημά του για τους 6 μήνες
+                        στον ΕΦΚΑ (είναι φυσιολογικό να αργήσουν να εμφανιστούν
+                        1-2 μήνες).<span class="highlight">
+                          Ωστόσο, ο φοιτητής ΥΠΟΧΡΕΟΥΤΑΙ να καταθέσει ή να
+                          αποστείλει στο γραφείο Πρακτικής Άσκησης τη βεβαίωση
+                          ενσήμων από τον ΕΦΚΑ, όταν αυτά γίνουν διαθέσιμα.
+                        </span>
+                      </div>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -247,32 +209,17 @@
                       λογαριασμού
                     </td>
                     <td>
-                      Αποδείξεις κατάθεσης στον τραπεζικό λογαριασμό του φοιτητή
-                      από το φορέα απασχόλησης. Τα ανεβάζετε μέσω τις πλατφόρμας
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
+                      Ο φοιτητής εκδίδει τις αποδείξεις μόνος του μέσω του
+                      e-banking ή της εφαρμογής της τράπεζας στην οποία δεχόταν
+                      τις πληρωμές. Αυτές είναι οι αποδείξεις κατάθεσης στον
+                      τραπεζικό λογαριασμό του φοιτητή από τον φορέα
+                      απασχόλησης. Τα ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Ερωτηματολόγιο Αξιολόγησης Πρακτικής Άσκησης από τον
-                      Επιβλέποντα του φορέα.
+                      Επιβλέποντα του φορέα
                     </td>
                     <td>
                       Η συμπλήρωση του Ερωτηματολόγιο για τον Επιβλέποντα φορέα
@@ -305,7 +252,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -319,12 +266,12 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">ΒΙΒΛΙΑΡΙΟ ΠΡΑΚΤΙΚΗΣ ΑΣΚΗΣΗΣ</td>
+                    <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
                     <td>
                       <span class="highlight"
                         >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
                         το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης
+                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
                       </span>
                     </td>
                   </tr>

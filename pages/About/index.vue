@@ -70,7 +70,7 @@ const developers: Developer[] = [
     AM: "164665",
     icon: "MichaelTheocharis.jpg",
     description:
-      "Διπλωματική εργασία, 2020-2022. Σχεδιασμός και ανάπτυξη της αρχικής έκδοσης της web εφαρμογής (API και web client).",
+      "Διπλωματική εργασία, 2022-2024. Σχεδιασμός και ανάπτυξη της αρχικής έκδοσης της web εφαρμογής (API και web client).",
     github_url: "https://github.com/michaeltheo",
     linkedin_url: "https://gr.linkedin.com/in/michael-theocharis-188192134",
   },
