@@ -94,7 +94,7 @@ import { useAuthStore } from "@/stores/auth";
 const links = [
   { text: "ΟΔΗΓΟΣ", route: "/guide" },
   { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
-  // { text: "ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ ΕΤΑΙΡΕΙΑΣ", route: "/companyPage" },
+  { text: "ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ ΕΤΑΙΡΕΙΑΣ", route: "/companyPage" },
   { text: "ABOUT", route: "/about" },
 ];
 const authStore = useAuthStore();
