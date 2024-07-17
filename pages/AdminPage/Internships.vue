@@ -245,7 +245,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       companyName.value,
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -265,7 +265,7 @@ const fetchCompanies = async () => {
   const response = await getAllCompanies(
     undefined,
     undefined,
-    searchCompanyName.value,
+    searchCompanyName.value
   );
   if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
@@ -292,10 +292,18 @@ const formatDate = (dateString: string | null | undefined) => {
 const getColorForStatus = (status: string): string => {
   if (status === InternshipStatus.ACTIVE) {
     return "green";
-  } else if (status === InternshipStatus.PENDING_REVIEW) {
+  } else if (
+    status === InternshipStatus.PENDING_REVIEW_END ||
+    status === InternshipStatus.PENDING_REVIEW_START
+  ) {
     return "orange";
   } else if (status === InternshipStatus.ENDED) {
     return "red";
+  } else if (
+    status === InternshipStatus.SUBMIT_START_FILES ||
+    status === InternshipStatus.SUBMIT_END_FILES
+  ) {
+    return "orange-darken-1";
   }
   return "default";
 };
@@ -372,7 +380,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  },
+  }
 );
 
 // Options for departments and programs

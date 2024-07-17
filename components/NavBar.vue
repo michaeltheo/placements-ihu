@@ -94,7 +94,7 @@ import { useAuthStore } from "@/stores/auth";
 const links = [
   { text: "ΟΔΗΓΟΣ", route: "/guide" },
   { text: "ΑΝΑΚΟΙΝΩΣΕΙΣ", route: "/announcements" },
-  { text: "ΠΑΛΙΟ ΠΡΟΓΡΑΜΜΑ", route: "/oldProgram" },
+  // { text: "ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ ΕΤΑΙΡΕΙΑΣ", route: "/companyPage" },
   { text: "ABOUT", route: "/about" },
 ];
 const authStore = useAuthStore();
@@ -138,12 +138,11 @@ const navbarLinks = computed(() => {
   const dynamicLinks = [];
 
   // Check if the user is authenticated
+
   if (authStore.isAuthenticated) {
     // If the user is an admin, add an admin page link
     if (authStore.user.isAdmin) {
       dynamicLinks.push({ text: "ΣΕΛΙΔΑ ΔΙΑΧΕΙΡΙΣΤΗ", route: "/adminPage" });
-      // Added in case the admin also has an internship
-      dynamicLinks.push({ text: "H ΠΡΑΚΤΙΚΗ ΜΟΥ", route: "/profile" });
     } else {
       // Add profile link for all authenticated users
       dynamicLinks.push({ text: "H ΠΡΑΚΤΙΚΗ ΜΟΥ", route: "/profile" });
@@ -158,18 +157,18 @@ const navbarLinks = computed(() => {
   return [
     { text: "ΑΡΧΙΚΗ", route: "/" },
     {
-      text: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ",
+      text: "ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ",
       children: [
         {
-          name: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ",
+          name: "ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ",
           route: "/IhuInternshipGuides",
         },
         {
-          name: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ",
+          name: "ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ",
           route: "/ItTeitheInternshipGuides",
         },
         {
-          name: "ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ",
+          name: "ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΠΡΩΗΝ ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ",
           route: "/ElTeitheInternshipGuides",
         },
       ],
@@ -249,7 +248,7 @@ const navbarLinks = computed(() => {
 
   &__item--animated {
     color: $secondary-charcoal-color;
-    @apply relative w-fit px-2 py-1 block;
+    @apply relative w-fit px-2 py-1 flex;
 
     &::after {
       content: "";

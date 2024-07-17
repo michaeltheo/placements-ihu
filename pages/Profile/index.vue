@@ -1,10 +1,14 @@
 <template>
   <div class="profile" data-aos="fade-down" data-aos-duration="1000">
+    <!-- Profile User Data Component -->
     <ProfileUserData />
 
+    <!-- Info Banner for Internship Status -->
     <BaseComponentsInfoBanner v-if="internship" :status="internship?.status" />
+
     <section class="user-files user-files--files">
       <h2 class="user-files__header">Δικαιολογητικά</h2>
+
       <!-- Check if the user has an internship -->
       <div v-if="!hasInternship" class="user-files__create-internship-button">
         <v-btn
@@ -13,6 +17,7 @@
         >
           Δημιουργία Πρακτικής Άσκησης
         </v-btn>
+
         <!-- Dialog for creating an internship -->
         <CreateInternshipDialog
           :model-value="openCreateInternshipDialog"
@@ -20,9 +25,11 @@
           @internshipCreated="handleInternshipCreated"
         />
       </div>
+
       <div v-else>
         <!-- Display internship data -->
         <ProfileInternshipData :internship="internship" />
+
         <!-- Data table for files -->
         <v-data-table-server
           v-model:items-per-page="itemsPerPage"
@@ -66,6 +73,7 @@
           </template>
           <template #bottom></template>
         </v-data-table-server>
+
         <div class="user-files__controls">
           <v-btn
             elevation="4"
@@ -78,26 +86,99 @@
           <v-btn
             elevation="4"
             color="green-lighten-1"
+            :disabled="internship?.status == InternshipStatus.ACTIVE"
             @click="openAddFilesDialog = true"
           >
+            <v-tooltip activator="parent" location="top"
+              >Πρόσθεσε ένα νέο Δικαιολογητικό</v-tooltip
+            >
             Προσθήκη Δικαιολογητικού
           </v-btn>
           <v-btn
             v-if="
               hasInternship &&
-              internship.status !== InternshipStatus.PENDING_REVIEW
+              internship.status !== InternshipStatus.PENDING_REVIEW_START &&
+              internship.status !== InternshipStatus.SUBMIT_START_FILES &&
+              internship.status !== InternshipStatus.ENDED
+            "
+            elevation="4"
+            color="amber-darken-1"
+            @click="openCreateInternshipDialog = true"
+          >
+            <v-tooltip activator="parent" location="top"
+              >Ενήμερωση της Πρακτικής Άσκησης</v-tooltip
+            >
+            Ενημέρωση Πρακτικής
+          </v-btn>
+          <v-btn
+            v-if="
+              hasInternship &&
+              internship.status === InternshipStatus.SUBMIT_START_FILES
             "
             elevation="4"
             color="orange-darken-3"
-            @click="openCreateInternshipDialog = true"
+            @click="changeInternshipStatusToPendingReviewStart()"
           >
-            Ενημέρωση Πρακτικής
+            <v-tooltip activator="parent" location="top"
+              >Ενήμερωση κατάστασης πρακτικής σε
+              {{ InternshipStatus.PENDING_REVIEW_START }}</v-tooltip
+            >
+            {{ InternshipStatus.PENDING_REVIEW_START }}
+          </v-btn>
+          <v-btn
+            v-if="
+              hasInternship &&
+              internship.status === InternshipStatus.SUBMIT_END_FILES
+            "
+            elevation="4"
+            color="orange-darken-3"
+            @click="changeInternshipStatusToPendingReviewEnd()"
+          >
+            <v-tooltip activator="parent" location="top"
+              >Ενήμερωση κατάστασης πρακτικής σε
+              {{ InternshipStatus.PENDING_REVIEW_END }}</v-tooltip
+            >
+            {{ InternshipStatus.PENDING_REVIEW_END }}
+          </v-btn>
+          <v-btn
+            v-if="
+              hasInternship && internship.status === InternshipStatus.ACTIVE
+            "
+            elevation="4"
+            color="orange-darken-1"
+            @click="changeInternshipStatusToSubmitEndFiles()"
+          >
+            <v-tooltip activator="parent" location="top"
+              >Ενήμερωση κατάστασης πρακτικής σε
+              {{ InternshipStatus.SUBMIT_END_FILES }}</v-tooltip
+            >
+            {{ InternshipStatus.SUBMIT_END_FILES }}
           </v-btn>
         </div>
       </div>
     </section>
+
+    <!-- Alerts for questionnaire submission -->
+    <v-alert
+      type="info"
+      color="primary-blue-color"
+      variant="outlined"
+      prominent
+      border="top"
+      title="Πληροφορίες για το Ερωτηματολόγιο"
+    >
+      Η επιλογή για τη συμπλήρωση του ερωτηματολογίου θα είναι διαθέσιμη μετά το
+      τέλος της πρακτικής. Για τη συμπλήρωση του ερωτηματολογίου του ασκούμενου,
+      πατήστε το κουμπί
+      <span class="infoBanner-text--bold">'Έναρξη Ερωτηματολογίου'</span>
+      που βρίσκεται κάτω από τον πίνακα των δικαιολογητικών. Για τη συμπλήρωση
+      του ερωτηματολογίου της εταιρείας, ακολουθήστε τα βήματα που βρίσκονται
+      στο πλαίσιο
+      <span class="infoBanner-text--bold">'Ερωτηματολογίου Εταιρείας'</span>
+      Η κατάσταση της πρακτικής σας θα αλλάξει όταν το Γραφείο Πρακτικής Άσκησης
+      ελέγξει τα δικαιολογητικά σας.
+    </v-alert>
     <div v-if="internshipHasEnded">
-      <!-- Alerts for questionnaire -->
       <v-alert
         v-if="!companyHasSubmittedQuestionnaire"
         type="info"
@@ -109,7 +190,7 @@
       >
         Για τη συμπλήρωση του ερωτηματολογίου είναι αναγκαία η δημιουργία
         κωδικού μιας χρήσης που θα δώσετε στον υπεύθυνο της εταιρείας. Ο κωδικός
-        είναι διαθέσιμος για 60 λεπτά.
+        είναι διαθέσιμος για 1 μέρα.
         <v-spacer></v-spacer>
         <div v-if="OTPcode?.code">
           <div class="m-3 font-bold">Κωδικός: {{ OTPcode?.code }}</div>
@@ -119,8 +200,8 @@
         </div>
         <v-spacer></v-spacer>
         <v-btn class="m-4 md:w-1/3" @click="userGenerateOTP"
-          >Δημιουργία κωδικού
-        </v-btn>
+          >Δημιουργία κωδικού</v-btn
+        >
       </v-alert>
       <v-alert
         v-else
@@ -131,9 +212,9 @@
         border="top"
         title="Ερωτηματολόγιο Εταιρείας"
         color="primary-blue-color"
-        >Η εταιρεία έχει υποβάλει το ερωτηματολόγιο για την πρακτική
-        άσκηση.</v-alert
       >
+        Η εταιρεία έχει υποβάλει το ερωτηματολόγιο για την πρακτική άσκηση.
+      </v-alert>
       <v-alert
         v-if="!userHasSubmittedQuestionnaire"
         class="mt-2"
@@ -150,10 +231,9 @@
           v-if="!openQuestionnaire"
           class="m-4 md:w-1/2 w-full"
           @click="openQuestionnaire = true"
-          >Έναρξη Ερωτηματολογίου
-        </v-btn>
+          >Έναρξη Ερωτηματολογίου</v-btn
+        >
       </v-alert>
-
       <v-alert
         v-else
         class="mt-2"
@@ -171,8 +251,8 @@
           class="m-4 md:w-1/2 w-full"
           color="primary-blue-color"
           @click="openViewQuestionnaireAnswersDialog = true"
-          >Προβολή Ερωτηματολιγίου
-        </v-btn>
+          >Προβολή Ερωτηματολιγίου</v-btn
+        >
       </v-alert>
       <div v-if="!userHasSubmittedQuestionnaire" class="shadow-lg">
         <Questionnaire
@@ -194,9 +274,10 @@
         Η συμπλήρωση του ερωτηματολογίου θα είναι διαθέσιμη στη λήξη της
         πρακτικής:<span class="font-bold">{{
           formatDate(internship?.end_date)
-        }}</span></v-alert
-      >
+        }}</span>
+      </v-alert>
     </div>
+
     <!-- Dialogs for file upload and deletion -->
     <FileUploadDialog
       v-if="hasInternship"
@@ -212,10 +293,13 @@
       @update:modelValue="handleDeleteDialogClose"
       @refreshFilesList="loadItems"
     />
+
     <!-- Dialog for updating internship -->
     <CreateInternshipDialog
       v-if="
-        hasInternship && internship.status !== InternshipStatus.PENDING_REVIEW
+        hasInternship &&
+        internship.status !== InternshipStatus.PENDING_REVIEW_START &&
+        internship.status !== InternshipStatus.SUBMIT_START_FILES
       "
       :model-value="openCreateInternshipDialog"
       :is-update="true"
@@ -224,6 +308,7 @@
       @internshipUpdated="handleInternshipUpdated"
       @refreshInternship="getInternship"
     />
+
     <!-- Dialog for viewing Questionnaire answers -->
     <ProfileQuestionnaireDialog
       :model-value="openViewQuestionnaireAnswersDialog"
@@ -232,6 +317,7 @@
     />
   </div>
 </template>
+
 <script lang="ts" setup>
 import { toast } from "vue3-toastify";
 import { useDikaiologitkaStore } from "@/stores/dikaiologitika";
@@ -241,7 +327,10 @@ import {
   fetchDikaiologitaFiles,
   getDikaiologitkaTypes,
 } from "@/services/dikaiologitkaService";
-import { getInternshipByUser } from "@/services/internshipService";
+import {
+  adminUpdateInternshipStatus,
+  getInternshipByUser,
+} from "@/services/internshipService";
 import { errorLog } from "@/utils/log";
 import { submissionTimeValues } from "@/constants/ApiConstants ";
 import { InternshipStatus, QuestionnaireType } from "@/types";
@@ -259,9 +348,11 @@ import { UserAnswer } from "@/types/questionAnswer";
 import { generateOTP } from "@/services/otpService";
 import { OTPBase } from "types/otp";
 
+// Middleware for authentication
 definePageMeta({
   middleware: ["auth"],
 });
+
 const authStore = useAuthStore();
 const dikaiologitikaStore = useDikaiologitkaStore();
 const itemsPerPage = ref(5);
@@ -272,6 +363,7 @@ const headers = ref([
   { title: "ΗΜΕΡΟΜΗΝΙΑ ΕΠΕΞΕΡΓΑΣΙΑΣ", key: "date", sortable: false },
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
+
 const selectedItem = ref<DikaiologitikaFile | null>(null);
 const serverItems = ref<DikaiologitikaFile[]>([]);
 const loading = ref<boolean>(true);
@@ -288,7 +380,11 @@ const companyHasSubmittedQuestionnaire = ref<boolean>(false);
 const questionarrieAnswers = ref<UserAnswer[]>([]);
 const OTPcode = ref<OTPBase>();
 
-// Helper function to format expiry date
+/**
+ * Helper function to format OTP expiry date
+ * @param dateString - The date string to format.
+ * @returns Formatted expiry date string or "N/A" if the date is invalid.
+ */
 const formatOtpExpireDate = (dateString: string | null | undefined) => {
   if (!dateString) return "N/A";
   const options: Intl.DateTimeFormatOptions = {
@@ -302,17 +398,49 @@ const formatOtpExpireDate = (dateString: string | null | undefined) => {
   return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
-// Helper function to check if the internship end date has passed
+/**
+ * Helper function to check if the internship end date has passed
+ * @returns Boolean indicating whether the internship has ended.
+ */
 const internshipHasEnded = computed<boolean>(() => {
   if (!internship.value || !internship.value.end_date) return false;
   const endDate: Date = new Date(internship.value.end_date);
   const currentDate: Date = new Date();
-
   // Reset the time part for both dates to check only for day/month/year
   endDate.setHours(0, 0, 0, 0);
   currentDate.setHours(0, 0, 0, 0);
   return currentDate >= endDate;
 });
+
+/**
+ * Helper function to check if today is one week or less before the given end date
+ * @param endDateString - The end date string to compare.
+ * @returns Boolean indicating whether today is one week or less before the end date.
+ */
+const isOneWeekOrLessBeforeEndDate = (endDateString: string) => {
+  const endDate = new Date(endDateString);
+  const currentDate = new Date();
+  const adjustedEndDate = new Date(endDate);
+  adjustedEndDate.setDate(endDate.getDate() - 7);
+  adjustedEndDate.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
+  return currentDate.getTime() >= adjustedEndDate.getTime();
+};
+
+/**
+ * Function to convert milliseconds to days, hours, minutes, and seconds
+ * @param milliseconds - The milliseconds to convert.
+ * @returns Object containing days, hours, minutes, and seconds.
+ */
+const convertMillisecondsToTime = (milliseconds: number) => {
+  const days = Math.floor(milliseconds / (24 * 60 * 60 * 1000));
+  const hours = Math.floor(
+    (milliseconds % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+  );
+  const minutes = Math.floor((milliseconds % (60 * 60 * 1000)) / (60 * 1000));
+  const seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
+  return { days, hours, minutes, seconds };
+};
 
 /**
  * Helper function to format date.
@@ -371,16 +499,19 @@ const getInternship = async (): Promise<void> => {
 const fetchDikaiologitikaTypes = async (): Promise<void> => {
   const response = await getDikaiologitkaTypes();
   if (response) {
-    if (internship?.value?.status === InternshipStatus.PENDING_REVIEW) {
+    if (
+      internship?.value?.status === InternshipStatus.SUBMIT_START_FILES ||
+      internship?.value?.status === InternshipStatus.PENDING_REVIEW_START
+    ) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start,
+          (type: any) => type.submission_time === submissionTimeValues.start
         );
       }
     } else {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.end,
+          (type: any) => type.submission_time === submissionTimeValues.end
         );
       }
     }
@@ -401,7 +532,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean): void => {
  * @param newInternship - The new internship created.
  */
 const handleInternshipCreated = async (
-  newInternship: InternshipCreate,
+  newInternship: InternshipCreate
 ): Promise<void> => {
   hasInternship.value = true;
   internship.value = newInternship;
@@ -450,6 +581,7 @@ const handleDeleteDialogClose = (newValue: boolean): void => {
     selectedItem.value = null;
   }
 };
+
 /**
  * Handles closing of the QuestionarrieAnswersDialog.
  * @param newValue - The new value for the dialog visibility.
@@ -495,7 +627,6 @@ const getColor = (fileSubmissionTime: string): string => {
 const checkUserQuestionnaireAnswers = async (): Promise<void> => {
   if (internshipHasEnded.value) {
     const response: any = await getUserAnswers(authStore.user.id);
-
     if (response.data && !hasErrorResponse(response)) {
       userHasSubmittedQuestionnaire.value = response.data.length > 0;
       questionarrieAnswers.value = response.data;
@@ -511,7 +642,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internshipHasEnded.value) {
     const response: any = await getInternshipCompanyQuestionnaire(
-      internship.value.id,
+      internship.value.id
     );
     if (response.data && !hasErrorResponse(response)) {
       companyHasSubmittedQuestionnaire.value = response.data.length > 0;
@@ -522,7 +653,86 @@ const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
 };
 
 /**
- * Generates an OTP password in order company can submit the Questionnaire
+ * Changes the internship status to PENDING_REVIEW_START.
+ */
+const changeInternshipStatusToPendingReviewStart = async (): Promise<void> => {
+  if (internship.value.id) {
+    const response = await adminUpdateInternshipStatus(
+      internship.value.id,
+      InternshipStatus.PENDING_REVIEW_START
+    );
+    if (hasErrorResponse(response)) {
+      toast.error(`${response.error}`);
+    } else {
+      toast.success(`${response.message?.detail}`);
+      await getInternship();
+    }
+  }
+};
+
+/**
+ * Changes the internship status to SUBMIT_END_FILES if the date is one week or less before the end date.
+ */
+const changeInternshipStatusToSubmitEndFiles = async (): Promise<void> => {
+  const isDateOneWeekOrLessBefore = isOneWeekOrLessBeforeEndDate(
+    internship.value.end_date
+  );
+  if (
+    isDateOneWeekOrLessBefore &&
+    internship.value.start_date &&
+    internship.value.end_date
+  ) {
+    if (internship.value.id) {
+      const response = await adminUpdateInternshipStatus(
+        internship.value.id,
+        InternshipStatus.SUBMIT_END_FILES
+      );
+      if (hasErrorResponse(response)) {
+        toast.error(`${response.error}`);
+      } else {
+        toast.success(`${response.message?.detail}`);
+        await getInternship();
+      }
+    }
+  } else {
+    const endDate = new Date(internship.value.end_date);
+    const currentDate = new Date();
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setDate(endDate.getDate() - 7);
+    adjustedEndDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+    const timeLeft = adjustedEndDate.getTime() - currentDate.getTime();
+    const timeLeftConverted = convertMillisecondsToTime(timeLeft);
+    if (!internship.value.start_date) {
+      toast.error(`Δεν μπορείτε να πραγματοποιήσετε αυτήν την ενέργεια ακόμα.`);
+    } else {
+      toast.error(
+        `Δεν μπορείτε να πραγματοποιήσετε αυτήν την ενέργεια ακόμα. Χρόνος που απομένει: ${timeLeftConverted.days} ημέρες, ${timeLeftConverted.hours} ώρες, ${timeLeftConverted.minutes} λεπτά.`
+      );
+    }
+  }
+};
+
+/**
+ * Changes the internship status to PENDING_REVIEW_END.
+ */
+const changeInternshipStatusToPendingReviewEnd = async (): Promise<void> => {
+  if (internship.value.id) {
+    const response = await adminUpdateInternshipStatus(
+      internship.value.id,
+      InternshipStatus.PENDING_REVIEW_END
+    );
+    if (hasErrorResponse(response)) {
+      toast.error(`${response.error}`);
+    } else {
+      toast.success(`${response.message?.detail}`);
+      await getInternship();
+    }
+  }
+};
+
+/**
+ * Generates an OTP password for the company to submit the Questionnaire.
  */
 const userGenerateOTP = async (): Promise<void> => {
   const response = await generateOTP();
@@ -535,10 +745,11 @@ const userGenerateOTP = async (): Promise<void> => {
 };
 
 /**
- * Lifecycle hook to fetch internship and quesitonnarie answers on component mount.
+ * Lifecycle hook to fetch internship and questionnaire answers on component mount.
  */
 onMounted(async () => {
   await getInternship();
+  await fetchDikaiologitikaTypes();
   await checkUserQuestionnaireAnswers();
   await checkCompanyQuestionnaireAnswers();
 });
@@ -546,6 +757,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 @import "@/assets/variables.scss";
+
 .profile {
   @apply container mx-auto px-4 py-8 space-y-12;
 }
@@ -572,6 +784,7 @@ onMounted(async () => {
     @apply flex flex-wrap justify-center gap-4 mt-4;
   }
 }
+
 :deep .v-data-table-server {
   @apply mt-4;
 }
@@ -581,12 +794,15 @@ onMounted(async () => {
   @apply text-lg text-left md:text-base;
   color: $primary-dark-blue-color;
 }
+
 :deep .v-data-table-header__content {
   @apply font-bold;
 }
+
 :deep .v-alert__content {
   @apply flex flex-col justify-start;
 }
+
 :deep .v-alert-title {
   @apply flex self-start;
 }

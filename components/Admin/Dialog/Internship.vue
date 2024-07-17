@@ -340,8 +340,7 @@ const InternshipsStatus = Object.values(InternshipStatus);
 
 watchEffect(() => {
   localDialog.value = props.modelValue;
-  selectedStatus.value =
-    props.internship?.status || InternshipStatus.PENDING_REVIEW;
+  selectedStatus.value = props.internship?.status;
   if (props.internship?.user_id) {
     loadUserFiles(props.internship?.user_id);
     loadUserQuestionnaire(props.internship?.user_id, props.internship?.status);
@@ -438,12 +437,18 @@ const formatDate = (dateString: string | null | undefined) => {
  * @returns The color corresponding to the status.
  */
 const getColorForStatus = (status: string): string => {
-  if (status === InternshipStatus.ACTIVE) {
+  if (status === InternshipStatus.ACTIVE || status === InternshipStatus.ENDED) {
     return "green";
-  } else if (status === InternshipStatus.PENDING_REVIEW) {
+  } else if (
+    status === InternshipStatus.PENDING_REVIEW_END ||
+    status === InternshipStatus.PENDING_REVIEW_START
+  ) {
     return "orange";
-  } else if (status === InternshipStatus.ENDED) {
-    return "red";
+  } else if (
+    status === InternshipStatus.SUBMIT_START_FILES ||
+    status === InternshipStatus.SUBMIT_END_FILES
+  ) {
+    return "orange-darken-1";
   }
   return "default";
 };

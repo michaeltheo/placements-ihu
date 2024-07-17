@@ -190,12 +190,12 @@ const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
 const fileInput = ref<File | null>(null);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
-  Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
+  Object.keys(dikaiologitikaStore.dikaiologitikaTypes)
 );
 
 const selectedProgram = ref<string | null>(props.internship?.program ?? null);
 const selectedDepartment = ref<string | null>(
-  props.internship?.department ?? null,
+  props.internship?.department ?? null
 );
 
 // Computed property for the filtered list of file types based on the selected program
@@ -212,8 +212,8 @@ watchEffect(() => {
   if (props.editItem) {
     const program = programs.value.find((p) =>
       dikaiologitikaStore.dikaiologitikaTypes[p].some(
-        (ft) => ft.type === props.editItem!.type,
-      ),
+        (ft) => ft.type === props.editItem!.type
+      )
     );
     selectedProgram.value = program || null;
   }
@@ -235,7 +235,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  },
+  }
 );
 
 // Handle program change event
@@ -260,7 +260,7 @@ const submitForm = async () => {
     !selectedProgram.value
   ) {
     toast.error(
-      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων."
     );
     return;
   }
@@ -272,13 +272,13 @@ const submitForm = async () => {
       response = await updateDikaiologitika(
         fileInput.value,
         props.editItem.id,
-        selectedProgram.value,
+        selectedProgram.value
       );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
         selectedFileType.value,
-        selectedProgram.value,
+        selectedProgram.value
       );
     }
 
@@ -301,13 +301,13 @@ const additionalInformation = computed(() => {
   switch (selectedProgram.value) {
     case InternshipProgram.TEITHE_OAED:
     case InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
-      return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου,Σύμβαση υπογεγραμένη (ΕΝΑΡΞΗ) 
+      return `
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
     case InternshipProgram.ESPA:
-      return `Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου (εκτυπωμένη και υπογεγραμμένη) (ΕΝΑΡΞΗ)  
+      return `  
       Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
     case InternshipProgram.TEITHE_JOB_RECOGNITION:
-      return `Βεβαίωση Απασχόλησης Ασκούμενου (ΕΝΑΡΞΗ) 
+      return `
       Σύμβαση αορίστου (ΕΝΑΡΞΗ) 
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
     default:

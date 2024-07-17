@@ -11,7 +11,13 @@
 -->
 <template>
   <div class="shadow-lg">
-    <v-alert :color="bannerColor" icon="fa-solid fa-info" stacked>
+    <v-alert
+      :color="bannerColor"
+      icon="fa-solid fa-info"
+      stacked
+      variant="tonal"
+      :title="bannerTitle"
+    >
       <div v-html="bannerText"></div>
     </v-alert>
   </div>
@@ -20,38 +26,32 @@
 <script setup lang="ts">
 import { InternshipStatus } from "@/types";
 
-const PENDING_REVIEW_STATUS_TEXT = `
-        <div class='infoBanner-text'>
-          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού έναρξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί 'Ανέβασμα'. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Η κατάσταση της Πρακτικής σας θα αλλάξει όταν το Γραφείο Πρακτικής Άσκησης εξετάσει τα αρχεία που έχετε ανεβάσει.</p>
+const SUMIT_START_FILES_STATUS_TEXT = `<div class='infoBanner-text'>
+          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού έναρξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </ span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Έναρξης </span></p>
+        </div>`;
+
+const SUMIT_END_FILES_STATUS_TEXT = `<div class='infoBanner-text'>
+          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού λήξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </ span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Λήξης </span></p>
+        </div>`;
+
+const PENDING_REVIEW_START_TEXT = `<div class='infoBanner-text'>
+          <p>To Γραφείο Πρακτικής Θα ελέγξει τα δικαιολογητικά έναρξης που έχετε υποβάλει.</p>
+        </div>`;
+
+const PENDING_REVIEW_END_TEXT = `<div class='infoBanner-text'>
+          <p>To Γραφείο Πρακτικής Θα ελέγξει τα δικαιολογητικά λήξης που έχετε ανεβάσει.</p>
         </div>`;
 
 const ACTIVE_STATUS_TEXT = `
-          <div class='infoBanner-text'>
-          <div>Η κατάσταση της Πρακτικής σας είναι Ενεργή. Πλέον τα δικαιολογητικά έναρξης 
-          σας έχουν εξεταστεί με επιτυχία. Πλέον μπορείτε
-           να ενημερώσετε την πρακτική σας άσκηση πατώντας το
-            κουμπί <span class="infoBanner-text--bold">'Ενημέρωση Πρακτικής'</span>,
-             και να εισάγετε την εταιρεία στην οποία θα θέλατε να πραγματοποιήσετε
-              την πρακτική σας άσκηση (Σε περίπτωση που δεν βρείτε την εταιρεία που θα θέλατε να κάνετε
-               πρακτική, παρακαλώ επικοινωνήστε με το Γραφείο Πρακτικής Άσκησης).</div> 
-              <div> Επιπλέον θα μπορείτε, πατώντας το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'
-               </span>, να ανεβάσετε και τα δικαιολογητικά λήξης επιλέγοντας τον κατάλληλο τύπο αρχείου (Τα αρχεία που θα ανεβάσετε πρέπει να είναι PDF). Σημείωση: δεν μπορείτε να ανεβάσετε όλα τα δικαιολογητικά μέσω 
-               της ιστοσελίδας, κάποια δικαιολογητικά θα πρέπει να τα καταθέσετε στο Γραφείο Πρακτικής Άσκησης.</div>
-                 <div>Η ημερομηνία έναρξης και η ημερομηνία λήξης θα ενημερωθούν από το Γραφείο Πρακτικής Άσκησης. </div>
-                 Η επιλογή για τη συμπλήρωση του ερωτηματολογίου θα είναι διαθέσιμη μετά το τέλος της πρακτικής. Για τη συμπλήρωση του ερωτηματολογίου του ασκούμενου, πατήστε το κουμπί 
-                   <span class="infoBanner-text--bold">'Έναρξη Ερωτηματολογίου'</span>
-                    που βρίσκεται κάτω από τον πίνακα των δικαιολογητικών. 
-                    Για τη συμπλήρωση του ερωτηματολογίου της εταιρείας, ακολουθήστε τα βήματα
-                     που βρίσκονται στο πλαίσιο <span class="infoBanner-text--bold">'Ερωτηματολογίου
-                      Εταιρείας'</span>
-                      <div>
-                  Η κατάσταση της πρακτικής σας θα αλλάξει όταν το Γραφείο Πρακτικής Άσκησης ελέγξει τα δικαιολογητικά σας.</div></div> 
-                  
-        </div>`;
+ <div class='infoBanner-text'>
+ <div>Τα δικαιολογητικά έναρξης σας έχουν ελεγχθεί με επιτυχία. Πλέον μπορείτε να ενημερώσετε την πρακτική σας άσκηση πατώντας το κουμπί <span class="infoBanner-text--bold"> 'Ενημέρωση Πρακτικής' </span> και να εισάγετε την εταιρεία στην οποία θα θέλατε να πραγματοποιήσετε την πρακτική σας άσκηση. (Σε περίπτωση που δεν βρείτε την εταιρεία που θα θέλατε να κάνετε πρακτική, παρακαλώ επικοινωνήστε με το Γραφείο Πρακτικής Άσκησης). </div>
+ <div>Η υποβολή των δικαιολογητικών λήξης <span class="infoBanner-text--bold"> θα είναι διαθέσιμη 1 βδομάδα πριν την ημερομηνία λήξης </span> της πρακτικής σας. Για να υποβάλετε τα δικαιολογητικά λήξης πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Κατάθεση Δικαιολογητικών Λήξης' </span>" </div>
+ </div>
+`;
 
 const ENDED_STATUS_TEXT = `
           <div class='infoBanner-text'>
-          <p>Βρίσκεστε στο τέλος της πρακτικής σας άσκησης.</p>
+          <p>Τα δικαιολογητικά λήξης σας έχουν εξεταστεί με επιτυχία.</p>
         </div>`;
 
 const props = defineProps<{
@@ -60,12 +60,15 @@ const props = defineProps<{
 
 const bannerColor = computed(() => {
   switch (props.status) {
-    case InternshipStatus.PENDING_REVIEW:
+    case InternshipStatus.SUBMIT_END_FILES:
+    case InternshipStatus.SUBMIT_START_FILES:
       return "warning";
+    case InternshipStatus.PENDING_REVIEW_END:
+    case InternshipStatus.PENDING_REVIEW_START:
+      return "orange-lighten-1";
     case InternshipStatus.ACTIVE:
-      return "success";
     case InternshipStatus.ENDED:
-      return "red-lighten-2";
+      return "success";
     default:
       return "";
   }
@@ -73,8 +76,14 @@ const bannerColor = computed(() => {
 
 const bannerText = computed(() => {
   switch (props.status) {
-    case InternshipStatus.PENDING_REVIEW:
-      return PENDING_REVIEW_STATUS_TEXT;
+    case InternshipStatus.SUBMIT_START_FILES:
+      return SUMIT_START_FILES_STATUS_TEXT;
+    case InternshipStatus.SUBMIT_END_FILES:
+      return SUMIT_END_FILES_STATUS_TEXT;
+    case InternshipStatus.PENDING_REVIEW_START:
+      return PENDING_REVIEW_START_TEXT;
+    case InternshipStatus.PENDING_REVIEW_END:
+      return PENDING_REVIEW_END_TEXT;
     case InternshipStatus.ACTIVE:
       return ACTIVE_STATUS_TEXT;
     case InternshipStatus.ENDED:
@@ -83,11 +92,15 @@ const bannerText = computed(() => {
       return "";
   }
 });
+
+const bannerTitle = computed(() => {
+  return `Πληροφορίες για την κατάσταση: ${props.status}`;
+});
 </script>
 
 <style lang="scss">
 .infoBanner-text {
-  @apply leading-6 p-1  rounded-md shadow;
+  @apply leading-6 p-1 rounded-md shadow;
   div {
     @apply pt-4;
   }
