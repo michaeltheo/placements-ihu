@@ -22,9 +22,12 @@ export enum InternshipProgram {
 }
 
 export enum InternshipStatus {
-  PENDING_REVIEW = "Pending review",
-  ACTIVE = "Active",
-  ENDED = "Ended",
+  SUBMIT_START_FILES = "Κατάθεση Δικαιολογητικών Έναρξης",
+  SUBMIT_END_FILES = "Κατάθεση Δικαιολογητικών Λήξης",
+  PENDING_REVIEW_START = "Έλεγχος Δικαιολοητικών Έναρξης",
+  PENDING_REVIEW_END = "Έλεγχος Δικαιολοητικών Λήξης",
+  ACTIVE = "Ενεργή Πρακτική Άσκηση",
+  ENDED = "Ολοκληρωμένη Πρακτική Άσκηση",
 }
 export enum QuestionnaireType {
   STUDENT = "student",

@@ -19,11 +19,6 @@
             και σημαντική βοήθεια σε διαδικαστικά θέματα.
           </p>
         </div>
-        <BaseComponentsBaseButton
-          text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΓΙΑ ΤΟ ΝΕΟ ΤΜΗΜΑ "
-          class="home-page__grid-section-button"
-          @click="() => navigateTo('/IhuInternshipGuides')"
-        />
       </div>
 
       <div class="home-page__grid-section-announcements">
@@ -50,12 +45,23 @@
         </div>
       </div>
     </div>
+    <div class="home-page__footer home-page__footer--ihu">
+      <p class="home-page__footer-section-text">
+        Είστε φοιτητές του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών
+        Συστημάτων;
+      </p>
+      <BaseComponentsBaseButton
+        text="ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ"
+        :glow="true"
+        @click="() => navigateTo('/IhuInternshipGuides')"
+      />
+    </div>
     <div class="home-page__footer home-page__footer--itTeithe">
       <p class="home-page__footer-section-text">
         Είστε φοιτητές του πρώην Τμήματος Μηχανικών Πληροφορικής;
       </p>
       <BaseComponentsBaseButton
-        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΠΛΗΡΟΦΟΡΙΚΗΣ"
+        text="ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ"
         :glow="true"
         @click="() => navigateTo('/ItTeitheInternshipGuides')"
       />
@@ -66,7 +72,7 @@
         Είστε φοιτητές του Πρώην Τμήματος Ηλεκτρονικής;
       </p>
       <BaseComponentsBaseButton
-        text="ΟΔΗΓΟΙ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ"
+        text="ΠΡΟΓΡΑΜΜΑΤΑ ΠΡΑΚΤΙΚΗΣ ΠΑΛΑΙΟΥ ΤΜΗΜΑΤΟΣ ΜΗΧΑΝΙΚΩΝ ΗΛΕΚΤΡΟΝΙΚΗΣ"
         :glow="true"
         @click="() => navigateTo('/ElTeitheInternshipGuides')"
       />
@@ -178,6 +184,9 @@ onMounted(async () => {
     }
     &--eleTeithe {
       background-image: url("/img/elteithe.png");
+    }
+    &--ihu {
+      background-image: url("/img/ihu.png");
     }
 
     &-section {

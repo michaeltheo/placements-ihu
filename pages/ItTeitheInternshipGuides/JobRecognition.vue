@@ -38,13 +38,12 @@
                   </tr>
 
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Βεβαίωση Απασχόλησης Ασκούμενου</td>
+                    <td class="font-bold">
+                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
+                    </td>
                     <td>
-                      <span class="highlight"
-                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
-                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
-                      </span>
+                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
+                      μέσω της πλατφόρμας.
                     </td>
                     <td>
                       <v-btn
@@ -52,7 +51,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -83,7 +82,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -166,7 +165,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
                           )
                         "
                       >
@@ -252,7 +251,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
+                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit'
                           )
                         "
                       >

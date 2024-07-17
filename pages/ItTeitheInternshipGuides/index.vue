@@ -2,7 +2,7 @@
   <v-container class="internshipGuides" data-aos="zoom-in">
     <div class="internshipGuides__header">
       <div class="internshipGuides__header--title">
-        Οδηγοι Πρακτικής Άσκησης {{ Department.IT_TEITHE }}
+        Προγράμματα Πρακτικής Άσκησης {{ Department.IT_TEITHE }}
       </div>
       <p class="internshipGuides__header--subtitle">
         Επιλέξτε μία από τις παρακάτω σελίδες για να δείτε το περιεχόμενο.

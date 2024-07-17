@@ -88,7 +88,7 @@ const props = withDefaults(
   }>(),
   {
     internship: null,
-  },
+  }
 );
 
 /**
@@ -97,12 +97,18 @@ const props = withDefaults(
  * @returns The color corresponding to the status.
  */
 const getColorForStatus = (status: string): string => {
-  if (status === InternshipStatus.ACTIVE) {
+  if (status === InternshipStatus.ACTIVE || status === InternshipStatus.ENDED) {
     return "green";
-  } else if (status === InternshipStatus.PENDING_REVIEW) {
+  } else if (
+    status === InternshipStatus.PENDING_REVIEW_END ||
+    status === InternshipStatus.PENDING_REVIEW_START
+  ) {
     return "orange";
-  } else if (status === InternshipStatus.ENDED) {
-    return "red";
+  } else if (
+    status === InternshipStatus.SUBMIT_START_FILES ||
+    status === InternshipStatus.SUBMIT_END_FILES
+  ) {
+    return "orange-darken-1";
   }
   return "default";
 };
