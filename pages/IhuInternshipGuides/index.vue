@@ -61,6 +61,9 @@
 
 <script setup>
 import { Department, InternshipProgram } from "@/types";
+useHead({
+  title: "Προγράμματα Πρακτικής",
+});
 </script>
 
 <style lang="scss" scoped>

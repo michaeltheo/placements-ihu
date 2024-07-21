@@ -30,7 +30,7 @@
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-user</v-icon
           >
-          <h3 class="adminPage__title">Πινακας Χρηστών</h3>
+          <h3 class="adminPage__title">Πίνακας Χρηστών</h3>
           <p class="adminPage__hint">
             Διαχείριση χρηστών, φοιτητών του τμήματος.
           </p>
@@ -46,7 +46,7 @@
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-building</v-icon
           >
-          <h3 class="adminPage__title">Πινακας Εταιρειών</h3>
+          <h3 class="adminPage__title">Πίνακας Εταιρειών</h3>
           <p class="adminPage__hint">Διαχείριση εταιρειών της πρακτικής.</p>
           <BaseComponentsBaseButton
             class="adminPage__button"
@@ -60,7 +60,7 @@
           <v-icon class="adminPage__icon" color="primary-blue-color"
             >fa-solid fa-file-contract</v-icon
           >
-          <h3 class="adminPage__title">Πινακας Πρακτικών</h3>
+          <h3 class="adminPage__title">Πίνακας Πρακτικών</h3>
           <p class="adminPage__hint">
             Διαχείριση πρακτικών και προβολή των δικαιολογητικών/ερωτηματολογίου
             των φοιτητών, εταιρειών.
@@ -79,6 +79,9 @@
 <script lang="ts" setup>
 definePageMeta({
   middleware: ["auth", "is-admin"],
+});
+useHead({
+  title: "Σελίδα Διαχειριστή",
 });
 
 const router = useRouter();

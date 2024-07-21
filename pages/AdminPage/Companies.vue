@@ -92,7 +92,9 @@ import { toast } from "vue3-toastify";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { getAllCompanies } from "@/services/companyService";
 import { Company } from "@/types/company";
-
+useHead({
+  title: "Πίνακας Εταιρειών",
+});
 /**
  * Interface for pagination and filtering options.
  */
@@ -136,7 +138,7 @@ const loadItems = async (options: LoadItemsOptions) => {
     const result = await getAllCompanies(
       options.page,
       options.itemsPerPage,
-      searchCompanyName.value,
+      searchCompanyName.value
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);

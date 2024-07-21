@@ -95,6 +95,9 @@ import { hasErrorResponse } from "@/services/errorHandling";
 definePageMeta({
   middleware: ["is-admin", "auth"],
 });
+useHead({
+  title: "Στατιστικά",
+});
 
 // Define questionnaire types with display text and actual values
 const questionnaireTypes = [
@@ -113,7 +116,7 @@ let parsedData: Array<any> = [];
 const fetchQuestionStatistics = async () => {
   if (selectedQuestionnaireType.value) {
     const response = await getQuestionStatistics(
-      selectedQuestionnaireType.value,
+      selectedQuestionnaireType.value
     );
     if (hasErrorResponse(response)) {
       toast.error(`${response.error}`);
@@ -132,7 +135,7 @@ watch(selectedQuestionnaireType, fetchQuestionStatistics);
 // Function to update the chart data based on the selected question from the dropdown
 const updateChart = () => {
   const selectedQuestionDataIndex = questionNames.value.findIndex(
-    (question) => question === selectedQuestion.value,
+    (question) => question === selectedQuestion.value
   );
   // Ensure the selected question is valid and update the chart data accordingly
   if (selectedQuestionDataIndex !== -1) {
@@ -147,7 +150,7 @@ const updateChart = () => {
 
 // Computed property to transform selected question data for rendering or exporting
 const transformedSelectedQuestionData = computed(() =>
-  selectedQuestionData.value.map(([text, count]) => ({ text, count })),
+  selectedQuestionData.value.map(([text, count]) => ({ text, count }))
 );
 
 // Function to export the displayed data as a CSV file

@@ -76,6 +76,7 @@
             ></v-select>
 
             <v-select
+              v-if="!isEditMode"
               v-model="selectedFileType"
               :items="filteredFileTypes"
               item-title="description"
@@ -186,18 +187,18 @@ const dikaiologitikaStore = useDikaiologitkaStore();
 const isEditMode = computed(() => props.editItem !== null);
 const form = ref<any>(null);
 const loading = ref(false);
-const selectedFileType = ref<string | null>(props.editItem?.type ?? null);
 const fileInput = ref<File | null>(null);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
   Object.keys(dikaiologitikaStore.dikaiologitikaTypes)
 );
-
-const selectedProgram = ref<string | null>(props.internship?.program ?? null);
-const selectedDepartment = ref<string | null>(
-  props.internship?.department ?? null
+const selectedProgram = computed(() => props.internship?.program ?? null);
+const selectedDepartment = computed(() => props.internship?.department ?? null);
+const selectedFileType = ref<string | null>(
+  props.editItem?.description ?? null
 );
 
+console.log("🚀 ~ selectedFileType:", selectedFileType, props.editItem);
 // Computed property for the filtered list of file types based on the selected program
 const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
   if (selectedProgram.value) {
@@ -304,11 +305,11 @@ const additionalInformation = computed(() => {
       return `
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
     case InternshipProgram.ESPA:
-      return `  
+      return `
       Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
     case InternshipProgram.TEITHE_JOB_RECOGNITION:
       return `
-      Σύμβαση αορίστου (ΕΝΑΡΞΗ) 
+      Σύμβαση αορίστου (ΕΝΑΡΞΗ)
       Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
     default:
       return null;
@@ -340,7 +341,7 @@ const emitClose = () => {
   }
 
   &__title {
-    @apply flex items-baseline text-lg font-bold;
+    @apply flex items-baseline text-lg font-bold w-full whitespace-pre-wrap;
     color: $primary-dark-blue-color;
   }
 

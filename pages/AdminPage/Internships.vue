@@ -163,7 +163,9 @@ import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";
 import { getAllCompanies } from "@/services/companyService";
 import { Company } from "@/types/company";
-
+useHead({
+  title: "Πίνακας Πρακτικής",
+});
 /**
  * Interface for pagination and filtering options.
  */

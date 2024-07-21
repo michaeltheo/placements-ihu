@@ -78,6 +78,9 @@ import { hasErrorResponse } from "@/services/errorHandling";
 import { ValidateOTPData } from "@/types/otp";
 import { QuestionnaireType } from "@/types";
 
+useHead({
+  title: "Ερωτηματολόγιο Εταιρείας",
+});
 const otp = ref<string>("");
 const otpData = ref<ValidateOTPData>();
 const loading = ref<boolean>(false);
