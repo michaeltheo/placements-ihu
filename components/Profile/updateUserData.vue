@@ -74,6 +74,7 @@
               label="Τηλέφωνο"
               class="edit-profile-dialog__field"
               outlined
+              type="number"
               :rules="[requiredRule]"
               dense
             ></v-text-field>

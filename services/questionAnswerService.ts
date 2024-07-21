@@ -85,7 +85,7 @@ export async function submitCompanyAnswers(
 ): Promise<Message | ErrorResponse> {
   try {
     const response = await fetch(
-      `${API_URLS.SUBMIT_COMPANY_ANSWERS}/${internshipID}`,
+      `${API_URLS.SUBMIT_COMPANY_ANSWERS}${internshipID}`,
       {
         method: "POST",
         headers: {
@@ -120,7 +120,7 @@ export async function getUserAnswers(
   userID: number,
 ): Promise<GetAnswersResponse> {
   try {
-    const response = await fetch(`${API_URLS.GET_ANSWERS}/${userID}`, {
+    const response = await fetch(`${API_URLS.GET_ANSWERS}${userID}`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -149,7 +149,7 @@ export async function getInternshipCompanyQuestionnaire(
 ): Promise<GetAnswersResponse> {
   try {
     const response = await fetch(
-      `${API_URLS.GET_INTERNSHIP_COMPANY_ANSWERS}/${internshipID}`,
+      `${API_URLS.GET_INTERNSHIP_COMPANY_ANSWERS}${internshipID}`,
       {
         method: "GET",
         credentials: "include",

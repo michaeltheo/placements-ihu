@@ -69,7 +69,7 @@ export async function deleteInternship(
 ): Promise<Message | ErrorResponse> {
   try {
     const response = await fetch(
-      `${API_URLS.DELETE_INTERNSHIP}/${internshipID}`,
+      `${API_URLS.DELETE_INTERNSHIP}${internshipID}`,
       {
         method: "GET",
         credentials: "include",
@@ -99,7 +99,7 @@ export async function getInternshipByUser(
   userId: number,
 ): Promise<InternshipResponse> {
   try {
-    const response = await fetch(`${API_URLS.INTERNSHIP_BASE_URL}/${userId}`, {
+    const response = await fetch(`${API_URLS.INTERNSHIP_BASE_URL}${userId}`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -163,7 +163,7 @@ export async function adminUpdateInternshipStatus(
     if (newInternshipStatus)
       queryParams.append("internship_status", newInternshipStatus.toString());
     const response = await fetch(
-      `${API_URLS.INTERNSHIP_BASE_URL}/${internshipID}?${queryParams}`,
+      `${API_URLS.INTERNSHIP_BASE_URL}${internshipID}?${queryParams}`,
       {
         method: "PUT",
         credentials: "include",

@@ -126,7 +126,7 @@ export async function fetchDikaiologitaFiles(
 ): Promise<DikaiologitikaFilesResponse | null> {
   try {
     const response = await fetch(
-      `${API_URLS.GET_DIKAIOLOGITIKA_FILES}/${userId}/files`,
+      `${API_URLS.GET_DIKAIOLOGITIKA_FILES}${userId}/files`,
       {
         method: "GET",
         credentials: "include",
@@ -161,7 +161,7 @@ export async function fetchDikaiologitaFiles(
 export async function downloadDikaiologitika(fileId: number): Promise<void> {
   try {
     const response = await fetch(
-      `${API_URLS.DOWNLOAD_DIKAIOLOGITIKA}/${fileId}`,
+      `${API_URLS.DOWNLOAD_DIKAIOLOGITIKA}${fileId}`,
       {
         method: "GET",
         credentials: "include",
@@ -199,7 +199,7 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
 export async function downloadAllUserFiles(userId: number): Promise<void> {
   try {
     const response = await fetch(
-      `${API_URLS.GET_DIKAIOLOGITIKA_FILES}/${userId}/download-zip`,
+      `${API_URLS.GET_DIKAIOLOGITIKA_FILES}${userId}/download-zip`,
       {
         method: "GET",
         credentials: "include",

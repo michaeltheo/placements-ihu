@@ -39,7 +39,7 @@ export async function generateOTP(): Promise<GenerateOTPResponse> {
  */
 export async function validateOTP(otpCode: string): Promise<ValidateOTP> {
   try {
-    const response = await fetch(`${API_URLS.OTP_VALIDATE}/${otpCode}`, {
+    const response = await fetch(`${API_URLS.OTP_VALIDATE}${otpCode}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

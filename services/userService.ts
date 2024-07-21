@@ -22,7 +22,7 @@ export async function updateUserProfile(
   userProfile: UpdateUser,
 ): Promise<UpdateUserResponse> {
   try {
-    const response = await fetch(`${API_URLS.UPDATE_USER_PROFILE}/${userId}`, {
+    const response = await fetch(`${API_URLS.UPDATE_USER_PROFILE}${userId}`, {
       method: "PUT",
       credentials: "include",
       headers: {

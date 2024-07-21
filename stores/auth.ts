@@ -46,7 +46,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async logout() {
-      await $fetch("/api/logout");
+      await $fetch("/apiNuxt/logout");
       this.IHU_token = null;
       this.IHU_refresh_token = null;
       this.user = {

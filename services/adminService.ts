@@ -130,7 +130,7 @@ export async function adminSetUserAsAdmin(
   userId: number,
 ): Promise<Message | ErrorResponse> {
   try {
-    const response = await fetch(`${API_URLS.SET_ADMIN}/${userId}`, {
+    const response = await fetch(`${API_URLS.SET_ADMIN}${userId}`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -158,7 +158,7 @@ export async function adminSetUserAsStudent(
   userId: number,
 ): Promise<Message | ErrorResponse> {
   try {
-    const response = await fetch(`${API_URLS.SET_STUDENT}/${userId}`, {
+    const response = await fetch(`${API_URLS.SET_STUDENT}${userId}`, {
       method: "PUT",
       credentials: "include",
       headers: {
