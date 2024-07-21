@@ -60,7 +60,7 @@
         </a>
         , All rights reserved.
       </p>
-      <p class="footer__bottom-text">Created by .....</p>
+      <p class="footer__bottom-text">Created by Michael Theocharis</p>
     </div>
   </div>
 </template>

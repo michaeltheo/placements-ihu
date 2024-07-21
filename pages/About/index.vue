@@ -11,21 +11,21 @@
         Για περισσότερες πληροφορίες σχετικά με το project επισκεφθείτε την
         σελίδα του project στο
         <a
-          href="https://github.com/your-frontend-repo"
+          href="https://github.com/michaeltheo/placements-ihu"
           target="_blank"
           class="about-page__info __link"
           >frontend</a
         >
         και
         <a
-          href="https://github.com/your-backend-repo"
+          href="https://github.com/michaeltheo/placements_backend"
           target="_blank"
           class="about-page__info __link"
           >backend</a
         >
         repositories και το
         <a
-          href="https://your-api-swagger-page-url"
+          href="https://placements.iee.ihu.gr/api/docs"
           target="_blank"
           class="about-page__info __link"
           >API Swagger</a
@@ -63,7 +63,9 @@
 
 <script setup lang="ts">
 import { Developer } from "@/types/user";
-
+useHead({
+  title: "Σχετικά με την εφαρμογή",
+});
 const developers: Developer[] = [
   {
     name: "Μιχάλης Θεοχάρης",

@@ -76,6 +76,9 @@ import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { fetchAnnouncements } from "@/services/announcementService";
 
+useHead({
+  title: "Ανακοινώσεις",
+});
 const allAnnouncements = ref<any>([]);
 const searchText = ref<string>("");
 const dateFrom = ref<Date | null>(null);

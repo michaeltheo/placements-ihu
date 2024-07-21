@@ -170,6 +170,9 @@ import { hasErrorResponse } from "@/services/errorHandling";
 definePageMeta({
   middleware: ["is-admin", "auth"],
 });
+useHead({
+  title: "Πίνακας Χρηστών",
+});
 
 const searchAM = ref<string>("");
 const selectedRole = ref<UserRole>();
@@ -207,7 +210,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       selectedRole.value,
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);

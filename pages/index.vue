@@ -83,6 +83,10 @@
 <script setup lang="ts">
 import { fetchAnnouncements } from "@/services/announcementService";
 
+useHead({
+  title: "Αρχική Σελίδα",
+});
+
 const allAnnouncements = ref<any[]>([]);
 
 onMounted(async () => {

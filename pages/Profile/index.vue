@@ -280,7 +280,7 @@
 
     <!-- Dialogs for file upload and deletion -->
     <FileUploadDialog
-      v-if="hasInternship"
+      v-show="hasInternship"
       :model-value="openAddFilesDialog"
       :edit-item="selectedItem"
       :internship="internship"
@@ -351,6 +351,10 @@ import { OTPBase } from "types/otp";
 // Middleware for authentication
 definePageMeta({
   middleware: ["auth"],
+});
+
+useHead({
+  title: "Η Πρακτική μου",
 });
 
 const authStore = useAuthStore();
@@ -557,7 +561,9 @@ const handleInternshipUpdated = (updatedInternship: any): void => {
  */
 const editItem = (item: DikaiologitikaFile): void => {
   selectedItem.value = item;
-  openAddFilesDialog.value = true;
+  nextTick(() => {
+    openAddFilesDialog.value = true;
+  });
 };
 
 /**

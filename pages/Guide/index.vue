@@ -33,7 +33,9 @@
 
 <script setup>
 import guidePageData from "@/constants/guidePageData";
-
+useHead({
+  title: "Οδηγός Πρακτικής",
+});
 const activeTab = ref(0);
 </script>
 
