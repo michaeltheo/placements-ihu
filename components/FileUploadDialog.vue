@@ -198,7 +198,6 @@ const selectedFileType = ref<string | null>(
   props.editItem?.description ?? null
 );
 
-console.log("🚀 ~ selectedFileType:", selectedFileType, props.editItem);
 // Computed property for the filtered list of file types based on the selected program
 const filteredFileTypes = computed<DikaiologitikaType[]>(() => {
   if (selectedProgram.value) {
