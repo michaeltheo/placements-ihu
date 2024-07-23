@@ -1,6 +1,6 @@
 import { AnnouncementsResponse } from "@/types/announcements";
+import { API_URLS } from "@/constants/apiConfig";
 
-const API_URL = "https://aboard.iee.ihu.gr/api/v2/announcements";
 
 interface FetchAnnouncementsParams {
   page?: number;
@@ -18,21 +18,24 @@ export async function fetchAnnouncements({
   searchText = "",
 }: FetchAnnouncementsParams = {}): Promise<AnnouncementsResponse> {
   try {
-    const url = new URL(API_URL);
-    url.searchParams.append("tags[]", "11");
-    url.searchParams.append("perPage", itemsPerPage.toString());
-    url.searchParams.append("page", page.toString());
+    
+    const params = new URLSearchParams({
+      page: page.toString(),
+      itemsPerPage: itemsPerPage.toString(),
+    });
+
     if (updatedAfter) {
-      url.searchParams.append("updatedAfter", updatedAfter);
+      params.append("updatedAfter", updatedAfter);
     }
     if (updatedBefore) {
-      url.searchParams.append("updatedBefore", updatedBefore);
+      params.append("updatedBefore", updatedBefore);
     }
     if (searchText) {
-      url.searchParams.append("title", searchText);
+      params.append("searchText", searchText);
     }
 
-    const response = await fetch(url.toString(), {
+
+    const response = await fetch(`${API_URLS.GET_ANNOUNCMENETS}?${params}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +47,7 @@ export async function fetchAnnouncements({
       return data;
     } else {
       const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to fetch announcements");
+      throw new Error(errorData.detail || "Failed to fetch announcements");
     }
   } catch (error: any) {
     throw new Error(error.message || "An unknown error occurred");
