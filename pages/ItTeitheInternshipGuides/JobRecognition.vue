@@ -17,7 +17,7 @@
           color="primary-blue-color"
           prev-text="Προηγούμενο"
           next-text="Επόμενο"
-          :items="['Δικιαιολογιτικά Έναρξης', 'Δικιαιολογιτικά Λήξης']"
+          :items="['Δικαιολογητικά Έναρξης', 'Δικαιολογητικά Λήξης']"
         >
           <template v-slot:item.1>
             <div class="guide__container__stepper__requirements">

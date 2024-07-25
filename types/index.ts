@@ -24,8 +24,8 @@ export enum InternshipProgram {
 export enum InternshipStatus {
   SUBMIT_START_FILES = "Κατάθεση Δικαιολογητικών Έναρξης",
   SUBMIT_END_FILES = "Κατάθεση Δικαιολογητικών Λήξης",
-  PENDING_REVIEW_START = "Έλεγχος Δικαιολοητικών Έναρξης",
-  PENDING_REVIEW_END = "Έλεγχος Δικαιολοητικών Λήξης",
+  PENDING_REVIEW_START = "Έλεγχος Δικαιολογητικών Έναρξης",
+  PENDING_REVIEW_END = "Έλεγχος Δικαιολογητικών Λήξης",
   ACTIVE = "Ενεργή Πρακτική Άσκηση",
   ENDED = "Ολοκληρωμένη Πρακτική Άσκηση",
 }

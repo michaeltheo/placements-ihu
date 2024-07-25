@@ -27,7 +27,7 @@
           <div class="footer__contact-details">
             <div class="footer__contact-item">
               <v-icon size="20"> fa-solid fa-location-dot </v-icon>
-              Αλεξάνδρειο ΤΕΙ Θεσσαλονίκης
+              ΔΙΠΑΕ Σίνδου
             </div>
             <div class="footer__contact-address">
               {{ placementsInfo.address }}

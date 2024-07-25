@@ -23,7 +23,7 @@
       <v-card class="dialog__card">
         <v-card-title class="dialog__title">
           <v-icon class="dialog__icon" color="white">fa-solid fa-check</v-icon>
-          Υποβολή Ερωτηματολιγίου
+          Υποβολή Ερωτηματολογίου
         </v-card-title>
 
         <v-card-text class="dialog__content">
@@ -110,5 +110,8 @@ const confirm = (value: boolean) => {
   &--cancel {
     color: black;
   }
+}
+:deep .v-card {
+  border-radius: 0.5rem !important;
 }
 </style>

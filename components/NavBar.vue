@@ -192,7 +192,7 @@ const navbarLinks = computed(() => {
     @apply flex justify-between items-center;
   }
   &__logo-container {
-    @apply flex justify-between items-center;
+    @apply flex justify-between items-center hover:cursor-pointer;
   }
   &__logo {
     @apply h-10 w-11;

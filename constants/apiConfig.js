@@ -25,9 +25,9 @@ export const API_URLS = {
   GET_INTERNSHIP_COMPANY_ANSWERS: `${PLACEMENTS_BASE_URL}/company_answers/`,
   SUBMIT_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers/submit-answers/`,
   SUBMIT_COMPANY_ANSWERS: `${PLACEMENTS_BASE_URL}/company_answers/submit-answers/`,
-  OTP_GENERATE: `${PLACEMENTS_BASE_URL}/otp/generate/`,
+  OTP_GENERATE: `${PLACEMENTS_BASE_URL}/otp/generate`,
   OTP_VALIDATE: `${PLACEMENTS_BASE_URL}/otp/validate/`,
-  GET_ANNOUNCMENETS:`${PLACEMENTS_BASE_URL}/announcements/`
+  GET_ANNOUNCMENETS: `${PLACEMENTS_BASE_URL}/announcements/`
 };
 
 export const GRANT_TYPE = {

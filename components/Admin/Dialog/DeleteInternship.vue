@@ -68,7 +68,7 @@ const props = withDefaults(
   }>(),
   {
     internship: undefined,
-  },
+  }
 );
 
 const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);
@@ -136,5 +136,8 @@ const emitClose = () => {
   &--cancel {
     @apply hover:bg-gray-500;
   }
+}
+:deep .v-card {
+  border-radius: 0.5rem !important;
 }
 </style>
