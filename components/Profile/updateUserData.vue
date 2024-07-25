@@ -56,7 +56,6 @@
               label="Αριθμός Μητρώου"
               class="edit-profile-dialog__field"
               outlined
-              :rules="[requiredRule]"
               dense
               disabled
             ></v-text-field>
@@ -66,7 +65,6 @@
               class="edit-profile-dialog__field"
               outlined
               disabled
-              :rules="[requiredRule]"
               dense
             ></v-text-field>
             <v-text-field
@@ -74,8 +72,8 @@
               label="Τηλέφωνο"
               class="edit-profile-dialog__field"
               outlined
-              type="number"
-              :rules="[requiredRule, positiveNumberRule, phoneNumberRule]"
+              type="tel"
+              :rules="[requiredRule, phoneNumberRule]"
               dense
             ></v-text-field>
             <v-text-field
@@ -101,7 +99,6 @@
         <v-card-actions class="edit-profile-dialog__actions">
           <v-btn
             class="edit-profile-dialog__btn edit-profile-dialog__btn--submit"
-            :disabled="!valid"
             @click="submitForm"
           >
             Αποθήκευση
@@ -143,7 +140,7 @@ const role = ref(user.value.role || "");
 const telephoneNumber = ref(user.value.telephone_number || "");
 const email = ref(user.value.email || "");
 const department = ref<Department | undefined>(
-  user.value.department || undefined,
+  user.value.department || undefined
 );
 const valid = ref(false);
 const form = ref<any>(null);
@@ -163,7 +160,7 @@ watch(
       email.value = user.value.email || "";
       department.value = user.value.department || undefined;
     }
-  },
+  }
 );
 
 // Validation rules
@@ -172,8 +169,8 @@ const emailRule = (value: string) => {
   const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   return pattern.test(value) || "Εισάγετε έγκυρο email.";
 };
-const positiveNumberRule = (value: number) =>
-  value > 0 || "Η τιμή πρέπει να είναι θετικός αριθμός.";
+const positiveNumberRule = (value: string) =>
+  parseFloat(value) > 0 || "Η τιμή πρέπει να είναι θετικός αριθμός.";
 const phoneNumberRule = (value: string) => {
   const pattern = /^\d+$/;
   return pattern.test(value) || "Το τηλέφωνο πρέπει να περιέχει μόνο αριθμούς.";
