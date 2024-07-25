@@ -3,14 +3,12 @@ import { extractErrorMessage } from "@/services/errorHandling";
 import { ErrorResponse } from "@/types";
 import { UpdateUser, UpdateUserResponse } from "@/types/user";
 
-
-
 /**
  * updateUserProfile Function
  *
  * This function updates the user profile information by sending a PUT request
  * to the server with the provided user ID and user profile data. It returns
- * the server response as a promise containing the updated user profile data 
+ * the server response as a promise containing the updated user profile data
  * or an error message if the request fails.
  *
  * @param {number} userId - The ID of the user to be updated.

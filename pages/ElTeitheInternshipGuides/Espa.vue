@@ -18,8 +18,8 @@
           next-text="Επόμενο"
           :items="[
             // 'Πληροφορίες',
-            'Δικιαιολογιτικά Έναρξης',
-            'Δικιαιολογιτικά Λήξης',
+            'Δικαιολογητικά Έναρξης',
+            'Δικαιολογητικά Λήξης',
             // 'Πρόσθετες Πληροφορίες',
           ]"
         >
@@ -51,7 +51,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
                           )
                         "
                       >
@@ -84,7 +84,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/11TNWYC1Ot_7rj-2R6rNhqzAs5-bOuxKe/edit'
+                            'https://docs.google.com/document/d/11TNWYC1Ot_7rj-2R6rNhqzAs5-bOuxKe/edit',
                           )
                         "
                       >
@@ -111,7 +111,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -136,7 +136,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -161,7 +161,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
                           )
                         "
                       >
@@ -257,7 +257,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit'
+                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
                           )
                         "
                       >

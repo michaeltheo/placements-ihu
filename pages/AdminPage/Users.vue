@@ -210,7 +210,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       searchAM.value,
       selectedRole.value,
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);

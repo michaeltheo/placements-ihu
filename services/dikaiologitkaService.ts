@@ -229,7 +229,6 @@ export async function downloadAllUserFiles(userId: number): Promise<void> {
   }
 }
 
-
 /**
  * Retrieves the list of available dikaiologitika types.
  * @returns Promise resolving to the types response data or null in case of error.

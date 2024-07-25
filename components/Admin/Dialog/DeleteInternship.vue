@@ -137,4 +137,7 @@ const emitClose = () => {
     @apply hover:bg-gray-500;
   }
 }
+:deep .v-card {
+  border-radius: 0.5rem !important;
+}
 </style>

@@ -1,7 +1,6 @@
 import { AnnouncementsResponse } from "@/types/announcements";
 import { API_URLS } from "@/constants/apiConfig";
 
-
 interface FetchAnnouncementsParams {
   page?: number;
   itemsPerPage?: number;
@@ -18,7 +17,6 @@ export async function fetchAnnouncements({
   searchText = "",
 }: FetchAnnouncementsParams = {}): Promise<AnnouncementsResponse> {
   try {
-    
     const params = new URLSearchParams({
       page: page.toString(),
       itemsPerPage: itemsPerPage.toString(),
@@ -33,7 +31,6 @@ export async function fetchAnnouncements({
     if (searchText) {
       params.append("searchText", searchText);
     }
-
 
     const response = await fetch(`${API_URLS.GET_ANNOUNCMENETS}?${params}`, {
       method: "GET",

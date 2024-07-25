@@ -30,7 +30,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/apiNuxt/**': { proxy: '/api/**' }
-    }
-  }
+      "/apiNuxt/**": { proxy: "/api/**" },
+    },
+  },
 });

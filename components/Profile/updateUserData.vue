@@ -49,7 +49,7 @@
               outlined
               dense
               type="number"
-              :rules="[requiredRule]"
+              :rules="[requiredRule, positiveNumberRule]"
             ></v-text-field>
             <v-text-field
               v-model="AM"
@@ -75,7 +75,7 @@
               class="edit-profile-dialog__field"
               outlined
               type="number"
-              :rules="[requiredRule]"
+              :rules="[requiredRule, positiveNumberRule, phoneNumberRule]"
               dense
             ></v-text-field>
             <v-text-field
@@ -101,6 +101,7 @@
         <v-card-actions class="edit-profile-dialog__actions">
           <v-btn
             class="edit-profile-dialog__btn edit-profile-dialog__btn--submit"
+            :disabled="!valid"
             @click="submitForm"
           >
             Αποθήκευση
@@ -170,6 +171,12 @@ const requiredRule = (value: string) => !!value || "Το πεδίο είναι �
 const emailRule = (value: string) => {
   const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   return pattern.test(value) || "Εισάγετε έγκυρο email.";
+};
+const positiveNumberRule = (value: number) =>
+  value > 0 || "Η τιμή πρέπει να είναι θετικός αριθμός.";
+const phoneNumberRule = (value: string) => {
+  const pattern = /^\d+$/;
+  return pattern.test(value) || "Το τηλέφωνο πρέπει να περιέχει μόνο αριθμούς.";
 };
 
 // Handle form submission
