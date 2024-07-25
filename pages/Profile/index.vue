@@ -440,7 +440,7 @@ const isOneWeekOrLessBeforeEndDate = (endDateString: string) => {
 const convertMillisecondsToTime = (milliseconds: number) => {
   const days = Math.floor(milliseconds / (24 * 60 * 60 * 1000));
   const hours = Math.floor(
-    (milliseconds % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+    (milliseconds % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000),
   );
   const minutes = Math.floor((milliseconds % (60 * 60 * 1000)) / (60 * 1000));
   const seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
@@ -510,13 +510,13 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
     ) {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.start
+          (type: any) => type.submission_time === submissionTimeValues.start,
         );
       }
     } else {
       for (const [program, types] of Object.entries(response.data)) {
         response.data[program] = types.filter(
-          (type: any) => type.submission_time === submissionTimeValues.end
+          (type: any) => type.submission_time === submissionTimeValues.end,
         );
       }
     }
@@ -537,7 +537,7 @@ const handleCreateInternshipDialogClose = (newValue: boolean): void => {
  * @param newInternship - The new internship created.
  */
 const handleInternshipCreated = async (
-  newInternship: InternshipCreate
+  newInternship: InternshipCreate,
 ): Promise<void> => {
   hasInternship.value = true;
   internship.value = newInternship;
@@ -649,7 +649,7 @@ const checkUserQuestionnaireAnswers = async (): Promise<void> => {
 const checkCompanyQuestionnaireAnswers = async (): Promise<void> => {
   if (internshipHasEnded.value) {
     const response: any = await getInternshipCompanyQuestionnaire(
-      internship.value.id
+      internship.value.id,
     );
     if (response.data && !hasErrorResponse(response)) {
       companyHasSubmittedQuestionnaire.value = response.data.length > 0;
@@ -666,7 +666,7 @@ const changeInternshipStatusToPendingReviewStart = async (): Promise<void> => {
   if (internship.value.id) {
     const response = await adminUpdateInternshipStatus(
       internship.value.id,
-      InternshipStatus.PENDING_REVIEW_START
+      InternshipStatus.PENDING_REVIEW_START,
     );
     if (hasErrorResponse(response)) {
       toast.error(`${response.error}`);
@@ -682,7 +682,7 @@ const changeInternshipStatusToPendingReviewStart = async (): Promise<void> => {
  */
 const changeInternshipStatusToSubmitEndFiles = async (): Promise<void> => {
   const isDateOneWeekOrLessBefore = isOneWeekOrLessBeforeEndDate(
-    internship.value.end_date
+    internship.value.end_date,
   );
   if (
     isDateOneWeekOrLessBefore &&
@@ -692,7 +692,7 @@ const changeInternshipStatusToSubmitEndFiles = async (): Promise<void> => {
     if (internship.value.id) {
       const response = await adminUpdateInternshipStatus(
         internship.value.id,
-        InternshipStatus.SUBMIT_END_FILES
+        InternshipStatus.SUBMIT_END_FILES,
       );
       if (hasErrorResponse(response)) {
         toast.error(`${response.error}`);
@@ -714,7 +714,7 @@ const changeInternshipStatusToSubmitEndFiles = async (): Promise<void> => {
       toast.error(`Δεν μπορείτε να πραγματοποιήσετε αυτήν την ενέργεια ακόμα.`);
     } else {
       toast.error(
-        `Δεν μπορείτε να πραγματοποιήσετε αυτήν την ενέργεια ακόμα. Χρόνος που απομένει: ${timeLeftConverted.days} ημέρες, ${timeLeftConverted.hours} ώρες, ${timeLeftConverted.minutes} λεπτά.`
+        `Δεν μπορείτε να πραγματοποιήσετε αυτήν την ενέργεια ακόμα. Χρόνος που απομένει: ${timeLeftConverted.days} ημέρες, ${timeLeftConverted.hours} ώρες, ${timeLeftConverted.minutes} λεπτά.`,
       );
     }
   }
@@ -727,7 +727,7 @@ const changeInternshipStatusToPendingReviewEnd = async (): Promise<void> => {
   if (internship.value.id) {
     const response = await adminUpdateInternshipStatus(
       internship.value.id,
-      InternshipStatus.PENDING_REVIEW_END
+      InternshipStatus.PENDING_REVIEW_END,
     );
     if (hasErrorResponse(response)) {
       toast.error(`${response.error}`);

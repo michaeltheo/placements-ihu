@@ -138,7 +138,7 @@ const loadItems = async (options: LoadItemsOptions) => {
     const result = await getAllCompanies(
       options.page,
       options.itemsPerPage,
-      searchCompanyName.value
+      searchCompanyName.value,
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);

@@ -68,7 +68,7 @@ const props = withDefaults(
   }>(),
   {
     internship: undefined,
-  }
+  },
 );
 
 const emit = defineEmits(["update:modelValue", "refreshInternshipList"]);

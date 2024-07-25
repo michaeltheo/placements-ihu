@@ -64,7 +64,7 @@ const props = withDefaults(
   }>(),
   {
     file: null,
-  }
+  },
 );
 
 const emit = defineEmits(["update:modelValue", "refreshFilesList"]);
@@ -81,7 +81,7 @@ const deleteFile = async () => {
   }
   try {
     const response: UpdateDeleteResponse = await deleteDikaiologitika(
-      props.file.id
+      props.file.id,
     );
     if (response.error) {
       toast.error(`${response.error}`);
