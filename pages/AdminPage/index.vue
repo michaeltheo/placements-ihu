@@ -1,7 +1,7 @@
 <template>
   <v-container class="adminPage">
     <div class="adminPage__header">
-      <h2 class="adminPage__main-title">Προφίλ Διαχειριστή</h2>
+      <h2 class="adminPage__main-title">Σελίδα Διαχειριστή</h2>
       <p class="adminPage__subtitle">
         Επιλέξτε μία από τις παρακάτω σελίδες για να διαχειριστείτε το
         περιεχόμενο.

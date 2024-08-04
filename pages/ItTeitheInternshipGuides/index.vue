@@ -44,7 +44,7 @@
           </h3>
           <p class="internshipGuides__row__section--hint">
             Προβολή οδηγού πρακτικής του Πρώην τμήματος Μηχανικών Πληροφορικής
-            για Πρακτική Άσκηση μέσω Προγράμματος ΕΣΠΑ.
+            για Πρακτική Άσκηση μέσω Προγράμματος ΟΑΕΔ.
           </p>
           <BaseComponentsBaseButton
             class="internshipGuides__row__section--button"
