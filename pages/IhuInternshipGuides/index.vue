@@ -46,7 +46,7 @@
           <p class="internshipGuides__row__section--hint">
             Προβολή οδηγού πρακτικής του τμήματος Μηχανικών Πληροφορικής και
             Ηλεκτρονικών Συστημάτων για Πρακτική Άσκηση με Υπεύθυνη Δήλωση
-            Εργοδότη
+            Εργοδότη.
           </p>
           <BaseComponentsBaseButton
             class="internshipGuides__row__section--button"
