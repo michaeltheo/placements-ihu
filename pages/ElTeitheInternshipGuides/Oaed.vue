@@ -49,7 +49,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1CKQedUXtqzVR2C-1D7n_k-754adYJjt9/edit',
+                            'https://docs.google.com/document/d/1CKQedUXtqzVR2C-1D7n_k-754adYJjt9/edit'
                           )
                         "
                       >
@@ -64,6 +64,9 @@
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
+                      Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
+                    </td>
+                    <td>
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
                       μέσω της πλατφόρμας.
                     </td>
@@ -73,7 +76,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -158,7 +161,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
+                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
                           )
                         "
                       >
@@ -244,7 +247,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
