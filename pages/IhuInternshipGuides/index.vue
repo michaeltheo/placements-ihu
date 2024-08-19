@@ -51,7 +51,7 @@
           <BaseComponentsBaseButton
             class="internshipGuides__row__section--button"
             :text="InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY"
-            @click="navigateTo('/IhuInternshipGuides/AnagnorisiErgasias')"
+            @click="navigateTo('/IhuInternshipGuides/YpeuthiniDilwsiErgodoti')"
           />
         </div>
       </v-col>

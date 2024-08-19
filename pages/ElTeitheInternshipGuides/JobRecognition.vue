@@ -51,7 +51,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -82,7 +82,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            `${AnagronisiErgasiasUrls.AitisiAnagnorisis}`
                           )
                         "
                       >
@@ -165,7 +165,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
+                            `${AnagronisiErgasiasUrls.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -251,7 +251,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
+                            `${AnagronisiErgasiasUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -286,6 +286,7 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
+import { AnagronisiErgasiasUrls } from "@/constants/diakaiologitikaUrls";
 
 const openFile = (path: string) => {
   window.open(path, "_blank");
