@@ -49,11 +49,7 @@
                       <v-btn
                         class="guide__container__stepper__button"
                         variant="plain"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit',
-                          )
-                        "
+                        @click="openFile(`${ESPAUrls.AitisiPraktikisTEI}`)"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -83,9 +79,7 @@
                         variant="plain"
                         class="guide__container__stepper__button"
                         @click="
-                          openFile(
-                            'https://docs.google.com/document/d/11TNWYC1Ot_7rj-2R6rNhqzAs5-bOuxKe/edit',
-                          )
+                          openFile(`${ESPAUrls.AitisiForeaApasxolisisFoititi}`)
                         "
                       >
                         <v-icon size="large" color="primary-blue-color"
@@ -111,7 +105,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -136,7 +130,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -161,7 +155,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
+                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -257,7 +251,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit',
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -313,6 +307,7 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
+import { ESPAUrls } from "@/constants/diakaiologitikaUrls";
 
 const openFile = (path: string) => {
   window.open(path, "_blank");
