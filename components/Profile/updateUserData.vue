@@ -72,7 +72,7 @@
               label="Τηλέφωνο"
               class="edit-profile-dialog__field"
               outlined
-              type="tel"
+              type="number"
               :rules="[requiredRule, phoneNumberRule]"
               dense
             ></v-text-field>
@@ -196,7 +196,7 @@ const submitForm = async () => {
       authStore.setUser(response.data);
       emitClose();
     } else {
-      toast.error(`${response.error}`);
+      toast.error("Παρουσιάστηκε κάποιο σφάλμα");
     }
   }
 };
