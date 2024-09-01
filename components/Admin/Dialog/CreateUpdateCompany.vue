@@ -113,7 +113,7 @@ const companyNameRule = [
   (value: string) => !!value || "Πρέπει να εισάγετε ένα όνομα.",
 ];
 const companyAfmRule = [
-  (value: any) => !!value || "Πρέπει να Εισάγετε ένα Α.Φ.Μ.",
+  (value: any) => !!value || "Πρέπει να εισάγετε ένα Α.Φ.Μ.",
 ];
 
 // Watch for changes in the editCompany prop and update the form fields
