@@ -34,7 +34,7 @@
           <div class="company-dialog__form">
             <v-text-field
               v-model="companyName"
-              label="Εισάγεται το Όνομα της Εταιρείας"
+              label="Εισάγετε το Όνομα της Εταιρείας"
               outlined
               class="company-dialog__form--textField"
               :rules="companyNameRule"
@@ -43,7 +43,7 @@
             />
             <v-text-field
               v-model="companyAFM"
-              label="Εισάγεται το A.Φ.Μ της Εταιρείας"
+              label="Εισάγετε το A.Φ.Μ της Εταιρείας"
               outlined
               class="company-dialog__form--textField"
               :rules="companyAfmRule"
@@ -101,7 +101,7 @@ const emit = defineEmits(["update:modelValue", "refreshCompaniesList"]);
 // State and computed properties
 const isEditMode = computed(() => props.editCompany !== null);
 const companyName = ref<string | undefined>(
-  props.editCompany?.name ?? undefined,
+  props.editCompany?.name ?? undefined
 );
 const companyAFM = ref<string | undefined>(props.editCompany?.AFM ?? undefined);
 const form = ref<any>(null);
@@ -110,10 +110,10 @@ const localDialog = ref(props.modelValue);
 
 // Validation rules
 const companyNameRule = [
-  (value: string) => !!value || "Πρέπει να εισάγεται ένα όνομα.",
+  (value: string) => !!value || "Πρέπει να εισάγετε ένα όνομα.",
 ];
 const companyAfmRule = [
-  (value: any) => !!value || "Πρέπει να εισάγεται ένα Α.Φ.Μ.",
+  (value: any) => !!value || "Πρέπει να Εισάγετε ένα Α.Φ.Μ.",
 ];
 
 // Watch for changes in the editCompany prop and update the form fields
@@ -128,7 +128,7 @@ watch(
       companyAFM.value = undefined;
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 // Watch for changes in the modelValue prop to control dialog visibility
@@ -136,14 +136,14 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  },
+  }
 );
 
 // Handle form submission
 const submitForm = async () => {
   if (!form.value?.validate() || !companyAFM.value || !companyName.value) {
     toast.error(
-      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων."
     );
     return;
   }
