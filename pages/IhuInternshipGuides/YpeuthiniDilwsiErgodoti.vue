@@ -44,14 +44,10 @@
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
-                          )
-                        "
+                        href="/pdf/YpeuthiniDilwsi/AitisiForeaApasxolisis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -59,7 +55,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -71,14 +67,10 @@
                       μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
-                          )
-                        "
+                        href="/pdf/YpeuthiniDilwsi/BebaiosiApasxolisis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -86,7 +78,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -100,14 +92,10 @@
                       </span>
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.SimbasiYpogegrameni}`,
-                          )
-                        "
+                        href="/pdf/YpeuthiniDilwsi/Simbasi.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -115,7 +103,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -174,14 +162,10 @@
                       >.
                     </td>
                     <td>
-                      <v-btn
+                      <a
                         class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="
-                          openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/YpeuthiniDilwsi/BebaiosiApasxolisis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -189,7 +173,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -260,14 +244,10 @@
                       μέσω της πλατφόρμας
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.AitisiOloklirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/YpeuthiniDilwsi/AitisiOloklirosis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -275,7 +255,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -300,11 +280,6 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
-import { YpeuthiniDilosiErgodotiUrls } from "@/constants/diakaiologitikaUrls";
-
-const openFile = (path: string) => {
-  window.open(path, "_blank");
-};
 </script>
 
 <style lang="scss" scoped>

@@ -46,14 +46,10 @@
                       μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/BebaiosiApasxolisisAsfalisisAskoumenouAnagnorisi.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -61,7 +57,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -77,14 +73,10 @@
                       γραφείο Πρακτικής Άσκησης.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${AnagronisiErgasiasUrls.AitisiAnagnorisis}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/AitisiAnagnorisis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -92,7 +84,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -160,14 +152,10 @@
                       >.
                     </td>
                     <td>
-                      <v-btn
+                      <a
                         class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="
-                          openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/BebaiosiOloklirosisPraktikisAskisisAnagnorisi.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -175,7 +163,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -246,14 +234,10 @@
                       μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${AnagronisiErgasiasUrls.AitisiOloklirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/AitisiOloklirosis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -261,7 +245,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -287,11 +271,6 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
-import { AnagronisiErgasiasUrls } from "@/constants/diakaiologitikaUrls";
-
-const openFile = (path: string) => {
-  window.open(path, "_blank");
-};
 </script>
 
 <style lang="scss" scoped>

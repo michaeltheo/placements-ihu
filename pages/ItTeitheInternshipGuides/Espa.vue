@@ -46,10 +46,10 @@
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
+                      <a
                         class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="openFile(`${ESPAUrls.AitisiPraktikisTEI}`)"
+                        href="/pdf/Espa/AitisiPraktikisESPA.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -57,7 +57,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
 
@@ -69,12 +69,10 @@
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(`${ESPAUrls.AitisiForeaApasxolisisFoititi}`)
-                        "
+                        href="/pdf/Espa/AitisiForeaApasxolisisFoititiESPA.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -82,7 +80,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -94,14 +92,10 @@
                       μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
-                          )
-                        "
+                        href="/pdf/Espa/BebaiosiApasxolisisKaiAsfalisisAskoumenouESPA.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -109,7 +103,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -118,48 +112,12 @@
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
                       μέσω της πλατφόρμας
                     </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
-                    </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Δήλωση Μοριοδότησης</td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
                       μέσω της πλατφόρμας
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true',
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -240,14 +198,10 @@
                       μέσω της πλατφόρμας
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/Espa/AitisiOloklirosis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -255,7 +209,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -302,11 +256,6 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
-import { ESPAUrls } from "@/constants/diakaiologitikaUrls";
-
-const openFile = (path: string) => {
-  window.open(path, "_blank");
-};
 </script>
 
 <style lang="scss" scoped>

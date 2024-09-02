@@ -44,12 +44,10 @@
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(`${OAEDUrls.AitisiForeaApasxolisisFoititi}`)
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/AitisiForeaGiaApasxolisiFoititi.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -57,7 +55,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -69,14 +67,10 @@
                       μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${OAEDUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/BebaiosiApasxolisisAsfalisisAskoumenou.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -84,7 +78,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -154,14 +148,10 @@
                       >.
                     </td>
                     <td>
-                      <v-btn
+                      <a
                         class="guide__container__stepper__button"
-                        variant="plain"
-                        @click="
-                          openFile(
-                            `${OAEDUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/BebaiosiOloklirosisPraktikisAskisis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -169,7 +159,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -240,14 +230,10 @@
                       μέσω της πλατφόρμας
                     </td>
                     <td>
-                      <v-btn
-                        variant="plain"
+                      <a
                         class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${OAEDUrls.AitisiOloklirosisPraktikisAskisis}`,
-                          )
-                        "
+                        href="/pdf/Oaed_AnagnorisiErgasias/AitisiOloklirosis.pdf"
+                        target="_blank"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -255,7 +241,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </v-btn>
+                      </a>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -281,11 +267,6 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
-import { OAEDUrls } from "@/constants/diakaiologitikaUrls";
-
-const openFile = (path: string) => {
-  window.open(path, "_blank");
-};
 </script>
 
 <style lang="scss" scoped>
