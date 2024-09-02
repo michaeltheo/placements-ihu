@@ -105,7 +105,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -131,7 +131,6 @@
                         @click="
                           openFile(
                             'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
                       >
@@ -156,7 +155,6 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                             'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
                           )
                         "
@@ -253,7 +251,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
