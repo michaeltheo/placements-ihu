@@ -253,7 +253,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1wewFZ4ZMevjOtrZYvXpYa7BzVGzoKy2c/edit'`${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
