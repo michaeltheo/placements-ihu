@@ -1,4 +1,4 @@
-const PLACEMENTS_BASE_URL = "https://placements.iee.ihu.gr/api";
+const PLACEMENTS_BASE_URL = "http://localhost:8000";
 export const API_URLS = {
   IEE_TOKEN_ENDPOINT: "https://login.iee.ihu.gr/token",
   IEE_PROFILE_ENDPOINT: "https://api.iee.ihu.gr/profile",
@@ -19,7 +19,7 @@ export const API_URLS = {
   INTERNSHIP_BASE_URL: `${PLACEMENTS_BASE_URL}/internship/`,
   GET_INTERNSHIPS: `${PLACEMENTS_BASE_URL}/internship/all/`,
   DELETE_INTERNSHIP: `${PLACEMENTS_BASE_URL}/internship/delete/`,
-  COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company/`,
+  COMPANY_BASE_URL: `${PLACEMENTS_BASE_URL}/company`,
   QUESTION_BASE_URL: `${PLACEMENTS_BASE_URL}/question/`,
   GET_ANSWERS: `${PLACEMENTS_BASE_URL}/user_answers/`,
   GET_INTERNSHIP_COMPANY_ANSWERS: `${PLACEMENTS_BASE_URL}/company_answers/`,

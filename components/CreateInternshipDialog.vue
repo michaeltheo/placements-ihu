@@ -66,7 +66,6 @@
               class="create-internship-dialog__field"
               :rules="internshipCompanyRules"
               outlined
-              :disabled="isAdmin"
               dense
               clearable
               @update:search-input="fetchCompanies"
@@ -135,7 +134,7 @@ const props = withDefaults(
     isUpdate: false,
     isAdmin: false,
     internship: null,
-  },
+  }
 );
 
 // Define emits
@@ -149,17 +148,17 @@ const emit = defineEmits([
 // Reactive properties
 const localDialog = ref(props.modelValue);
 const selectedDepartment = ref<Department | null>(
-  props.internship?.department ?? null,
+  props.internship?.department ?? null
 );
 const selectedProgram = ref<InternshipProgram | null>(
-  props.internship?.program ?? null,
+  props.internship?.program ?? null
 );
 const companyId = ref<number | null>(props.internship?.company_id ?? null);
 const startDate = ref<string | null>(
-  props.internship?.start_date?.split("T")[0] ?? null,
+  props.internship?.start_date?.split("T")[0] ?? null
 );
 const endDate = ref<string | null>(
-  props.internship?.end_date?.split("T")[0] ?? null,
+  props.internship?.end_date?.split("T")[0] ?? null
 );
 const search = ref("");
 const companyOptions = ref<Company[]>([]);
@@ -191,7 +190,7 @@ watch(
         ? props.internship.end_date.split("T")[0]
         : null;
     }
-  },
+  }
 );
 
 watch(
@@ -208,7 +207,7 @@ watch(
         ? newInternship.end_date.split("T")[0]
         : null;
     }
-  },
+  }
 );
 
 watchEffect(() => {
@@ -224,15 +223,15 @@ watch(
   () => selectedDepartment.value,
   () => {
     if (!props.isUpdate) selectedProgram.value = null;
-  },
+  }
 );
 
 // Validation rules
 const internshipProgramRules = [
-  (value: any) => !!value || "Πρέπει να επιλέξεις ένα τύπο πρακτικής.",
+  (value: any) => !!value || "Πρέπει να επιλέξετε ένα τύπο πρακτικής.",
 ];
 const internshipCompanyRules = [
-  (value: any) => !!value || "Πρέπει να επιλέξεις μια εταιρεία.",
+  (value: any) => !!value || "Πρέπει να επιλέξετε μια εταιρεία.",
 ];
 const dateValidationRule = (value: string) => {
   if (!value) return "Η ημερομηνία είναι απαραίτητη.";

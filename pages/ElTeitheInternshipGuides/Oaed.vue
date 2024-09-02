@@ -276,6 +276,7 @@
           </template>
         </v-stepper>
       </div>
+      <BaseComponentsContinueButton />
     </div>
   </div>
 </template>
