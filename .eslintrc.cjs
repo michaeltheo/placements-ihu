@@ -12,12 +12,12 @@ module.exports = {
   plugins: [],
   rules: {
     "prettier/prettier": 0,
-    'vue/multi-word-component-names': 'off', 
-    'vue/no-v-html':'off',
-    'vue/no-v-text-v-html-on-component':'off',
-    'vue/v-on-event-hyphenation':'off',
-    'vue/v-slot-style':'off',
-    'vue/valid-v-slot':'off',
-    'vue/attribute-hyphenation':'off'
+    "vue/multi-word-component-names": "off",
+    "vue/no-v-html": "off",
+    "vue/no-v-text-v-html-on-component": "off",
+    "vue/v-on-event-hyphenation": "off",
+    "vue/v-slot-style": "off",
+    "vue/valid-v-slot": "off",
+    "vue/attribute-hyphenation": "off",
   },
 };

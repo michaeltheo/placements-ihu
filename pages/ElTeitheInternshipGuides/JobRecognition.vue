@@ -51,7 +51,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
+                            `${AnagronisiErgasiasUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
                           )
                         "
                       >
@@ -82,7 +82,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.AitisiAnagnorisis}`
+                            `${AnagronisiErgasiasUrls.AitisiAnagnorisis}`,
                           )
                         "
                       >
@@ -165,7 +165,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiOlokrirosisPraktikisAskisis}`
+                            `${AnagronisiErgasiasUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
                           )
                         "
                       >
@@ -251,7 +251,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${AnagronisiErgasiasUrls.AitisiOloklirosisPraktikisAskisis}`,
                           )
                         "
                       >

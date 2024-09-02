@@ -140,7 +140,7 @@ const role = ref(user.value.role || "");
 const telephoneNumber = ref(user.value.telephone_number || "");
 const email = ref(user.value.email || "");
 const department = ref<Department | undefined>(
-  user.value.department || undefined
+  user.value.department || undefined,
 );
 const valid = ref(false);
 const form = ref<any>(null);
@@ -160,7 +160,7 @@ watch(
       email.value = user.value.email || "";
       department.value = user.value.department || undefined;
     }
-  }
+  },
 );
 
 // Validation rules
