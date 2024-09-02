@@ -74,7 +74,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${OAEDUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
+                            `${OAEDUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
                           )
                         "
                       >
@@ -159,7 +159,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            `${OAEDUrls.BebaiosiOlokrirosisPraktikisAskisis}`
+                            `${OAEDUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
                           )
                         "
                       >
@@ -245,7 +245,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${OAEDUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${OAEDUrls.AitisiOloklirosisPraktikisAskisis}`,
                           )
                         "
                       >
@@ -274,6 +274,7 @@
           </template>
         </v-stepper>
       </div>
+      <BaseComponentsContinueButton />
     </div>
   </div>
 </template>

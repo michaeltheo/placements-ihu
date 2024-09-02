@@ -101,7 +101,7 @@ const emit = defineEmits(["update:modelValue", "refreshCompaniesList"]);
 // State and computed properties
 const isEditMode = computed(() => props.editCompany !== null);
 const companyName = ref<string | undefined>(
-  props.editCompany?.name ?? undefined
+  props.editCompany?.name ?? undefined,
 );
 const companyAFM = ref<string | undefined>(props.editCompany?.AFM ?? undefined);
 const form = ref<any>(null);
@@ -128,7 +128,7 @@ watch(
       companyAFM.value = undefined;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 // Watch for changes in the modelValue prop to control dialog visibility
@@ -136,14 +136,14 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  }
+  },
 );
 
 // Handle form submission
 const submitForm = async () => {
   if (!form.value?.validate() || !companyAFM.value || !companyName.value) {
     toast.error(
-      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων."
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
     );
     return;
   }

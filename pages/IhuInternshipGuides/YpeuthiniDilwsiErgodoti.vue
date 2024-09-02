@@ -49,7 +49,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit'
+                            'https://docs.google.com/document/d/1yESgnr-qrwrRY0yOwd4wUjX-2iZ-zxud/edit',
                           )
                         "
                       >
@@ -76,7 +76,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
+                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
                           )
                         "
                       >
@@ -105,7 +105,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.SimbasiYpogegrameni}`
+                            `${YpeuthiniDilosiErgodotiUrls.SimbasiYpogegrameni}`,
                           )
                         "
                       >
@@ -179,7 +179,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiOlokrirosisPraktikisAskisis}`
+                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
                           )
                         "
                       >
@@ -265,7 +265,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${YpeuthiniDilosiErgodotiUrls.AitisiOloklirosisPraktikisAskisis}`,
                           )
                         "
                       >

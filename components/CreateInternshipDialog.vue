@@ -66,7 +66,6 @@
               class="create-internship-dialog__field"
               :rules="internshipCompanyRules"
               outlined
-              :disabled="isAdmin"
               dense
               clearable
               @update:search-input="fetchCompanies"
@@ -229,10 +228,10 @@ watch(
 
 // Validation rules
 const internshipProgramRules = [
-  (value: any) => !!value || "Πρέπει να επιλέξεις ένα τύπο πρακτικής.",
+  (value: any) => !!value || "Πρέπει να επιλέξετε ένα τύπο πρακτικής.",
 ];
 const internshipCompanyRules = [
-  (value: any) => !!value || "Πρέπει να επιλέξεις μια εταιρεία.",
+  (value: any) => !!value || "Πρέπει να επιλέξετε μια εταιρεία.",
 ];
 const dateValidationRule = (value: string) => {
   if (!value) return "Η ημερομηνία είναι απαραίτητη.";
