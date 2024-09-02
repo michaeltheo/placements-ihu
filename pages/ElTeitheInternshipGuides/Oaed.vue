@@ -48,9 +48,7 @@
                         variant="plain"
                         class="guide__container__stepper__button"
                         @click="
-                          openFile(
-                            'https://docs.google.com/document/d/1CKQedUXtqzVR2C-1D7n_k-754adYJjt9/edit'
-                          )
+                          openFile(`${OAEDUrls.AitisiForeaApasxolisisFoititi}`)
                         "
                       >
                         <v-icon size="large" color="primary-blue-color"
@@ -76,7 +74,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            `${OAEDUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -161,7 +159,7 @@
                         variant="plain"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1dcaEGHpsp1CBEdx-a3tJnVIHd6Be4E4z/edit'
+                            `${OAEDUrls.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -247,7 +245,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            'https://docs.google.com/document/d/1UVWPuU9_w0fmqd62_TBEu7-QYq-qHJxg/edit?rtpof=true&sd=true'
+                            `${OAEDUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -283,6 +281,7 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
+import { OAEDUrls } from "@/constants/diakaiologitikaUrls";
 
 const openFile = (path: string) => {
   window.open(path, "_blank");
