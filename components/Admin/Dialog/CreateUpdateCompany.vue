@@ -45,8 +45,36 @@
               v-model="companyAFM"
               label="Εισάγετε το A.Φ.Μ της Εταιρείας"
               outlined
+              type="number"
               class="company-dialog__form--textField"
               :rules="companyAfmRule"
+              dense
+              clearable
+            />
+            <v-text-field
+              v-model="companyEmail"
+              label="Εισάγετε το Email της Εταιρείας"
+              outlined
+              class="company-dialog__form--textField"
+              :rules="emailRules"
+              dense
+              clearable
+            />
+            <v-text-field
+              v-model="companyTelephoneNumber"
+              label="Εισάγετε τον τηλεφωνικό αριθμό της Εταιρείας"
+              outlined
+              class="company-dialog__form--textField"
+              :rules="phoneRules"
+              dense
+              clearable
+            />
+            <v-text-field
+              v-model="companyCity"
+              label="Εισάγετε την πολή στην οποία βρίσκεται η Εταιρεία"
+              outlined
+              class="company-dialog__form--textField"
+              :rules="cityRules"
               dense
               clearable
             />
@@ -100,11 +128,14 @@ const emit = defineEmits(["update:modelValue", "refreshCompaniesList"]);
 
 // State and computed properties
 const isEditMode = computed(() => props.editCompany !== null);
-const companyName = ref<string | undefined>(
-  props.editCompany?.name ?? undefined,
+const companyName = ref(props.editCompany?.name ?? undefined);
+const companyAFM = ref(
+  props.editCompany?.AFM ? Number(props.editCompany.AFM) : undefined,
 );
-const companyAFM = ref<string | undefined>(props.editCompany?.AFM ?? undefined);
-const form = ref<any>(null);
+const companyEmail = ref(props.editCompany?.email ?? undefined);
+const companyTelephoneNumber = ref(props.editCompany?.telephone ?? undefined);
+const companyCity = ref(props.editCompany?.city ?? undefined);
+const form = ref(null);
 const loading = ref(false);
 const localDialog = ref(props.modelValue);
 
@@ -115,6 +146,14 @@ const companyNameRule = [
 const companyAfmRule = [
   (value: any) => !!value || "Πρέπει να εισάγετε ένα Α.Φ.Μ.",
 ];
+const emailRules = [
+  (v: string) => (!!v && v.includes("@")) || "Πρέπει να εισάγετε έγκυρο email.",
+];
+const phoneRules = [
+  (v: string) =>
+    (!!v && v.length >= 10) || "Πρέπει να εισάγετε ένα τηλεφωνικό αριθμό.",
+];
+const cityRules = [(v: string) => !!v || "Πρέπει να εισάγετε μια πόλη."];
 
 // Watch for changes in the editCompany prop and update the form fields
 watch(
@@ -122,10 +161,16 @@ watch(
   (newCompany) => {
     if (newCompany) {
       companyName.value = newCompany.name;
-      companyAFM.value = newCompany.AFM;
+      companyAFM.value = newCompany.AFM ? Number(newCompany.AFM) : undefined; // Convert string AFM to number if exists
+      companyEmail.value = newCompany.email;
+      companyTelephoneNumber.value = newCompany.telephone;
+      companyCity.value = newCompany.city;
     } else {
       companyName.value = undefined;
       companyAFM.value = undefined;
+      companyEmail.value = undefined;
+      companyTelephoneNumber.value = undefined;
+      companyCity.value = undefined;
     }
   },
   { immediate: true },
@@ -147,13 +192,27 @@ const submitForm = async () => {
     );
     return;
   }
+  // Check required fields are not undefined
+  if (
+    !companyName.value ||
+    !companyAFM.value ||
+    !companyCity.value ||
+    !companyEmail.value ||
+    !companyTelephoneNumber.value
+  ) {
+    toast.error("Παρακαλώ ελεγξτέ όλα τα πεδία.");
+    return;
+  }
 
   loading.value = true;
   try {
     let response: any;
     const companyData: CompanyBase = {
       name: companyName.value,
-      AFM: companyAFM.value,
+      AFM: companyAFM.value.toString(),
+      city: companyCity.value,
+      email: companyEmail.value,
+      telephone: companyTelephoneNumber.value.toString(),
     };
     if (isEditMode.value && props.editCompany) {
       response = await adminUpdateCompany(props.editCompany.id, companyData);

@@ -96,6 +96,20 @@
                   class="dialog__card__info__data-row__icon"
                   color="primary-blue-color"
                 >
+                  fa-solid fa-user-tie
+                </v-icon>
+                <span class="dialog__card__info__data-row__label"
+                  >Επόπτης:</span
+                >
+                <span class="dialog__card__info__data-row__value">{{
+                  internship?.supervisor ?? "N/A"
+                }}</span>
+              </v-col>
+              <v-col cols="12" md="6" class="dialog__card__info__data-row">
+                <v-icon
+                  class="dialog__card__info__data-row__icon"
+                  color="primary-blue-color"
+                >
                   fa-regular fa-calendar-days
                 </v-icon>
                 <span class="dialog__card__info__data-row__label"
@@ -487,7 +501,7 @@ const loadUserQuestionnaire = async (
   userId: number,
   status: InternshipStatus,
 ): Promise<void> => {
-  if (status !== InternshipStatus.PENDING_REVIEW) {
+  if (status !== InternshipStatus.PENDING_REVIEW_END) {
     const userAnswers: any = await getUserAnswers(userId);
 
     if (userAnswers.data && !hasErrorResponse(userAnswers)) {

@@ -176,16 +176,10 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
       throw new Error(errorDetail || "Failed to download file.");
     }
 
-    // Create a URL for the file blob and initiate download.
     const blob = await response.blob();
     const downloadUrl = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = downloadUrl;
-    a.download = "downloadedFile.pdf";
-    document.body.appendChild(a);
-    a.click();
+    window.open(downloadUrl, "_blank");
     window.URL.revokeObjectURL(downloadUrl);
-    a.remove();
   } catch (error) {
     errorLog("Error downloading file:", error);
   }
@@ -214,12 +208,21 @@ export async function downloadAllUserFiles(userId: number): Promise<void> {
       throw new Error(errorDetail || "Failed to download file.");
     }
 
-    // Create a URL for the file blob and initiate download.
     const blob = await response.blob();
+    const contentDisposition = response.headers.get("Content-Disposition");
+    let filename = "download.zip";
+    if (contentDisposition) {
+      const filenameRegex = /filename\*?=UTF-8''([^;]*)/;
+      const matches = filenameRegex.exec(contentDisposition);
+      if (matches != null && matches[1]) {
+        filename = matches[1].replace(/['"]/g, "");
+      }
+    }
+
     const downloadUrl = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = downloadUrl;
-    a.download = `user_${userId}_files.zip`;
+    a.download = decodeURIComponent(filename);
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(downloadUrl);

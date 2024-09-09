@@ -184,3 +184,86 @@ export async function adminUpdateInternshipStatus(
     return { error: "An unexpected error occurred." };
   }
 }
+/**
+ * Fetches a list of supervisors from the backend, with optional search filtering.
+ * @param {string} [search] - Optional search term to filter supervisor names.
+ * @returns {Promise<string[]> | ErrorResponse} - A promise that resolves to an array of supervisor names or an error response.
+ */
+export async function getSupervisors(
+  search?: string,
+): Promise<string[] | ErrorResponse> {
+  try {
+    const queryParams = new URLSearchParams();
+    if (search) {
+      queryParams.append("search", search);
+    }
+
+    const response = await fetch(
+      `${API_URLS.GET_SUPERVISORS}?${queryParams.toString()}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: { Accept: "application/json" },
+      },
+    );
+
+    if (!response.ok) {
+      const errorResponse: ErrorResponse = await extractErrorMessage(response);
+      return errorResponse;
+    }
+
+    const supervisors: string[] = await response.json();
+    return supervisors;
+  } catch (error) {
+    errorLog("Error fetching supervisors:", error);
+    return { error: "Error fetching supervisors: " + error };
+  }
+}
+
+/**
+ * Downloads details of active internships as an Excel file, filtered by department and program.
+ * This endpoint is accessible only to users with admin privileges.
+ * @param {Department} department - The department to filter by.
+ * @param {InternshipProgram} program - The program to filter by.
+ * @returns {Promise<void>} - A promise that resolves when the file download has been triggered.
+ */
+export async function exportInternshipsToExcel(
+  department: Department,
+  program: InternshipProgram,
+) {
+  const queryParams = new URLSearchParams();
+  if (department) queryParams.append("department", department);
+  if (program) queryParams.append("program", program);
+
+  try {
+    const response = await fetch(
+      `${API_URLS.EXPORT_ACTIVE_INTERNSHIPS}?${queryParams.toString()}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      },
+    );
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${department}_${program}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    } else {
+      errorLog("Failed to download file:", await response.text());
+      throw new Error("Failed to download file.");
+    }
+  } catch (error) {
+    errorLog("Error downloading the Excel file:", error);
+    throw error;
+  }
+}

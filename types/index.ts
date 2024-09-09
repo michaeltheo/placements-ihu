@@ -15,10 +15,10 @@ export enum Department {
 }
 
 export enum InternshipProgram {
-  TEITHE_OAED = "ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΜΕ ΟΑΕΔ",
+  TEITHE_OAED = "ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΧΩΡΙΣ ΕΣΠΑ (ΙΔΙΩΤΙΚΟΣ 'Η ΔΗΜΟΣΙΟΣ ΤΟΜΕΑΣ)",
   ESPA = "ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΜΕ ΕΣΠΑ",
-  TEITHE_JOB_RECOGNITION = "ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΜΕ ΑΝΑΓΝΩΡΙΣΗ ΕΡΓΑΣΙΑΣ",
-  EMPLOYER_DECLARATION_OF_RESPONSIBILITY = "ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΜΕ ΥΠΕΥΘΥΝΗ ΔΗΛΩΣΗ ΤΟΥ ΕΡΓΟΔΟΤΗ",
+  TEITHE_JOB_RECOGNITION = "ΑΝΑΓΝΩΡΙΣΗ ΕΡΓΑΣΙΑΣ ΩΣ ΠΡΑΚΤΙΚΗ ΑΣΚΗΣΗ ΓΙΑ ΕΡΓΑΖΟΜΕΝΟΥΣ ΦΟΙΤΗΤΕΣ",
+  EMPLOYER_DECLARATION_OF_RESPONSIBILITY = "ΚΑΛΥΨΗ ΤΗΣ ΑΜΟΙΒΗΣ ΤΟΥ ΦΟΙΤΗΤΗ ΑΠΟ ΤΟΝ ΦΟΡΕΑ",
 }
 
 export enum InternshipStatus {

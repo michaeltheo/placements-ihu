@@ -44,6 +44,15 @@
           </v-col>
           <v-col cols="12" md="6" class="internship__data__row">
             <v-icon class="internship__data__icon" color="primary-blue-color">
+              fa-solid fa-user-tie
+            </v-icon>
+            <span class="internship__data__label">Επόπτης:</span>
+            <span class="internship__data__value">{{
+              internship?.supervisor || "N/A"
+            }}</span>
+          </v-col>
+          <v-col cols="12" md="6" class="internship__data__row">
+            <v-icon class="internship__data__icon" color="primary-blue-color">
               fa-regular fa-calendar-days
             </v-icon>
             <span class="internship__data__label">Ημερομηνία Έναρξη:</span>

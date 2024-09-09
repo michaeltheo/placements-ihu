@@ -138,6 +138,13 @@
         >
           Ανανέωση Πίνακα
         </v-btn>
+        <v-btn
+          v-if="selectedDepartment && selectedProgram"
+          class="intersnshipPage__buttons--download"
+          @click="downloadInternships"
+        >
+          Λήψη Excel για τις Ενεργές Πρακτικές
+        </v-btn>
       </div>
       <AdminDialogDeleteInternship
         :model-value="openDeleteInternshipDialog"
@@ -157,7 +164,10 @@
 
 <script setup lang="ts">
 import { toast } from "vue3-toastify";
-import { getAllInternships } from "@/services/internshipService";
+import {
+  exportInternshipsToExcel,
+  getAllInternships,
+} from "@/services/internshipService";
 import { Department, InternshipProgram, InternshipStatus } from "@/types";
 import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";
@@ -411,6 +421,21 @@ const filteredProgramOptions = computed(() => {
     : [];
 });
 
+// Download Excel with active internships
+const downloadInternships = async () => {
+  if (selectedDepartment.value && selectedProgram.value) {
+    try {
+      await exportInternshipsToExcel(
+        selectedDepartment.value,
+        selectedProgram.value,
+      );
+      toast.success("Η λήψη του αρχείου Excel ξεκίνησε.");
+    } catch (error) {
+      toast.error("Η λήψη του αρχείου Excel απέτυχε.");
+    }
+  }
+};
+
 // Fetch companies on mount
 onMounted(async () => {
   await fetchCompanies();
@@ -445,7 +470,12 @@ onMounted(async () => {
     &--refresh {
       @apply text-base text-white transition-transform duration-200 my-5 md:my-0 md:w-1/4;
       background-color: $primary-blue-color;
-
+      &:hover {
+        transform: translateY(-7px);
+      }
+    }
+    &--download {
+      @apply bg-green-500 mr-2 hover:bg-green-700 text-white text-base my-5 md:my-0 md:w-1/4;
       &:hover {
         transform: translateY(-7px);
       }
