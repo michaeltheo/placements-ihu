@@ -129,6 +129,24 @@ const headers = ref([
     value: "AFM",
     sortable: false,
   },
+  {
+    title: "Email",
+    key: "Email",
+    value: "email",
+    sortable: false,
+  },
+  {
+    title: "Τηλέφωνο",
+    key: "telephone",
+    value: "telephone",
+    sortable: false,
+  },
+  {
+    title: "Πόλη",
+    key: "city",
+    value: "city",
+    sortable: false,
+  },
   { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
 ]);
 

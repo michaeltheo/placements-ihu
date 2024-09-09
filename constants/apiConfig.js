@@ -28,6 +28,8 @@ export const API_URLS = {
   OTP_GENERATE: `${PLACEMENTS_BASE_URL}/otp/generate`,
   OTP_VALIDATE: `${PLACEMENTS_BASE_URL}/otp/validate/`,
   GET_ANNOUNCMENETS: `${PLACEMENTS_BASE_URL}/announcements/`,
+  GET_SUPERVISORS: `${PLACEMENTS_BASE_URL}/internship/get_supervisors/`,
+  EXPORT_ACTIVE_INTERNSHIPS: `${PLACEMENTS_BASE_URL}/internship/export/active_internships/`,
 };
 
 export const GRANT_TYPE = {

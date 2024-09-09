@@ -71,6 +71,18 @@
               @update:search-input="fetchCompanies"
             ></v-autocomplete>
             <template v-if="isUpdate && isAdmin">
+              <v-autocomplete
+                v-model="selectedSupervisor"
+                v-model:search-input="searchSupervisors"
+                :items="supervisorOptions"
+                label="Επιλέξτε Επόπτη"
+                class="create-internship-dialog__field"
+                :rules="internshipSupervisorRules"
+                outlined
+                dense
+                clearable
+                @update:search-input="fetchSupervisors"
+              ></v-autocomplete>
               <v-text-field
                 v-model="startDate"
                 label="Ημερομηνία Έναρξης"
@@ -115,7 +127,10 @@
 
 <script lang="ts" setup>
 import { toast } from "vue3-toastify";
-import { createOrUpdateInternship } from "@/services/internshipService";
+import {
+  createOrUpdateInternship,
+  getSupervisors,
+} from "@/services/internshipService";
 import { getAllCompanies } from "@/services/companyService";
 import { InternshipCreate, InternshipUpdate } from "@/types/internship";
 import { Department, InternshipProgram } from "@/types";
@@ -160,7 +175,12 @@ const startDate = ref<string | null>(
 const endDate = ref<string | null>(
   props.internship?.end_date?.split("T")[0] ?? null,
 );
+const supervisorOptions = ref<string[]>([]);
+const selectedSupervisor = ref<string | null>(
+  props.internship?.supervisor ?? null,
+);
 const search = ref("");
+const searchSupervisors = ref("");
 const companyOptions = ref<Company[]>([]);
 const valid = ref(false);
 const form = ref<any>(null);
@@ -182,6 +202,7 @@ watch(
     if (newVal && props.isUpdate && props.internship) {
       selectedProgram.value = props.internship?.program ?? null;
       selectedDepartment.value = props.internship?.department ?? null;
+      selectedSupervisor.value = props.internship?.supervisor ?? null;
       companyId.value = props.internship.company_id ?? null;
       startDate.value = props.internship.start_date
         ? props.internship.start_date.split("T")[0]
@@ -199,6 +220,7 @@ watch(
     if (newInternship && props.isUpdate) {
       selectedProgram.value = newInternship?.program ?? null;
       selectedDepartment.value = newInternship?.department ?? null;
+      selectedSupervisor.value = newInternship?.supervisor ?? null;
       companyId.value = newInternship.company_id ?? null;
       startDate.value = newInternship.start_date
         ? newInternship.start_date.split("T")[0]
@@ -216,6 +238,11 @@ watchEffect(() => {
   } else {
     companyOptions.value = [];
   }
+  if (searchSupervisors.value) {
+    fetchSupervisors();
+  } else {
+    supervisorOptions.value = [];
+  }
 });
 
 // Watcher to clear selectedProgram when selectedDepartment changes
@@ -232,6 +259,9 @@ const internshipProgramRules = [
 ];
 const internshipCompanyRules = [
   (value: any) => !!value || "Πρέπει να επιλέξετε μια εταιρεία.",
+];
+const internshipSupervisorRules = [
+  (value: any) => !!value || "Πρέπει να επιλέξετε έναν επόπτη.",
 ];
 const dateValidationRule = (value: string) => {
   if (!value) return "Η ημερομηνία είναι απαραίτητη.";
@@ -265,6 +295,9 @@ const dateValidationRule = (value: string) => {
 // Fetch companies on mount
 onMounted(async () => {
   await fetchCompanies();
+  if (props.isAdmin) {
+    await fetchSupervisors();
+  }
 });
 
 /**
@@ -276,6 +309,18 @@ const fetchCompanies = async () => {
     companyOptions.value = response.data;
   } else {
     companyOptions.value = [];
+  }
+};
+
+/**
+ * Fetch supervisors based on search input for the autocomplete component
+ */
+const fetchSupervisors = async () => {
+  const response = await getSupervisors(searchSupervisors.value);
+  if (response && !hasErrorResponse(response)) {
+    supervisorOptions.value = response;
+  } else {
+    supervisorOptions.value = [];
   }
 };
 
@@ -361,6 +406,7 @@ const updateInternship = async () => {
       payload.id = props.internship?.id;
       payload.start_date = startDate.value;
       payload.end_date = endDate.value;
+      payload.supervisor = selectedSupervisor.value;
     }
     const response = await createOrUpdateInternship(payload);
 
@@ -384,6 +430,7 @@ const emitClose = () => {
   companyId.value = null;
   startDate.value = null;
   endDate.value = null;
+  selectedSupervisor.value = null;
   emit("update:modelValue", false);
 };
 </script>
