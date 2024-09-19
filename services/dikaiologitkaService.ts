@@ -68,7 +68,7 @@ export async function updateDikaiologitika(
 
   try {
     const response = await fetch(
-      `${API_URLS.UPDATE_DIKAIOLOGITIKA}${dikaiologitaId}`,
+      `${API_URLS.UPDATE_DIKAIOLOGITIKA}${dikaiologitaId}/`,
       {
         method: "PUT",
         credentials: "include",

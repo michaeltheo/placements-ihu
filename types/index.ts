@@ -2,6 +2,7 @@ export enum UserRole {
   STUDENT = "student",
   ADMIN = "admin",
   SUPER_ADMIN = "super_admin",
+  SECRETARY = "secretary",
 }
 export enum SubmissionTime {
   START = "Έναρξη",
@@ -22,7 +23,8 @@ export enum InternshipProgram {
 }
 
 export enum InternshipStatus {
-  SUBMIT_START_FILES = "Κατάθεση Δικαιολογητικών Έναρξης",
+  SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION = "Κατάθεση Δικαιολογητικών Έναρξης (Βεβαίωση Πρακτικής: Προς το παρόν Μη Διαθέσιμη)",
+  SUBMIT_START_FILES = "Κατάθεση Δικαιολογητικών Έναρξης (Βεβαίωση Πρακτικής: Διαθέσιμη)",
   SUBMIT_END_FILES = "Κατάθεση Δικαιολογητικών Λήξης",
   PENDING_REVIEW_START = "Έλεγχος Δικαιολογητικών Έναρξης",
   PENDING_REVIEW_END = "Έλεγχος Δικαιολογητικών Λήξης",
