@@ -23,6 +23,7 @@ export const useAuthStore = defineStore("auth", {
       role: UserRole.STUDENT,
       id: 0,
       isAdmin: false,
+      isSecretary:false,
       department: Department.IT_TEITHE,
     },
     placements_access_token: "",
@@ -59,6 +60,7 @@ export const useAuthStore = defineStore("auth", {
         role: UserRole.STUDENT,
         id: 0,
         isAdmin: false,
+        isSecretary:false,
         department: Department.IT_TEITHE,
       };
       this.isAuthenticated = false;
@@ -100,6 +102,7 @@ export const useAuthStore = defineStore("auth", {
         isAdmin:
           userInfo.role === UserRole.ADMIN ||
           userInfo.role === UserRole.SUPER_ADMIN,
+        isSecretary: userInfo.role === UserRole.SECRETARY,
         department: department as Department,
       };
 

@@ -11,6 +11,7 @@ export interface User {
   department?: Department;
   reg_year?: string;
   isAdmin?: boolean;
+  isSecretary?:boolean
 }
 export interface Developer {
   name: string;

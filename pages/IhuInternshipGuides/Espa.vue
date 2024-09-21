@@ -34,13 +34,6 @@
               <v-table class="guide__container__stepper__table">
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Βεβαίωση πρακτικής</td>
-                    <td>
-                      Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη
-                      γραμματεία και έπειτα θα το ανεβάσετε μέσω της πλατφόρμας.
-                    </td>
-                  </tr>
-                  <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Αίτηση πρακτικής</td>
                     <td>
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
@@ -58,6 +51,13 @@
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
                       </a>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Βεβαίωση πρακτικής</td>
+                    <td>
+                      Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη
+                      γραμματεία και έπειτα θα το ανεβάσετε μέσω της πλατφόρμας.
                     </td>
                   </tr>
 

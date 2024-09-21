@@ -34,6 +34,26 @@
               <v-table class="guide__container__stepper__table">
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Αίτηση πρακτικής</td>
+                    <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <a
+                        class="guide__container__stepper__button"
+                        href="/pdf/Espa/AitisiPraktikisESPA5etes.pdf"
+                        target="_blank"
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </a>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Βεβαίωση πρακτικής</td>
                     <td>
                       Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη

@@ -15,7 +15,6 @@ export async function generateOTP(): Promise<GenerateOTPResponse> {
       credentials: "include",
       headers: {
         Accept: "application/json",
-        "X-Requested-With": "XMLHttpRequest",
       },
     });
 

@@ -31,6 +31,22 @@ export enum InternshipStatus {
   ACTIVE = "Ενεργή Πρακτική Άσκηση",
   ENDED = "Ολοκληρωμένη Πρακτική Άσκηση",
 }
+
+export enum DikaiologitikaTypes {
+  BebaiosiPraktikisApoGramateia = "BebaiosiPraktikisApoGramateia",
+  AitisiForeaGiaApasxolisiFoititi = "AitisiForeaGiaApasxolisiFoititi",
+  AntigraphoE3_5 = "AntigraphoE3_5",
+  BebaiosiEnsimonApoEfka = "BebaiosiEnsimonApoEfka",
+  ApodeixeisEjoflisisMinaiasApozimiosis = "ApodeixeisEjoflisisMinaiasApozimiosis",
+  AitisiOlokrirosisPraktikisAskisis = "AitisiOlokrirosisPraktikisAskisis",
+  AitisiPraktikis = "AitisiPraktikis",
+  DilosiAtomikonStoixeion = "DilosiAtomikonStoixeion",
+  YpeuthiniDilosiProsopikonDedomenon = "YpeuthiniDilosiProsopikonDedomenon",
+  DilosiMoriodotisi = "DilosiMoriodotisi",
+  YpeuthiniDilosiErgodoti = "YpeuthiniDilosiErgodoti",
+  AnagnorisiErgasias = "AnagnorisiErgasias",
+  BebaiosiApasxolisisKaiAsfalisisAskoumenou = "BebaiosiApasxolisisKaiAsfalisisAskoumenou"
+}
 export enum QuestionnaireType {
   STUDENT = "student",
   COMPANY = "company",

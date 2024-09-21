@@ -27,11 +27,14 @@
 import { InternshipStatus } from "@/types";
 
 const SUMIT_START_FILES_STATUS_TEXT = `<div class='infoBanner-text'>
-          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού έναρξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </ span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Έναρξης </span></p>
+          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού έναρξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Έναρξης </span></p>
+        </div>`;
+const SUMIT_START_FILES_WITHOUT_SECRETARY_CERTIFICATION_STATUS_TEXT = `<div class='infoBanner-text'>
+          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού έναρξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Έναρξης </span>\n<span class="infoBanner-text--bold">Προσοχή:</span>Σε αυτό το στάδιο δεν μπορείτε να ανεβάσετε το δικαιολογητικό <span class="infoBanner-text--bold">'Βεβαίωση Πρακτικής Άσκησης από την γραμματεία'</span>. Θα ανεβάσετε την <span class="infoBanner-text--bold"> Αίτηση Πρακτικής </span> και η Γραμματεία θα ελέγξει το δικαιολογητικό σας.</p>
         </div>`;
 
 const SUMIT_END_FILES_STATUS_TEXT = `<div class='infoBanner-text'>
-          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού λήξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </ span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Λήξης </span></p>
+          <p>Παρακαλώ πατήστε το κουμπί <span class="infoBanner-text--bold">'Προσθήκη δικαιολογητικού'</span>, επιλέξτε τον τύπο του δικαιολογητικού λήξης που θέλετε να ανεβάσετε, έπειτα επιλέξτε το αρχείο που θέλετε να ανεβάσετε (τα αρχεία δικαιολογητικών πρέπει να είναι PDF) και πατήστε το κουμπί <span class="infoBanner-text--bold"> 'Ανέβασμα' </span>. Με το επιτυχές ανέβασμα του αρχείου θα δείτε ότι ο πίνακας των δικαιολογητικών θα ανανεωθεί αυτόματα. Εφόσον έχετε ανεβάσει όλα τα απαραίτητα δικαιολογητικά πατήστε το κουμπί. <span class="infoBanner-text--bold">  Έλεγχος Δικαιολοητικών Λήξης </span></p>
         </div>`;
 
 const PENDING_REVIEW_START_TEXT = `<div class='infoBanner-text'>
@@ -62,6 +65,7 @@ const bannerColor = computed(() => {
   switch (props.status) {
     case InternshipStatus.SUBMIT_END_FILES:
     case InternshipStatus.SUBMIT_START_FILES:
+    case InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION:
       return "warning";
     case InternshipStatus.PENDING_REVIEW_END:
     case InternshipStatus.PENDING_REVIEW_START:
@@ -76,6 +80,8 @@ const bannerColor = computed(() => {
 
 const bannerText = computed(() => {
   switch (props.status) {
+    case InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION:
+      return SUMIT_START_FILES_WITHOUT_SECRETARY_CERTIFICATION_STATUS_TEXT;
     case InternshipStatus.SUBMIT_START_FILES:
       return SUMIT_START_FILES_STATUS_TEXT;
     case InternshipStatus.SUBMIT_END_FILES:

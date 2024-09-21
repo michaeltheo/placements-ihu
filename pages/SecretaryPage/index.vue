@@ -32,32 +32,10 @@
             {{ item.status || "N/A" }}
           </v-chip>
         </template>
-        <!-- <template #item.department="{ item }">
+        <template #item.department="{ item }">
           <v-chip :color="getColorForDepartment(item.department)">
             {{ item.department || "N/A" }}
           </v-chip>
-        </template> -->
-        <template #item.program="{ item }">
-          <v-chip :color="getColorForProgram(item.program)">
-            {{ item.program || "N/A" }}
-          </v-chip>
-        </template>
-        <template #item.company_name="{ item }">
-          <span>{{ item.company_name || "N/A" }}</span>
-        </template>
-        <template #item.start_date="{ item }">
-          <span>{{ formatDate(item?.start_date) }}</span>
-        </template>
-        <template #item.end_date="{ item }">
-          <span>{{ formatDate(item?.end_date) }}</span>
-        </template>
-        <template #item.actions="{ item }">
-          <v-btn variant="plain" @click="deleteItem($event, item)">
-            <v-icon color="error"> fa:fas fa-trash </v-icon>
-            <v-tooltip activator="parent" location="top"
-              >Διαγραφή Πρακτικής</v-tooltip
-            >
-          </v-btn>
         </template>
       </v-data-table-server>
       <div class="intersnshipPage__table-filters">
@@ -111,23 +89,11 @@
           dense
           @update:model-value="applyFilter"
         ></v-select>
-        <v-autocomplete
-          v-model="companyName"
-          v-model:search-input="searchCompanyName"
-          :items="companyOptions"
-          item-value="name"
-          item-title="name"
-          label="Επιλέξτε Εταιρεία"
-          variant="outlined"
-          dense
-          clearable
-          @update:search-input="fetchCompanies"
-          @update:model-value="applyFilter"
-        ></v-autocomplete>
       </div>
 
       <p class="intersnshipPage__hint">
-        Επιλέξτε έναν φοιτητή για να δείτε τα δικαιολογητικά του.
+        Επιλέξτε έναν φοιτητή για να δείτε την Αίτηση Πρακτικής Ασκησης του και
+        για υποβάλετε την Βεβαίωση Πρακτικής Ασκησης.
       </p>
       <div class="intersnshipPage__buttons">
         <v-btn
@@ -138,48 +104,25 @@
         >
           Ανανέωση Πίνακα
         </v-btn>
-        <v-btn
-          v-if="selectedDepartment && selectedProgram"
-          class="intersnshipPage__buttons--download"
-          append-icon="fa-solid fa-file-excel"
-          @click="downloadInternships"
-        >
-          Λήψη Excel
-          <v-tooltip activator="parent" location="top"
-            >Λήψη Excel για τις Ενεργές Πρακτικές</v-tooltip
-          >
-        </v-btn>
       </div>
-      <AdminDialogDeleteInternship
-        :model-value="openDeleteInternshipDialog"
+
+      <SecretaryDialogInternship
+        :model-value="openSecretaryInternshipDialog"
         :internship="selectedInternship"
         @refreshInternshipList="applyFilter"
-        @update:model-value="handleDeleteDialogClose"
-      />
-      <AdminDialogInternship
-        :model-value="openInternshipDialog"
-        :internship="selectedInternship"
-        @refreshInternshipList="applyFilter"
-        @update:model-value="handleInternshipDialogClose"
+        @update:model-value="handleSecretaryInternshipDialogClose"
       />
     </section>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { toast } from "vue3-toastify";
-import {
-  exportInternshipsToExcel,
-  getAllInternships,
-} from "@/services/internshipService";
+import { getAllInternships } from "@/services/internshipService";
 import { Department, InternshipProgram, InternshipStatus } from "@/types";
 import { InternshipRead } from "@/types/internship";
 import { hasErrorResponse } from "@/services/errorHandling";
-import { getAllCompanies } from "@/services/companyService";
-import { Company } from "@/types/company";
-useHead({
-  title: "Πίνακας Πρακτικής",
-});
+
 /**
  * Interface for pagination and filtering options.
  */
@@ -187,27 +130,29 @@ interface LoadItemsOptions {
   page: number;
   itemsPerPage: number;
 }
-
 definePageMeta({
-  middleware: ["is-admin", "auth"],
+  middleware: ["auth", "is-secretary"],
+});
+useHead({
+  title: "Σελίδα Γραμματείας",
 });
 
 const searchAM = ref<string>("");
-const searchCompanyName = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
-const selectedStatus = ref<InternshipStatus | undefined>(undefined);
+const selectedStatus = ref<InternshipStatus | undefined>(
+  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION
+);
 const selectedInternship = ref<InternshipRead | undefined>(undefined);
 const selectedDepartment = ref<Department | undefined>(undefined);
-const openDeleteInternshipDialog = ref<boolean>(false);
-const openInternshipDialog = ref<boolean>(false);
+const openSecretaryInternshipDialog = ref<boolean>(false);
 const totalItems = ref<number | undefined>(0);
 const itemsPerPage = ref<number>(20);
 const loading = ref<boolean>(true);
-const companyName = ref<string | undefined>();
-const companyOptions = ref<Company[]>([]);
 const serverInternships = ref<InternshipRead[]>([]);
-const InternshipsStatus = Object.values(InternshipStatus);
-
+const InternshipsStatus = [
+  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION,
+  InternshipStatus.SUBMIT_START_FILES,
+];
 const headers = ref([
   {
     title: "ΑΡΙΘΜΟΣ ΜΗΤΡΩΟΥ",
@@ -228,27 +173,7 @@ const headers = ref([
     sortable: false,
   },
   { title: "STATUS", key: "status", value: "status", sortable: false },
-  // { title: "ΤΜΗΜΑ", key: "department", value: "department", sortable: false },
-  { title: "ΠΡΟΓΡΑΜΜΑ", key: "program", value: "program", sortable: false },
-  {
-    title: "ΟΝΟΜΑ ΕΤΑΙΡΕΙΑΣ",
-    key: "company_name",
-    value: "company_name",
-    sortable: false,
-  },
-  {
-    title: "ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ",
-    key: "start_date",
-    value: "start_date",
-    sortable: false,
-  },
-  {
-    title: "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ",
-    key: "end_date",
-    value: "end_date",
-    sortable: false,
-  },
-  { title: "ΕΠΙΛΟΓΕΣ", key: "actions", sortable: false },
+  { title: "ΤΜΗΜΑ", key: "department", value: "department", sortable: false },
 ]);
 
 const loadItems = async (options: LoadItemsOptions) => {
@@ -259,8 +184,8 @@ const loadItems = async (options: LoadItemsOptions) => {
       selectedDepartment.value,
       selectedProgram.value,
       searchAM.value,
-      companyName.value,
-      false,
+      undefined,
+      true,
       options.page,
       options.itemsPerPage
     );
@@ -273,36 +198,6 @@ const loadItems = async (options: LoadItemsOptions) => {
   } finally {
     loading.value = false;
   }
-};
-
-/**
- * Fetch companies based on search input
- */
-const fetchCompanies = async () => {
-  const response = await getAllCompanies(
-    undefined,
-    undefined,
-    searchCompanyName.value
-  );
-  if (response.data && !hasErrorResponse(response)) {
-    companyOptions.value = response.data;
-  } else {
-    companyOptions.value = [];
-  }
-};
-/**
- * Formats a date string to 'dd-MM-yy' format.
- * @param dateString - The date string to format.
- * @returns The formatted date string or "N/A" if invalid.
- */
-const formatDate = (dateString: string | null | undefined) => {
-  if (!dateString) return "N/A";
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  return new Date(dateString).toLocaleDateString("el-GR", options);
 };
 
 // Get color based on program status
@@ -326,43 +221,24 @@ const getColorForStatus = (status: string): string => {
   }
   return "default";
 };
-// Get color based on program status
-const getColorForProgram = (status: string): string => {
-  if (status === InternshipProgram.TEITHE_OAED) {
-    return "cyan";
-  } else if (status === InternshipProgram.ESPA) {
-    return "secondary";
-  } else if (status === InternshipProgram.TEITHE_JOB_RECOGNITION) {
-    return "green";
+
+// Get color based on internship department
+const getColorForDepartment = (department: string): string => {
+  if (department === Department.IT_TEITHE) {
+    return "teal-lighten-1";
+  } else if (department === Department.EL_TEITHE) {
+    return "light-blue-darken-1";
+  } else if (department === Department.IHU_IEE) {
+    return "orange-lighten-3";
   }
   return "default";
 };
-
-// Get color based on internship department
-// const getColorForDepartment = (department: string): string => {
-//   if (department === Department.IT_TEITHE) {
-//     return "teal-lighten-1";
-//   } else if (department === Department.EL_TEITHE) {
-//     return "light-blue-darken-1";
-//   } else if (department === Department.IHU_IEE) {
-//     return "orange-lighten-3";
-//   }
-//   return "default";
-// };
 
 /**
  * Applies the current search filter and triggers data re-fetch.
  */
 const applyFilter = () => {
   loadItems({ page: 1, itemsPerPage: itemsPerPage.value });
-};
-
-// Handle delete internship dialog close
-const handleDeleteDialogClose = (newValue: boolean) => {
-  openDeleteInternshipDialog.value = newValue;
-  if (!newValue) {
-    selectedInternship.value = undefined;
-  }
 };
 
 /**
@@ -372,27 +248,18 @@ const handleDeleteDialogClose = (newValue: boolean) => {
  */
 const handleClick = (_event: Event, row: { item: InternshipRead }) => {
   selectedInternship.value = row.item;
-  openInternshipDialog.value = true;
+
+  openSecretaryInternshipDialog.value = true;
 };
 
 // Handle internship dialog close
-const handleInternshipDialogClose = (newValue: boolean) => {
-  openInternshipDialog.value = newValue;
+const handleSecretaryInternshipDialogClose = (newValue: boolean) => {
+  openSecretaryInternshipDialog.value = newValue;
   if (!newValue) {
     selectedInternship.value = undefined;
   }
 };
 
-/**
- * Deletes an internship item and opens the delete dialog.
- * @param event - The click event.
- * @param item - The internship item to delete.
- */
-const deleteItem = (event: Event, item: InternshipRead) => {
-  event.stopPropagation();
-  selectedInternship.value = item;
-  openDeleteInternshipDialog.value = true;
-};
 // Watcher to clear selectedProgram when selectedDepartment changes
 watch(
   () => selectedDepartment.value,
@@ -426,26 +293,6 @@ const filteredProgramOptions = computed(() => {
   return selectedDepartment.value
     ? programOptions[selectedDepartment.value]
     : [];
-});
-
-// Download Excel with active internships
-const downloadInternships = async () => {
-  if (selectedDepartment.value && selectedProgram.value) {
-    try {
-      await exportInternshipsToExcel(
-        selectedDepartment.value,
-        selectedProgram.value
-      );
-      toast.success("Η λήψη του αρχείου Excel ξεκίνησε.");
-    } catch (error) {
-      toast.error("Η λήψη του αρχείου Excel απέτυχε.");
-    }
-  }
-};
-
-// Fetch companies on mount
-onMounted(async () => {
-  await fetchCompanies();
 });
 </script>
 
