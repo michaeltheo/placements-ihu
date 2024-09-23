@@ -79,6 +79,26 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Υπεύθυνη Δήλωση Εργοδότη</td>
+                    <td>
+                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <a
+                        class="guide__container__stepper__button"
+                        href="/pdf/YpeuthiniDilwsi/AitisiForeaApasxolisis.pdf"
+                        target="_blank"
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </a>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
                     </td>
