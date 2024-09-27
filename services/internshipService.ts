@@ -30,7 +30,7 @@ export async function getAllInternships(
   program?: InternshipProgram,
   userAM?: string,
   companyName?: string,
-  sendBySecretary=false,
+  sendBySecretary = false,
   page = 1,
   itemsPerPage = 10,
 ): Promise<TotalInternshipResponse> {
@@ -41,7 +41,8 @@ export async function getAllInternships(
     if (department) queryParams.append("department", department.toString());
     if (program) queryParams.append("program", program.toString());
     if (userAM) queryParams.append("user_am", userAM);
-    if(sendBySecretary) queryParams.append("sendBySecretary", sendBySecretary.toString());
+    if (sendBySecretary)
+      queryParams.append("sendBySecretary", sendBySecretary.toString());
     if (companyName) queryParams.append("company_name", companyName);
     queryParams.append("page", page.toString());
     queryParams.append("items_per_page", itemsPerPage.toString());

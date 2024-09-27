@@ -19,8 +19,6 @@ export async function uploadDikaiologitika(
   type: string,
   program: string,
 ): Promise<UploadResponse> {
- 
-
   // Create FormData to send the file, type, and program to the server.
   const formData = new FormData();
   formData.append("file", file);
@@ -56,16 +54,18 @@ export async function uploadBebaiwsiPraktikisAskisisApoGrammateia(
   file: File,
   userId: number,
 ): Promise<UploadResponse> {
-
   const formData = new FormData();
   formData.append("file", file);
 
   try {
-    const response = await fetch(`${API_URLS.UPLOAD_BEBAIWSI_PRAKTIKIS_APO_GRAMMATEIA}${userId}`, {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-    });
+    const response = await fetch(
+      `${API_URLS.UPLOAD_BEBAIWSI_PRAKTIKIS_APO_GRAMMATEIA}${userId}`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      },
+    );
 
     if (!response.ok) {
       return extractErrorMessage(response);

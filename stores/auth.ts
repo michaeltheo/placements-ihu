@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
       role: UserRole.STUDENT,
       id: 0,
       isAdmin: false,
-      isSecretary:false,
+      isSecretary: false,
       department: Department.IT_TEITHE,
     },
     placements_access_token: "",
@@ -60,7 +60,7 @@ export const useAuthStore = defineStore("auth", {
         role: UserRole.STUDENT,
         id: 0,
         isAdmin: false,
-        isSecretary:false,
+        isSecretary: false,
         department: Department.IT_TEITHE,
       };
       this.isAuthenticated = false;

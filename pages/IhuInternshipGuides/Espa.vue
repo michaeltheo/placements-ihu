@@ -34,15 +34,17 @@
               <v-table class="guide__container__stepper__table">
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Αίτηση πρακτικής</td>
+                    <td class="font-bold">Αίτηση Πρακτικής Άσκησης</td>
                     <td>
                       Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <a
+                      <v-btn
+                        variant="plain"
                         class="guide__container__stepper__button"
-                        href="/pdf/Espa/AitisiPraktikisESPA5etes.pdf"
-                        target="_blank"
+                        @click="
+                          openFile(`${ESPAUrls.AitisiPraktikisAskisis5ETES}`)
+                        "
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -50,14 +52,15 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </a>
+                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <td class="font-bold">Βεβαίωση πρακτικής</td>
+                    <td class="font-bold">Βεβαίωση Πρακτικής</td>
                     <td>
-                      Το συγκεκριμένο δικαιολογητικό θα το προσκομίσετε από τη
-                      γραμματεία και έπειτα θα το ανεβάσετε μέσω της πλατφόρμας.
+                      Το συγκεκριμένο δικαιολογητικό θα το ανεβάσει η γραμματεία
+                      για εσάς, <span>αφού</span> έχετε ανεβάσει εσείς ήδη την
+                      “Αίτηση Πρακτικής Άσκησης".
                     </td>
                   </tr>
 
@@ -66,13 +69,21 @@
                       Αίτηση Φορέα για Απασχόληση Φοιτητή
                     </td>
                     <td>
-                      Την συμπληρώνετε και την ανεβάζετε μέσω της πλατφόρμας.
+                      Την συμπληρώνει ο φορέας απασχόλησης. Είτε τη συμπληρώνει
+                      ηλεκτρονικά και την υπογράφει μέσω
+                      <span>GOV</span>, σας τη στέλνει και την ανεβάζετε
+                      (Προσοχή: ΌΧΙ απλά ψηφιακή υπογραφή), είτε την εκτυπώνει,
+                      τη συμπληρώνει, τη σφραγίζει και φέρνετε το
+                      <span>πρωτότυπο</span> με τη σφραγίδα στο Γραφείο
+                      Πρακτικής Άσκησης (αιθ. 209, κτ. Πληροφορικής).
                     </td>
                     <td>
-                      <a
+                      <v-btn
+                        variant="plain"
                         class="guide__container__stepper__button"
-                        href="/pdf/Espa/AitisiForeaApasxolisisFoititiESPA.pdf"
-                        target="_blank"
+                        @click="
+                          openFile(`${ESPAUrls.AitisiForeaApasxolisisFoititi}`)
+                        "
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -80,7 +91,7 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </a>
+                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -88,14 +99,23 @@
                       Βεβαίωση Απασχόλησης και Ασφάλισης Ασκούμενου
                     </td>
                     <td>
-                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας.
+                      Την συμπληρώνει ο φορέας απασχόλησης. Είτε τη συμπληρώνει
+                      ηλεκτρονικά και την υπογράφει μέσω
+                      <span>GOV</span>, σας τη στέλνει και την ανεβάζετε
+                      (Προσοχή: ΌΧΙ απλά ψηφιακή υπογραφή), είτε την εκτυπώνει,
+                      τη συμπληρώνει, τη σφραγίζει και φέρνετε το
+                      <span>πρωτότυπο</span> με τη σφραγίδα στο Γραφείο
+                      Πρακτικής Άσκησης (αιθ. 209, κτ. Πληροφορικής).
                     </td>
                     <td>
-                      <a
+                      <v-btn
+                        variant="plain"
                         class="guide__container__stepper__button"
-                        href="/pdf/Espa/BebaiosiApasxolisisKaiAsfalisisAskoumenou5etes.pdf"
-                        target="_blank"
+                        @click="
+                          openFile(
+                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                          )
+                        "
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -103,32 +123,85 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </a>
+                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Δήλωση Ατομικών Στοιχείων</td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
+                      μέσω της πλατφόρμας.
+                    </td>
+                    <!-- TODOD: CHANGE FILE -->
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="openFile(`${ESPAUrls.YpeuthiniDilosiFoititwn}`)"
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
                     </td>
                   </tr>
+                  <!-- TODOD: CHANGE FILE -->
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">
+                      Υπεύθυνη Δήλωση Προσωπικών Δεδομένων
+                    </td>
+                    <td>
+                      Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
+                      μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="openFile(`${ESPAUrls.YpeuthiniDilosiFoititwn}`)"
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <!-- TODOD: CHANGE FILE -->
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Δήλωση Μοριοδότησης</td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
+                      μέσω της πλατφόρμας.
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="openFile(`${ESPAUrls.YpeuthiniDilosiFoititwn}`)"
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
                     <td>
                       <div>
-                        Ο φοιτητής πρέπει να παραλάβει το Βιβλιάριο Πρακτικής
-                        Άσκησης από το Γραφείο Πρακτικής Άσκησης στην αίθουσα
-                        209 του κτιρίου Πληροφορικής. Ο φοιτητής οφείλει να
-                        συμπληρώνει σωστά ΚΑΘΕ εβδομάδα στο Βιβλιάριο Πρακτικής
-                        Άσκησης το Έντυπο 1.
+                        Ο/η φοιτητής/φοιτήτρια
+                        <span>πρέπει</span> να παραλάβει το Βιβλιάριο Πρακτικής
+                        Άσκησης,, μόλις υποβάλει τη Σύμβαση Πρακτικής στο
+                        Γραφείο Πρακτικής Άσκησης (αιθ. 209, κτ. Πληροφορικής).
                       </div>
                       <div>
                         Στο τέλος της εκπόνησης της πρακτικής άσκησης, πρέπει να
@@ -155,22 +228,40 @@
                 <tbody>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης
+                      Βεβαίωση Ολοκλήρωσης Πρακτικής Άσκησης
                     </td>
                     <td>
-                      <span class="highlight"
-                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
-                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης. Ο φοιτητής θα
-                        βρει το δικαιολογητικό στο email που έχει λάβει από το
-                        γραφείο ΕΣΠΑ.
-                      </span>
+                      Την συμπληρώνει ο φορέας απασχόλησης. Είτε τη συμπληρώνει
+                      ηλεκτρονικά και την υπογράφει μέσω
+                      <span>GOV</span>, σας τη στέλνει και την ανεβάζετε
+                      (Προσοχή: ΌΧΙ απλά ψηφιακή υπογραφή), είτε την εκτυπώνει,
+                      τη συμπληρώνει, τη σφραγίζει και φέρνετε το
+                      <span>πρωτότυπο</span> με τη σφραγίδα στο Γραφείο
+                      Πρακτικής Άσκησης (αιθ. 209, κτ. Πληροφορικής).
+                    </td>
+                    <td>
+                      <v-btn
+                        variant="plain"
+                        class="guide__container__stepper__button"
+                        @click="
+                          openFile(
+                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
+                          )
+                        "
+                      >
+                        <v-icon size="large" color="primary-blue-color"
+                          >fa:fas fa-download</v-icon
+                        >
+                        <v-tooltip activator="parent" location="top"
+                          >Κατέβασμα Δικαιολογητικού</v-tooltip
+                        >
+                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Ερωτηματολόγιο Αξιολόγησης Πρακτικής Άσκησης από τον
-                      Επιβλέποντα του φορέα
+                      Επιβλέποντα Φορέα
                     </td>
                     <td>
                       Η συμπλήρωση του Ερωτηματολόγιο για τον Επιβλέποντα φορέα
@@ -191,17 +282,21 @@
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
-                      Αίτηση Ολοκλήρωσης Πρακτικής Άσκησης.
+                      Αίτηση Ολοκλήρωσης Πρακτικής Άσκησης
                     </td>
                     <td>
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
-                      μέσω της πλατφόρμας
+                      μέσω της πλατφόρμας.
                     </td>
                     <td>
-                      <a
+                      <v-btn
+                        variant="plain"
                         class="guide__container__stepper__button"
-                        href="/pdf/Espa/AitisiOloklirosis.pdf"
-                        target="_blank"
+                        @click="
+                          openFile(
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
+                          )
+                        "
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -209,17 +304,23 @@
                         <v-tooltip activator="parent" location="top"
                           >Κατέβασμα Δικαιολογητικού</v-tooltip
                         >
-                      </a>
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <tr class="guide__container__stepper__table-row">
+                    <td class="font-bold">Σύμβαση Πρακτικής</td>
+                    <td>
+                      Εκτυπώνετε τη Σύμβαση (3 φορές), υπογράφεται και φέρνετε
+                      τα <span>πρωτότυπα</span> στο Γραφείο Πρακτικής Άσκησης
+                      (αιθ. 209, κτ. Πληροφορικής).
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Βιβλιάριο Πρακτικής Άσκησης</td>
                     <td>
-                      <span class="highlight"
-                        >Σημείωση, To συγκεριμένο διακιολογιτικό δεν μπορείτε να
-                        το ανεβάσετε μέσω της πλατοφρμας πρέπει να παραδώσετε το
-                        πρωτότυπο στο Γραφείο Πρακτικής Άσκησης.
-                      </span>
+                      Το Βιβλιάριο Πρακτικής Άσκησης θα <span>πρέπει</span> να
+                      το επιστρέψετε <span>σωστά</span> συμπληρωμένο στο Γραφείο
+                      Πρακτικής Άσκησης (αιθ. 209, κτ. Πληροφορικής).
                     </td>
                   </tr>
                 </tbody>
@@ -256,6 +357,10 @@
 
 <script setup lang="ts">
 import { Department, InternshipProgram } from "@/types";
+import { ESPAUrls } from "@/constants/diakaiologitikaUrls";
+const openFile = (path: string) => {
+  window.open(path, "_blank");
+};
 </script>
 
 <style lang="scss" scoped>

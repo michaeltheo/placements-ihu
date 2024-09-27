@@ -167,7 +167,7 @@ const loadUserFiles = async (userId: number) => {
     userFiles.value = (response?.data.files ?? []).filter(
       (file) =>
         file.type === DikaiologitikaTypes.AitisiPraktikis ||
-        file.type === DikaiologitikaTypes.BebaiosiPraktikisApoGramateia
+        file.type === DikaiologitikaTypes.BebaiosiPraktikisApoGramateia,
     );
   }
 };
@@ -185,7 +185,7 @@ const submitForm = async () => {
   try {
     const response = await uploadBebaiwsiPraktikisAskisisApoGrammateia(
       selectedFile.value,
-      props.internship.user_id
+      props.internship.user_id,
     );
     if (response.error) {
       toast.error(`${response.error}`);

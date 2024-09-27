@@ -45,7 +45,7 @@ export enum DikaiologitikaTypes {
   DilosiMoriodotisi = "DilosiMoriodotisi",
   YpeuthiniDilosiErgodoti = "YpeuthiniDilosiErgodoti",
   AnagnorisiErgasias = "AnagnorisiErgasias",
-  BebaiosiApasxolisisKaiAsfalisisAskoumenou = "BebaiosiApasxolisisKaiAsfalisisAskoumenou"
+  BebaiosiApasxolisisKaiAsfalisisAskoumenou = "BebaiosiApasxolisisKaiAsfalisisAskoumenou",
 }
 export enum QuestionnaireType {
   STUDENT = "student",

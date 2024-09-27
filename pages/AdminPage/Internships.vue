@@ -262,7 +262,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       companyName.value,
       false,
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -282,7 +282,7 @@ const fetchCompanies = async () => {
   const response = await getAllCompanies(
     undefined,
     undefined,
-    searchCompanyName.value
+    searchCompanyName.value,
   );
   if (response.data && !hasErrorResponse(response)) {
     companyOptions.value = response.data;
@@ -399,7 +399,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  }
+  },
 );
 
 // Options for departments and programs
@@ -434,7 +434,7 @@ const downloadInternships = async () => {
     try {
       await exportInternshipsToExcel(
         selectedDepartment.value,
-        selectedProgram.value
+        selectedProgram.value,
       );
       toast.success("Η λήψη του αρχείου Excel ξεκίνησε.");
     } catch (error) {

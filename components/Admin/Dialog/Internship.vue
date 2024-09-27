@@ -165,7 +165,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        userHasSubmittedQuestionnaire
+                        userHasSubmittedQuestionnaire,
                       ),
                     }"
                   >
@@ -202,7 +202,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        companyHasSubmittedQuestionnaire
+                        companyHasSubmittedQuestionnaire,
                       ),
                     }"
                   >
@@ -504,7 +504,7 @@ const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
-    selectedStatus.value
+    selectedStatus.value,
   );
   if (hasErrorResponse(response)) {
     toast.error(`${response.error}`);
@@ -538,7 +538,7 @@ const handleFileUploadDialogClose = (newValue: boolean): void => {
  */
 const loadUserQuestionnaire = async (
   userId: number,
-  status: InternshipStatus
+  status: InternshipStatus,
 ): Promise<void> => {
   if (status !== InternshipStatus.PENDING_REVIEW_END) {
     const userAnswers: any = await getUserAnswers(userId);
@@ -550,7 +550,7 @@ const loadUserQuestionnaire = async (
       userHasSubmittedQuestionnaire.value = false;
     }
     const companyAnswers: any = await getInternshipCompanyQuestionnaire(
-      props.internship.id
+      props.internship.id,
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
       companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
@@ -590,7 +590,7 @@ watch(
       await loadUserFiles(newVal.user_id);
       await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
-  }
+  },
 );
 </script>
 

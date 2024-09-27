@@ -97,7 +97,7 @@ const props = withDefaults(
   }>(),
   {
     internship: null,
-  }
+  },
 );
 
 /**
