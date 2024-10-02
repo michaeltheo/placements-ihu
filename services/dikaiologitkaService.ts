@@ -207,7 +207,8 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
     const blob = await response.blob();
     const downloadUrl = window.URL.createObjectURL(blob);
     window.open(downloadUrl, "_blank");
-    window.URL.revokeObjectURL(downloadUrl);
+    // Important: Do not immediately revoke the object URL
+    setTimeout(() => window.URL.revokeObjectURL(downloadUrl), 60000);
   } catch (error) {
     errorLog("Error downloading file:", error);
   }
