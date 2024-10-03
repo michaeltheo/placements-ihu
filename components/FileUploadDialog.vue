@@ -143,7 +143,6 @@ import type {
   DikaiologitikaFile,
   DikaiologitikaType,
 } from "@/types/dikaiologitika";
-import { InternshipProgram } from "@/types";
 import type { InternshipRead } from "@/types/internship";
 
 // Define the props received by the component
