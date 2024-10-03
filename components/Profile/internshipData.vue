@@ -115,7 +115,9 @@ const getColorForStatus = (status: string): string => {
     return "orange";
   } else if (
     status === InternshipStatus.SUBMIT_START_FILES ||
-    status === InternshipStatus.SUBMIT_END_FILES
+    status === InternshipStatus.SUBMIT_END_FILES ||
+    status ===
+      InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION
   ) {
     return "orange-darken-1";
   }

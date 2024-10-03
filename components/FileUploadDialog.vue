@@ -103,35 +103,6 @@
             ></v-file-input>
           </div>
 
-          <v-list
-            v-if="additionalInformation"
-            dense
-            class="file-dialog__info-list"
-          >
-            <v-subheader class="file-dialog__info-list--header"
-              >Πρόσθετες Πληροφορίες</v-subheader
-            >
-            <v-subheader class="file-dialog__info-list--subheader"
-              >Τα παρακάτω αρχεία θα πρέπει να τα υποβάλει ο φοιτητής στο
-              Γραφείο Πρακτικής Άσκησης</v-subheader
-            >
-            <v-divider></v-divider>
-            <v-list-item
-              v-for="(item, index) in additionalInformationList"
-              :key="index"
-            >
-              <v-list-item-icon>
-                <v-icon color="primary-blue-color"
-                  >fa-solid fa-circle-info fa-sm</v-icon
-                >
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="file-dialog__info-list--item">{{
-                  item
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
           <v-card-actions class="file-dialog__actions">
             <v-btn
               type="submit"
@@ -172,7 +143,6 @@ import type {
   DikaiologitikaFile,
   DikaiologitikaType,
 } from "@/types/dikaiologitika";
-import { InternshipProgram } from "@/types";
 import type { InternshipRead } from "@/types/internship";
 
 // Define the props received by the component
@@ -190,12 +160,12 @@ const loading = ref(false);
 const fileInput = ref<File | null>(null);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
-  Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
+  Object.keys(dikaiologitikaStore.dikaiologitikaTypes)
 );
 const selectedProgram = computed(() => props.internship?.program ?? null);
 const selectedDepartment = computed(() => props.internship?.department ?? null);
 const selectedFileType = ref<string | null>(
-  props.editItem?.description ?? null,
+  props.editItem?.description ?? null
 );
 
 // Computed property for the filtered list of file types based on the selected program
@@ -212,8 +182,8 @@ watchEffect(() => {
   if (props.editItem) {
     const program = programs.value.find((p) =>
       dikaiologitikaStore.dikaiologitikaTypes[p].some(
-        (ft) => ft.type === props.editItem!.type,
-      ),
+        (ft) => ft.type === props.editItem!.type
+      )
     );
     selectedProgram.value = program || null;
   }
@@ -235,7 +205,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  },
+  }
 );
 
 // Handle program change event
@@ -260,7 +230,7 @@ const submitForm = async () => {
     !selectedProgram.value
   ) {
     toast.error(
-      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων."
     );
     return;
   }
@@ -272,13 +242,13 @@ const submitForm = async () => {
       response = await updateDikaiologitika(
         fileInput.value,
         props.editItem.id,
-        selectedProgram.value,
+        selectedProgram.value
       );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
         selectedFileType.value,
-        selectedProgram.value,
+        selectedProgram.value
       );
     }
 
@@ -295,33 +265,6 @@ const submitForm = async () => {
     loading.value = false;
   }
 };
-
-// Computed property to generate dynamic content (information about internship programs)
-const additionalInformation = computed(() => {
-  switch (selectedProgram.value) {
-    case InternshipProgram.TEITHE_OAED:
-    case InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY:
-      return `
-      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgram.ESPA:
-      return `
-      Πρωτότυπο της Βεβαίωσης Ολοκλήρωσης της Πρακτικής Άσκησης (ΛΗΞΗ)`;
-    case InternshipProgram.TEITHE_JOB_RECOGNITION:
-      return `
-      Σύμβαση αορίστου (ΕΝΑΡΞΗ)
-      Βεβαίωση Ολοκλήρωσης της Πρακτικής Άσκησης (Σημείωση, Φέρνει το πρωτότυπο στο Γραφείο Πρακτικής Άσκησης) (ΛΗΞΗ)`;
-    default:
-      return null;
-  }
-});
-
-// Computed property to generate a list of additional information items
-const additionalInformationList = computed(() => {
-  if (additionalInformation.value) {
-    return additionalInformation.value.split("\n").filter((info) => info);
-  }
-  return [];
-});
 
 // Emit close event to close the dialog
 const emitClose = () => {

@@ -19,11 +19,6 @@ export async function uploadDikaiologitika(
   type: string,
   program: string,
 ): Promise<UploadResponse> {
-  // Ensure the file is a PDF
-  if (file.type !== "application/pdf") {
-    return { error: "Only PDF files are allowed." };
-  }
-
   // Create FormData to send the file, type, and program to the server.
   const formData = new FormData();
   formData.append("file", file);
@@ -39,6 +34,39 @@ export async function uploadDikaiologitika(
     });
 
     // Check for a successful response, otherwise return an error.
+    if (!response.ok) {
+      return extractErrorMessage(response);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    return { error: "An unexpected error occurred during the upload." };
+  }
+}
+/**
+ * Uploads a Bebaiwsi Praktikis Aksisis file to the server give user id (this action will be done by the secretary).
+ * @param file The file to be uploaded.
+ * @param userId The user ID for whom file is being uploaded.
+ * @returns Promise resolving to the upload response data or an error message.
+ */
+export async function uploadBebaiwsiPraktikisAskisisApoGrammateia(
+  file: File,
+  userId: number,
+): Promise<UploadResponse> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch(
+      `${API_URLS.UPLOAD_BEBAIWSI_PRAKTIKIS_APO_GRAMMATEIA}${userId}`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      },
+    );
+
     if (!response.ok) {
       return extractErrorMessage(response);
     }
@@ -68,7 +96,7 @@ export async function updateDikaiologitika(
 
   try {
     const response = await fetch(
-      `${API_URLS.UPDATE_DIKAIOLOGITIKA}${dikaiologitaId}`,
+      `${API_URLS.UPDATE_DIKAIOLOGITIKA}${dikaiologitaId}/`,
       {
         method: "PUT",
         credentials: "include",
@@ -179,7 +207,8 @@ export async function downloadDikaiologitika(fileId: number): Promise<void> {
     const blob = await response.blob();
     const downloadUrl = window.URL.createObjectURL(blob);
     window.open(downloadUrl, "_blank");
-    window.URL.revokeObjectURL(downloadUrl);
+    // Important: Do not immediately revoke the object URL
+    setTimeout(() => window.URL.revokeObjectURL(downloadUrl), 60000);
   } catch (error) {
     errorLog("Error downloading file:", error);
   }

@@ -97,6 +97,8 @@
           <v-btn
             v-if="
               hasInternship &&
+              internship.status !==
+                InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION &&
               internship.status !== InternshipStatus.PENDING_REVIEW_START &&
               internship.status !== InternshipStatus.SUBMIT_START_FILES &&
               internship.status !== InternshipStatus.ENDED
@@ -112,8 +114,10 @@
           </v-btn>
           <v-btn
             v-if="
-              hasInternship &&
-              internship.status === InternshipStatus.SUBMIT_START_FILES
+              (hasInternship &&
+                internship.status === InternshipStatus.SUBMIT_START_FILES) ||
+              internship.status ===
+                InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION
             "
             elevation="4"
             color="orange-darken-3"
@@ -506,6 +510,8 @@ const fetchDikaiologitikaTypes = async (): Promise<void> => {
   if (response) {
     if (
       internship?.value?.status === InternshipStatus.SUBMIT_START_FILES ||
+      internship?.value?.status ===
+        InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION ||
       internship?.value?.status === InternshipStatus.PENDING_REVIEW_START
     ) {
       for (const [program, types] of Object.entries(response.data)) {

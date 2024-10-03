@@ -165,7 +165,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        userHasSubmittedQuestionnaire,
+                        userHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -202,7 +202,7 @@
                     class="dialog__card__info__data-row__value dialog__card__info__data-row__value--Questionnaire"
                     :style="{
                       color: getColorForQuestionnaire(
-                        companyHasSubmittedQuestionnaire,
+                        companyHasSubmittedQuestionnaire
                       ),
                     }"
                   >
@@ -262,12 +262,20 @@
             </v-chip>
           </template>
           <template #item.actions="{ item }">
-            <v-btn variant="plain" @click="downloadFile(item)">
-              <v-icon color="primary-blue-color"> fa:fas fa-download </v-icon>
-              <v-tooltip activator="parent" location="top"
-                >Κατέβασμα Αρχείου</v-tooltip
-              >
-            </v-btn>
+            <div class="dialog__table--actions">
+              <v-btn variant="plain" @click="downloadFile(item)">
+                <v-icon color="primary-blue-color"> fa:fas fa-download </v-icon>
+                <v-tooltip activator="parent" location="top"
+                  >Κατέβασμα Αρχείου</v-tooltip
+                >
+              </v-btn>
+              <v-btn variant="plain" @click="editItem(item)">
+                <v-icon color="warning">fa:fas fa-pen-to-square</v-icon>
+                <v-tooltip activator="parent" location="top"
+                  >Επεξεργασία Δικαιολογητικού</v-tooltip
+                >
+              </v-btn>
+            </div>
           </template>
           <template #bottom></template>
         </v-data-table>
@@ -309,6 +317,14 @@
       :is-admin="true"
       @update:modelValue="handleCreateInternshipDialogClose"
     />
+    <!-- Dialogs for file upload -->
+    <FileUploadDialog
+      :model-value="openAddFilesDialog"
+      :edit-item="selectedDikaiologitiko"
+      :internship="internship"
+      @update:modelValue="handleFileUploadDialogClose"
+      @refreshFilesList="loadUserFiles(internship?.user_id ?? 0)"
+    />
   </div>
 </template>
 
@@ -342,7 +358,8 @@ const localDialog = ref(props.modelValue);
 const selectedStatus = ref<InternshipStatus>(props?.internship?.status);
 const filesLoading = ref<boolean>(false);
 const openCreateInternshipDialog = ref<boolean>(false);
-
+const openAddFilesDialog = ref<boolean>(false);
+const selectedDikaiologitiko = ref<DikaiologitikaFile | null>(null);
 const openViewQuestionnaireAnswersDialog = ref<boolean>(false);
 const openViewQuestionnaireCompanyAnswersDialog = ref<boolean>(false);
 const userFiles = ref<DikaiologitikaFile[]>([]);
@@ -388,7 +405,7 @@ const getColor = (fileSubmissionTime: string): string => {
  * @param userId - The ID of the user.
  */
 const loadUserFiles = async (userId: number) => {
-  if (!userId) return;
+  if (!userId || userId === 0) return;
   filesLoading.value = true;
   try {
     const response = await fetchDikaiologitaFiles(userId);
@@ -460,6 +477,8 @@ const getColorForStatus = (status: string): string => {
     return "orange";
   } else if (
     status === InternshipStatus.SUBMIT_START_FILES ||
+    status ===
+      InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION ||
     status === InternshipStatus.SUBMIT_END_FILES
   ) {
     return "orange-darken-1";
@@ -485,7 +504,7 @@ const updateInternshipStatus = async () => {
   if (!selectedStatus) return;
   const response = await adminUpdateInternshipStatus(
     props?.internship?.id,
-    selectedStatus.value,
+    selectedStatus.value
   );
   if (hasErrorResponse(response)) {
     toast.error(`${response.error}`);
@@ -493,15 +512,39 @@ const updateInternshipStatus = async () => {
     toast.success(`${response.message?.detail}`);
   }
 };
+/**
+ * Opens the edit dialog for a specific item.
+ * @param item - The item to be edited.
+ */
+const editItem = (item: DikaiologitikaFile): void => {
+  selectedDikaiologitiko.value = item;
+  nextTick(() => {
+    openAddFilesDialog.value = true;
+  });
+};
 
+/**
+ * Handles closing of the FileUploadDialog.
+ * @param newValue - The new value for the dialog visibility.
+ */
+const handleFileUploadDialogClose = (newValue: boolean): void => {
+  openAddFilesDialog.value = newValue;
+  if (!newValue) {
+    selectedDikaiologitiko.value = null;
+  }
+};
 /**
  * Checks if the user has submitted the questionnaire.
  */
 const loadUserQuestionnaire = async (
   userId: number,
-  status: InternshipStatus,
+  status: InternshipStatus
 ): Promise<void> => {
-  if (status !== InternshipStatus.PENDING_REVIEW_END) {
+  if (
+    status === InternshipStatus.ENDED ||
+    status === InternshipStatus.PENDING_REVIEW_END ||
+    status === InternshipStatus.SUBMIT_END_FILES
+  ) {
     const userAnswers: any = await getUserAnswers(userId);
 
     if (userAnswers.data && !hasErrorResponse(userAnswers)) {
@@ -511,7 +554,7 @@ const loadUserQuestionnaire = async (
       userHasSubmittedQuestionnaire.value = false;
     }
     const companyAnswers: any = await getInternshipCompanyQuestionnaire(
-      props.internship.id,
+      props.internship.id
     );
     if (companyAnswers.data && !hasErrorResponse(companyAnswers)) {
       companyHasSubmittedQuestionnaire.value = companyAnswers.data.length > 0;
@@ -551,7 +594,7 @@ watch(
       await loadUserFiles(newVal.user_id);
       await loadUserQuestionnaire(newVal.user_id, newVal.status);
     }
-  },
+  }
 );
 </script>
 
@@ -612,6 +655,9 @@ watch(
 
   &__table {
     @apply my-4 p-4 bg-white shadow-md rounded-lg;
+    &--actions {
+      @apply flex items-center justify-around;
+    }
   }
 
   &__actions {

@@ -19,6 +19,7 @@ import {
  * @param {InternshipProgram} [program] - The program of the internship to filter by.
  * @param {string} [userAM] - The user identification number to filter by.
  * @param {string} [companyName] - The company name to filter by.
+ * @param {boolean} [sendBySecretary] - If true send back all the internships where user has uploaded a 'AitisiPraktikis' file.
  * @param {number} [page=1] - The page number for pagination.
  * @param {number} [itemsPerPage=10] - The number of items per page for pagination.
  * @returns {Promise<TotalInternshipResponse>} - A promise that resolves to the total internship response.
@@ -29,6 +30,7 @@ export async function getAllInternships(
   program?: InternshipProgram,
   userAM?: string,
   companyName?: string,
+  sendBySecretary = false,
   page = 1,
   itemsPerPage = 10,
 ): Promise<TotalInternshipResponse> {
@@ -39,6 +41,8 @@ export async function getAllInternships(
     if (department) queryParams.append("department", department.toString());
     if (program) queryParams.append("program", program.toString());
     if (userAM) queryParams.append("user_am", userAM);
+    if (sendBySecretary)
+      queryParams.append("sendBySecretary", sendBySecretary.toString());
     if (companyName) queryParams.append("company_name", companyName);
     queryParams.append("page", page.toString());
     queryParams.append("items_per_page", itemsPerPage.toString());

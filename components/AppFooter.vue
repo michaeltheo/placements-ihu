@@ -76,9 +76,9 @@ const thisYear = ref(new Date().getFullYear());
 
 const placementsInfo: PlacementsInfo = {
   address:
-    "Τμήμα Μηχανικών Πληροφορικής Τ.Ε - 1ος όροφος\nΤ.Θ. 141, Σίνδος\nΤ.Κ. 57400 - Θεσσαλονίκης",
+    "Αίθουσα 209 (Κτήριο Πληροφορικής, 1ος όροφος)\nΤμήμα Μηχανικών Πληροφορικής Τ.Ε\nΤ.Θ. 141, Σίνδος\nΤ.Κ. 57400 - Θεσσαλονίκης",
   phone: "2310013414",
-  email: "placement@it.teithe.gr",
+  email: "placement@iee.ihu.gr",
 };
 </script>
 
