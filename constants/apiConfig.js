@@ -1,4 +1,4 @@
-const PLACEMENTS_BASE_URL = "http://localhost:8000";
+const PLACEMENTS_BASE_URL = "https://placements.iee.ihu.gr/api";
 export const API_URLS = {
   IEE_TOKEN_ENDPOINT: "https://login.iee.ihu.gr/token",
   IEE_PROFILE_ENDPOINT: "https://api.iee.ihu.gr/profile",
