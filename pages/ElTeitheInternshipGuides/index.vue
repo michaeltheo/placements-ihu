@@ -8,7 +8,8 @@
         Επιλέξτε μία από τις παρακάτω σελίδες για να δείτε το περιεχόμενο.
       </p>
     </div>
-    <v-row class="internshipGuides__row" dense>
+    <!-- Note: Disable ESPA programms  -->
+    <!-- <v-row class="internshipGuides__row" dense>
       <v-col cols="12">
         <div class="internshipGuides__row__section">
           <v-icon
@@ -30,7 +31,7 @@
           />
         </div>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-row class="internshipGuides__row" dense>
       <v-col cols="12">
         <div class="internshipGuides__row__section">
