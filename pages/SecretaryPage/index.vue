@@ -140,7 +140,7 @@ useHead({
 const searchAM = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
 const selectedStatus = ref<InternshipStatus | undefined>(
-  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION,
+  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION
 );
 const selectedInternship = ref<InternshipRead | undefined>(undefined);
 const selectedDepartment = ref<Department | undefined>(undefined);
@@ -187,7 +187,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       undefined,
       true,
       options.page,
-      options.itemsPerPage,
+      options.itemsPerPage
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -266,24 +266,25 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  },
+  }
 );
 
 // Options for departments and programs
 const departmentOptions = Object.values(Department);
 const programOptions: Record<Department, InternshipProgram[]> = {
+  // Note: Disable ESPA programs
   [Department.IT_TEITHE]: [
     InternshipProgram.TEITHE_OAED,
-    InternshipProgram.ESPA,
+    // InternshipProgram.ESPA,
     InternshipProgram.TEITHE_JOB_RECOGNITION,
   ],
   [Department.EL_TEITHE]: [
     InternshipProgram.TEITHE_OAED,
-    InternshipProgram.ESPA,
+    // InternshipProgram.ESPA,
     InternshipProgram.TEITHE_JOB_RECOGNITION,
   ],
   [Department.IHU_IEE]: [
-    InternshipProgram.ESPA,
+    // InternshipProgram.ESPA,
     InternshipProgram.EMPLOYER_DECLARATION_OF_RESPONSIBILITY,
   ],
 };

@@ -113,7 +113,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -132,12 +132,11 @@
                       Την συμπληρώνετε και την υπογράφετε, και την ανεβάζετε
                       μέσω της πλατφόρμας.
                     </td>
-                    <!-- TODOD: CHANGE FILE -->
                     <td>
                       <v-btn
                         variant="plain"
                         class="guide__container__stepper__button"
-                        @click="openFile(`${ESPAUrls.YpeuthiniDilosiFoititwn}`)"
+                        @click="openFile(`${ESPAUrls.DilosiAtomikonStoixeion}`)"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -148,7 +147,6 @@
                       </v-btn>
                     </td>
                   </tr>
-                  <!-- TODOD: CHANGE FILE -->
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Υπεύθυνη Δήλωση Προσωπικών Δεδομένων
@@ -172,7 +170,6 @@
                       </v-btn>
                     </td>
                   </tr>
-                  <!-- TODOD: CHANGE FILE -->
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Δήλωση Μοριοδότησης</td>
                     <td>
@@ -183,7 +180,7 @@
                       <v-btn
                         variant="plain"
                         class="guide__container__stepper__button"
-                        @click="openFile(`${ESPAUrls.YpeuthiniDilosiFoititwn}`)"
+                        @click="openFile(`${ESPAUrls.DilosiMoriodotisi}`)"
                       >
                         <v-icon size="large" color="primary-blue-color"
                           >fa:fas fa-download</v-icon
@@ -245,7 +242,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
+                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -294,7 +291,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
