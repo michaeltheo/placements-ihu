@@ -40,7 +40,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.AitisiPraktikisAskisis}`
+                            `${AnagronisiErgasiasUrls.ILEKTRONIKI.AitisiPraktikisAskisis}`
                           )
                         "
                       >
@@ -72,7 +72,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.AitisiAnagnorisis}`
+                            `${AnagronisiErgasiasUrls.ILEKTRONIKI.AitisiAnagnorisis}`
                           )
                         "
                       >
@@ -104,7 +104,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
+                            `${AnagronisiErgasiasUrls.ILEKTRONIKI.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -178,7 +178,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.BebaiosiOlokrirosisPraktikisAskisis}`
+                            `${AnagronisiErgasiasUrls.ILEKTRONIKI.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -244,7 +244,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${AnagronisiErgasiasUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${AnagronisiErgasiasUrls.ILEKTRONIKI.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >

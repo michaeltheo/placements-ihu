@@ -140,7 +140,7 @@ useHead({
 const searchAM = ref<string>("");
 const selectedProgram = ref<InternshipProgram | undefined>(undefined);
 const selectedStatus = ref<InternshipStatus | undefined>(
-  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION
+  InternshipStatus.SUBMIT_STAT_FILES_WITHOUT_SECRETARY_CERTIFICATION,
 );
 const selectedInternship = ref<InternshipRead | undefined>(undefined);
 const selectedDepartment = ref<Department | undefined>(undefined);
@@ -187,7 +187,7 @@ const loadItems = async (options: LoadItemsOptions) => {
       undefined,
       true,
       options.page,
-      options.itemsPerPage
+      options.itemsPerPage,
     );
     if (hasErrorResponse(result)) {
       toast.error(`${result.error}`);
@@ -266,7 +266,7 @@ watch(
   () => {
     selectedProgram.value = undefined;
     applyFilter();
-  }
+  },
 );
 
 // Options for departments and programs
