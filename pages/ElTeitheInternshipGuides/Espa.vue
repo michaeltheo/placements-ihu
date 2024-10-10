@@ -113,7 +113,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
+                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
                           )
                         "
                       >
@@ -242,7 +242,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`
+                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
                           )
                         "
                       >
@@ -291,7 +291,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
                           )
                         "
                       >

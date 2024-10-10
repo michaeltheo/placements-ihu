@@ -160,12 +160,12 @@ const loading = ref(false);
 const fileInput = ref<File | null>(null);
 const localDialog = ref(props.modelValue);
 const programs = computed(() =>
-  Object.keys(dikaiologitikaStore.dikaiologitikaTypes)
+  Object.keys(dikaiologitikaStore.dikaiologitikaTypes),
 );
 const selectedProgram = computed(() => props.internship?.program ?? null);
 const selectedDepartment = computed(() => props.internship?.department ?? null);
 const selectedFileType = ref<string | null>(
-  props.editItem?.description ?? null
+  props.editItem?.description ?? null,
 );
 
 // Computed property for the filtered list of file types based on the selected program
@@ -182,8 +182,8 @@ watchEffect(() => {
   if (props.editItem) {
     const program = programs.value.find((p) =>
       dikaiologitikaStore.dikaiologitikaTypes[p].some(
-        (ft) => ft.type === props.editItem!.type
-      )
+        (ft) => ft.type === props.editItem!.type,
+      ),
     );
     selectedProgram.value = program || null;
   }
@@ -205,7 +205,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     localDialog.value = newValue;
-  }
+  },
 );
 
 // Handle program change event
@@ -230,7 +230,7 @@ const submitForm = async () => {
     !selectedProgram.value
   ) {
     toast.error(
-      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων."
+      "Η υποβολή της φόρμας απέτυχε λόγω σφαλμάτων επικύρωσης ή έλλειψης δεδομένων.",
     );
     return;
   }
@@ -242,13 +242,13 @@ const submitForm = async () => {
       response = await updateDikaiologitika(
         fileInput.value,
         props.editItem.id,
-        selectedProgram.value
+        selectedProgram.value,
       );
     } else {
       response = await uploadDikaiologitika(
         fileInput.value,
         selectedFileType.value,
-        selectedProgram.value
+        selectedProgram.value,
       );
     }
 

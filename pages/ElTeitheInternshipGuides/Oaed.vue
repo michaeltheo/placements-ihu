@@ -39,7 +39,9 @@
                         variant="plain"
                         class="guide__container__stepper__button"
                         @click="
-                          openFile(`${OAEDUrls.AitisiPraktikisAskisisOAEDTEI}`)
+                          openFile(
+                            `${OAEDUrls.ILEKTRONIKI.AitisiPraktikisAskisis}`
+                          )
                         "
                       >
                         <v-icon size="large" color="primary-blue-color"
@@ -77,7 +79,9 @@
                         variant="plain"
                         class="guide__container__stepper__button"
                         @click="
-                          openFile(`${OAEDUrls.AitisiForeaApasxolisisFoititi}`)
+                          openFile(
+                            `${OAEDUrls.ILEKTRONIKI.AitisiForeaApasxolisisFoititi}`
+                          )
                         "
                       >
                         <v-icon size="large" color="primary-blue-color"
@@ -108,7 +112,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${OAEDUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                            `${OAEDUrls.ILEKTRONIKI.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -188,7 +192,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${OAEDUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
+                            `${OAEDUrls.ILEKTRONIKI.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -254,7 +258,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${OAEDUrls.AitisiOloklirosisPraktikisAskisis}`,
+                            `${OAEDUrls.ILEKTRONIKI.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >

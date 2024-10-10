@@ -40,7 +40,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.AitisiPraktikisAskisis}`,
+                            `${YpeuthiniDilosiErgodotiUrls.AitisiPraktikisAskisis}`
                           )
                         "
                       >
@@ -61,7 +61,6 @@
                       “Αίτηση Πρακτικής Άσκησης”.
                     </td>
                   </tr>
-                  <!-- TODO: change file -->
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">
                       Αίτηση Φορέα για Απασχόληση Φοιτητή
@@ -81,7 +80,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.AitisiForeaApasxolisisFoititi}`,
+                            `${YpeuthiniDilosiErgodotiUrls.AitisiForeaApasxolisisFoititi}`
                           )
                         "
                       >
@@ -95,7 +94,6 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <!-- TODOD: change file -->
                     <td class="font-bold">Υπεύθυνη Δήλωση Φορέα</td>
                     <td>
                       Ο φορέας απασχόλησης συμπληρώνει μια υπεύθυνη δήλωση στην
@@ -109,7 +107,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.YpeuthiniDilwsiForea}`,
+                            `${YpeuthiniDilosiErgodotiUrls.YpeuthiniDilwsiForea}`
                           )
                         "
                       >
@@ -141,7 +139,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -161,24 +159,6 @@
                       Εκτυπώνετε τη Σύμβαση (3 φορές), υπογράφεται και φέρνετε
                       τα <span>πρωτότυπα</span> στο Γραφείο Πρακτικής Άσκησης
                       (αιθ. 209, κτ. Πληροφορικής).
-                    </td>
-                    <td>
-                      <v-btn
-                        variant="plain"
-                        class="guide__container__stepper__button"
-                        @click="
-                          openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.SimbasiPraktikis}`,
-                          )
-                        "
-                      >
-                        <v-icon size="large" color="primary-blue-color"
-                          >fa:fas fa-download</v-icon
-                        >
-                        <v-tooltip activator="parent" location="top"
-                          >Κατέβασμα Δικαιολογητικού</v-tooltip
-                        >
-                      </v-btn>
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
@@ -220,7 +200,6 @@
                     </td>
                   </tr>
                   <tr class="guide__container__stepper__table-row">
-                    <!-- TODO:change file  -->
                     <td class="font-bold">
                       Βεβαίωση Ολοκλήρωσης Πρακτικής Άσκησης
                     </td>
@@ -239,7 +218,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
+                            `${YpeuthiniDilosiErgodotiUrls.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -305,7 +284,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${YpeuthiniDilosiErgodotiUrls.AitisiOloklirosisPraktikisAskisis}`,
+                            `${YpeuthiniDilosiErgodotiUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
