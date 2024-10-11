@@ -113,7 +113,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`,
+                            `${ESPAUrls.BebaiosiApasxolisisKaiAsfalisisAskoumenou}`
                           )
                         "
                       >
@@ -242,7 +242,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`,
+                            `${ESPAUrls.BebaiosiOlokrirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -291,7 +291,7 @@
                         class="guide__container__stepper__button"
                         @click="
                           openFile(
-                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`,
+                            `${ESPAUrls.AitisiOloklirosisPraktikisAskisis}`
                           )
                         "
                       >
@@ -307,6 +307,13 @@
                   <tr class="guide__container__stepper__table-row">
                     <td class="font-bold">Σύμβαση Πρακτικής</td>
                     <td>
+                      <div>
+                        Μόλις έχετε ανεβάσει όλα τα παραπάνω δικαιολογητικά και
+                        αφού έχετε πατήσει "Έλεγχος Δικαιολογητικών",
+                        επικοινωνείτε με το Γραφείο Πρακτικής Άσκησης (μέσω
+                        email ή φυσικής παρουσίας) και ζητάτε να σας στείλει την
+                        Σύμβαση Πρακτικής.
+                      </div>
                       Εκτυπώνετε τη Σύμβαση (3 φορές), υπογράφεται και φέρνετε
                       τα <span>πρωτότυπα</span> στο Γραφείο Πρακτικής Άσκησης
                       (αιθ. 209, κτ. Πληροφορικής).
